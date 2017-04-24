@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D89A097B-6CF0-4D87-95C7-24D3441B2293}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeOutput>mcam.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <ReferencePath>C:\AxiocamSDK\api;$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\AxiocamSDK\api;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\AxiocamSDK\QtWinMin\4.8.6\include;C:\AxiocamSDK\api;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\AxiocamSDK\api;C:\AxiocamSDK\mcam\include;C:\AxiocamSDK\QtWinMin\4.8.6\include\Qt;C:\AxiocamSDK\QtWinMin\4.8.6\include\QtCore;C:\AxiocamSDK\QtWinMin\4.8.6\include\QtGui;C:\AxiocamSDK\QtWinMin\4.8.6\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <NMakeOutput>mcam.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>nmake -f Makefile.win</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake -f Makefile.win clean
+nmake -f Makefile.win</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake -f Makefile clean</NMakeCleanCommandLine>
+    <ReferencePath>C:\AxiocamSDK\cameraZeiss\api;$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\AxiocamSDK\cameraZeiss\api;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include;C:\AxiocamSDK\cameraZeiss\api;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\AxiocamSDK\cameraZeiss\api;C:\AxiocamSDK\cameraZeiss\mcam\include;C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include\Qt;C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include\QtCore;C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include\QtGui;C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeOutput>mcam.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <ReferencePath>C:\AxiocamSDK\api;$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\AxiocamSDK\api;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\AxiocamSDK\QtWinMin\4.8.6\include;C:\AxiocamSDK\api;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\AxiocamSDK\api;C:\AxiocamSDK\mcam\include;C:\AxiocamSDK\QtWinMin\4.8.6\include\Qt;C:\AxiocamSDK\QtWinMin\4.8.6\include\QtCore;C:\AxiocamSDK\QtWinMin\4.8.6\include\QtGui;C:\AxiocamSDK\QtWinMin\4.8.6\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <NMakeOutput>mcam.exe</NMakeOutput>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeBuildCommandLine>nmake -f Makefile.win</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine>nmake -f Makefile.win clean
+nmake -f Makefile.win</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine>nmake -f Makefile.win clean
+</NMakeCleanCommandLine>
+    <IncludePath>C:\AxiocamSDK\api;C:\AxiocamSDK\mcam\include;C:\AxiocamSDK\QtWinMin\4.8.6\include\Qt;C:\AxiocamSDK\QtWinMin\4.8.6\include\QtCore;C:\AxiocamSDK\QtWinMin\4.8.6\include\QtGui;C:\AxiocamSDK\QtWinMin\4.8.6\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\AxiocamSDK\api;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\AxiocamSDK\QtWinMin\4.8.6\include;C:\AxiocamSDK\api;$(ExecutablePath)</ExecutablePath>
+    <ReferencePath>C:\AxiocamSDK\api;$(ReferencePath)</ReferencePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="..\README.TXT" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\BmpUtil.cpp" />
+    <ClCompile Include="src\ConfigReader.cpp" />
+    <ClCompile Include="src\EditProperties.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\MCam.cpp" />
+    <ClCompile Include="src\MCamCameraIF.cpp" />
+    <ClCompile Include="src\MCamImage.cpp" />
+    <ClCompile Include="src\mcamlogger.c" />
+    <ClCompile Include="src\MCamRemote.cpp" />
+    <ClCompile Include="src\MCamTest.cpp" />
+    <ClCompile Include="src\MCamUtil.cpp" />
+    <ClCompile Include="src\win\pthread.c" />
+    <ClCompile Include="src\win\semaphore.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Application.hpp" />
+    <ClInclude Include="include\BmpUtil.h" />
+    <ClInclude Include="include\ConfigReader.hpp" />
+    <ClInclude Include="include\EditProperties.hpp" />
+    <ClInclude Include="include\mcam.h" />
+    <ClInclude Include="include\MCam.hpp" />
+    <ClInclude Include="include\MCamCameraIF.hpp" />
+    <ClInclude Include="include\MCamImage.hpp" />
+    <ClInclude Include="include\mcamlogger.h" />
+    <ClInclude Include="include\MCamRemote.hpp" />
+    <ClInclude Include="include\MCamTest.hpp" />
+    <ClInclude Include="include\MCamUtil.hpp" />
+    <ClInclude Include="include\ui_mcam.h" />
+    <ClInclude Include="include\win\pthread.h" />
+    <ClInclude Include="include\win\semaphore.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,30 @@
+﻿  
+  Microsoft (R) Program Maintenance Utility Version 14.10.25019.0
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  	..\QtWinMin\4.8.6\bin\uic.exe -o include/ui_mcam.h mcam.ui
+  	..\QtWinMin\4.8.6\bin\moc -o src/Application_moc.cpp include/Application.hpp
+  	..\QtWinMin\4.8.6\bin\moc -o src/EditProperties_moc.cpp include/EditProperties.hpp
+  	..\QtWinMin\4.8.6\bin\moc -o src/MCamCameraIF_moc.cpp include/MCamCameraIF.hpp
+  	..\QtWinMin\4.8.6\bin\moc -o src/MCamImage_moc.cpp include/MCamImage.hpp
+  	..\QtWinMin\4.8.6\bin\moc -o src/MCamRemote_moc.cpp include/MCamRemote.hpp
+  	..\QtWinMin\4.8.6\bin\moc -o src/BmpUtil_moc.cpp include/BmpUtil.h
+  include/BmpUtil.h(0): Note: No relevant classes found. No output generated.
+  	cl /MP /D_CRT_SECURE_NO_WARNINGS /DWIN32 /D_WINDOWS /W3 /Zm1000 /EHsc /GR /MD /O2 /Ob2 /D NDEBUG  -I\win -I..\api\include -I..\libtiff\include -Iinclude -Iinclude\win -I..\QtWinMin\4.8.6\include -I..\QtWinMin\4.8.6\include\QtGui -I..\QtWinMin\4.8.6\include\QtCore  /TP /c src\Application_moc.cpp src\EditProperties_moc.cpp src\MCamCameraIF_moc.cpp  src\MCamImage_moc.cpp src\MCamRemote_moc.cpp src\BmpUtil_moc.cpp
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.10.25019 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  Application_moc.cpp
+  EditProperties_moc.cpp
+  MCamCameraIF_moc.cpp
+  MCamImage_moc.cpp
+include\win\pthread.h(26): fatal error C1083: Cannot open include file: 'io.h': No such file or directory (compiling source file src\MCamCameraIF_moc.cpp)
+include\win\pthread.h(26): fatal error C1083: Cannot open include file: 'io.h': No such file or directory (compiling source file src\EditProperties_moc.cpp)
+  MCamRemote_moc.cpp
+include\win\pthread.h(26): fatal error C1083: Cannot open include file: 'io.h': No such file or directory (compiling source file src\Application_moc.cpp)
+  BmpUtil_moc.cpp
+include\win\pthread.h(26): fatal error C1083: Cannot open include file: 'io.h': No such file or directory (compiling source file src\MCamImage_moc.cpp)
+include\win\pthread.h(26): fatal error C1083: Cannot open include file: 'io.h': No such file or directory (compiling source file src\MCamRemote_moc.cpp)
+NMAKE : fatal error U1077: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.10.25017\bin\HostX86\x64\cl.EXE"' : return code '0x2'
+  Stop.
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.MakeFile.Targets(44,5): error MSB3073: The command "nmake -f Makefile.win" exited with code 2.

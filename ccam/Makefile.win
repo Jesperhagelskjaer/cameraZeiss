@@ -1,0 +1,27 @@
+all: ccam.exe
+
+# add for debug
+#CL_LOCAL_OPTS=/Zi 
+CL_LOCAL_OPTS=
+
+
+CXX_FLAGS= /D_CRT_SECURE_NO_WARNINGS /DWIN32 /D_WINDOWS /W3 /Zm1000 /EHsc /GR /MD /O2 /Ob2 /D NDEBUG  -I\win -I..\api\include -I..\libtiff\include  -Iinclude -Iinclude\win
+CXX_DEFINES = $(QTDEFIENS)
+
+HFILES=include/ccam.h
+
+OBJ_FILES=ccam.obj
+SRC_FILES=src/ccam.c
+
+ccam.exe: $(OBJ_FILES) $(OBJ_LINK_FILES) 
+       cl /DWIN32 /D_WINDOWS /W4 /Zm1000 /EHsc /GR /MD /O2 /Ob2 $(CL_LOCAL_OPTS) /Feccam.exe /Fdccam.pdb $** \
+          /link /implib:ccam.lib /STACK:10000000 /machine:x64 /INCREMENTAL:NO /subsystem:console \
+          ..\libtiff\lib\libtiff.lib ..\api\lib\axcam64.lib /out:$@  
+
+$(OBJ_FILES) : $(SRC_FILES) $(HFILES) 
+      cl /MP $(CXX_FLAGS) $(CL_LOCAL_OPTS) /TP /c $(SRC_FILES) 
+
+clean:
+    - del *.asm *.obj *.ilk *.pdb *.exe 
+
+

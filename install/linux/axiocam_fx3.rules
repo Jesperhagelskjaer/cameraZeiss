@@ -1,0 +1,39 @@
+# (c) 2009-2016 Carl Zeiss Microscopy GmbH
+# AxioCam NG USB firmware loading rule
+# Version 1-8, date:16/02/10
+
+# axiocam fx3 boot loader access rights
+ATTRS{idVendor}=="aaaa", ATTRS{idProduct}=="00f3", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5000", OWNER="root", GROUP="users", MODE="0666"
+
+# axiocam fx3 runtime access rights
+ATTRS{idVendor}=="aaaa", ATTRS{idProduct}=="00f2", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5008", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5001", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5002", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5003", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5004", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5005", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5006", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5010", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5011", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5012", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5013", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5014", OWNER="root", GROUP="users", MODE="0666"
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5015", OWNER="root", GROUP="users", MODE="0666" 
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5016", OWNER="root", GROUP="users", MODE="0666" 
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5017", OWNER="root", GROUP="users", MODE="0666" 
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5018", OWNER="root", GROUP="users", MODE="0666" 
+
+# axiocam fx3 debug firmware
+ATTRS{idVendor}=="0758", ATTRS{idProduct}=="5020", OWNER="root", GROUP="users", MODE="0666"
+
+# axiocam ftdi terminal - starting from SuSE 13.2
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0758", ATTRS{idProduct}=="501f", GROUP="users", MODE="0666" ACTION=="add", ATTRS{idVendor}=="0758", ATTRS{idProduct}=="501f", \
+  RUN+="/sbin/modprobe ftdi_sio", RUN+="/bin/sh -c 'echo 0758 501f > /sys/bus/usb-serial/drivers/ftdi_sio/new_id'"
+SUBSYSTEMS=="usb", KERNEL=="ttyUSB?", ATTRS{idVendor}=="0758", ATTRS{idProduct}=="501f", SYMLINK+="ttyAxioCam"
+
+# axiocam ftdi terminal up to SuSE 13.1
+#ATTRS{idVendor}=="0758", ATTRS{idProduct}=="501f", OWNER="root", GROUP="users", MODE="0666"
+#SUBSYSTEM=="usb", ACTION=="add", ATTR{idVendor}=="0758", ATTRS{idProduct}=="501f", RUN+="/sbin/modprobe -v ftdi-sio vendor=0x0758 product=0x501f"
+#SUBSYSTEMS=="usb", KERNEL=="ttyUSB?", ATTRS{idVendor}=="0758", ATTRS{idProduct}=="501f", SYMLINK+="ttyAxioCam"

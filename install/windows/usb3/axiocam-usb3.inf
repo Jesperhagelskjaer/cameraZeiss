@@ -1,0 +1,663 @@
+; ===== Carl Zeiss Axiocam (WinUSB) device driver ======
+
+; ===================== Strings =======================
+
+[Strings]
+
+; =====================================================
+; ========= START USER CONFIGURABLE SECTION ===========
+; =====================================================
+
+DeviceNameUninit = "Carl Zeiss Axiocam - ccd uninitialized"
+DeviceNameUninitC = "Carl Zeiss Axiocam - cmos uninitialized"
+DeviceName506m = "Carl Zeiss Axiocam 506 mono"
+DeviceName506c = "Carl Zeiss Axiocam 506 color"
+DeviceName503m = "Carl Zeiss Axiocam 503 mono"
+DeviceName503c = "Carl Zeiss Axiocam 503 color"
+DeviceName512m = "Carl Zeiss Axiocam 512 mono"
+DeviceName512c = "Carl Zeiss Axiocam 512 color"
+DeviceName702m = "Carl Zeiss Axiocam 702 mono"
+DeviceName702c = "Carl Zeiss Axiocam 702 color"
+DeviceName705m = "Carl Zeiss Axiocam 705 mono"
+DeviceName705c = "Carl Zeiss Axiocam 705 color"
+DeviceName727m = "Carl Zeiss Axiocam 727 mono"
+DeviceName727c = "Carl Zeiss Axiocam 727 color"
+DeviceName305m = "Carl Zeiss Axiocam 305 mono"
+DeviceName305c = "Carl Zeiss Axiocam 305 color"
+DeviceNameGen  = "Carl Zeiss Axiocam"
+
+VendorID = "VID_0758"
+ProductIDUninit = "PID_5000"
+ProductIDUninitC = "PID_5010"
+ProductID506m = "PID_5001"
+ProductID506c = "PID_5002"
+ProductID503m = "PID_5003"
+ProductID503c = "PID_5004"
+ProductID512m = "PID_5005"
+ProductID512c = "PID_5006"
+ProductID702m = "PID_5011"
+ProductID702c = "PID_5012"
+ProductID705m = "PID_5013"
+ProductID705c = "PID_5014"
+ProductID727m = "PID_5015"
+ProductID727c = "PID_5016"
+ProductID305m = "PID_5017"
+ProductID305c = "PID_5018"
+ProductIDGen  = "PID_5020"
+
+
+DeviceGUIDUninit  = "{d35924d6-3e16-4a9e-9782-5524a4b79bcd}"
+DeviceGUIDUninitC = "{d35924d6-3e16-4a9e-9782-5524a4b79bcd}"
+DeviceGUID506c = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID506m = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID503c = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID503m = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID512c = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID512m = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID702m = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID702c = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID705m = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID705c = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID727m = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID727c = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID305m = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUID305c = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+DeviceGUIDGen  = "{d35924d6-3e16-4a9e-9782-5524a4b79ece}"
+
+DeviceClassGUID = "{6bdd1fc6-810f-11d0-bec7-08002be2092f}"
+Date = "02/16/2016"
+;
+
+; =====================================================
+; ========== END USER CONFIGURABLE SECTION ============
+; =====================================================
+
+ProviderName = "Carl Zeiss Microscopy GmbH"
+WinUSB_SvcDesc = "WinUSB Driver Service"
+DiskName = "Axiocam Install Disk"
+DiskName = "Axiocam USB 3.0 Install Disk"
+ClassName = "Axiocam USB 3.0 Devices"
+
+; ====================== Version ======================
+
+[Version]
+DriverVer = %Date%
+Signature = "$Windows NT$"
+Class = %ClassName%
+ClassGuid = %DeviceClassGUID%
+Provider = %ProviderName%
+CatalogFile = axiocamusb_device.cat
+
+
+; =========== Manufacturer/Models sections ============
+
+[Manufacturer]
+%ProviderName% = axiocamusbDeviceUninit_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDeviceUninitC_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice506m_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice506c_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice503m_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice503c_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice512m_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice512c_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice702m_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice702c_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice705m_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice705c_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice727m_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice727c_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice305m_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDevice305c_WinUSB,NTx86,NTamd64
+%ProviderName% = axiocamusbDeviceGen_WinUSB,NTx86,NTamd64
+
+[axiocamusbDeviceUninit_WinUSB.NTx86]
+%DeviceNameUninit% = USB_InstallUninit, USB\%VendorID%&%ProductIDUninit%
+
+[axiocamusbDeviceUninit_WinUSB.NTx86]
+%DeviceNameUninitC% = USB_InstallUninitC, USB\%VendorID%&%ProductIDUninitC%
+
+[axiocamusbDeviceUninit_WinUSB.NTamd64]
+%DeviceNameUninit% = USB_InstallUninit, USB\%VendorID%&%ProductIDUninit%
+
+[axiocamusbDeviceUninitC_WinUSB.NTamd64]
+%DeviceNameUninitC% = USB_InstallUninitC, USB\%VendorID%&%ProductIDUninitC%
+
+; 506
+[axiocamusbDevice506m_WinUSB.NTx86]
+%DeviceName506m% = USB_Install506m, USB\%VendorID%&%ProductID506m%
+
+[axiocamusbDevice506m_WinUSB.NTamd64]
+%DeviceName506m% = USB_Install506m, USB\%VendorID%&%ProductID506m%
+
+[axiocamusbDevice506c_WinUSB.NTx86]
+%DeviceName506c% = USB_Install506c, USB\%VendorID%&%ProductID506c%
+
+[axiocamusbDevice506c_WinUSB.NTamd64]
+%DeviceName506c% = USB_Install506c, USB\%VendorID%&%ProductID506c%
+
+; 503
+[axiocamusbDevice503m_WinUSB.NTx86]
+%DeviceName503m% = USB_Install503m, USB\%VendorID%&%ProductID503m%
+
+[axiocamusbDevice503m_WinUSB.NTamd64]
+%DeviceName503m% = USB_Install503m, USB\%VendorID%&%ProductID503m%
+
+[axiocamusbDevice503c_WinUSB.NTx86]
+%DeviceName503c% = USB_Install503c, USB\%VendorID%&%ProductID503c%
+
+[axiocamusbDevice503c_WinUSB.NTamd64]
+%DeviceName503c% = USB_Install503c, USB\%VendorID%&%ProductID503c%
+
+; 512
+[axiocamusbDevice512m_WinUSB.NTx86]
+%DeviceName512m% = USB_Install512m, USB\%VendorID%&%ProductID512m%
+
+[axiocamusbDevice512m_WinUSB.NTamd64]
+%DeviceName512m% = USB_Install512m, USB\%VendorID%&%ProductID512m%
+
+[axiocamusbDevice512c_WinUSB.NTx86]
+%DeviceName512c% = USB_Install512c, USB\%VendorID%&%ProductID512c%
+
+[axiocamusbDevice512c_WinUSB.NTamd64]
+%DeviceName512c% = USB_Install512c, USB\%VendorID%&%ProductID512c%
+
+; 702
+[axiocamusbDevice702m_WinUSB.NTx86]
+%DeviceName702m% = USB_Install702m, USB\%VendorID%&%ProductID702m%
+
+[axiocamusbDevice702m_WinUSB.NTamd64]
+%DeviceName702m% = USB_Install702m, USB\%VendorID%&%ProductID702m%
+
+[axiocamusbDevice702c_WinUSB.NTx86]
+%DeviceName702c% = USB_Install702c, USB\%VendorID%&%ProductID702c%
+
+[axiocamusbDevice702c_WinUSB.NTamd64]
+%DeviceName702c% = USB_Install702c, USB\%VendorID%&%ProductID702c%
+
+; 705
+[axiocamusbDevice705m_WinUSB.NTx86]
+%DeviceName705m% = USB_Install705m, USB\%VendorID%&%ProductID705m%
+
+[axiocamusbDevice705m_WinUSB.NTamd64]
+%DeviceName705m% = USB_Install705m, USB\%VendorID%&%ProductID705m%
+
+[axiocamusbDevice705c_WinUSB.NTx86]
+%DeviceName705c% = USB_Install705c, USB\%VendorID%&%ProductID705c%
+
+[axiocamusbDevice705c_WinUSB.NTamd64]
+%DeviceName705c% = USB_Install705c, USB\%VendorID%&%ProductID705c%
+
+; 727
+[axiocamusbDevice727m_WinUSB.NTx86]
+%DeviceName727m% = USB_Install727m, USB\%VendorID%&%ProductID727m%
+
+[axiocamusbDevice727m_WinUSB.NTamd64]
+%DeviceName727m% = USB_Install727m, USB\%VendorID%&%ProductID727m%
+
+[axiocamusbDevice727c_WinUSB.NTx86]
+%DeviceName727c% = USB_Install727c, USB\%VendorID%&%ProductID727c%
+
+[axiocamusbDevice727c_WinUSB.NTamd64]
+%DeviceName727c% = USB_Install727c, USB\%VendorID%&%ProductID727c%
+
+; 305
+[axiocamusbDevice305m_WinUSB.NTx86]
+%DeviceName305m% = USB_Install305m, USB\%VendorID%&%ProductID305m%
+
+[axiocamusbDevice305m_WinUSB.NTamd64]
+%DeviceName305m% = USB_Install305m, USB\%VendorID%&%ProductID305m%
+
+[axiocamusbDevice305c_WinUSB.NTx86]
+%DeviceName305c% = USB_Install305c, USB\%VendorID%&%ProductID305c%
+
+[axiocamusbDevice305c_WinUSB.NTamd64]
+%DeviceName305c% = USB_Install305c, USB\%VendorID%&%ProductID305c%
+
+; Gen
+[axiocamusbDeviceGen_WinUSB.NTx86]
+%DeviceNameGen% = USB_InstallGen, USB\%VendorID%&%ProductIDGen%
+
+[axiocamusbDeviceGen_WinUSB.NTamd64]
+%DeviceNameGen% = USB_InstallGen, USB\%VendorID%&%ProductIDGen%
+
+
+; ==================== Installation ===================
+
+; The Include and Needs directives in the USB_InstallUninit section are required for 
+; installing WinUSB on Windows Vista systems. Windows XP systems ignore these 
+; directives. These directives should not be modified.
+
+
+[USB_InstallUninit]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_InstallUninitC]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install506m]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install506c]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install503m]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install503c]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install512m]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install512c]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install702m]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install702c]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install705m]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install705c]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install727m]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install727c]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install305m]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_Install305c]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+[USB_InstallGen]
+Include=winusb.inf
+Needs=WINUSB.NT
+
+; The Include directive in the USB_InstallUninit.Services section includes the system-
+; supplied INF for WinUSB. This INF is installed by the WinUSB co-installer if 
+; it is not already on the target system. The AddService directive specifies 
+; WinUsb.sys as the device’s function driver. These directives should not be 
+; modified.
+[USB_InstallUninit.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_InstallUninitC.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install506m.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install506c.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install503m.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install503c.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install512m.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install512c.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install702m.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install702c.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install705m.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install705c.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install727m.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install727c.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install305m.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_Install305c.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+[USB_InstallGen.Services]
+Include=winusb.inf
+AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
+
+; The WinUSB_ServiceInstall section contains the data for installing WinUsb.sys 
+; as a service. This section should not be modified.
+[WinUSB_ServiceInstall]
+DisplayName     = %WinUSB_SvcDesc%
+ServiceType     = 1
+StartType       = 3
+ErrorControl    = 1
+ServiceBinary   = %12%\WinUSB.sys
+
+; The KmdfService directive installs WinUsb.sys as a kernel-mode service. The 
+; referenced WinUSB_InstallUninit section specifies the KMDF library version. 
+; Usually, the version can be derived from the WdfCoInstallerxxyyy.dll with 
+; xx = major, yyy = minor
+[USB_InstallUninit.Wdf]
+KmdfService=WINUSB, WinUSB_InstallUninit
+
+[USB_InstallUninitC.Wdf]
+KmdfService=WINUSB, WinUSB_InstallUninitC
+
+[USB_Install506m.Wdf]
+KmdfService=WINUSB, WinUSB_Install506m
+
+[USB_Install506c.Wdf]
+KmdfService=WINUSB, WinUSB_Install506c
+
+[USB_Install503m.Wdf]
+KmdfService=WINUSB, WinUSB_Install503m
+
+[USB_Install503c.Wdf]
+KmdfService=WINUSB, WinUSB_Install503c
+
+[USB_Install512m.Wdf]
+KmdfService=WINUSB, WinUSB_Install512m
+
+[USB_Install512c.Wdf]
+KmdfService=WINUSB, WinUSB_Install512c
+
+[USB_Install702m.Wdf]
+KmdfService=WINUSB, WinUSB_Install702m
+
+[USB_Install702c.Wdf]
+KmdfService=WINUSB, WinUSB_Install702c
+
+[USB_Install705m.Wdf]
+KmdfService=WINUSB, WinUSB_Install705m
+
+[USB_Install705c.Wdf]
+KmdfService=WINUSB, WinUSB_Install705c
+
+[USB_Install727m.Wdf]
+KmdfService=WINUSB, WinUSB_Install727m
+
+[USB_Install727c.Wdf]
+KmdfService=WINUSB, WinUSB_Install727c
+
+[USB_Install305m.Wdf]
+KmdfService=WINUSB, WinUSB_Install305m
+
+[USB_Install305c.Wdf]
+KmdfService=WINUSB, WinUSB_Install305c
+
+[USB_InstallGen.Wdf]
+KmdfService=WINUSB, WinUSB_InstallGen
+
+[WinUSB_InstallUninit]
+KmdfLibraryVersion=1.9
+
+[WinUSB_InstallUninitC]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install506m]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install506c]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install503m]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install503c]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install512m]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install512c]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install702m]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install702c]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install705m]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install705c]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install727m]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install727c]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install305m]
+KmdfLibraryVersion=1.9
+
+[WinUSB_Install305c]
+KmdfLibraryVersion=1.9
+
+[WinUSB_InstallGen]
+KmdfLibraryVersion=1.9
+
+; USB_InstallUninit.HW is the key section in the INF. It specifies the device 
+; interface globally unique identifier (GUID) for your device. The AddReg 
+; directive puts the interface GUID in a standard registry value. When 
+; WinUsb.sys is loaded as the device’s function driver, it reads the registry
+; value and uses the specified GUID to represent the device interface. You 
+; should replace the GUID in this example with one that you create specifically
+; for your device. If the protocols for the device change, you should create a
+; new device interface GUID.
+
+;;****************************************************************************************************
+;;****************************************************************************************************
+;; USB_InstallUninit.HW -> Hardware key - vom pnp manager generiert!
+;; AddRegs landen bei HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB\VID_0758&PID_5000\0000000004BE\Device Parameters
+;; http://social.msdn.microsoft.com/Forums/windowsdesktop/en-US/389f82a5-f92a-48ce-9138-6d0756862975/safely-remove-hardware-and-winusb
+
+[USB_InstallUninit.HW]
+AddReg=Dev_AddRegUninit
+
+[USB_InstallUninitC.HW]
+AddReg=Dev_AddRegUninitC
+
+[USB_Install506m.HW]
+AddReg=Dev_AddReg506m
+
+[USB_Install506c.HW]
+AddReg=Dev_AddReg506c
+
+[USB_Install503m.HW]
+AddReg=Dev_AddReg503m
+
+[USB_Install503c.HW]
+AddReg=Dev_AddReg503c
+
+[USB_Install512m.HW]
+AddReg=Dev_AddReg512m
+
+[USB_Install512c.HW]
+AddReg=Dev_AddReg512c
+
+[USB_Install702m.HW]
+AddReg=Dev_AddReg702m
+
+[USB_Install702c.HW]
+AddReg=Dev_AddReg702c
+
+[USB_Install705m.HW]
+AddReg=Dev_AddReg705m
+
+[USB_Install705c.HW]
+AddReg=Dev_AddReg705c
+
+[USB_Install727m.HW]
+AddReg=Dev_AddReg727m
+
+[USB_Install727c.HW]
+AddReg=Dev_AddReg727c
+
+[USB_Install305m.HW]
+AddReg=Dev_AddReg305m
+
+[USB_Install305c.HW]
+AddReg=Dev_AddReg305c
+
+[USB_InstallGen.HW]
+AddReg=Dev_AddRegGen
+
+[Dev_AddRegUninit]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUIDUninit%
+HKR,,FriendlyName,,%DeviceNameUninit%
+
+[Dev_AddRegUninitC]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUIDUninitC%
+HKR,,FriendlyName,,%DeviceNameUninitC%
+
+[Dev_AddReg506m]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID506m%
+HKR,,FriendlyName,,%DeviceName506m%
+
+[Dev_AddReg506c]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID506c%
+HKR,,FriendlyName,,%DeviceName506c%
+
+[Dev_AddReg503m]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID503m%
+HKR,,FriendlyName,,%DeviceName503m%
+
+[Dev_AddReg503c]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID503c%
+HKR,,FriendlyName,,%DeviceName503c%
+
+[Dev_AddReg512m]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID512m%
+HKR,,FriendlyName,,%DeviceName512m%
+
+[Dev_AddReg512c]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID512c%
+HKR,,FriendlyName,,%DeviceName512c%
+
+[Dev_AddReg702m]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID702m%
+HKR,,FriendlyName,,%DeviceName702m%
+
+[Dev_AddReg702c]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID702c%
+HKR,,FriendlyName,,%DeviceName702c%
+
+[Dev_AddReg705m]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID705m%
+HKR,,FriendlyName,,%DeviceName705m%
+
+[Dev_AddReg705c]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID705c%
+HKR,,FriendlyName,,%DeviceName705c%
+
+[Dev_AddReg727m]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID727m%
+HKR,,FriendlyName,,%DeviceName727m%
+
+[Dev_AddReg727c]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID727c%
+HKR,,FriendlyName,,%DeviceName727c%
+
+[Dev_AddReg305m]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID305m%
+HKR,,FriendlyName,,%DeviceName305m%
+
+[Dev_AddReg305c]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUID305c%
+HKR,,FriendlyName,,%DeviceName305c%
+
+[Dev_AddRegGen]
+HKR,,DeviceInterfaceGUIDs,0x10000,%DeviceGUIDGen%
+HKR,,FriendlyName,,%DeviceNameGen%
+
+
+; The USB_InstallUninit.CoInstallers section, including the referenced AddReg and 
+; CopyFiles sections, contains data and instructions to install the WinUSB and 
+; KMDF co installers and associate them with the device. Most USB devices can 
+; use these sections and directives without modification.
+[USB_InstallUninit.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[USB_InstallUninitC.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[USB_Install50x.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"WdfCoInstaller01009.dll,WdfCoInstaller","WinUSBCoInstaller2.dll"
+
+[CoInstallers_CopyFiles]
+WinUSBCoInstaller2.dll
+WdfCoInstaller01009.dll
+
+[DestinationDirs]
+CoInstallers_CopyFiles=11
+
+; =============== Source Media Section ================
+ 
+; The x86 and x64 versions of Windows have separate co installers. This example 
+; stores them on the installation disk in folders that are named x86 and amd64
+[SourceDisksNames]
+1 = %DiskName%,,,\x86
+2 = %DiskName%,,,\amd64
+
+[SourceDisksFiles.x86]
+WinUSBCoInstaller2.dll=1
+WdfCoInstaller01009.dll=1
+
+[SourceDisksFiles.amd64]
+WinUSBCoInstaller2.dll=2
+WdfCoInstaller01009.dll=2
+
