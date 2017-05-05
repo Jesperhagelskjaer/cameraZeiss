@@ -74,10 +74,10 @@
     <NMakeReBuildCommandLine>nmake -f Makefile.win clean
 nmake -f Makefile.win</NMakeReBuildCommandLine>
     <NMakeCleanCommandLine>nmake -f Makefile clean</NMakeCleanCommandLine>
-    <ReferencePath>C:\AxiocamSDK\cameraZeiss\api;$(ReferencePath)</ReferencePath>
-    <LibraryPath>C:\AxiocamSDK\cameraZeiss\api;$(LibraryPath)</LibraryPath>
-    <ExecutablePath>C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include;C:\AxiocamSDK\cameraZeiss\api;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>C:\AxiocamSDK\cameraZeiss\api;C:\AxiocamSDK\cameraZeiss\mcam\include;C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include\Qt;C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include\QtCore;C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include\QtGui;C:\AxiocamSDK\cameraZeiss\QtWinMin\4.8.6\include;$(IncludePath)</IncludePath>
+    <ReferencePath>C:\AxiocamSDK\api;$(ReferencePath)</ReferencePath>
+    <LibraryPath>C:\AxiocamSDK\api;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\AxiocamSDK\QtWinMin\4.8.6\include;C:\AxiocamSDK\api;$(ExecutablePath)</ExecutablePath>
+    <IncludePath>C:\AxiocamSDK\api;C:\AxiocamSDK\mcam\include;C:\AxiocamSDK\QtWinMin\4.8.6\include\Qt;C:\AxiocamSDK\QtWinMin\4.8.6\include\QtCore;C:\AxiocamSDK\QtWinMin\4.8.6\include\QtGui;C:\AxiocamSDK\QtWinMin\4.8.6\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakeOutput>mcam.exe</NMakeOutput>
@@ -126,6 +126,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClInclude Include="include\BmpUtil.h" />
     <ClInclude Include="include\ConfigReader.hpp" />
     <ClInclude Include="include\EditProperties.hpp" />
+    <ClInclude Include="include\GenericAlgo.h" />
     <ClInclude Include="include\mcam.h" />
     <ClInclude Include="include\MCam.hpp" />
     <ClInclude Include="include\MCamCameraIF.hpp" />
@@ -134,6 +135,8 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClInclude Include="include\MCamRemote.hpp" />
     <ClInclude Include="include\MCamTest.hpp" />
     <ClInclude Include="include\MCamUtil.hpp" />
+    <ClInclude Include="include\SLMParents.h" />
+    <ClInclude Include="include\TemplateImages.h" />
     <ClInclude Include="include\ui_mcam.h" />
     <ClInclude Include="include\win\pthread.h" />
     <ClInclude Include="include\win\semaphore.h" />

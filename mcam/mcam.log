@@ -75,3 +75,9 @@
 2017-05-05 10:34:48.880 [009180] INFO  : MCamImage::doSingleShot McammAcquisitionEx image acquired time= 99 ms
 2017-05-05 10:35:31.134 [010632] INFO  : MCamRemote::remoteProcMain Remote trigger
 2017-05-05 10:35:31.233 [009180] INFO  : MCamImage::doSingleShot McammAcquisitionEx image acquired time= 99 ms
+2017-05-05 10:40:17.860 [009180] STATUS: Application::exit mcam exit called
+2017-05-05 10:40:17.860 [012588] STATUS: MCamImage::imageProcMain Stopped image thread
+2017-05-05 10:40:17.910 [009180] INFO  : MCamCameraIF::deInit mcam calling McammClose for cameraindex=0
+2017-05-05 10:40:18.599 [009180] INFO  : MCamCameraIF::deInit mcam calling McammLibTerm
+2017-05-05 10:40:18.655 [009180] STATUS: MCamCameraIF::deInit mcam calling exit
+2017-05-05 10:40:18.657 [009180] STATUS: Application::~Application ##################### mcam ends #########################
