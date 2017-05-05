@@ -18,6 +18,7 @@ public:
 	void StartSLM()
 	{
 		pSLMParents_->PrintTemplates();
+		pSLMParents_->GenerateOffspring(1);
 	};
 
 	void ComputeIntencity(unsigned short *pImage, RECT rec)

@@ -1,4 +1,4 @@
 ﻿  genericAlgo.cpp
-e:\axiocamsdk\camerazeiss\genericalgo\genericalgo\genericalgo.cpp(24): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+e:\axiocamsdk\camerazeiss\genericalgo\genericalgo\genericalgo.cpp(23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   genericAlgo.vcxproj -> E:\AxiocamSDK\cameraZeiss\genericAlgo\x64\Debug\genericAlgo.exe
   genericAlgo.vcxproj -> E:\AxiocamSDK\cameraZeiss\genericAlgo\x64\Debug\genericAlgo.pdb (Partial PDB)

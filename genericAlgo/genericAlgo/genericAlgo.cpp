@@ -6,8 +6,7 @@
 #include "GenericAlgo.h"
 #include "time.h"
 
-SLMParents slmParents(NUM_PARENTS);
-
+//SLMParents slmParents(NUM_PARENTS);
 
 #define CAM_WIDTH 1936
 #define CAM_HEIGHT 1460
@@ -22,10 +21,13 @@ CAM_IMAGE camImage;
 int main()
 {
 	srand(time(NULL));
-	SLMTemplate *pParentNew;
+	//SLMTemplate *pParentNew;
 	GenericAlgo *pGenericAlgo = new GenericAlgo();
-	RECT rect;
 
+	pGenericAlgo->StartSLM(); // Start og tag billede
+
+
+	// Billede er taget kaldes fra Qt
 	memset(&camImage, 0, sizeof(CAM_IMAGE));
 	camImage.header.headerSize = sizeof(IMAGE_HEADER);
 	camImage.header.binX = 2;
@@ -33,6 +35,7 @@ int main()
 	camImage.header.roiWidth = 2 * CAM_WIDTH;
 	camImage.header.roiHeight = 2 * CAM_HEIGHT;
 	camImage.header.bitsPerPixel = MCAM_BPP_MONO;
+	RECT rect;
 	rect.left = 0;
 	rect.right = COLS;
 	rect.top = 0;
@@ -40,7 +43,7 @@ int main()
 	pGenericAlgo->ComputeIntencity((unsigned short *)&camImage, rect);
 
 	//slmParents.PrintTemplates();
-	pParentNew = slmParents.GenerateOffspring(1);
+	//pParentNew = slmParents.GenerateOffspring(1);
 	//pParentNew->Print();
     return 0;
 }
