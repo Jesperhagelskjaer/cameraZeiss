@@ -12,7 +12,7 @@ public:
 	GenericAlgo() 
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
-		pTemplateImg_ = new TemplateImages();
+		pImg_ = new CamImage();
 	};
 
 	void StartSLM()
@@ -38,15 +38,17 @@ public:
 		pixel = (unsigned short*)pImage + header->headerSize / 2;
 
 		printf("Image taken L%d, R%d, T%d, B%d\r\n", rec.left, rec.right, rec.top, rec.bottom);
+		pImg_->CopyImage(pixel, height, width, rec);
+
 	};
 
 	~GenericAlgo()
 	{
 		delete pSLMParents_;
-		delete pTemplateImg_;
+		delete pImg_;
 	};
 
 private:
 	SLMParents *pSLMParents_;
-	TemplateImages *pTemplateImg_;
+	CamImage *pImg_;
 };

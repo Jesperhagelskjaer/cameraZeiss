@@ -13,7 +13,7 @@ public:
 	{
 		GenRandom();
 		cost_ = 0;
-		binding_ = 1;
+		binding_ = 2;
 	};
 
 	void SetCost(unsigned int cost)
@@ -25,7 +25,37 @@ public:
 	{
 		binding_ = binding;
 	};
+/*
+	void GenRandom(void)
+	{
+		unsigned char  test = rand() % 255;
+		int Jindex = 0;
 
+		for (int i = 0; i < M; i++)
+		{
+			
+			for (int j = 0; j < M; j++)
+			{
+
+				if (j % 2 == 0) {
+					unsigned char  matrix_[Jindex][j] = rand() % 255;
+					
+				}
+				matrix_[i][j] = matrix_[i][j-1];
+				cout << int (test) << endl;
+			}
+			if (i % (2+1) != 0) //here could a copy function be made  
+			{
+				for (int j = 0; j < M ; j++) {
+					matrix_[Jindex][j] = matrix_[Jindex - 1][j];
+				}
+				break;		
+			}
+			Jindex += 1;
+		}
+		
+	};
+*/
 	void GenRandom(void)
 	{
 		for (int i = 0; i < M; i++)
@@ -70,7 +100,9 @@ public:
 
 	void Print(void)
 	{
+//#ifdef DEBUG_
 		printf("Matrix: %d %d %d %d %d %d\r\n", matrix_[0][0], matrix_[0][1], matrix_[0][2], matrix_[0][3], matrix_[0][4], matrix_[0][5]);
+//#endif
 	}
 
 private:
@@ -101,7 +133,9 @@ public:
 		int count = 1;
 		for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
 			SLMTemplate* pTemplate = *it;
+#ifdef DEBUG_
 			printf("%02d.", count++);
+#endif
 			pTemplate->Print();
 		}
 	}
@@ -111,13 +145,39 @@ public:
 		int number1, number2;
 		SLMTemplate *pTemplate1, *pTemplate2;
 		GetRandomTemplateIdx(number1, number2);
+		
+		cout << endl;
 		pTemplate1 = SLMTemplates_[number1];
+		cout << "Template1: ";
+		pTemplate1->Print();
+		cout << endl;
+
 		pTemplate2 = SLMTemplates_[number2];
+
+		cout << "Template2: ";
+		pTemplate2->Print();
+		cout << endl << endl;
+
 		BinaryTemplate1_.GenBinary();
+
 		BinaryTemplate2_.GenBinaryInverse(BinaryTemplate1_);
+
+		cout << "GenBinary1: ";
+		BinaryTemplate1_.Print();
+		cout << endl;
+		cout << "GenBinary2: ";
+		BinaryTemplate2_.Print();
+		cout << endl;
+
 		pTemplate1->MultiplyCell(BinaryTemplate1_, Parent1_);
 		pTemplate2->MultiplyCell(BinaryTemplate2_, Parent2_);
+		
 		Parent1_.AddCell(Parent2_, ParentNew_);
+		
+		cout << "parentNew: ";
+		ParentNew_.Print();
+		cout << endl;
+		
 		Parent1_.RandomMutation();
 		return &ParentNew_;
 	}

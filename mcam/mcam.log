@@ -81,3 +81,77 @@
 2017-05-05 10:40:18.599 [009180] INFO  : MCamCameraIF::deInit mcam calling McammLibTerm
 2017-05-05 10:40:18.655 [009180] STATUS: MCamCameraIF::deInit mcam calling exit
 2017-05-05 10:40:18.657 [009180] STATUS: Application::~Application ##################### mcam ends #########################
+2017-05-05 16:20:52.633 [011824] STATUS: Application::Application ##################### mcam started #######################
+2017-05-05 16:20:52.639 [008824] STATUS: MCamCameraIF::cameraSuperVisionProcMain cameraSuperVisionProcMain thread started
+2017-05-05 16:20:52.640 [008824] STATUS: MCamCameraIF::setSessionProperties searching and initializing Axiocam USB 3.0 cameras, please wait!
+2017-05-05 16:20:52.864 [011824] STATUS: MCamCameraIF::loadMcamFileProperties Loaded Red=195.000000 Green=258.000000 Blue=132.000000
+2017-05-05 16:20:52.879 [011824] STATUS: MCamRemote::startRemoteThread Starting remote thread
+2017-05-05 16:20:52.881 [013396] STATUS: MCamRemote::remoteProcMain Remote communication thread started
+2017-05-05 16:21:02.675 [008824] STATUS: MCamCameraIF::setSessionProperties number of cameras=1
+2017-05-05 16:21:02.940 [008824] INFO  : MCamCameraIF::initializeCamera McammInit result=0
+2017-05-05 16:21:02.940 [008824] STATUS: MCamCameraIF::setCameraDefaults setCameraDefaults start for cameraIndex=0
+2017-05-05 16:21:02.941 [008824] INFO  : MCamCameraIF::setCameraDefaults set colorMatrixMode = 1
+2017-05-05 16:21:03.261 [008824] INFO  : MCamCameraIF::setWhiteBalance MCamCameraIF::setWhiteBalance cameraIndex=0 red=195.000000 green=258.000000 blue=132.000000
+2017-05-05 16:21:03.263 [008824] INFO  : MCamCameraIF::setCameraDefaults Setting image white balance OK cameraIndex=0 result=0 red=195 green=258 blue=132
+2017-05-05 16:21:03.264 [008824] INFO  : MCamCameraIF::setCameraDefaults setCameraDefaults done
+2017-05-05 16:21:03.265 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [0] FALSE
+2017-05-05 16:21:03.266 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [1] TRUE
+2017-05-05 16:21:03.267 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [2] TRUE
+2017-05-05 16:21:03.268 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [3] TRUE
+2017-05-05 16:21:03.269 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [4] FALSE
+2017-05-05 16:21:03.270 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [5] TRUE
+2017-05-05 16:21:03.271 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [6] TRUE
+2017-05-05 16:21:03.272 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [7] TRUE
+2017-05-05 16:21:03.273 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [8] TRUE
+2017-05-05 16:21:03.274 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [9] TRUE
+2017-05-05 16:21:03.275 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [10] TRUE
+2017-05-05 16:21:03.276 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [11] TRUE
+2017-05-05 16:21:03.277 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [12] TRUE
+2017-05-05 16:21:03.278 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [13] TRUE
+2017-05-05 16:21:03.279 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [14] TRUE
+2017-05-05 16:21:03.280 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [15] TRUE
+2017-05-05 16:21:03.281 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [16] TRUE
+2017-05-05 16:21:03.282 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [17] FALSE
+2017-05-05 16:21:03.283 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [18] FALSE
+2017-05-05 16:21:03.284 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [19] TRUE
+2017-05-05 16:21:03.285 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [20] TRUE
+2017-05-05 16:21:03.286 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [21] FALSE
+2017-05-05 16:21:03.287 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [22] FALSE
+2017-05-05 16:21:03.288 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [23] FALSE
+2017-05-05 16:21:03.289 [008824] INFO  : MCamCameraIF::initializeCamera MCammHasParameter: MCammSupportedParameterType [24] FALSE
+2017-05-05 16:21:03.290 [008824] INFO  : MCamCameraIF::initializeCamera MCammGetParameterRange: MCammSupportedParameterType [2] 1000000000
+2017-05-05 16:21:03.291 [008824] STATUS: Application::doLoadSettings load for cameraIndex=-1
+2017-05-05 16:21:03.292 [008824] STATUS: MCamCameraIF::loadMcamFileProperties Loaded Red=195.000000 Green=258.000000 Blue=132.000000
+2017-05-05 16:21:03.298 [011824] STATUS: MCamCameraIF::getDeviceString CAM#0 S/N=168m
+2017-05-05 16:21:03.299 [011824] INFO  : Application::updateCameraIndex updateCameraIndex called actionDeviceIndex=0 current=-1
+2017-05-05 16:21:03.300 [011824] INFO  : Application::updateCameraIndex selectCamera cameraIndex=0
+2017-05-05 16:21:03.301 [011824] INFO  : CAM#0 MCamImage::cameraSelected cameraSelected, try to change to cameraIndex=0
+2017-05-05 16:21:03.302 [011824] INFO  : CAM#0 MCamImage::cameraSelected trigger change to cameraIndex=0 size=17006592 bytes
+2017-05-05 16:21:03.303 [012080] INFO  : MCamImage::imageProcMain cameraChangePending detected, pendingCameraIndex=0
+2017-05-05 16:21:03.303 [011824] INFO  : Application::pixelClockSelected changed pixel clock to index=0
+2017-05-05 16:21:03.304 [012080] INFO  : MCamImage::imageProcMain allocated buffer #0, size=17006592 bytes
+2017-05-05 16:21:03.305 [012080] INFO  : MCamImage::imageProcMain allocated buffer #1, size=17006592 bytes
+2017-05-05 16:21:03.428 [011824] INFO  : Application::pixelClockSelected changed pixel clock to index=-1
+2017-05-05 16:21:03.550 [011824] INFO  : Application::pixelClockSelected changed pixel clock to index=0
+2017-05-05 16:21:03.799 [011824] INFO  : Application::portsSelected changed port to index=2
+2017-05-05 16:21:03.837 [011824] INFO  : Application::portsSelected current Taps right=1 bottom=1
+2017-05-05 16:21:03.840 [011824] INFO  : Application::pixelClockSelected changed pixel clock to index=1
+2017-05-05 16:21:03.965 [011824] INFO  : Application::pixelClockSelected changed pixel clock to index=0
+2017-05-05 16:21:04.090 [011824] INFO  : Application::pixelClockSelected changed pixel clock to index=-1
+2017-05-05 16:21:04.212 [011824] INFO  : Application::pixelClockSelected changed pixel clock to index=0
+2017-05-05 16:21:04.454 [011824] INFO  : Application::pixelClockSelected changed pixel clock to index=1
+2017-05-05 16:21:04.581 [011824] STATUS: MCamCameraIF::getDeviceString CAM#0 S/N=168m
+2017-05-05 16:21:04.582 [011824] INFO  : Application::cameraSelectedComboBox cameraSelectedComboBox index=0 -> cameraIndex = -1
+2017-05-05 16:21:04.597 [011824] INFO  : Application::selectCamera selected cameraIndex=0
+2017-05-05 16:21:04.600 [011824] INFO  : MCamCameraIF::resetWhitePoint MCamCameraIF::resetWhitePoint red=195 green=258 blue=132
+2017-05-05 16:21:04.601 [011824] INFO  : MCamCameraIF::setWhitePoint MCamCameraIF::setWhitePoint red=195.000000 green=258.000000 blue=132.000000
+2017-05-05 16:21:04.602 [011824] INFO  : MCamCameraIF::setWhiteBalance MCamCameraIF::setWhiteBalance cameraIndex=0 red=195.000000 green=258.000000 blue=132.000000
+2017-05-05 16:21:04.608 [011824] INFO  : MCamImage::colorTemperatureChanged colorTemperatureChanged: value=50
+2017-05-05 16:21:04.608 [011824] INFO  : MCamCameraIF::setWhiteBalance MCamCameraIF::setWhiteBalance cameraIndex=0 red=0.764706 green=1.011765 blue=0.517647
+2017-05-05 16:21:04.610 [011824] INFO  : MCamCameraIF::setWhitePoint MCamCameraIF::setWhitePoint red=196.000000 green=258.000000 blue=132.000000
+2017-05-05 16:21:04.611 [011824] INFO  : MCamCameraIF::setWhiteBalance MCamCameraIF::setWhiteBalance cameraIndex=0 red=196.000000 green=258.000000 blue=132.000000
+2017-05-05 16:21:04.613 [011824] INFO  : MCamCameraIF::setWhitePoint MCamCameraIF::setWhitePoint red=196.000000 green=259.000000 blue=132.000000
+2017-05-05 16:21:04.614 [011824] INFO  : MCamCameraIF::setWhiteBalance MCamCameraIF::setWhiteBalance cameraIndex=0 red=196.000000 green=259.000000 blue=132.000000
+2017-05-05 16:21:04.616 [011824] INFO  : MCamCameraIF::setWhitePoint MCamCameraIF::setWhitePoint red=196.000000 green=259.000000 blue=133.000000
+2017-05-05 16:21:04.617 [011824] INFO  : MCamCameraIF::setWhiteBalance MCamCameraIF::setWhiteBalance cameraIndex=0 red=196.000000 green=259.000000 blue=133.000000
+2017-05-05 16:21:04.633 [011824] INFO  : Application::cameraSelected Camera cameraIndex=0

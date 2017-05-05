@@ -1,1 +1,4 @@
-﻿
+﻿  stdafx.cpp
+  genericAlgo.cpp
+  genericAlgo.vcxproj -> E:\AxiocamSDK\cameraZeiss\genericAlgo\Debug\genericAlgo.exe
+  genericAlgo.vcxproj -> E:\AxiocamSDK\cameraZeiss\genericAlgo\Debug\genericAlgo.pdb (Partial PDB)
