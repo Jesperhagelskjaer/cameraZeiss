@@ -1183,7 +1183,8 @@ void Application::setBusyLock(bool disabled)  // true: locked  false: unlocked
     MCammHasParameter(cameraIndex, mcammParmHDR, &hasHDR);
     MCammHasParameter(cameraIndex, mcammParmHighImageRateMode, &hasHighImageRateMode);
 	
-	//KBE!!! disabled = false;
+	//KBE!!!
+	disabled = false;
 	if (!disabled) 
 		thisMCamRemotePtr->startRemoteThread();
 
@@ -1402,6 +1403,17 @@ void Application::handleApplyROIButton()
         ui->sizeY->setText(QString::number(rcSize.bottom - rcSize.top));
     }
     updateCompressionMode();
+}
+
+RECT Application::getCurrentFrameSize()
+{
+	MCAM_LOG_INIT("Application::getCurrentFrameSize")
+    RECT rcSize = { 0,0,0,0 };
+	long result = NOERR;
+	result = McammGetCurrentFrameSize(cameraIndex, &rcSize);
+	if (result != NOERR)
+		MCAM_LOGF_ERROR("failed to set frame size, result=%ld", result);
+	return rcSize;
 }
 
 // GUI callback

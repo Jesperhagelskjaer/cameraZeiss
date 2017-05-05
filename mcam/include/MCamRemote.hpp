@@ -12,8 +12,10 @@
 
 #include "mcam.h"
 #include <QObject>
+#include "GenericAlgo.h"
 
 #define START_FILE "start.txt"
+#define STOP_FILE  "stop.txt"
 #define IMAGE_FILE "image.bmp"
 
 class Application;
@@ -33,6 +35,9 @@ class MCamRemote: QObject
 	char fileName[100];
 	FILE* hStartFile;
 
+	// Generic Algorithm
+	GenericAlgo *pGenericAlgo;
+
 public:
 	MCamRemote(Application *applicationPtr);
 	virtual ~MCamRemote();
@@ -49,6 +54,7 @@ signals:
 private:
 	void createTestImage(void);
 	int waitForStart(void);
+	void createStopFile(void);
 };
 
 #endif

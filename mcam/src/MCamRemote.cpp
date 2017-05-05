@@ -3,6 +3,7 @@
 #include <QImagereader.h>
 #include "MCamRemote.hpp"
 #include "BmpUtil.h"
+#include "GenericAlgo.h"
 
 void *remote_proc_main(void *parm);
 static MCamRemote* mcamRemotePtr;
@@ -16,6 +17,7 @@ MCamRemote::MCamRemote(Application *applicationPtr)
 {
 	this->applicationPtr = applicationPtr;
 	mcamRemotePtr = this;
+	pGenericAlgo = new GenericAlgo();
 
 	// Remote single shot handling
 	threadStarted = false;
@@ -27,6 +29,7 @@ MCamRemote::MCamRemote(Application *applicationPtr)
 
 MCamRemote::~MCamRemote()
 {
+	delete pGenericAlgo;
 }
 
 int MCamRemote::startRemoteThread()
@@ -99,6 +102,7 @@ void *MCamRemote::remoteProcMain(void *parm)
 		waitForStart();
 		printf("Remote single shot\r\n");
 		//createTestImage(); // FOR TESTING ONLY KBE???
+		pGenericAlgo->StartSLM();
 		doSingleImage();
 		//sem_wait(&psem);
 		//MCamUtil::sleep(10);
@@ -193,6 +197,13 @@ void MCamRemote::saveImage(QImage *pImage)
 		printf("Could not save image\r\n");
 }
 
+void MCamRemote::createStopFile(void)
+{
+	FILE *hStopFile;
+	hStopFile = fopen(STOP_FILE, "w"); // Create stop file
+	fclose(hStopFile);
+}
+
 // ski.bmp
 #define TEST_FILE   "ski.bmp"
 #define IMG_WIDTH   2988
@@ -224,11 +235,15 @@ void MCamRemote::createTestImage(void)
 
 void MCamRemote::saveImage(unsigned short *imageData, bool test)
 {
+	RECT rec = applicationPtr->getCurrentFrameSize();
+
+	pGenericAlgo->ComputeIntencity(imageData, rec);
+
+/*
 	ROI imgROI;
 	IMAGE_HEADER* header = (IMAGE_HEADER*)imageData;
 
 	bool isColorImage = 0;
-
 	// painting raw data to image
 	unsigned short* pixel = NULL;
 
@@ -246,4 +261,8 @@ void MCamRemote::saveImage(unsigned short *imageData, bool test)
 		DumpBmpAsGray(IMAGE_FILE, (byte *)pixel, imgROI);
 	else
 	    DumpBmpShortAsGray(IMAGE_FILE, pixel, imgROI);
+
+	createStopFile();
+*/
+
 }

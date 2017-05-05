@@ -64,6 +64,7 @@ public:
     void setGPOParameter();
     bool contShotRestartPending;
     int currentExposureUnit;
+	RECT getCurrentFrameSize();
 
 signals:
     void paintImage(const QImage*);

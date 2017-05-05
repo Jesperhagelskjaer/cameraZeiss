@@ -55,7 +55,7 @@ typedef struct {
   HANDLE h;
 } pthread_t;
 
-#if 0
+#if 1
 typedef struct timespec {
   time_t tv_sec; /* Seconds since 00:00:00 GMT, */
   /* 1 January 1970 */
