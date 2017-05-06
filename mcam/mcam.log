@@ -155,3 +155,17 @@
 2017-05-05 16:21:04.616 [011824] INFO  : MCamCameraIF::setWhitePoint MCamCameraIF::setWhitePoint red=196.000000 green=259.000000 blue=133.000000
 2017-05-05 16:21:04.617 [011824] INFO  : MCamCameraIF::setWhiteBalance MCamCameraIF::setWhiteBalance cameraIndex=0 red=196.000000 green=259.000000 blue=133.000000
 2017-05-05 16:21:04.633 [011824] INFO  : Application::cameraSelected Camera cameraIndex=0
+2017-05-05 22:28:00.201 [020040] STATUS: Application::Application ##################### mcam started #######################
+2017-05-05 22:28:00.202 [022136] STATUS: MCamCameraIF::cameraSuperVisionProcMain cameraSuperVisionProcMain thread started
+2017-05-05 22:28:00.203 [022136] STATUS: MCamCameraIF::setSessionProperties searching and initializing Axiocam USB 3.0 cameras, please wait!
+2017-05-05 22:28:00.414 [020040] STATUS: MCamCameraIF::loadMcamFileProperties Loaded Red=195.000000 Green=258.000000 Blue=132.000000
+2017-05-05 22:28:00.501 [020040] STATUS: MCamRemote::startRemoteThread Starting remote thread
+2017-05-05 22:28:00.501 [019880] STATUS: MCamRemote::remoteProcMain Remote communication thread started
+2017-05-05 22:28:03.243 [022136] STATUS: MCamCameraIF::setSessionProperties number of cameras=0
+2017-05-05 22:28:36.714 [019880] INFO  : MCamRemote::remoteProcMain Remote trigger
+2017-05-05 22:28:36.716 [020040] ERROR : MCamImage::doSingleShot no camera available -> abort!
+2017-05-05 22:28:58.779 [020040] STATUS: Application::exit mcam exit called
+2017-05-05 22:28:58.781 [009960] STATUS: MCamImage::imageProcMain Stopped image thread
+2017-05-05 22:28:58.832 [020040] INFO  : MCamCameraIF::deInit mcam calling McammLibTerm
+2017-05-05 22:28:59.363 [020040] STATUS: MCamCameraIF::deInit mcam calling exit
+2017-05-05 22:28:59.365 [020040] STATUS: Application::~Application ##################### mcam ends #########################

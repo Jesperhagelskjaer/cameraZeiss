@@ -2743,3 +2743,102 @@
 2017-05-05 16:56:46.804 [012264] AXIF  STATUS: axifGetCameraLists CAM#0 CAMERA_ID=(000000a8) -> serial=0168 dev.busNumber=(1) dev.deviceAddress=(01) dev.usbHandle=(00000000085CB880) status=(AXIF_CAM_STATUS_OK)
 2017-05-05 16:56:47.837 [012264] AXIF  STATUS: axifGetCameraLists CAM#0 CAMERA_ID=(000000a8) -> serial=0168 dev.busNumber=(1) dev.deviceAddress=(01) dev.usbHandle=(00000000085CB880) status=(AXIF_CAM_STATUS_OK)
 2017-05-05 16:56:48.869 [012264] AXIF  STATUS: axifGetCameraLists CAM#0 CAMERA_ID=(000000a8) -> serial=0168 dev.busNumber=(1) dev.deviceAddress=(01) dev.usbHandle=(00000000085CB880) status=(AXIF_CAM_STATUS_OK)
+2017-05-05 22:28:00.223 [022136] AXCAM STATUS: axcamInit ###################### logging for axcam version '1.64' TAG='1.62' started, filesize=100 MB, AXCAM_DEBUG: axcamDebug=1 axcamDebugAppend=1, axcamSessionCount=1
+2017-05-05 22:28:00.224 [022136] AXCAM STATUS: axcamReadPropertyFromFile getcwd 'C:\AxiocamSDK\cameraZeiss\mcam'
+2017-05-05 22:28:00.224 [022136] AXCAM STATUS: axcamReadPropertyFromFile trying property file 'axcam.properties'
+2017-05-05 22:28:00.225 [022136] AXCAM STATUS: axcamReadPropertyFromFile key='resetOnStartup' value='1'
+2017-05-05 22:28:00.226 [022136] AXCAM STATUS: axcamReadPropertyFromFile key='programmingSpeed' value='2'
+2017-05-05 22:28:00.226 [022136] AXCAM STATUS: axcamReadPropertyFromFile key='debugLevel' value='1+'
+2017-05-05 22:28:00.226 [022136] AXCAM STATUS: axcamReadPropertyFromFile key='colorMatrixNumberOfWorkers' value='2'
+2017-05-05 22:28:00.227 [022136] AXCAM STATUS: axcamReadPropertiesFromEnv check 'AXCAM_DEBUG' environment not set
+2017-05-05 22:28:00.227 [022136] AXCAM STATUS: axcamReadPropertiesFromEnv check 'AXCAM_PROPERTIES' environment not set
+2017-05-05 22:28:00.227 [022136] AXCAM STATUS: axcamReadPropertiesFromEnv 'reset' set
+2017-05-05 22:28:00.228 [022136] AXCAM STATUS: axcamReadPropertiesFromEnv 'colormatrixopt' not set
+2017-05-05 22:28:00.228 [022136] AXCAM STATUS: axcamContextInit axcamContext size=96898072 bytes
+2017-05-05 22:28:00.229 [022136] AXCAM STATUS: axcamInit set axifSetProperties profile=2
+2017-05-05 22:28:00.229 [017480] AXCAM STATUS: worker_thread_main Thread from pool with index=1 started
+2017-05-05 22:28:00.229 [011628] AXCAM STATUS: worker_thread_main Thread from pool with index=0 started
+2017-05-05 22:28:00.230 [012304] AXCAM STATUS: worker_thread_main Thread from pool with index=2 started
+2017-05-05 22:28:00.230 [021436] AXCAM STATUS: worker_thread_main Thread from pool with index=3 started
+2017-05-05 22:28:00.231 [020216] AXCAM STATUS: worker_thread_main Thread from pool with index=4 started
+2017-05-05 22:28:00.231 [022136] AXUSB STATUS: axusbSetProperties useSuperSpeedProg = 1
+2017-05-05 22:28:00.231 [022136] AXUSB STATUS: axusbSetProperties progFX3WaitTime_ms = 200
+2017-05-05 22:28:00.231 [022136] AXUSB STATUS: axusbSetProperties progFX3RetryWaitTime_ms = 50
+2017-05-05 22:28:00.232 [022136] AXUSB STATUS: axusbSetProperties progFX3ClaimRetries = 50
+2017-05-05 22:28:00.232 [022136] AXUSB STATUS: axusbSetProperties switchFX3ModeSwitchWaitTime_ms = 300
+2017-05-05 22:28:00.232 [022136] AXUSB STATUS: axusbSetProperties switchFX3RetryModeSwitchWaitTime_ms = 50
+2017-05-05 22:28:00.233 [022136] AXUSB STATUS: axusbSetProperties switchFX3Retries = 50
+2017-05-05 22:28:00.233 [022136] AXIF  STATUS: axifAquireAxifLock successfully got axif lock
+2017-05-05 22:28:00.233 [022136] AXIF  STATUS: axifInit AXIOCAM_DELIVERY_TAG='1.62' (00013e00) AXIF_VERSION=00020435
+2017-05-05 22:28:00.234 [022136] AXIF  STATUS: axifInit axifOverlapMode - value=1
+2017-05-05 22:28:00.234 [022136] AXIF  STATUS: axifInit axifOverlapMode - value=1
+2017-05-05 22:28:00.234 [022136] AXIF  STATUS: axifInit axifOverlapMode - value=1
+2017-05-05 22:28:00.235 [015220] AXIF  STATUS: axifSupervisionLoop started - cameraResetOnStartup=1, suppressProgramming=0 useFilesForProgramming=0 pollingIntervall_ms=1000
+2017-05-05 22:28:00.500 [020040] AXCAM ERROR :  axcamLockInterface invalid cameraindex=65535
+2017-05-05 22:28:00.500 [020040] AXCAM ERROR :  axcamLockInterface invalid cameraindex=65535
+2017-05-05 22:28:00.500 [020040] AXCAM ERROR :  axcamLockInterface invalid cameraindex=65535
+2017-05-05 22:28:00.501 [020040] AXCAM ERROR :  axcamLockInterface invalid cameraindex=65535
+2017-05-05 22:28:02.242 [015220] AXIF  STATUS: axifSupervisionLoop ***** UNINIT ********
+2017-05-05 22:28:02.244 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [0] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.246 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [1] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.248 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [2] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.251 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [3] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.253 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [4] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.255 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [5] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.256 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [6] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.257 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [7] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.259 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [8] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.260 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [9] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.261 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [10] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.262 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [11] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.263 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [12] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.264 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [13] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.265 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [14] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.266 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [15] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.267 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [16] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.269 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [17] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.270 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [18] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.270 [015220] AXIF  STATUS: axifSupervisionLoop pollinitializedCameraList: [19] bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000)
+2017-05-05 22:28:02.271 [015220] AXIF  STATUS: axifSupervisionLoop ***** INIT ********
+2017-05-05 22:28:02.272 [015220] AXIF  STATUS: axifSupervisionLoop sort camera list
+2017-05-05 22:28:02.272 [015220] AXIF  STATUS: axifSupervisionLoop [0] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.273 [015220] AXIF  STATUS: axifSupervisionLoop [1] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.274 [015220] AXIF  STATUS: axifSupervisionLoop [2] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.275 [015220] AXIF  STATUS: axifSupervisionLoop [3] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.276 [015220] AXIF  STATUS: axifSupervisionLoop [4] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.276 [015220] AXIF  STATUS: axifSupervisionLoop [5] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.277 [015220] AXIF  STATUS: axifSupervisionLoop [6] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.278 [015220] AXIF  STATUS: axifSupervisionLoop [7] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.279 [015220] AXIF  STATUS: axifSupervisionLoop [8] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.280 [015220] AXIF  STATUS: axifSupervisionLoop [9] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.280 [015220] AXIF  STATUS: axifSupervisionLoop [10] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.281 [015220] AXIF  STATUS: axifSupervisionLoop [11] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.282 [015220] AXIF  STATUS: axifSupervisionLoop [12] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.282 [015220] AXIF  STATUS: axifSupervisionLoop [13] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.283 [015220] AXIF  STATUS: axifSupervisionLoop [14] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.284 [015220] AXIF  STATUS: axifSupervisionLoop [15] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.284 [015220] AXIF  STATUS: axifSupervisionLoop [16] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.285 [015220] AXIF  STATUS: axifSupervisionLoop [17] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.286 [015220] AXIF  STATUS: axifSupervisionLoop [18] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.286 [015220] AXIF  STATUS: axifSupervisionLoop [19] Id=(00000000) bus#=(0) devAddr=(0) idVendor=(0000) idProduct=(0000) usbHandle=(0000000000000000) status=(AXIF_CAM_STATUS_UNUSED)
+2017-05-05 22:28:02.287 [015220] AXIF  STATUS: axifSupervisionLoop all cameras ok notify -> signal end of scan loop
+2017-05-05 22:28:03.237 [022136] AXFU  STATUS: axfuInit axfuWait4AllCamerasProgrammed cameras=0
+2017-05-05 22:28:03.239 [022136] AXCAM STATUS:  McammLibInit start axcamInit done: ipOnly=0 ret=0
+2017-05-05 22:28:03.241 [022136] AXCAM STATUS:  McammLibInit session properties logfilepath:      '.\'
+2017-05-05 22:28:03.242 [022136] AXCAM STATUS:  McammLibInit session properties propertyFilePath: ''
+2017-05-05 22:28:03.246 [020040] AXCAM ERROR :  axcamLockInterface invalid cameraindex=65535
+2017-05-05 22:28:03.247 [020040] AXCAM ERROR :  axcamLockInterface invalid cameraindex=65535
+2017-05-05 22:28:03.248 [020040] AXCAM ERROR :  axcamLockInterface invalid cameraindex=65535
+2017-05-05 22:28:03.249 [020040] AXCAM ERROR :  axcamLockInterface invalid cameraindex=65535
+2017-05-05 22:28:58.833 [020040] AXCAM STATUS: McammLibTerm axcam camera session terminating
+2017-05-05 22:28:58.834 [020040] AXCAM STATUS:  called - shutting down
+2017-05-05 22:28:59.355 [015220] AXFU  STATUS: axfu_supervision_proc_main axifSupervisionLoop end, ret=0
+2017-05-05 22:28:59.358 [020040] AXIF  STATUS: axifDeInit axifDeInit start
+2017-05-05 22:28:59.359 [020040] AXIF  STATUS: axifReleaseAxifLock successfully released axif lock
+2017-05-05 22:28:59.360 [020040] AXIF  STATUS: axifDeInit axifDeInit ends - ret=0
+2017-05-05 22:28:59.360 [020040] AXCAM STATUS: McammDeInitThreadpool joining thread #0
+2017-05-05 22:28:59.361 [020040] AXCAM STATUS: McammDeInitThreadpool joining thread #1
+2017-05-05 22:28:59.361 [020040] AXCAM STATUS: McammDeInitThreadpool joining thread #2
+2017-05-05 22:28:59.361 [020040] AXCAM STATUS: McammDeInitThreadpool joining thread #3
+2017-05-05 22:28:59.362 [020040] AXCAM STATUS: McammDeInitThreadpool joining thread #4
+2017-05-05 22:28:59.362 [020040] AXCAM STATUS: axcamDeInit complete ret=0
