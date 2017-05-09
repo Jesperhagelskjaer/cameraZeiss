@@ -6,7 +6,7 @@
 class CamImage
 {
 public:
-	CamImage() {};
+	CamImage() : cost_(0) {};
 
 	void CopyImage(unsigned short *pImage, int height, int width, RECT rec)
 	{
@@ -17,14 +17,25 @@ public:
 			for (int j = 0; j < width; j++)
 				if ((rec.top <= i && i < rec.bottom) &&
 					(rec.left <= j && j < rec.right))
-					data[id][jd++] = pImage[i*width + j];
+					data_[id][jd++] = pImage[i*width + j];
 			if (rec.top <= i && i < rec.bottom)
 				id++;
 		}
 	};
 
+	double ComputeIntencity(void)
+	{
+		cost_ = 0;
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLS; j++)
+				cost_ += data_[i][j];
+		}
+		return cost_;
+	}
+
 private:
-	unsigned short data[ROWS][COLS];
+	unsigned short data_[ROWS][COLS];
+	double cost_;
 };
 
 class TemplateImages

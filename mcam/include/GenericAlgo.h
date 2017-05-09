@@ -17,12 +17,23 @@ public:
 
 	void StartSLM()
 	{
-		pSLMParents_->PrintTemplates();
-		pSLMParents_->GenerateOffspring(1);
+		if (pSLMParents_->IsTemplatesFull()) {
+			//pSLMParents_->PrintTemplates();
+			pSLMParents_->GenerateOffspring(1);
+		} else {
+			pSLMParents_->GenerateNewParent();
+		}
 	};
+
+	void TestComputeIntencity(double cost)
+	{
+		pSLMParents_->CompareCostAndInsertTemplate(cost);
+		pSLMParents_->PrintTemplates();
+	}
 
 	void ComputeIntencity(unsigned short *pImage, RECT rec)
 	{
+		double cost;
 		int width, height;
 		IMAGE_HEADER* header = (IMAGE_HEADER*)pImage;
 
@@ -40,7 +51,8 @@ public:
 
 		printf("Image taken L%d, R%d, T%d, B%d\r\n", rec.left, rec.right, rec.top, rec.bottom);
 		pImg_->CopyImage(pixel, height, width, rec);
-
+		cost = pImg_->ComputeIntencity();
+		pSLMParents_->CompareCostAndInsertTemplate(cost);
 	};
 
 	~GenericAlgo()

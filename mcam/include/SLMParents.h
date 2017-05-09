@@ -11,14 +11,18 @@ class SLMTemplate
 public:
 	SLMTemplate()
 	{
-		GenRandom();
 		cost_ = 0;
 		binding_ = 3;
 	};
 
-	void SetCost(unsigned int cost)
+	void SetCost(double cost)
 	{
 		cost_ = cost;
+	};
+
+	double GetCost(void)
+	{
+		return cost_;
 	};
 
 	void SetBinding(unsigned int binding)
@@ -109,7 +113,7 @@ public:
 						for (int it2 = 0; it2 < bindingtest_; ++it2){
 							 
 							for (int jt2 = 0; jt2 < bindingtest_; ++jt2) {
-								cout << it2 << " " << jt2 << " " << i + it2 << " " << j + jt2  << " " << test << endl;
+								//cout << it2 << " " << jt2 << " " << i + it2 << " " << j + jt2  << " " << test << endl;
 								matrix_[i + it2][j + jt2] = test;
 								//cout << (int)matrix_[i + it2][j + jt2] << " ";
 							}
@@ -123,6 +127,7 @@ public:
 	{
 
 		//#ifdef DEBUG_
+		printf("cost: %f\r\n", cost_);
 		printf("line1: %d %d %d %d %d %d\r\n", matrix_[0][0], matrix_[0][1], matrix_[0][2], matrix_[0][3], matrix_[0][4], matrix_[0][5], matrix_[0][6]);
 		printf("line2: %d %d %d %d %d %d\r\n", matrix_[1][0], matrix_[1][1], matrix_[1][2], matrix_[1][3], matrix_[1][4], matrix_[1][5], matrix_[1][6]);
 		printf("line3: %d %d %d %d %d %d\r\n", matrix_[2][0], matrix_[2][1], matrix_[2][2], matrix_[2][3], matrix_[2][4], matrix_[2][5], matrix_[2][6]);
@@ -130,26 +135,23 @@ public:
 		printf("line5: %d %d %d %d %d %d\r\n", matrix_[4][0], matrix_[4][1], matrix_[4][2], matrix_[4][3], matrix_[4][4], matrix_[4][5], matrix_[4][6]);
 		printf("line6: %d %d %d %d %d %d\r\n", matrix_[5][0], matrix_[5][1], matrix_[5][2], matrix_[5][3], matrix_[5][4], matrix_[5][5], matrix_[5][6]);
 		printf("line7: %d %d %d %d %d %d\r\n", matrix_[6][0], matrix_[6][1], matrix_[6][2], matrix_[6][3], matrix_[6][4], matrix_[6][5], matrix_[6][6]);
-
-
-
-			//#endif
+	   //#endif
 	};
 
 private:
 	unsigned char matrix_[M][M];
-	unsigned int cost_;
+	double cost_;
 	unsigned int binding_;
 };
 
 
-#define NUM_PARENTS 1//30 // Number of parents
+#define NUM_PARENTS 2//30 // Number of parents
 class SLMParents
 {
 public:
 	SLMParents(int num)
 	{
-		GenParents(num);
+		//GenParents(num);
 	};
 
 	~SLMParents()
@@ -160,7 +162,22 @@ public:
 		}
 	};
 
-	void PrintTemplates(void) {
+	bool IsTemplatesFull(void)
+	{
+		if (SLMTemplates_.size() >= NUM_PARENTS)
+			return true;
+		else
+			return false;
+	}
+	
+	void GenerateNewParent(void)
+	{
+		pParentNew_ = new SLMTemplate();
+		pParentNew_->GenRandom();
+	}
+
+	void PrintTemplates(void) 
+	{
 		int count = 1;
 		for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
 			SLMTemplate* pTemplate = *it;
@@ -203,18 +220,49 @@ public:
 		pTemplate1->MultiplyCell(BinaryTemplate1_, Parent1_);
 		pTemplate2->MultiplyCell(BinaryTemplate2_, Parent2_);
 		
-		Parent1_.AddCell(Parent2_, ParentNew_);
+		pParentNew_ = new SLMTemplate();
+		Parent1_.AddCell(Parent2_, *pParentNew_);
 		
-		cout << "parentNew: " << endl;;
-		ParentNew_.Print();
+		cout << "Offspring parentNew: " << endl;;
+		pParentNew_->Print();
 		cout << endl;
 		
 
 		//Parent1_.RandomMutation(); This must be an error 
-		ParentNew_.RandomMutation();
-		ParentNew_.Print();
+		pParentNew_->RandomMutation();
+		cout << "Offspring mutation: " << endl;;
+		pParentNew_->Print();
 		cout << "test" << endl;;
-		return &ParentNew_;
+		return pParentNew_;
+	}
+
+	void CompareCostAndInsertTemplate(double cost)
+	{
+		bool found = false;
+		// Compare cost with all SLMTemplates
+		// If cost better that smallest in poll
+		// then insert ParentNew_ in SLMTemplates and
+		// delete template with lowest cost
+		pParentNew_->SetCost(cost);
+		if (SLMTemplates_.size() == 0)
+			SLMTemplates_.push_back(pParentNew_);
+		else {
+			int currentPos = 0;
+			for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
+				SLMTemplate* pTemplate = *it;
+				if (cost > pTemplate->GetCost()) {
+					SLMTemplates_.insert(it, pParentNew_);
+					found = true;
+					break;
+				}
+				currentPos++;
+			}
+			if (found)
+				DeleteLastTemplate();
+			else
+				delete pParentNew_;
+		}
+
 	}
 
 	void GenParents(int num)
@@ -226,6 +274,18 @@ public:
 
 private:
 
+	void DeleteLastTemplate(void)
+	{
+		//printf("%d\n\r", SLMTemplates_.size());
+		if (SLMTemplates_.size() > NUM_PARENTS) {
+			vector<SLMTemplate*>::iterator it = SLMTemplates_.end()-1;
+			SLMTemplate* pParentLast = *it;
+			//pParentLast->Print();
+			SLMTemplates_.erase(it);
+			delete pParentLast;
+		}
+	}
+
 	void GetRandomTemplateIdx(int &number1, int &number2)
 	{
 		number1 = rand() % NUM_PARENTS; //NUM_PARENTS;
@@ -233,6 +293,7 @@ private:
 	}
 
 	SLMTemplate BinaryTemplate1_, BinaryTemplate2_;
-	SLMTemplate Parent1_, Parent2_, ParentNew_;
+	SLMTemplate Parent1_, Parent2_;
+	SLMTemplate *pParentNew_;
 	std::vector<SLMTemplate*> SLMTemplates_;
 };

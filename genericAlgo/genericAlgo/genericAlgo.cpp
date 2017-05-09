@@ -18,6 +18,12 @@ typedef struct _CAM_IMAGE{
 
 CAM_IMAGE camImage;
 
+//#define TEST_SIZE 4
+//double costTest[TEST_SIZE] = { 2, 4, 1, 3 };
+
+#define TEST_SIZE 6
+double costTest[TEST_SIZE] = { 0, 0, 2, 4, 1, 3 };
+
 int main()
 {
 	srand(time(NULL));
@@ -28,8 +34,11 @@ int main()
 	//SLMTemplate *pParentNew;
 	GenericAlgo *pGenericAlgo = new GenericAlgo();
 
-	pGenericAlgo->StartSLM(); // Start og tag billede
-	
+	for (int i = 0; i < TEST_SIZE; i++) {
+
+		pGenericAlgo->StartSLM(); // Start og tag billede
+		pGenericAlgo->TestComputeIntencity(costTest[i]);
+	}
 
 	// Billede er taget kaldes fra Qt
 	memset(&camImage, 0, sizeof(CAM_IMAGE));
