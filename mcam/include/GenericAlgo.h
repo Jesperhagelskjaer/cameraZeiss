@@ -4,7 +4,7 @@
 #include "SLMParents.h"
 #include "TemplateImages.h"
 
-#define NUM_PARENTS 30 // Number of parents
+#define NUM_PARENTS 2 // Number of parents
 
 class GenericAlgo {
 public:

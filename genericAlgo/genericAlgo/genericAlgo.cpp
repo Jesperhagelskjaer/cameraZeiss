@@ -14,27 +14,36 @@
 typedef struct _CAM_IMAGE{
 	IMAGE_HEADER header;
 	unsigned short image[CAM_WIDTH * CAM_HEIGHT];
-} CAM_IMAGE;
+	} CAM_IMAGE;
 
 CAM_IMAGE camImage;
 
 int main()
 {
 	srand(time(NULL));
+	//camImage.image[0] = 100;
+	//cout << camImage.image[1] << "test" << endl;
+	//printf("Matrix: %d %d %d %d %d %d %d\r\n", camImage.image[0],camImage.image[1], camImage.image[2], camImage.image[3], camImage.image[4], camImage.image[5], camImage.image[6]);
+	
 	//SLMTemplate *pParentNew;
 	GenericAlgo *pGenericAlgo = new GenericAlgo();
 
 	pGenericAlgo->StartSLM(); // Start og tag billede
-
+	
 
 	// Billede er taget kaldes fra Qt
 	memset(&camImage, 0, sizeof(CAM_IMAGE));
+
+	camImage.image[1+ CAM_WIDTH] = 10000;
+	camImage.image[1 + CAM_HEIGHT] = 1;
 	camImage.header.headerSize = sizeof(IMAGE_HEADER);
 	camImage.header.binX = 2;
 	camImage.header.binY = 2;
 	camImage.header.roiWidth = 2 * CAM_WIDTH;
 	camImage.header.roiHeight = 2 * CAM_HEIGHT;
 	camImage.header.bitsPerPixel = MCAM_BPP_MONO;
+	//cout << "Image værdi = " << camImage.image[0] << endl;
+
 	RECT rect;
 	rect.left = 0;
 	rect.right = COLS;
