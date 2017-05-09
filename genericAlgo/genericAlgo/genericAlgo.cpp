@@ -19,11 +19,8 @@ typedef struct _CAM_IMAGE{
 
 CAM_IMAGE camImage;
 
-//#define TEST_SIZE 4
-//double costTest[TEST_SIZE] = { 2, 4, 1, 3 };
 
-
-// SLMInterface SDK
+/* SLMInterface SDK
 const unsigned int bits_per_pixel = 8U;
 const unsigned int pixel_dimension = 512U;
 const bool         is_nematic_type = true;
@@ -36,20 +33,24 @@ bool         constructed_okay = true;
 Blink_SDK sdk(bits_per_pixel, pixel_dimension, &n_boards_found,
 	&constructed_okay, is_nematic_type, RAM_write_enable,
 	use_GPU_if_available, 20U, regional_lut_file);
+*/
 
+//#define TEST_SIZE 4
+//double costTest[TEST_SIZE] = { 2, 4, 1, 3 };
 
 #define TEST_SIZE 6
 double costTest[TEST_SIZE] = { 0, 0, 2, 4, 1, 3 };
 
 int main()
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	//camImage.image[0] = 100;
 	//cout << camImage.image[1] << "test" << endl;
 	//printf("Matrix: %d %d %d %d %d %d %d\r\n", camImage.image[0],camImage.image[1], camImage.image[2], camImage.image[3], camImage.image[4], camImage.image[5], camImage.image[6]);
 	
 	//SLMTemplate *pParentNew;
-	GenericAlgo *pGenericAlgo = new GenericAlgo(&sdk);
+	//GenericAlgo *pGenericAlgo = new GenericAlgo(&sdk);
+	GenericAlgo *pGenericAlgo = new GenericAlgo();
 
 	for (int i = 0; i < TEST_SIZE; i++) {
 
