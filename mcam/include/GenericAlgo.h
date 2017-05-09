@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "SLMParents.h"
 #include "TemplateImages.h"
+//KBE??? 
 #include "SLMInterface.h"
 
 #define NUM_PARENTS 2 // Number of parents
@@ -14,7 +15,9 @@ public:
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
-		pSLMInterface_ = new SLMInterface();
+
+#ifdef	SLM_INTERFACE_
+	   pSLMInterface_ = new SLMInterface();
 	};
 
 	GenericAlgo(Blink_SDK *pSLMsdk)
@@ -22,6 +25,8 @@ public:
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
 		pSLMInterface_ = new SLMInterface(pSLMsdk);
+#endif
+
 	};
 
 	void StartSLM()
@@ -32,8 +37,10 @@ public:
 		} else {
 			pSLMParents_->GenerateNewParent();
 		}
+#ifdef	SLM_INTERFACE_
 		//pSLMInterface_->SendTestPhase(pSLMParents_->GetNewParentMatrixPtr(), M);
 		pSLMInterface_->SendPhase(pSLMParents_->GetNewParentMatrixPtr());
+#endif
 	};
 
 	void TestComputeIntencity(double cost)
@@ -62,19 +69,28 @@ public:
 
 		printf("Image taken L%d, R%d, T%d, B%d\r\n", rec.left, rec.right, rec.top, rec.bottom);
 		pImg_->CopyImage(pixel, height, width, rec);
+		pImg_->Print(); //KBE??? For debug only
 		cost = pImg_->ComputeIntencity();
 		pSLMParents_->CompareCostAndInsertTemplate(cost);
+		pSLMParents_->PrintTemplates(); //KBE??? For debug only
+
 	};
 
 	~GenericAlgo()
 	{
 		delete pSLMParents_;
 		delete pImg_;
+
+#ifdef	SLM_INTERFACE_
 		delete pSLMInterface_;
 	};
+private:
+		SLMInterface *pSLMInterface_;
+#else
+	};
+#endif
 
 private:
 	SLMParents *pSLMParents_;
 	CamImage *pImg_;
-	SLMInterface *pSLMInterface_;
 };
