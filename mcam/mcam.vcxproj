@@ -123,6 +123,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Application.hpp" />
+    <ClInclude Include="include\Blink_SDK.H" />
     <ClInclude Include="include\BmpUtil.h" />
     <ClInclude Include="include\ConfigReader.hpp" />
     <ClInclude Include="include\EditProperties.hpp" />
@@ -135,6 +136,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClInclude Include="include\MCamRemote.hpp" />
     <ClInclude Include="include\MCamTest.hpp" />
     <ClInclude Include="include\MCamUtil.hpp" />
+    <ClInclude Include="include\SLMInterface.h" />
     <ClInclude Include="include\SLMParents.h" />
     <ClInclude Include="include\TemplateImages.h" />
     <ClInclude Include="include\ui_mcam.h" />

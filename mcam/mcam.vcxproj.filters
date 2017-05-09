@@ -113,5 +113,20 @@
     <ClInclude Include="include\BmpUtil.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="include\GenericAlgo.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SLMParents.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TemplateImages.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Blink_SDK.H">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SLMInterface.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
