@@ -6,9 +6,30 @@ typedef std::vector<unsigned char>  uchar_vec;
 
 class SLMInterface {
 public:
-	SLMInterface(Blink_SDK *pSDK) : ramp1_(M * M), ramp2_(M * M), board_number(1)
+
+	SLMInterface(Blink_SDK *pSDK) :
+		ramp1_(M * M),
+		ramp2_(M * M),
+		board_number(1)
 	{
 		pSDK_ = pSDK;
+	};
+
+	SLMInterface() :
+		ramp1_(M * M),
+		ramp2_(M * M),
+		board_number(1)
+	{
+		const unsigned int bits_per_pixel = 8U;
+		const unsigned int pixel_dimension = 512U;
+		const bool         is_nematic_type = true;
+		const bool         RAM_write_enable = true;
+		const bool         use_GPU_if_available = true;
+		const char* const  regional_lut_file = "C:/Program Files/Meadowlark Optics/Blink OverDrive Plus/LUT Files/slm4037_at635_regional.txt"; //"SLM_regional_lut.txt"; 
+		
+		pSDK_ = new Blink_SDK(bits_per_pixel, pixel_dimension, &n_boards_found_,
+			                  &constructed_okay_, is_nematic_type, RAM_write_enable,
+			                  use_GPU_if_available, 20U, regional_lut_file);
 	};
 
 	bool SendTestPhase(unsigned char *parent, int pixel_dimension) 
@@ -62,12 +83,14 @@ public:
 	}
 
 private:
-	Blink_SDK *pSDK_;
 	uchar_vec ramp1_;
 	uchar_vec ramp2_;
-	bool toggleRamp;
-	const int board_number;
 
+	// SLM SDK variables
+	Blink_SDK *pSDK_;
+	const int board_number;
+	unsigned int n_boards_found_;
+	bool         constructed_okay_;
 
 	void phaseRandom(const size_t width,
 		const size_t height,

@@ -10,6 +10,13 @@
 class GenericAlgo {
 public:
 	
+	GenericAlgo()
+	{
+		pSLMParents_ = new SLMParents(NUM_PARENTS);
+		pImg_ = new CamImage();
+		pSLMInterface_ = new SLMInterface();
+	};
+
 	GenericAlgo(Blink_SDK *pSLMsdk)
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
