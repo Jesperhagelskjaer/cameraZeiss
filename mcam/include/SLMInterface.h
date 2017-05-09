@@ -2,6 +2,8 @@
 #include "Blink_SDK.h"
 #include "SLMParents.h"
 #include <conio.h>
+#define SLM_INTERFACE_ 1
+
 typedef std::vector<unsigned char>  uchar_vec;
 
 class SLMInterface {

@@ -19,7 +19,7 @@ CXX_FLAGS= /D_CRT_SECURE_NO_WARNINGS /DWIN32 /D_WINDOWS /W3 /Zm1000 /EHsc /GR /M
 CXX_DEFINES = $(QTDEFIENS)
 
 HFILES=include/mcam.h include/Mcam.hpp include/Application.hpp include/EditProperties.hpp include/ui_mcam.h include\MCamCameraIF.hpp include\MCamImage.hpp include\MCamRemote.hpp include\MCamTest.hpp \
-include\MCamUtil.hpp include\mcamlogger.h include\GenericAlgo.h include\SLMParents.h include\TemplateImages.h
+include\MCamUtil.hpp include\mcamlogger.h include\GenericAlgo.h include\SLMParents.h include\TemplateImages.h include\SLMInterface.h
 
 SRC_FILES=src\Main.cpp src\Application.cpp src\MCamCameraIF.cpp src\MCamImage.cpp src\MCamRemote.cpp src\BmpUtil.cpp src\MCamTest.cpp src\MCamUtil.cpp src\mcamlogger.c src\MCam.cpp src\ConfigReader.cpp src\EditProperties.cpp
 OBJ_FILES=Main.obj Application.obj MCamCameraIF.obj MCamImage.obj MCamRemote.obj BmpUtil.obj MCamTest.obj MCamUtil.obj mcamlogger.obj MCam.obj ConfigReader.obj EditProperties.obj  

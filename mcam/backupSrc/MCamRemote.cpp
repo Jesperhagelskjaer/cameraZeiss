@@ -23,7 +23,6 @@ MCamRemote::MCamRemote(Application *applicationPtr)
 	threadStarted = false;
 	stopProcessing = false;
 	strcpy(fileName, START_FILE);
-	maxLoops = 10; // Number of SLM template loops
 
 	connect(this, SIGNAL(doSingleImage()), this->applicationPtr, SLOT(doSingleShot()));
 }
@@ -97,28 +96,17 @@ void *MCamRemote::remoteProcMain(void *parm)
 	MCAM_LOG_INIT("MCamRemote::remoteProcMain")
 
 	threadStarted = true;
-	MCAM_LOGF_STATUS("Generic Algo thread started");
+	MCAM_LOGF_STATUS("Remote communication thread started");
 
-	// Wait for file to start processing
 	while (!stopProcessing) {
-
-		// Wait for start.txt file to start processing
 		waitForStart();
-
-		for (int loop = 0; loop < maxLoops && !stopProcessing; loop++) {
-			//createTestImage(); // FOR TESTING ONLY KBE???
-			printf("Generic Algo StartSLM\r\n");
-			pGenericAlgo->StartSLM();
-			//doSingleImage();
-			createTestImage();
-			
-			sem_wait(&psem);
-			//MCamUtil::sleep(10);
-			printf("Iteration completed %d\r\n", loop+1);
-		}
-
-		// Create stop.txt file to indicate completed
-		createStopFile();
+		printf("Remote single shot\r\n");
+		//createTestImage(); // FOR TESTING ONLY KBE???
+		pGenericAlgo->StartSLM();
+		doSingleImage();
+		//sem_wait(&psem);
+		//MCamUtil::sleep(10);
+		MCAM_LOGF_INFO("Remote trigger");
 	}
 	
 	threadStarted = false;
@@ -127,6 +115,87 @@ void *MCamRemote::remoteProcMain(void *parm)
 	return NULL;
 }
 
+/* Experiments
+void MCamRemote::createTestImage(void)
+{
+	QString imageTestFile("ski2.jpg");
+	QImage image;
+
+	if (image.load(imageTestFile, "jpg"))
+		saveImage(&image);
+	else
+		printf("Could not load test image\r\n");
+}
+
+void MCamRemote::createTestImage(void)
+{
+	QImageReader reader("C:\\AxiocamSDK\\mcam\\ski2.jpg");
+	reader.setAutoDetectImageFormat(true);
+	QImage image = reader.read();
+	if (image.isNull()) 
+	{
+		printf("C:\\AxiocamSDK\\mcam\\ski2.jpg ");
+		printf("Could not load test image\r\n");
+	}
+	else
+		saveImage(&image);
+
+}
+
+void MCamRemote::createTestImage(void)
+{
+	QImage image(3, 3, QImage::Format_RGB32);
+	QRgb value;
+
+	value = qRgb(189, 149, 39); // 0xffbd9527
+	image.setPixel(1, 1, value);
+
+	value = qRgb(122, 163, 39); // 0xff7aa327
+	image.setPixel(0, 1, value);
+	image.setPixel(1, 0, value);
+
+	value = qRgb(237, 187, 51); // 0xffedba31
+	image.setPixel(2, 1, value);
+
+	saveImage(&image);
+}
+
+void MCamRemote::createTestImage(void)
+{
+QImage image("ski2", "jpg");
+if (image.isNull())
+printf("Could not load test image\r\n");
+else
+saveImage(&image);
+}
+
+void MCamRemote::createTestImage(void)
+{
+	QString imageTestFile("ski2.jpg");
+	QImage image;
+	FILE *hFile;
+
+	hFile = fopen("ski2.jpg", "r"); // Check for file exist
+	if (hFile == NULL) {
+		printf("Could not read test image\r\n");
+	} else
+		fclose(hFile);
+
+	if (image.load(imageTestFile, "jpg"))
+		saveImage(&image);
+	else
+		printf("Could not load test image\r\n");
+}
+*/
+
+// NOT WORKING!!!
+void MCamRemote::saveImage(QImage *pImage)
+{
+	QString imageFile(IMAGE_FILE);
+	printf("Saving image file\r\n");
+	if (!pImage->save(imageFile, "jpg"))
+		printf("Could not save image\r\n");
+}
 
 void MCamRemote::createStopFile(void)
 {
@@ -146,12 +215,8 @@ void MCamRemote::createTestImage(void)
 	ROI imgROI;
 	unsigned short* pixel = NULL;
 	int imageSize = IMG_WIDTH*IMG_HEIGHT*3 + sizeof(IMAGE_HEADER)*2;
-	unsigned short* imageData = (unsigned short*)malloc(imageSize);
+	unsigned short* imageData = new unsigned short[imageSize];
 
-	if (imageData == 0) {
-		printf("Error allocating memory to image\r\n");
-		return;
-	}
 	IMAGE_HEADER* header = (IMAGE_HEADER*)imageData;
 
 	header->headerSize = sizeof(IMAGE_HEADER);
@@ -161,7 +226,6 @@ void MCamRemote::createTestImage(void)
 	pixel = (unsigned short*)imageData + header->headerSize / 2;
 
 	LoadBmpAsGray(TEST_FILE, &imgROI, (byte *)pixel);
-	printf("Image loaded %s\r\n", TEST_FILE);
 	header->roiWidth = imgROI.width*BYTES_PIXEL;
 	header->roiHeight = imgROI.height*BYTES_PIXEL;
 	printf("Width %d, Height %d, Header %d\r\n", header->roiWidth/BYTES_PIXEL, header->roiHeight/BYTES_PIXEL, header->headerSize);
@@ -172,16 +236,8 @@ void MCamRemote::createTestImage(void)
 void MCamRemote::saveImage(unsigned short *imageData, bool test)
 {
 	RECT rec = applicationPtr->getCurrentFrameSize();
-	
-	// KBE For test only
-	rec.left = 0;
-	rec.top = 0;
-	rec.right = COLS-1;
-	rec.bottom = ROWS-1;
 
 	pGenericAlgo->ComputeIntencity(imageData, rec);
-	//printf("Generic iter completed\r\n");
-	sem_post(&psem);
 
 /*
 	ROI imgROI;

@@ -65,7 +65,7 @@ int clamp_0_255(int x)
 */
 float round_f(float num) 
 {
-	float NumAbs = fabs(num);
+	float NumAbs = (float)fabs(num);
 	int NumAbsI = (int)(NumAbs + 0.5f);
 	float sign = num > 0 ? 1.0f : -1.0f;
 	return sign * NumAbsI;
@@ -300,6 +300,7 @@ int PreLoadBmp(char *FileName, int *Width, int *Height)
 *
 * \return None
 */
+
 void LoadBmpAsGray(char *FileName, ROI *ImSize, byte *Img)
 {
 	BMPFileHeader FileHeader;
@@ -315,11 +316,11 @@ void LoadBmpAsGray(char *FileName, ROI *ImSize, byte *Img)
 		return;
 	}
 
-	printf("File %s header %zd, info header %zd\r\n", FileName, sizeof(BMPFileHeader), sizeof(BMPInfoHeader));
+	//printf("File %s header %zd, info header %zd\r\n", FileName, sizeof(BMPFileHeader), sizeof(BMPInfoHeader));
 
 	fread(&FileHeader, sizeof(BMPFileHeader), 1, fh);
 	fread(&InfoHeader, sizeof(BMPInfoHeader), 1, fh);
-
+	/*
 	printf("Header: 0x%X, %d, %d, 0x%X \r\n",
 		FileHeader._bm_signature,
 		FileHeader._bm_file_size,
@@ -338,6 +339,7 @@ void LoadBmpAsGray(char *FileName, ROI *ImSize, byte *Img)
 		InfoHeader._bm_num_important_colors,
 		InfoHeader._bm_num_of_planes,
 		InfoHeader._bm_ver_resolution);
+	*/
 	/*
 	pData = (char *)&FileHeader;
 	for (int i = 0; i < sizeof(BMPFileHeader); i++)
@@ -352,7 +354,7 @@ void LoadBmpAsGray(char *FileName, ROI *ImSize, byte *Img)
 	ImSize->width = InfoHeader._bm_image_width;
 	Stride = ImSize->width*3;
 
-	printf("Height %d, Width %d, Stride %d\r\n", ImSize->height, ImSize->width, Stride);
+	//printf("Height %d, Width %d, Stride %d\r\n", ImSize->height, ImSize->width, Stride);
 
 	for (int i=ImSize->height-1; i>=0; i--)
 	{
@@ -591,5 +593,5 @@ float CalculateMSE(byte *Img1, byte *Img2, int Stride, ROI Size)
 float CalculatePSNR(byte *Img1, byte *Img2, int Stride, ROI Size)
 {
 	float MSE = CalculateMSE(Img1, Img2, Stride, Size);
-	return 10 * log10(255*255 / MSE);
+	return (float)(10 * log10(255*255 / MSE));
 }

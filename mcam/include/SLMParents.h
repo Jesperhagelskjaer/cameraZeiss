@@ -4,7 +4,6 @@
 #include <iomanip>
 using namespace std;
 
-
 //#define M 6  // Matrix size of SLM timeplate
 #define M 512  // Matrix size of SLM timeplate
 class SLMTemplate
@@ -31,18 +30,18 @@ public:
 		binding_ = binding;
 	};
 
+	/* Problem KBE!!!
 	void GenRandom(void)
 	{
 		unsigned char test;
 		unsigned int bindingtest_ = 3;
-		int k;
 
 		for (int i = 0; i < M; i++) {
 				while (i % bindingtest_ != 0){
 					for (int k = 0; k < M; k++){
 						matrix_[i][k] = matrix_[i-1][k];
 					}
-			++i;}
+			++i;} //KBE????
 			
 			for (int j = 0; j < M; j++) {
 				if (j % bindingtest_ == 0) {
@@ -54,14 +53,15 @@ public:
 		
 		
 	};
+	*/
 
-/*	void GenRandom(void)
+	void GenRandom(void)
 	{
 		for (int i = 0; i < M; i++)
 			for (int j = 0; j < M; j++)
 				matrix_[i][j] = rand() % 255;
 	};
-*/
+
 	void GenBinary(void)
 	{
 		for (int i = 0; i < M; i++)
@@ -94,7 +94,7 @@ public:
 	{
 
 			cout << "random mutation" << endl;
-			float propabililty = exp(-0.52); //exp(-0.52);
+			float propabililty = (float)exp(-0.52); //exp(-0.52);
 			//out << "probability:" << propabililty << endl;
 			//cout << "signel rand() call: " << (float)rand() / (float)RAND_MAX << endl;
 			int bindingtest_ = 3;
@@ -109,7 +109,7 @@ public:
 					//cout << (int)matrix_[i][j] << " " ;
 					threshold = (float)rand() / (float)RAND_MAX;
 					if (propabililty > threshold) {  
-						threshold = 1.1;
+						threshold = (float)1.1;
 						int test = rand() % 255;
 						for (int it2 = 0; it2 < bindingtest_; ++it2){
 							 
@@ -129,13 +129,13 @@ public:
 
 		//#ifdef DEBUG_
 		printf("cost: %f\r\n", cost_);
-		printf("line1: %d %d %d %d %d %d\r\n", matrix_[0][0], matrix_[0][1], matrix_[0][2], matrix_[0][3], matrix_[0][4], matrix_[0][5], matrix_[0][6]);
-		printf("line2: %d %d %d %d %d %d\r\n", matrix_[1][0], matrix_[1][1], matrix_[1][2], matrix_[1][3], matrix_[1][4], matrix_[1][5], matrix_[1][6]);
-		printf("line3: %d %d %d %d %d %d\r\n", matrix_[2][0], matrix_[2][1], matrix_[2][2], matrix_[2][3], matrix_[2][4], matrix_[2][5], matrix_[2][6]);
-		printf("line4: %d %d %d %d %d %d\r\n", matrix_[3][0], matrix_[3][1], matrix_[3][2], matrix_[3][3], matrix_[3][4], matrix_[3][5], matrix_[3][6]);
-		printf("line5: %d %d %d %d %d %d\r\n", matrix_[4][0], matrix_[4][1], matrix_[4][2], matrix_[4][3], matrix_[4][4], matrix_[4][5], matrix_[4][6]);
-		printf("line6: %d %d %d %d %d %d\r\n", matrix_[5][0], matrix_[5][1], matrix_[5][2], matrix_[5][3], matrix_[5][4], matrix_[5][5], matrix_[5][6]);
-		printf("line7: %d %d %d %d %d %d\r\n", matrix_[6][0], matrix_[6][1], matrix_[6][2], matrix_[6][3], matrix_[6][4], matrix_[6][5], matrix_[6][6]);
+		printf("line1: %d %d %d %d %d %d %d\r\n", matrix_[0][0], matrix_[0][1], matrix_[0][2], matrix_[0][3], matrix_[0][4], matrix_[0][5], matrix_[0][6]);
+		printf("line2: %d %d %d %d %d %d %d\r\n", matrix_[1][0], matrix_[1][1], matrix_[1][2], matrix_[1][3], matrix_[1][4], matrix_[1][5], matrix_[1][6]);
+		printf("line3: %d %d %d %d %d %d %d\r\n", matrix_[2][0], matrix_[2][1], matrix_[2][2], matrix_[2][3], matrix_[2][4], matrix_[2][5], matrix_[2][6]);
+		printf("line4: %d %d %d %d %d %d %d\r\n", matrix_[3][0], matrix_[3][1], matrix_[3][2], matrix_[3][3], matrix_[3][4], matrix_[3][5], matrix_[3][6]);
+		printf("line5: %d %d %d %d %d %d %d\r\n", matrix_[4][0], matrix_[4][1], matrix_[4][2], matrix_[4][3], matrix_[4][4], matrix_[4][5], matrix_[4][6]);
+		printf("line6: %d %d %d %d %d %d %d\r\n", matrix_[5][0], matrix_[5][1], matrix_[5][2], matrix_[5][3], matrix_[5][4], matrix_[5][5], matrix_[5][6]);
+		printf("line7: %d %d %d %d %d %d %d\r\n", matrix_[6][0], matrix_[6][1], matrix_[6][2], matrix_[6][3], matrix_[6][4], matrix_[6][5], matrix_[6][6]);
 	   //#endif
 	};
 
@@ -257,7 +257,7 @@ public:
 			int currentPos = 0;
 			for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
 				SLMTemplate* pTemplate = *it;
-				if (cost > pTemplate->GetCost()) {
+				if (cost >= pTemplate->GetCost()) {
 					SLMTemplates_.insert(it, pParentNew_);
 					found = true;
 					break;
