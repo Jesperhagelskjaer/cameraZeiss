@@ -3,16 +3,18 @@
 #include <windows.h>
 #include "SLMParents.h"
 #include "TemplateImages.h"
+#include "SLMInterface.h"
 
 #define NUM_PARENTS 2 // Number of parents
 
 class GenericAlgo {
 public:
 	
-	GenericAlgo() 
+	GenericAlgo(Blink_SDK *pSLMsdk)
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
+		pSLMInterface_ = new SLMInterface(pSLMsdk);
 	};
 
 	void StartSLM()
@@ -23,6 +25,8 @@ public:
 		} else {
 			pSLMParents_->GenerateNewParent();
 		}
+		//pSLMInterface_->SendTestPhase(pSLMParents_->GetNewParentMatrixPtr(), M);
+		pSLMInterface_->SendPhase(pSLMParents_->GetNewParentMatrixPtr());
 	};
 
 	void TestComputeIntencity(double cost)
@@ -59,9 +63,11 @@ public:
 	{
 		delete pSLMParents_;
 		delete pImg_;
+		delete pSLMInterface_;
 	};
 
 private:
 	SLMParents *pSLMParents_;
 	CamImage *pImg_;
+	SLMInterface *pSLMInterface_;
 };

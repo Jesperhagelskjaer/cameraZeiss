@@ -5,7 +5,8 @@
 using namespace std;
 
 
-#define M 6  // Matrix size of SLM timeplate
+//#define M 6  // Matrix size of SLM timeplate
+#define M 512  // Matrix size of SLM timeplate
 class SLMTemplate
 {
 public:
@@ -138,6 +139,11 @@ public:
 	   //#endif
 	};
 
+	unsigned char *GetMatrixPtr(void) 
+	{
+		return &matrix_[0][0];
+	}
+
 private:
 	unsigned char matrix_[M][M];
 	double cost_;
@@ -152,6 +158,7 @@ public:
 	SLMParents(int num)
 	{
 		//GenParents(num);
+		pParentNew_ = 0;
 	};
 
 	~SLMParents()
@@ -259,8 +266,10 @@ public:
 			}
 			if (found)
 				DeleteLastTemplate();
-			else
+			else {
 				delete pParentNew_;
+				pParentNew_ = 0;
+			}
 		}
 
 	}
@@ -270,6 +279,14 @@ public:
 		for (int i = 0; i < num; i++) {
 			SLMTemplates_.push_back(new SLMTemplate());
 		}
+	};
+
+	unsigned char* GetNewParentMatrixPtr(void)
+	{
+		if (pParentNew_)
+			return pParentNew_->GetMatrixPtr();
+		else
+			return 0;
 	};
 
 private:
