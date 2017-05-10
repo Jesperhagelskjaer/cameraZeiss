@@ -96,6 +96,7 @@ MCamImage::MCamImage(Application *applicationPtr)
     histogramEnabled = false;
     tmpProcessedImageData = NULL;
     cameraContext = NULL;
+	singleShotCount = 0;
 
     connect(this, SIGNAL(updateTransferRate(QString)), applicationPtr, SLOT(updateTransferRate(QString)));
     connect(this, SIGNAL(contShotStart(bool)), applicationPtr, SLOT(contShotStart(bool)));
@@ -638,17 +639,19 @@ long MCamImage::doSingleShot(long cameraIndex)
         QImage* image;
         if (result == NOERR) {
             // check if its a color image
-            IMAGE_HEADER* header = (IMAGE_HEADER*) imageData;
-            image = new QImage(header->roiWidth / header->binX, header->roiHeight / header->binY, QImage::Format_RGB32);
+			if (singleShotCount++ % REFRESH_SINGLE_SHOT_RATE == 0)
+			{
+				IMAGE_HEADER* header = (IMAGE_HEADER*)imageData;
+				image = new QImage(header->roiWidth / header->binX, header->roiHeight / header->binY, QImage::Format_RGB32);
 
-            createQImage(imageData, imageSize, image);
+				createQImage(imageData, imageSize, image);
 
-			// delegate drawing of image (pixmap) to GUI thread!
-            // (called form other thread in stress test case)
-            applicationPtr->executePaintImage(image);
-		
+				// delegate drawing of image (pixmap) to GUI thread!
+				// (called form other thread in stress test case)
+				applicationPtr->executePaintImage(image);
+			}
 			//KBE??
-			printf("Remote Save Image\r\n");
+			//printf("Remote Save Image\r\n");
 			//applicationPtr->thisMCamRemotePtr->saveImage(image);
 			applicationPtr->thisMCamRemotePtr->saveImage(imageData);
 		} else {

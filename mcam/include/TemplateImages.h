@@ -69,9 +69,12 @@ private:
 
 	void ClearData(void) 
 	{
+		memset(&data_[0][0], 0, sizeof(data_));
+		/*
 		for (int i = 0; i < ROWS; i++) 
 			for (int j = 0; j < COLS; j++)
 				data_[i][j] = 0;
+		*/
 	};
 };
 

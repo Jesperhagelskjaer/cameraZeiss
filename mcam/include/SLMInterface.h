@@ -59,27 +59,14 @@ public:
 		// Get the SLM into the second phase state, and calculate the transient
 		// frames.
 		okay = okay && pSDK_->Write_overdrive_image(board_number, ramp2_.data()) &&
-			pSDK_->Calculate_transient_frames(ramp1_.data(), &byte_count);
+			           pSDK_->Calculate_transient_frames(ramp1_.data(), &byte_count);
 
 		// Use another std::vector to store the frame sequence.
 		uchar_vec transient2(byte_count);
 		okay = okay && pSDK_->Retrieve_transient_frames(transient2.data());
 
-		// Now we've completed the pre-calculation, write to the SLM.
-		unsigned int i = 0;
-
-		while ((okay) && (!_kbhit()))
-		{
-			// Switch from second state to first, then back again.
-			okay = pSDK_->Write_transient_frames(board_number, transient2.data()) &&
-				pSDK_->Write_transient_frames(board_number, transient1.data());
-
-			++i;
-			if (!(i % 50))
-			{
-				printf("Completed cycles: %u\r", i);
-			}
-		}
+		// Switch from second state to first, then back again.
+		okay = okay && pSDK_->Write_transient_frames(board_number, transient2.data());
 
 		return okay;
 	}
@@ -107,6 +94,18 @@ private:
 			{
 				*pix++ = static_cast<unsigned char>(static_cast<int> (rand() % 255));
 			}
+		}
+
+		return;
+	}
+
+	void Consume_keystrokes()
+	{
+		// Get and throw away the character(s) entered on the console.
+		int k = 0;
+		while ((!k) || (k == 0xE0))  // Handles arrow and function keys.
+		{
+			k = _getch();
 		}
 
 		return;
@@ -157,12 +156,10 @@ private:
 			}
 		}
 
-		/*
 		if (okay)     // Loop terminated because of a keystroke?
 		{
 			Consume_keystrokes();
 		}
-		*/
 
 		return okay;
 	}

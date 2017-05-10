@@ -28,7 +28,6 @@ class MCamRemote: QObject
 	// Remote thread communication handling
 	bool threadStarted;
 	bool stopProcessing;
-	int maxLoops;
 	pthread_t remoteTid;
 	sem_t psem;
 

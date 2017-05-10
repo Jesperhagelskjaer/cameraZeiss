@@ -642,7 +642,7 @@ void Application::doSingleShot()
 {
     //KBE??? 
 	//thisMCamRemotePtr->createTestImage();
-	printf("Application::doSingleShot\r\n");
+	//printf("Application::doSingleShot\r\n");
 	//thisMCamRemotePtr->startRemoteThread();
 	thisMCamImagePtr->doSingleShot(cameraIndex);
     updateActions();

@@ -4,15 +4,17 @@
 #include <iomanip>
 using namespace std;
 
-//#define M 6  // Matrix size of SLM timeplate
-#define M 512  // Matrix size of SLM timeplate
+#define NUM_PARENTS		20	 // Number of parents
+#define NUM_ITERATIONS  1000 // Number of iterations
+#define M				512  // Matrix size of SLM timeplate
+#define BIND			4    // M modulus BIND should be equal to zero !!!!
+
 class SLMTemplate
 {
 public:
 	SLMTemplate()
 	{
 		cost_ = 0;
-		binding_ = 3;
 	};
 
 	void SetCost(double cost)
@@ -25,42 +27,36 @@ public:
 		return cost_;
 	};
 
-	void SetBinding(unsigned int binding)
-	{
-		binding_ = binding;
-	};
-
-	/* Problem KBE!!!
 	void GenRandom(void)
 	{
 		unsigned char test;
-		unsigned int bindingtest_ = 3;
+		unsigned int bindingtest_ = BIND;
 
 		for (int i = 0; i < M; i++) {
-				while (i % bindingtest_ != 0){
-					for (int k = 0; k < M; k++){
-						matrix_[i][k] = matrix_[i-1][k];
-					}
-			++i;} //KBE????
-			
+			while (i % bindingtest_ != 0 && i < M) {
+				for (int k = 0; k < M; k++) {
+					matrix_[i][k] = matrix_[i-1][k];
+				}
+				++i;
+			} 
+			if (i >= M) break;
 			for (int j = 0; j < M; j++) {
 				if (j % bindingtest_ == 0) {
 					test = rand() % 255;
 				}
 				matrix_[i][j] = test;
 			}				
-		}
-		
-		
+		}	
 	};
-	*/
 
+	/*
 	void GenRandom(void)
 	{
 		for (int i = 0; i < M; i++)
 			for (int j = 0; j < M; j++)
 				matrix_[i][j] = rand() % 255;
 	};
+	*/
 
 	void GenBinary(void)
 	{
@@ -92,16 +88,14 @@ public:
 
 	void RandomMutation(void)
 	{
-
-			cout << "random mutation" << endl;
+			//cout << "random mutation" << endl;
 			float propabililty = (float)exp(-0.52); //exp(-0.52);
 			//out << "probability:" << propabililty << endl;
 			//cout << "signel rand() call: " << (float)rand() / (float)RAND_MAX << endl;
-			int bindingtest_ = 3;
+			int bindingtest_ = BIND;
 			int j;
 			int i;
 			float threshold;
-	
 
 			for (i = 0; i < M; i += bindingtest_) {
 				//cout << "i " << i << endl;
@@ -147,11 +141,9 @@ public:
 private:
 	unsigned char matrix_[M][M];
 	double cost_;
-	unsigned int binding_;
 };
 
 
-#define NUM_PARENTS 2//30 // Number of parents
 class SLMParents
 {
 public:
@@ -230,16 +222,16 @@ public:
 		pParentNew_ = new SLMTemplate();
 		Parent1_.AddCell(Parent2_, *pParentNew_);
 		
-		cout << "Offspring parentNew: " << endl;;
-		pParentNew_->Print();
-		cout << endl;
+		//cout << "Offspring parentNew: " << endl;;
+		//pParentNew_->Print();
+		//cout << endl;
 		
 
 		//Parent1_.RandomMutation(); This must be an error 
 		pParentNew_->RandomMutation();
-		cout << "Offspring mutation: " << endl;;
-		pParentNew_->Print();
-		cout << "test" << endl;;
+		//cout << "Offspring mutation: " << endl;;
+		//pParentNew_->Print();
+		//cout << "test" << endl;;
 		return pParentNew_;
 	}
 
@@ -254,19 +246,19 @@ public:
 		if (SLMTemplates_.size() == 0)
 			SLMTemplates_.push_back(pParentNew_);
 		else {
-			int currentPos = 0;
 			for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
 				SLMTemplate* pTemplate = *it;
-				if (cost >= pTemplate->GetCost()) {
+				if (cost > pTemplate->GetCost()) {
 					SLMTemplates_.insert(it, pParentNew_);
 					found = true;
 					break;
 				}
-				currentPos++;
 			}
-			if (found)
+			if (found) {
+				printf("New template inserted cost %f\r\n", cost);
 				DeleteLastTemplate();
-			else {
+			} else {
+				printf("Template cost too low %f\r\n", cost);
 				delete pParentNew_;
 				pParentNew_ = 0;
 			}
@@ -293,10 +285,11 @@ private:
 
 	void DeleteLastTemplate(void)
 	{
-		//printf("%d\n\r", SLMTemplates_.size());
+		//printf("%d\r\n", SLMTemplates_.size());
 		if (SLMTemplates_.size() > NUM_PARENTS) {
 			vector<SLMTemplate*>::iterator it = SLMTemplates_.end()-1;
 			SLMTemplate* pParentLast = *it;
+			//printf("Deleting template\r\n");
 			//pParentLast->Print();
 			SLMTemplates_.erase(it);
 			delete pParentLast;

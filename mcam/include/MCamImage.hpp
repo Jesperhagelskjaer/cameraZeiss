@@ -16,7 +16,8 @@
 
 class Application;
 
-#define NUMBER_OF_IMG_BUFFERS 2
+#define REFRESH_SINGLE_SHOT_RATE	10
+#define NUMBER_OF_IMG_BUFFERS		2
 
 typedef enum _imgbuf_stat
 {
@@ -79,6 +80,7 @@ class MCamImage: QObject
     bool cameraChangePending;
     long pendingCameraIndex;
     long pendingSize;
+	long singleShotCount;
 
     // performance measurement
     uint64_t callback_start_us;

@@ -32,7 +32,7 @@ OBJ_LINK_FILES=semaphore.obj pthread.obj
 mcam.exe: $(MOC_OBJ_FILES) $(OBJ_FILES) $(OBJ_LINK_FILES)
        cl /DWIN32 /D_WINDOWS /W3 /Zm1000 /EHsc /GR /MD /O2 /Ob2 $(CL_LOCAL_OPTS) /D NDEBUG /Femcam.exe /Fdmcam.pdb $** \
           /link /implib:mcam.lib /version:0.0 /STACK:10000000 /machine:x64 /INCREMENTAL:NO /subsystem:console \
-          ..\libtiff\lib\libtiff.lib ..\api\lib\axcam64.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtCore4.lib ws2_32.lib advapi32.lib \
+          ..\libtiff\lib\libtiff.lib ..\api\lib\axcam64.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtCore4.lib ws2_32.lib advapi32.lib Blink_SDK.lib \
           ws2_32.lib advapi32.lib Shlwapi.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /out:$@  
 
 include\ui_mcam.h: mcam.ui

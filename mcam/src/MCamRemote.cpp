@@ -23,7 +23,6 @@ MCamRemote::MCamRemote(Application *applicationPtr)
 	threadStarted = false;
 	stopProcessing = false;
 	strcpy(fileName, START_FILE);
-	maxLoops = 10; // Number of SLM template loops
 
 	connect(this, SIGNAL(doSingleImage()), this->applicationPtr, SLOT(doSingleShot()));
 }
@@ -104,17 +103,17 @@ void *MCamRemote::remoteProcMain(void *parm)
 
 		// Wait for start.txt file to start processing
 		waitForStart();
+		printf("Generic Algo StartSLM\r\n");
 
+		int maxLoops = pGenericAlgo->GetNumIterations();
 		for (int loop = 0; loop < maxLoops && !stopProcessing; loop++) {
-			//createTestImage(); // FOR TESTING ONLY KBE???
-			printf("Generic Algo StartSLM\r\n");
 			pGenericAlgo->StartSLM();
-			//doSingleImage();
-			createTestImage();
+			doSingleImage();
+			//createTestImage();
 			
 			sem_wait(&psem);
 			//MCamUtil::sleep(10);
-			printf("Iteration completed %d\r\n", loop+1);
+			printf("%d\r\n", loop+1);
 		}
 
 		// Create stop.txt file to indicate completed
@@ -174,10 +173,12 @@ void MCamRemote::saveImage(unsigned short *imageData, bool test)
 	RECT rec = applicationPtr->getCurrentFrameSize();
 	
 	// KBE For test only
+#if 0
 	rec.left = 0;
 	rec.top = 0;
 	rec.right = COLS-1;
 	rec.bottom = ROWS-1;
+#endif
 
 	pGenericAlgo->ComputeIntencity(imageData, rec);
 	//printf("Generic iter completed\r\n");
