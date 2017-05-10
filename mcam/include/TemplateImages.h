@@ -1,7 +1,7 @@
 #pragma once
 
-#define ROWS 500 // Hight of image section
-#define COLS 500 // Width of image section
+#define ROWS 50 // Hight of image section
+#define COLS 50 // Width of image section
 
 class CamImage
 {
@@ -10,6 +10,25 @@ public:
 	CamImage() : cost_(0) 
 	{
 		ClearData();
+	};
+
+	void CopyImage(unsigned short *pImage, int height, int width)
+	{
+		ClearData();
+		if (width > COLS) {
+			printf("CamImage::CopyImage width %d too big\r\n", width);
+			return;
+		}
+		if (height > ROWS) {
+			printf("CamImage::CopyImage height %d too big\r\n", height);
+			return;
+		}
+
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+					data_[i][j] = pImage[i*width + j];
+			}
+		}
 	};
 
 	void CopyImage(unsigned short *pImage, int height, int width, RECT rec)
@@ -30,10 +49,11 @@ public:
 		id = 0;
 		for (int i = 0; i < height; i++) {
 			jd = 0;
-			for (int j = 0; j < width; j++)
+			for (int j = 0; j < width; j++) {
 				if ((rec.top <= i && i < rec.bottom) &&
 					(rec.left <= j && j < rec.right))
 					data_[id][jd++] = pImage[i*width + j];
+			}
 			if (rec.top <= i && i < rec.bottom)
 				id++;
 		}
@@ -58,8 +78,8 @@ public:
 		printf("line4: %d %d %d %d %d %d %d\r\n", data_[3][0], data_[3][1], data_[3][2], data_[3][3], data_[3][4], data_[3][5], data_[3][COLS-1]);
 		printf("line5: %d %d %d %d %d %d %d\r\n", data_[4][0], data_[4][1], data_[4][2], data_[4][3], data_[4][4], data_[4][5], data_[4][COLS-1]);
 		printf("line6: %d %d %d %d %d %d %d\r\n", data_[5][0], data_[5][1], data_[5][2], data_[5][3], data_[5][4], data_[5][5], data_[5][COLS-1]);
-		printf("line499: %d %d %d %d %d %d %d\r\n", data_[ROWS-1][0], data_[ROWS-1][1], data_[ROWS-1][2], data_[ROWS-1][3], 
-												    data_[ROWS-1][4], data_[ROWS-1][5], data_[ROWS-1][COLS - 1]);
+		printf("line49: %d %d %d %d %d %d %d\r\n", data_[ROWS-1][0], data_[ROWS-1][1], data_[ROWS-1][2], data_[ROWS-1][3], 
+												   data_[ROWS-1][4], data_[ROWS-1][5], data_[ROWS-1][COLS - 1]);
 
 	};
 

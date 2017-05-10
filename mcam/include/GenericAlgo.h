@@ -69,9 +69,17 @@ public:
 
 		// painting raw camera data to image
 		pixel = (unsigned short*)pImage + header->headerSize / 2;
-
-		//printf("Image taken L%d, R%d, T%d, B%d\r\n", rec.left, rec.right, rec.top, rec.bottom);
+#if 1
+		// For zoom in image already zoomed
+		rec.left = 225;
+		rec.top = 225;
+		rec.right = 275;
+		rec.bottom = 275;
+		//printf("Image taken L%d, R%d, T%d, B%d, H%d, W%d\r\n", rec.left, rec.right, rec.top, rec.bottom, height, width);
 		pImg_->CopyImage(pixel, height, width, rec);
+#else
+		pImg_->CopyImage(pixel, height, width);
+#endif
 		//pImg_->Print(); //KBE??? For debug only
 		cost = pImg_->ComputeIntencity();
 		pSLMParents_->CompareCostAndInsertTemplate(cost);

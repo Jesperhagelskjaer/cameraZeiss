@@ -16,7 +16,7 @@
 
 class Application;
 
-#define REFRESH_SINGLE_SHOT_RATE	10
+#define REFRESH_SINGLE_SHOT_RATE	5
 #define NUMBER_OF_IMG_BUFFERS		2
 
 typedef enum _imgbuf_stat

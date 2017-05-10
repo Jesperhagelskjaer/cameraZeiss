@@ -5,7 +5,8 @@
 using namespace std;
 
 #define NUM_PARENTS		20	 // Number of parents
-#define NUM_ITERATIONS  1000 // Number of iterations
+#define NUM_ITERATIONS  2000 // Number of iterations
+//#define NUM_ITERATIONS  200 // Number of iterations
 #define M				512  // Matrix size of SLM timeplate
 #define BIND			4    // M modulus BIND should be equal to zero !!!!
 
@@ -255,10 +256,10 @@ public:
 				}
 			}
 			if (found) {
-				printf("New template inserted cost %f\r\n", cost);
+				printf("New template inserted cost %.0f\r\n", cost);
 				DeleteLastTemplate();
 			} else {
-				printf("Template cost too low %f\r\n", cost);
+				//printf("Template cost too low %.0f\r\n", cost);
 				delete pParentNew_;
 				pParentNew_ = 0;
 			}

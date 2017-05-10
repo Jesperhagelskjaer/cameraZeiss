@@ -113,7 +113,7 @@ void *MCamRemote::remoteProcMain(void *parm)
 			
 			sem_wait(&psem);
 			//MCamUtil::sleep(10);
-			printf("%d\r\n", loop+1);
+			printf("%d\r", loop+1);
 		}
 
 		// Create stop.txt file to indicate completed

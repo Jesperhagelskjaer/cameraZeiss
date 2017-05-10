@@ -10,16 +10,15 @@ class SLMInterface {
 public:
 
 	SLMInterface(Blink_SDK *pSDK) :
-		ramp1_(M * M),
-		ramp2_(M * M),
+		oldPhase(M * M),
 		board_number(1)
 	{
 		pSDK_ = pSDK;
-	};
+		ResetInterface();
+	}
 
 	SLMInterface() :
-		ramp1_(M * M),
-		ramp2_(M * M),
+		oldPhase(M * M),
 		board_number(1)
 	{
 		const unsigned int bits_per_pixel = 8U;
@@ -32,7 +31,28 @@ public:
 		pSDK_ = new Blink_SDK(bits_per_pixel, pixel_dimension, &n_boards_found_,
 			                  &constructed_okay_, is_nematic_type, RAM_write_enable,
 			                  use_GPU_if_available, 20U, regional_lut_file);
-	};
+		ResetInterface();
+	}
+
+	~SLMInterface()
+	{
+		pSDK_->SLM_power(false);
+	}
+
+	bool ResetInterface(void) 
+	{
+		bool okay = false;
+
+		memset(oldPhase.data(), 0, M*M);
+
+		if (pSDK_->Is_slm_transient_constructed()) {
+			enum { e_n_true_frames = 5 };
+			pSDK_->Set_true_frames(e_n_true_frames);
+			pSDK_->SLM_power(true);
+			okay = pSDK_->Load_linear_LUT(board_number);
+		}
+		return okay;
+	}
 
 	bool SendTestPhase(unsigned char *parent, int pixel_dimension) 
 	{
@@ -46,34 +66,24 @@ public:
 		return result;
 	}
 
-	bool SendPhase(unsigned char *parent)
+	bool SendPhase(unsigned char *phase)
 	{
 		unsigned int byte_count = 0U;
-		bool okay;
-		okay = pSDK_->Write_overdrive_image(board_number, parent);
-		okay = okay && pSDK_->Calculate_transient_frames(ramp2_.data(), &byte_count);
+		bool okay = true;
 
-		uchar_vec transient1(byte_count);
-		okay = okay && pSDK_->Retrieve_transient_frames(transient1.data());
+		//okay = pSDK_->Write_overdrive_image(board_number, oldPhase.data());
+		okay = okay && pSDK_->Calculate_transient_frames(phase, &byte_count);
+		uchar_vec transient(byte_count);
 
-		// Get the SLM into the second phase state, and calculate the transient
-		// frames.
-		okay = okay && pSDK_->Write_overdrive_image(board_number, ramp2_.data()) &&
-			           pSDK_->Calculate_transient_frames(ramp1_.data(), &byte_count);
-
-		// Use another std::vector to store the frame sequence.
-		uchar_vec transient2(byte_count);
-		okay = okay && pSDK_->Retrieve_transient_frames(transient2.data());
-
-		// Switch from second state to first, then back again.
-		okay = okay && pSDK_->Write_transient_frames(board_number, transient2.data());
+		okay = okay && pSDK_->Retrieve_transient_frames(transient.data());
+		okay = okay && pSDK_->Write_transient_frames(board_number, transient.data());
+		std::copy(phase, phase + (M*M), oldPhase.begin());
 
 		return okay;
 	}
 
 private:
-	uchar_vec ramp1_;
-	uchar_vec ramp2_;
+	uchar_vec oldPhase;
 
 	// SLM SDK variables
 	Blink_SDK *pSDK_;
