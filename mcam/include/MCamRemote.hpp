@@ -12,6 +12,7 @@
 
 #include "mcam.h"
 #include <QObject>
+#include "TimeMeasure.h"
 #include "GenericAlgo.h"
 
 #define START_FILE "start.txt"
@@ -54,6 +55,7 @@ private:
 	void createTestImage(void);
 	int waitForStart(void);
 	void createStopFile(void);
+	TimeMeasure timeMeas;
 };
 
 #endif
