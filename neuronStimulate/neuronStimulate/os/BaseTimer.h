@@ -23,4 +23,5 @@ public:
         ::timeKillEvent( m_nID );
     }
     virtual void OnTimer()=0;  // must supply a fn in derived objects
+
 };

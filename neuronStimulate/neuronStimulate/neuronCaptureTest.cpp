@@ -264,4 +264,6 @@ int neuronCaptureTest(void)
 	{
 		std::cout << e.what();
 	}
+
+	return 0;
 }

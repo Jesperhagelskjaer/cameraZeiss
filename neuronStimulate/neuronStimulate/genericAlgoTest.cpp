@@ -44,6 +44,7 @@ double costTest[TEST_SIZE] = { 0, 0, 2, 4, 1, 3 };
 int genericAlgoTest(void)
 {
 	srand((unsigned int)time(NULL));
+	TimeMeasure timeMeasure;
 	//camImage.image[0] = 100;
 	//cout << camImage.image[1] << "test" << endl;
 	//printf("Matrix: %d %d %d %d %d %d %d\r\n", camImage.image[0],camImage.image[1], camImage.image[2], camImage.image[3], camImage.image[4], camImage.image[5], camImage.image[6]);
@@ -52,10 +53,14 @@ int genericAlgoTest(void)
 	//GenericAlgo *pGenericAlgo = new GenericAlgo(&sdk);
 	GenericAlgo *pGenericAlgo = new GenericAlgo();
 
-	for (int i = 0; i < TEST_SIZE; i++) {
-
+	for (int i = 0; i < TEST_SIZE; i++) 
+	{
+		timeMeasure.setStartTime();
 		pGenericAlgo->StartSLM(); // Start og tag billede
+		timeMeasure.printDuration("StartSLM");
+		timeMeasure.setStartTime();
 		pGenericAlgo->TestComputeIntencity(costTest[i]);
+		timeMeasure.printDuration("Compute Intencity");
 	}
 
 	// Billede er taget kaldes fra Qt
