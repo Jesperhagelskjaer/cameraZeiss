@@ -147,6 +147,7 @@
     <ClInclude Include="algos\GenericAlgo.h" />
     <ClInclude Include="algos\SLMParents.h" />
     <ClInclude Include="algos\TemplateImages.h" />
+    <ClInclude Include="DataFileThread.h" />
     <ClInclude Include="LynxRecordFast.h" />
     <ClInclude Include="net\INET_Addr.h" />
     <ClInclude Include="net\SOCK_Acceptor.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="os\Mutex.h" />
     <ClInclude Include="os\Serial.h" />
     <ClInclude Include="os\Thread.h" />
+    <ClInclude Include="os\TimeMeasure.h" />
     <ClInclude Include="os\Timer.h" />
     <ClInclude Include="slm\Blink_SDK.H" />
     <ClInclude Include="slm\SLMInterface.h" />

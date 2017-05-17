@@ -139,6 +139,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClInclude Include="include\SLMInterface.h" />
     <ClInclude Include="include\SLMParents.h" />
     <ClInclude Include="include\TemplateImages.h" />
+    <ClInclude Include="include\TimeMeasure.h" />
     <ClInclude Include="include\ui_mcam.h" />
     <ClInclude Include="include\win\pthread.h" />
     <ClInclude Include="include\win\semaphore.h" />
