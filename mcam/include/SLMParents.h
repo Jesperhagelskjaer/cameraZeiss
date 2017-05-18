@@ -5,7 +5,7 @@
 using namespace std;
 
 #define NUM_PARENTS		20	 // Number of parents
-#define NUM_ITERATIONS  2000 // Number of iterations
+#define NUM_ITERATIONS  200 // Number of iterations
 //#define NUM_ITERATIONS  200 // Number of iterations
 #define M				512  // Matrix size of SLM timeplate
 #define BIND			4    // M modulus BIND should be equal to zero !!!!
@@ -90,7 +90,7 @@ public:
 	void RandomMutation(void)
 	{
 			//cout << "random mutation" << endl;
-			float propabililty = (float)exp(-0.52); //exp(-0.52);
+			float propabililty = (float)exp(-2); //exp(-0.52);
 			//out << "probability:" << propabililty << endl;
 			//cout << "signel rand() call: " << (float)rand() / (float)RAND_MAX << endl;
 			int bindingtest_ = BIND;

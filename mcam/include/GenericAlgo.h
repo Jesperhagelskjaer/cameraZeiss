@@ -71,10 +71,10 @@ public:
 		pixel = (unsigned short*)pImage + header->headerSize / 2;
 #if 1
 		// For zoom in image already zoomed
-		rec.left = 225;
-		rec.top = 225;
-		rec.right = 275;
-		rec.bottom = 275;
+		rec.left = 245;
+		rec.top = 245;
+		rec.right = 255;
+		rec.bottom = 255;
 		//printf("Image taken L%d, R%d, T%d, B%d, H%d, W%d\r\n", rec.left, rec.right, rec.top, rec.bottom, height, width);
 		pImg_->CopyImage(pixel, height, width, rec);
 #else

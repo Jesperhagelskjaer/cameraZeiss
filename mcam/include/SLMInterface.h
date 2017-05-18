@@ -26,7 +26,7 @@ public:
 		const bool         is_nematic_type = true;
 		const bool         RAM_write_enable = true;
 		const bool         use_GPU_if_available = true;
-		const char* const  regional_lut_file = "C:/Program Files/Meadowlark Optics/Blink OverDrive Plus/LUT Files/slm4037_at635_regional.txt"; //"SLM_regional_lut.txt"; 
+		const char* const  regional_lut_file = "C:/Program Files/Meadowlark Optics/Blink OverDrive Plus/LUT Files/slm4037_at532_regional.txt"; //"SLM_regional_lut.txt"; 
 		
 		pSDK_ = new Blink_SDK(bits_per_pixel, pixel_dimension, &n_boards_found_,
 			                  &constructed_okay_, is_nematic_type, RAM_write_enable,
