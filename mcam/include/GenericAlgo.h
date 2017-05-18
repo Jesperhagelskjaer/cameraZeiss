@@ -34,15 +34,21 @@ public:
 
 	void StartSLM()
 	{
+		//timeMeas.setStartTime();
+
 		if (pSLMParents_->IsTemplatesFull()) {
 			//pSLMParents_->PrintTemplates();
 			pSLMParents_->GenerateOffspring(1);
+			//timeMeas.printDuration("Generic Offspring");
 		} else {
 			pSLMParents_->GenerateNewParent();
+			//timeMeas.printDuration("Generic New Parent");
 		}
 #ifdef	SLM_INTERFACE_
+		//timeMeas.setStartTime();
 		//pSLMInterface_->SendTestPhase(pSLMParents_->GetNewParentMatrixPtr(), M);
 		pSLMInterface_->SendPhase(pSLMParents_->GetNewParentMatrixPtr());
+		//timeMeas.printDuration("SLM Send Phase");
 #endif
 	};
 
@@ -106,4 +112,5 @@ private:
 	int num_iterations_;
 	SLMParents *pSLMParents_;
 	CamImage *pImg_;
+	TimeMeasure timeMeas;
 };
