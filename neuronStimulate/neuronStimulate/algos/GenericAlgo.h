@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "SLMParents.h"
 #include "TemplateImages.h"
+#include "TimeMeasure.h"
 //KBE??? #include "SLMInterface.h"
 
 class GenericAlgo {

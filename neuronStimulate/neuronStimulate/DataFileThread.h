@@ -1,5 +1,5 @@
 #include "Thread.h"
-#include "LynxRecordFast.h"
+#include "LynxRecord.h"
 
 class DataFileThread : public Thread
 {
