@@ -108,11 +108,11 @@ void *MCamRemote::remoteProcMain(void *parm)
 		int maxLoops = pGenericAlgo->GetNumIterations();
 		for (int loop = 0; loop < maxLoops && !stopProcessing; loop++) {
 
-			timeMeas.setStartTime();
+			//timeMeas.setStartTime();
 			pGenericAlgo->StartSLM();
-			timeMeas.printDuration("Generic and SLM");
+			//timeMeas.printDuration("Generic and SLM");
 
-			timeMeas.setStartTime();
+			//timeMeas.setStartTime();
 			//createTestImage();
 			doSingleImage();
 			
@@ -186,11 +186,11 @@ void MCamRemote::saveImage(unsigned short *imageData, bool test)
 	rec.bottom = ROWS-1;
 #endif
 
-	timeMeas.printDuration("Do Single Image");
+	//timeMeas.printDuration("Do Single Image");
 
-	timeMeas.setStartTime();
+	//timeMeas.setStartTime();
 	pGenericAlgo->ComputeIntencity(imageData, rec);
-	timeMeas.printDuration("Compute Intencity");
+	//timeMeas.printDuration("Compute Intencity");
 
 	//printf("Generic iter completed\r\n");
 	sem_post(&psem);

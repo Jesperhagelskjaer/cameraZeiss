@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "mcam_zei_ex.h"
 #include "GenericAlgo.h"
+#include "TimeMeasure.h"
 #include "time.h"
 #include "SLMInterface.h"
 
