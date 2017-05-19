@@ -9,7 +9,7 @@
 #include "stdafx.h"
 #include <ctime>
 #include "SOCK_WrapperFacade.h"
-#include "LynxRecordFast.h"
+#include "LynxRecord.h"
 #include "Serial.h"
 #include "BaseTimer.h"
 #include "DataFileThread.h"
