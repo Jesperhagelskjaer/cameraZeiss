@@ -17,7 +17,7 @@ public:
 
 #ifdef	SLM_INTERFACE_
 	   pSLMInterface_ = new SLMInterface();
-	};
+	}
 
 	GenericAlgo(Blink_SDK *pSLMsdk)
 	{
@@ -26,13 +26,22 @@ public:
 		pSLMInterface_ = new SLMInterface(pSLMsdk);
 #endif
 
-	};
+	}
+	
+	void TurnLaserOn(void)
+	{
+	}
 
-	int GetNumIterations(void) {
+	void TurnLaserOff(void)
+	{
+	}
+	
+	int GetNumIterations(void) 
+	{
 		return num_iterations_;
-	};
-
-	void StartSLM()
+	}
+		
+	void GenerateParent(void) 
 	{
 		if (pSLMParents_->IsTemplatesFull()) {
 			//pSLMParents_->PrintTemplates();
@@ -40,11 +49,26 @@ public:
 		} else {
 			pSLMParents_->GenerateNewParent();
 		}
+	}
+
+	void SendTemplateToSLM(void) 
+	{
 #ifdef	SLM_INTERFACE_
 		//pSLMInterface_->SendTestPhase(pSLMParents_->GetNewParentMatrixPtr(), M);
 		pSLMInterface_->SendPhase(pSLMParents_->GetNewParentMatrixPtr());
 #endif
-	};
+	}
+			
+	void StartSLM()
+	{
+		GenerateParent();
+		SendTemplateToSLM();
+	}
+	
+	void CompareCostAndInsertTemplate(double cost)
+	{
+		 pSLMParents_->CompareCostAndInsertTemplate(cost);
+	}
 
 	void TestComputeIntencity(double cost)
 	{
@@ -82,11 +106,11 @@ public:
 #endif
 		//pImg_->Print(); //KBE??? For debug only
 		cost = pImg_->ComputeIntencity();
-		pSLMParents_->CompareCostAndInsertTemplate(cost);
+		CompareCostAndInsertTemplate(cost);
 		//printf("ComputeIntencity done\r\n");
 		//pSLMParents_->PrintTemplates(); //KBE??? For debug only
 
-	};
+	}
 
 	~GenericAlgo()
 	{
@@ -95,11 +119,11 @@ public:
 
 #ifdef	SLM_INTERFACE_
 		delete pSLMInterface_;
-	};
+	}
 private:
 		SLMInterface *pSLMInterface_;
 #else
-	};
+	}
 #endif
 
 private:
