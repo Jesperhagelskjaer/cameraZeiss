@@ -76,6 +76,7 @@ public:
 		pSLMParents_->PrintTemplates();
 	}
 
+	
 	void ComputeIntencity(unsigned short *pImage, RECT rec)
 	{
 		double cost;
@@ -111,6 +112,7 @@ public:
 		//pSLMParents_->PrintTemplates(); //KBE??? For debug only
 
 	}
+	
 
 	~GenericAlgo()
 	{
