@@ -1,3 +1,6 @@
+#ifndef DATAFILETHREAD_H
+#define DATAFILETHREAD_H
+
 #include "Thread.h"
 #include "LynxRecord.h"
 
@@ -30,3 +33,5 @@ private:
 	int count;
 	bool createSingleFile;
 };
+
+#endif

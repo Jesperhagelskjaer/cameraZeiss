@@ -4,32 +4,163 @@
 //  Created on:      19-maj-2017 22:44:32
 //  Original author: au288681
 ///////////////////////////////////////////////////////////
+#include <ctime>
 #include <iostream>
 using namespace std;
 #include "CollectNeuronDataThread.h"
 
 
-CollectNeuronDataThread::CollectNeuronDataThread()
+CollectNeuronDataThread::CollectNeuronDataThread() : m_semaStart(1, 0)
 {
-
+	m_Running = false;
+	m_LynxRecord = 0;
+	m_Session = 0;
+	m_DataFileThread = 0;
+	m_bufSize = 0;
+	m_pBuffer = 0;
 }
 
 CollectNeuronDataThread::~CollectNeuronDataThread()
 {
+	delete m_DataFileThread;
+	delete m_LynxRecord;
+	delete m_Session;
+}
+
+void CollectNeuronDataThread::Create()
+{
+	char dataFileNames[50];
+	char dataFileName[50];
+	char headerFileName[50];
+	time_t t = time(0);   // get time now
+	struct tm * now = localtime(&t);
+
+	m_Session = new WSASession(); // Exception KBE!!!
+	m_LynxRecord = new LynxRecord();
+
+	// Naming data and header text files
+	sprintf(dataFileNames, "LX_%d%02d%02d_%02d%02d%02d_D",
+		now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
+		now->tm_hour, now->tm_min, now->tm_sec);
+	sprintf(dataFileName, "%s.txt", dataFileNames);
+	sprintf(headerFileName, "LX_%d%02d%02d_%02d%02d%02d_H.txt",
+		now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
+		now->tm_hour, now->tm_min, now->tm_sec);
+
+	m_bufSize = m_LynxRecord->GetBuffer(&m_pBuffer);
+	// Create memory pool
+	if (!m_LynxRecord->CreateMemPool(MEM_POOL_SIZE)) {
+		cout << "Could not allocate memory of size " << MEM_POOL_SIZE * sizeof(int) << endl;
+		exit(0);
+	}
+
+	m_LynxRecord->OpenHeaderFile(headerFileName);
+
+	if (!CREATE_SINGLE_FILE)
+	{
+		if (!m_LynxRecord->OpenChannelDataFiles(dataFileNames))
+		{
+			cout << "Could not open data files " << dataFileNames << endl;
+			exit(0);
+		}
+	}
+	else
+		m_LynxRecord->OpenDataFile(dataFileName);
+
+	// Start data file theread to save captured neuron data in files
+	m_DataFileThread = new DataFileThread(Thread::PRIORITY_NORMAL, "FileThread", m_LynxRecord, CREATE_SINGLE_FILE);
 
 }
 
 void CollectNeuronDataThread::run()
 {
+	unsigned int num = NUM_RECORDS_TOTAL;
+
+	while (1) 
+	{
+		m_semaStart.wait();
+
+		while (m_Running)
+		{
+			try
+			{ 
+
+#if 0
+				m_LynxRecord->CreatTestData(0);
+
+				while (num > 0)
+				{
+					if (m_LynxRecord->AppendDataToMemPool())
+					{
+						m_LynxRecord->AppendHeaderToFile();
+						--num;
+						if (num % 60 == 0)
+							//if (num%60 == 0)
+							Sleep(1);
+					}
+					else
+					{
+						Sleep(500);
+						cout << ".";
+					}
+					//printf("%d\r", --num);
+					Yield();
+				}
+#else
+				// Receive UPD packages from port
+				m_Socket.Bind(UDP_PORT);
+				while (num > 0)
+				{
+					// Blocking until new record received
+					sockaddr_in add = m_Socket.RecvFrom(m_pBuffer, m_bufSize);
+					if (m_LynxRecord->CheckSumOK()) // Verify using xor checksum of record data
+					{
+						//m_LynxRecord->AppendDataFloatToFile();
+						if (m_LynxRecord->AppendDataToMemPool()) {
+							m_LynxRecord->AppendHeaderToFile();
+							--num;
+						}
+						else
+							cout << "Lynx record memory space error" << endl;
+					}
+					else
+					{
+						cout << "Lynx record checksum error" << endl;
+					}
+					printf("%d\r", num);
+				}
+				//cout << "Writing data to file: " << dataFileName;
+				//m_LynxRecord->AppendMemPoolIntToFile();
+#endif
+				while (!m_LynxRecord->isMemPoolEmpty(true))
+				{
+					cout << "Wait for empty memory pool" << endl;
+					Sleep(500);
+				}
+				cout << "Closing file: " << endl;
+				m_LynxRecord->CloseFiles();
+
+				//turnLaserOff(serialPort);
+				//serialPort->Close();
+				//delete serialPort;
+
+			}
+			catch (std::system_error& e)
+			{
+				std::cout << e.what();
+			}
+		}
+	}
 
 }
 
 void CollectNeuronDataThread::Start()
 {
-
+	m_Running = true;
+	m_semaStart.signal();
 }
 
 void CollectNeuronDataThread::Stop()
 {
-
+	m_Running = false;
 }

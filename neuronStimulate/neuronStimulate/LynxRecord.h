@@ -162,7 +162,7 @@ public:
 	bool isMemPoolEmpty(bool print = false) 
 	{
 		if (print) 
-			printf("Read 0x%08X - Write 0x%08X\r\n", pMemPoolReadPtr, pMemPoolWritePtr);
+			printf("Read 0x%016llX - Write 0x%016llX\r\n", (long long)pMemPoolReadPtr, (long long)pMemPoolWritePtr);
 		return (pMemPoolReadPtr == pMemPoolWritePtr);
 	}
 

@@ -10,8 +10,7 @@
 
 #include "Configuration.h"
 #include "StimulateNeuronThread.h"
-#include "CollectNeuronDataThread.h"
-#include "DataFileThread.h"
+//#include "CollectNeuronDataThread.h"
 
 class UserInterface
 {
@@ -19,12 +18,13 @@ class UserInterface
 public:
 	UserInterface();
 	virtual ~UserInterface();
+	void Create();
+	void run();
+
+private:
 	Configuration *m_Configuration;
 	StimulateNeuronThread *m_StimulateNeuronThread;
-	CollectNeuronDataThread *m_CollectNeuronDataThread;
-	DataFileThread *m_DataFileThread;
-
-	void run();
+	//CollectNeuronDataThread *m_CollectNeuronDataThread;
 
 };
 #endif // !defined(EA_3929C698_D918_4faa_A2C9_25238069C926__INCLUDED_)

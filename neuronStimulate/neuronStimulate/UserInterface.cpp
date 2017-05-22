@@ -18,7 +18,12 @@ UserInterface::~UserInterface()
 
 }
 
-void UserInterface::run()
+void UserInterface::Create()
 {
 
+}
+
+void UserInterface::run()
+{
+	
 }
