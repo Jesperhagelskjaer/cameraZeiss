@@ -18,13 +18,16 @@ class UserInterface
 public:
 	UserInterface();
 	virtual ~UserInterface();
-	void Create();
 	void run();
 
 private:
+	void init(void);
 	Configuration *m_Configuration;
 	StimulateNeuronThread *m_StimulateNeuronThread;
 	CollectNeuronDataThread *m_CollectNeuronDataThread;
+
+	// Tests
+	void testCollectNeuronData(void);
 
 };
 #endif // !defined(EA_3929C698_D918_4faa_A2C9_25238069C926__INCLUDED_)

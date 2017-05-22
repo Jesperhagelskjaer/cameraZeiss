@@ -15,7 +15,7 @@
 
 #define CREATE_SINGLE_FILE  false	 // Store Lynx records in one file og a file for each 32 channels
 
-#define NUM_RECORDS_TOTAL	180000 // Number of Lynx records to receive in 10 minutes (30 kHz)
+//#define NUM_RECORDS_TOTAL	180000 // Number of Lynx records to receive in 0.1 minutes (30 kHz)
 //#define NUM_RECORDS_TOTAL	18000000 // Number of Lynx records to receive in 10 minutes (30 kHz)
 //#define NUM_RECORDS_TOTAL	8400000 // Number of Lynx records to receive in 4 minutes (30 kHz)
 
@@ -34,17 +34,15 @@ public:
 	CollectNeuronDataThread();
 	virtual ~CollectNeuronDataThread();
 
-	void run();
-	void Create();
-	void Start();
+	virtual void run();
+	void Start(ThreadPriority pri, string _name);
 	void Stop();
 
 private:
-	SOCK_UDP *m_SOCK_UDP;
-	Semaphore m_semaStart;
-	bool m_Running;
-	WSASession *m_Session;
+	WSASession m_Session;
 	SOCK_UDP m_Socket;
+	Semaphore m_semaStop;
+	bool m_Running;
 	char *m_pBuffer;
 	int m_bufSize;
 

@@ -4,12 +4,21 @@
 // NAME:  Thread
 // FUNC: 
 //--------------------------------------------------------
-Thread::Thread(ThreadPriority pri, string nme) 
-  : priority(pri),
-    name(nme)
+Thread::Thread()
 {
-  handle = CreateThread(NULL, 0, threadMapper,(void*) this, 0, NULL);
-  SetThreadPriority(handle, priority);
+}
+
+void Thread::runThread(ThreadPriority pri, string nme)
+{
+	priority = pri;
+	name = nme;
+	handle = CreateThread(NULL, 0, threadMapper, (void*) this, 0, NULL);
+	SetThreadPriority(handle, priority);
+}
+
+Thread::Thread(ThreadPriority pri, string nme) 
+{
+	runThread(pri, nme);
 }
 
 //--------------------------------------------------------

@@ -19,9 +19,11 @@ public:
     PRIORITY_HIGH         = THREAD_PRIORITY_HIGHEST,
   };
 
-  Thread(ThreadPriority pri = Thread::PRIORITY_NORMAL, string _name = "");
+  Thread();
+  Thread(ThreadPriority pri, string _name);
   ~Thread();
 
+  void runThread(ThreadPriority pri, string nme);
   bool setPriority(ThreadPriority pri); 
   ThreadPriority getPriority();
   string getName();
@@ -34,7 +36,8 @@ private:
   static DWORD WINAPI threadMapper(void* p) 
   { 
     ((Thread*)p)->run();
-    return 0; 
+	ExitThread(0);
+	return 0;
   }
 
 };

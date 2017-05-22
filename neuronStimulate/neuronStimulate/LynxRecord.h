@@ -107,6 +107,11 @@ public:
 		cout << "Reset memory read/write pointers" << endl;
 	}
 
+	void SignalNewData(void)
+	{
+		semaWaitForData.signal();
+	}
+
 	bool AppendDataToMemPool()
 	{
 		if (pMemPoolWritePtr == 0) return false;
@@ -125,7 +130,7 @@ public:
 			pMemPoolWritePtr += RecordSize;
 
 		    // Signal new data record in memory pool
-			semaWaitForData.signal();
+			SignalNewData();
 			return true;
 		}
 
