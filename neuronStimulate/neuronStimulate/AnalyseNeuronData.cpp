@@ -85,15 +85,16 @@ void AnalyseNeuronData::RecursiveAverage(LxRecord * pLxRecord)
 {
 	int channel;
 	int32_t sample;
-	for (int j = 0; j < NUM_BOARDS; j++)
-		for (int i = 0; i < NUM_CHANNELS; i++)
-		{
+	int newIdx = (m_avgIdx + 1) % AVG_DELAY;
+	for (int j = 0; j < NUM_BOARDS; j++) {
+		for (int i = 0; i < NUM_CHANNELS; i++) {
 			sample = pLxRecord->board[j].data[i];
 			channel = j*NUM_BOARDS + i;
 			// Computes recursive average
-			m_average[channel] = round((sample - m_averageDly[channel][m_avgIdx])/ AVG_DELAY) + m_average[channel];
+			m_average[channel] = ((double)(sample - m_averageDly[channel][m_avgIdx]) / AVG_DELAY) + m_average[channel];
 			// Save newest sample
-			m_avgIdx = (m_avgIdx + 1) % AVG_DELAY; 
-			m_averageDly[channel][m_avgIdx] = sample;
+			m_averageDly[channel][newIdx] = sample;
 		}
+	}
+	m_avgIdx = newIdx;
 }

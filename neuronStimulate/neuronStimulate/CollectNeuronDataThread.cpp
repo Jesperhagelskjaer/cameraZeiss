@@ -91,6 +91,8 @@ void CollectNeuronDataThread::run()
 
 		while (running)
 		{
+			m_LynxRecord->CreatTestData(num);
+
 			if (m_LynxRecord->AppendDataToMemPool())
 			{
 				m_AnalyseNeuronData->AnalyzeData(m_LynxRecord->GetLxRecord());
