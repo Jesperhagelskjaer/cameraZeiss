@@ -4,9 +4,9 @@
 // NAME:  Semaphore
 // FUNC:  
 //--------------------------------------------------------
-Semaphore::Semaphore(unsigned max, unsigned init)
+Semaphore::Semaphore(unsigned max, unsigned init, char *name)
 { 
-  semaphoreHandle = CreateSemaphore(NULL, (LONG)init, (LONG)max, (LPCWSTR)"MySem"); 
+  semaphoreHandle = CreateSemaphore(NULL, (LONG)init, (LONG)max, (LPCWSTR)name); 
 }
 
 //--------------------------------------------------------

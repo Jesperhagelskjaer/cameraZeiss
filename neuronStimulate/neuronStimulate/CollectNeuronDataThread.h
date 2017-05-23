@@ -35,7 +35,7 @@ public:
 	virtual ~CollectNeuronDataThread();
 
 	virtual void run();
-	void Start(ThreadPriority pri, string _name);
+	void Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData);
 	void Stop();
 
 private:

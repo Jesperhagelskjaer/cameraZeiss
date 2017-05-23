@@ -151,6 +151,7 @@
     <ClInclude Include="CollectNeuronDataThread.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="DataFileThread.h" />
+    <ClInclude Include="LxRecord.h" />
     <ClInclude Include="LynxRecord.h" />
     <ClInclude Include="net\INET_Addr.h" />
     <ClInclude Include="net\SOCK_Acceptor.h" />

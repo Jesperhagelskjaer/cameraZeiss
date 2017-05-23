@@ -10,7 +10,7 @@
 class Monitor : public Semaphore
 { 
 public:
-  Monitor() : Semaphore(1, 1) {}
+  Monitor(char *name) : Semaphore(1, 1, name) {}
   void enter()  { wait();   }
   void exit()   { signal(); }
 };

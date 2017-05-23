@@ -9,9 +9,10 @@
 
 UserInterface::UserInterface()
 {
-	m_CollectNeuronDataThread = 0;
 	m_Configuration = 0;
+	m_AnalyseNeuronData = 0;
 	m_CollectNeuronDataThread = 0;
+	m_StimulateNeuronThread = 0;
 }
 
 UserInterface::~UserInterface()
@@ -26,14 +27,55 @@ void UserInterface::init(void)
 
 void UserInterface::testCollectNeuronData(void)
 {
-	m_CollectNeuronDataThread = new CollectNeuronDataThread();
-	m_CollectNeuronDataThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "NeuronDataThread");
 
-	// Wait 5 seconds
-	Sleep(5000);
+	m_AnalyseNeuronData = new AnalyseNeuronData();
+	m_CollectNeuronDataThread = new CollectNeuronDataThread();
+	m_CollectNeuronDataThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "NeuronDataThread", m_AnalyseNeuronData);
+
+	// Wait seconds
+	for (int loop = 0; loop < 10; loop++) {
+		Sleep(500);
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);
+		Sleep(500);
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_STOP);
+		printf("Cost %f \r\n", m_AnalyseNeuronData->CalculateCost());
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_AVERAGE);
+	}
+
 	m_CollectNeuronDataThread->Stop();
 	delete m_CollectNeuronDataThread;
+	delete m_AnalyseNeuronData;
 	m_CollectNeuronDataThread = 0;
+	m_AnalyseNeuronData = 0;
+}
+
+void UserInterface::runStimulateNeuron(int channel, int loops, int delayms)
+{
+	// Create objects
+	m_AnalyseNeuronData = new AnalyseNeuronData();
+	m_CollectNeuronDataThread = new CollectNeuronDataThread();
+	m_StimulateNeuronThread = new StimulateNeuronThread();
+	m_GenericAlgo = new GenericAlgo();
+
+	// Start threads
+	m_AnalyseNeuronData->SetActiveChannel(channel);
+	m_StimulateNeuronThread->SetDelay(delayms);
+	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
+	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", m_AnalyseNeuronData, m_GenericAlgo, loops);
+
+	// Wait for completion
+	m_StimulateNeuronThread->WaitForCompletion();
+	m_CollectNeuronDataThread->Stop();
+
+	// Delete objects
+	delete m_CollectNeuronDataThread;
+	delete m_AnalyseNeuronData;
+	delete m_StimulateNeuronThread;
+	delete m_GenericAlgo;
+	m_CollectNeuronDataThread = 0;
+	m_AnalyseNeuronData = 0;
+	m_StimulateNeuronThread = 0;
+	m_GenericAlgo = 0;
 }
 
 void UserInterface::run()
@@ -45,6 +87,7 @@ void UserInterface::run()
 	while (running) {
 		printf("Select menu: \r\n");
 		printf("1. Test collect neuron data\r\n");
+		printf("2. Stimulate neuron\r\n");
 		printf("e. Exit\r\n");
 		printf("\r\n> ");
 		scanf("%c%c", &choise, &ret);
@@ -53,6 +96,9 @@ void UserInterface::run()
 		{
 			case '1':
 				testCollectNeuronData();
+				break;
+			case '2':
+				runStimulateNeuron(3, 10000, 4); // Channel (0-31), loops, ms delay
 				break;
 			case 'e':
 				running = false;

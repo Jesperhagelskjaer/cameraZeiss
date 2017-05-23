@@ -195,7 +195,8 @@ int neuronCaptureTest(void)
 		else
 			lynxRecord.OpenDataFile(dataFileName);
 
-		DataFileThread fileThread(Thread::PRIORITY_NORMAL, "FileThread", &lynxRecord, CREATE_SINGLE_FILE);
+		DataFileThread fileThread(&lynxRecord, CREATE_SINGLE_FILE);
+		fileThread.runThread(Thread::PRIORITY_NORMAL, "FileThread");
 
 		//TestLynxRecord(lynxRecord);
 		//TestSerialPort(8, 115200);

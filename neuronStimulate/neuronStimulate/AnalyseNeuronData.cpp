@@ -8,9 +8,15 @@
 #include "AnalyseNeuronData.h"
 
 
-AnalyseNeuronData::AnalyseNeuronData()
+AnalyseNeuronData::AnalyseNeuronData() : Monitor("AnalyseData")
 {
-
+	memset(m_maximum, 0, sizeof(m_maximum));
+	memset(m_averageDly, 0, sizeof(m_averageDly));
+	memset(m_average, 0, sizeof(m_average));
+	m_avgIdx = 0;
+	m_mode = MODE_AVERAGE;
+	m_modeLast = MODE_AVERAGE;
+	m_activeChannel = DEFAULT_ACTIVE_CH;
 }
 
 AnalyseNeuronData::~AnalyseNeuronData()
@@ -18,28 +24,76 @@ AnalyseNeuronData::~AnalyseNeuronData()
 
 }
 
-void AnalyseNeuronData::SetMode(int mode)
+void AnalyseNeuronData::AnalyzeData(LxRecord * pLxRecord)
 {
+	switch (m_mode) 
+	{
+		case MODE_AVERAGE:
+			if (m_modeLast != MODE_AVERAGE) {
+				memset(m_averageDly, 0, sizeof(m_averageDly));
+				memset(m_average, 0, sizeof(m_average));
+				m_avgIdx = 0;
+			}
+			RecursiveAverage(pLxRecord);
+			break;
+		case MODE_ANALYSE:
+			if (m_modeLast != MODE_ANALYSE)
+				memset(m_maximum, 0, sizeof(m_maximum));
+			SearchPattern(pLxRecord);
+			break;
+		default:
+			// Do nothing
+			break;
+	}
+	m_modeLast = m_mode;
 
 }
 
-void AnalyseNeuronData::AnalyzeData(short * pBuffer, int size)
-{
-
-}
-
+// Compute cost as difference between maximum of active channel 
+// and higest maximum of all other channels substracting measured average
 double AnalyseNeuronData::CalculateCost()
 {
+	double highestMax = 0;
+	double maximum;
 
-	return 0;
+	for (int channel = 0; channel < NUM_CHANNELS*NUM_BOARDS; channel++)
+	{
+		maximum = m_maximum[channel] - m_average[channel];
+		if (maximum > highestMax && channel != m_activeChannel)
+			highestMax = maximum;
+	}
+	return (m_maximum[m_activeChannel] - m_average[m_activeChannel] - highestMax);
 }
 
-void AnalyseNeuronData::SearchPattern()
+// Search for maximum in all samples
+void AnalyseNeuronData::SearchPattern(LxRecord * pLxRecord)
 {
-
+	int channel;
+	int32_t absSample;
+	for (int j = 0; j < NUM_BOARDS; j++)
+		for (int i = 0; i < NUM_CHANNELS; i++)
+		{
+			absSample = (int32_t)abs(pLxRecord->board[j].data[i]);
+			channel = j*NUM_BOARDS + i;
+			if (absSample > m_maximum[channel])
+				m_maximum[channel] = absSample;
+		}
 }
 
-void AnalyseNeuronData::RecursiveAverage()
+// Computes recursive average
+void AnalyseNeuronData::RecursiveAverage(LxRecord * pLxRecord)
 {
-
+	int channel;
+	int32_t sample;
+	for (int j = 0; j < NUM_BOARDS; j++)
+		for (int i = 0; i < NUM_CHANNELS; i++)
+		{
+			sample = pLxRecord->board[j].data[i];
+			channel = j*NUM_BOARDS + i;
+			// Computes recursive average
+			m_average[channel] = round((sample - m_averageDly[channel][m_avgIdx])/ AVG_DELAY) + m_average[channel];
+			// Save newest sample
+			m_avgIdx = (m_avgIdx + 1) % AVG_DELAY; 
+			m_averageDly[channel][m_avgIdx] = sample;
+		}
 }

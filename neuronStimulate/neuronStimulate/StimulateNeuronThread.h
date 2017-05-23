@@ -21,12 +21,18 @@ public:
 	virtual ~StimulateNeuronThread();
 
 	virtual void run();
-	void Start();
-	void Stop();
+	void Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData, GenericAlgo *pGenericAlgo, int iterations);
+	void WaitForCompletion();
+	void SetDelay(int ms)
+	{
+		m_delayms = ms;
+	}
 
 private:
 	GenericAlgo *m_GenericAlgo;
 	AnalyseNeuronData *m_AnalyseNeuronData;
-
+	Semaphore m_semaComplete;
+	int m_iterations;
+	int m_delayms;
 };
 #endif // !defined(EA_C34C7A4D_067D_4aaf_B24A_B39E09E63F27__INCLUDED_)

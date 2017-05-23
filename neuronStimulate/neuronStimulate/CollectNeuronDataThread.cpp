@@ -12,7 +12,7 @@ using namespace std;
 
 CollectNeuronDataThread::CollectNeuronDataThread() :
 	Thread(),
-	m_semaStop(1, 0),
+	m_semaStop(1, 0, "SemaNeuronDataThread"),
 	m_Socket(),
 	m_Session()
 {
@@ -22,13 +22,14 @@ CollectNeuronDataThread::CollectNeuronDataThread() :
 
 	m_LynxRecord = 0;
 	m_DataFileThread = 0;
+	m_AnalyseNeuronData = 0;
 }
 
 CollectNeuronDataThread::~CollectNeuronDataThread()
 {
 }
 
-void CollectNeuronDataThread::Start(ThreadPriority pri, string _name)
+void CollectNeuronDataThread::Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData)
 {
 	char dataFileNames[50];
 	char dataFileName[50];
@@ -36,6 +37,7 @@ void CollectNeuronDataThread::Start(ThreadPriority pri, string _name)
 	time_t t = time(0);   // get time now
 	struct tm * now = localtime(&t);
 
+	m_AnalyseNeuronData = pAnalyseNeuronData;
 	m_LynxRecord = new LynxRecord();
 
 	// Naming data and header text files
@@ -68,17 +70,19 @@ void CollectNeuronDataThread::Start(ThreadPriority pri, string _name)
 		m_LynxRecord->OpenDataFile(dataFileName);
 
 	// Start data file theread to save captured neuron data in files
-	runThread(pri, _name);
-	m_DataFileThread = new DataFileThread(Thread::PRIORITY_NORMAL, "FileThread", m_LynxRecord, CREATE_SINGLE_FILE);
-	
+	m_DataFileThread = new DataFileThread(m_LynxRecord, CREATE_SINGLE_FILE);
+
+	m_DataFileThread->runThread(Thread::PRIORITY_NORMAL, "FileThread");
 	m_Running = true;
+	runThread(pri, _name);
+
 }
 
 void CollectNeuronDataThread::run()
 {
 	unsigned int num = 0;
 	bool running = true;
-
+	
 	try
 	{ 
 
@@ -89,9 +93,10 @@ void CollectNeuronDataThread::run()
 		{
 			if (m_LynxRecord->AppendDataToMemPool())
 			{
+				m_AnalyseNeuronData->AnalyzeData(m_LynxRecord->GetLxRecord());
 				m_LynxRecord->AppendHeaderToFile();
 				if (!m_Running) {
-					cout << "Stopping Data File Thread" << endl;
+					//cout << "Stopping Data File Thread" << endl;
 					m_DataFileThread->Stop();
 					running = false;
 				}
@@ -120,6 +125,7 @@ void CollectNeuronDataThread::run()
 			if (m_LynxRecord->CheckSumOK()) // Verify using xor checksum of record data
 			{
 				//m_LynxRecord->AppendDataFloatToFile();
+				m_AnalyseNeuronData->AnalyzeData(m_LynxRecord->GetLxRecord());
 				if (m_LynxRecord->AppendDataToMemPool()) {
 					m_LynxRecord->AppendHeaderToFile();
 					num++;
@@ -150,6 +156,7 @@ void CollectNeuronDataThread::run()
 			Sleep(500);
 		}
 		*/
+		
 
 	}
 	catch (std::system_error& e)
@@ -158,8 +165,8 @@ void CollectNeuronDataThread::run()
 	}
 
 	// Stop thread storing data in files
-	cout << "Closing files" << endl;
 	m_LynxRecord->CloseFiles();
+	cout << "CollectNeuronDataThread stopped, Files closed" << endl;
 	m_semaStop.signal();
 }
 
@@ -173,5 +180,7 @@ void CollectNeuronDataThread::Stop()
 
 		delete m_DataFileThread;
 		delete m_LynxRecord;
+		m_DataFileThread = 0;
+		m_LynxRecord = 0;
 	}
 }

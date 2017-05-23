@@ -9,7 +9,7 @@
 class Semaphore
 {
 public:
-  Semaphore(unsigned _maxCount, unsigned _initCount);
+  Semaphore(unsigned _maxCount, unsigned _initCount, char *name);
   virtual ~Semaphore();
   virtual void wait();
   virtual void signal();

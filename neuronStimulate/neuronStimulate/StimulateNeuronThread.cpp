@@ -8,9 +8,12 @@
 #include "StimulateNeuronThread.h"
 
 
-StimulateNeuronThread::StimulateNeuronThread()
+StimulateNeuronThread::StimulateNeuronThread() :
+	Thread(),
+	m_semaComplete(1, 0, "SemaSimulateNeuronThread")
 {
-
+	m_iterations = 0;
+	m_delayms = 4; // Delay 4 ms
 }
 
 StimulateNeuronThread::~StimulateNeuronThread()
@@ -20,15 +23,37 @@ StimulateNeuronThread::~StimulateNeuronThread()
 
 void StimulateNeuronThread::run()
 {
+	double cost;
 
+	while (m_iterations > 0)
+	{
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_AVERAGE);
+		m_GenericAlgo->GenerateParent(); // 1-8 ms
+		m_GenericAlgo->SendTemplateToSLM(); // 6 ms
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);
+		m_GenericAlgo->TurnLaserOn();
+		Sleep(m_delayms); // 4 ms
+		m_GenericAlgo->TurnLaserOff();
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_STOP);
+		cost = m_AnalyseNeuronData->CalculateCost();
+		m_GenericAlgo->CompareCostAndInsertTemplate(cost);
+		printf("%d\r", m_iterations);
+		m_iterations--;
+	}
+	cout << "StimulateNeuronThread completed" << endl;
+	m_semaComplete.signal();
 }
 
-void StimulateNeuronThread::Start()
+void StimulateNeuronThread::Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData, GenericAlgo *pGenericAlgo, int iterations)
 {
 
+	m_iterations = iterations;
+	m_AnalyseNeuronData = pAnalyseNeuronData;
+	m_GenericAlgo = pGenericAlgo;
+	runThread(pri, _name);
 }
 
-void StimulateNeuronThread::Stop()
+void StimulateNeuronThread::WaitForCompletion()
 {
-
+	m_semaComplete.wait();
 }

@@ -8,16 +8,16 @@ class DataFileThread : public Thread
 {
 public:
 
-	DataFileThread(ThreadPriority pri, string _name, LynxRecord *plxRecord, bool createSingle) :
-		Thread(pri, _name),
-		m_semaStop(1, 0)
+	DataFileThread(LynxRecord *plxRecord, bool createSingle) :
+		Thread(),
+		m_semStop(1, 0, "SemaFileThread")
 	{
 		pLynxRecord = plxRecord;
 		m_createSingleFile = createSingle;
 		m_running = true;
 		m_count = 0;
 	}
-
+	
 	virtual void run() 
 	{
 		while (m_running) {
@@ -25,28 +25,28 @@ public:
 				pLynxRecord->AppendMemPoolIntToFile();
 			else
 				pLynxRecord->AppendMemPoolIntToChFiles();
-			printf("%d\r", ++m_count);
+			//printf("%d\r", ++m_count);
 			Yield();
 		}
-		//m_semaStop.signal();
+		printf("DataFileThread stopped\r\n");
+		m_semStop.signal();
 	}
 
 	void Stop(void) 
 	{
 		if (m_running) {
 			m_running = false;
-			//pLynxRecord->SignalNewData();
-			Sleep(1000);
-			//m_semaStop.wait();
+			pLynxRecord->SignalNewData();
+			m_semStop.wait();
 		}
 	}
 
 private:
+	Semaphore m_semStop;
 	LynxRecord *pLynxRecord;
 	int m_count;
 	bool m_running;
 	bool m_createSingleFile;
-	Semaphore m_semaStop;
 };
 
 #endif
