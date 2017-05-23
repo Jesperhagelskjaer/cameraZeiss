@@ -1,3 +1,5 @@
+// SLMInterface.h
+// Kim Bjerge
 #pragma once
 #include "Blink_SDK.h"
 #include "SLMParents.h"

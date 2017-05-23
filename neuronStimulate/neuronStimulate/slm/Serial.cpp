@@ -1,4 +1,5 @@
 // Serial.cpp
+// Kim Bjerge
 
 #include "windows.h"
 #include "Serial.h"

@@ -2,7 +2,7 @@
 //  UserInteface.h
 //  Implementation of the Class UserInteface
 //  Created on:      20-maj-2017 08:53:04
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 
 #if !defined(EA_3929C698_D918_4faa_A2C9_25238069C926__INCLUDED_)
@@ -15,7 +15,7 @@
 #include "GenericAlgo.h"
 
 // User parameters 
-#define GEN_ITERATIONS	10000	// Number of iterations for genetic algorithm to convergate
+#define GEN_ITERATIONS	1000	// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT		8		// COM port connected to laser
 #define DELAY_MS		4		// Delay in ms to turn laser on
 #define ACTIVE_CHANNEL  3		// Select channel 0-31

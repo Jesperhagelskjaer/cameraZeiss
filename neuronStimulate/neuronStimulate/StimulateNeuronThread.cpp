@@ -2,7 +2,7 @@
 //  StimulateNeuronThread.cpp
 //  Implementation of the Class StimulateNeuronThread
 //  Created on:      19-maj-2017 22:44:28
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 
 #include "StimulateNeuronThread.h"

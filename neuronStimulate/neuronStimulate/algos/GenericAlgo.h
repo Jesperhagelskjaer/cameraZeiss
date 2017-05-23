@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////
+//  GenericAlgo.h
+//  Implementation of the Class AnalyseNeuronData
+//  Created on:      19-maj-2017 22:44:35
+//  Original author: Kim Bjerge
+///////////////////////////////////////////////////////////
 #pragma once
 
 #include <windows.h>

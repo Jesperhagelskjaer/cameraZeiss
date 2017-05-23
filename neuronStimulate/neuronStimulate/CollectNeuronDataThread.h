@@ -2,7 +2,7 @@
 //  CollectNeuronDataThread.h
 //  Implementation of the Class CollectNeuronDataThread
 //  Created on:      19-maj-2017 22:44:32
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 
 #if !defined(EA_88D8D966_880B_41d9_8F04_02C346D2C585__INCLUDED_)
@@ -15,14 +15,9 @@
 
 #define CREATE_SINGLE_FILE  false	 // Store Lynx records in one file og a file for each 32 channels
 
-//#define NUM_RECORDS_TOTAL	180000 // Number of Lynx records to receive in 0.1 minutes (30 kHz)
-//#define NUM_RECORDS_TOTAL	18000000 // Number of Lynx records to receive in 10 minutes (30 kHz)
-//#define NUM_RECORDS_TOTAL	8400000 // Number of Lynx records to receive in 4 minutes (30 kHz)
-
-//#define NUM_RECORDS			83886 // Number of Lynx records to receive in 4 minutes (30 kHz) - Max heap space 1073741842 = 1 GByte Heap
 #define NUM_RECORDS			8388608 // Number of Lynx records to receive in 4 minutes (30 kHz) - Max heap space 1073741842 = 1 GByte Heap
 #define UDP_PORT			26090    // 31000, 26090, 
-#define RECORD_DELAY		200      // 5 Hz every 200 ms
+
 // Needed size of memory pool including some overhead
 #define MEM_POOL_SIZE  ((NUM_RECORDS+1)*(NUM_BOARDS*NUM_CHANNELS))
 

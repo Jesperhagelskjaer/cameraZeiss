@@ -2,7 +2,7 @@
 //  LaserInterface.cpp
 //  Implementation of the Class LaserInterface
 //  Created on:      23-maj-2017 12:55:05
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 #include <iostream>
 using namespace std;

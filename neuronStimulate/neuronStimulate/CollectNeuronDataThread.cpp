@@ -2,7 +2,7 @@
 //  CollectNeuronDataThread.cpp
 //  Implementation of the Class CollectNeuronDataThread
 //  Created on:      19-maj-2017 22:44:32
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 #include <ctime>
 #include <iostream>
@@ -104,7 +104,6 @@ void CollectNeuronDataThread::run()
 				}
 				--num;
 				if (num % 60 == 0)
-					//if (num%60 == 0)
 					Sleep(1);
 			}
 			else

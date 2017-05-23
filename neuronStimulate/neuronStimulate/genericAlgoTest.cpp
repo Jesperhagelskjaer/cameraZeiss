@@ -1,5 +1,5 @@
 // genericAlgo.cpp : Defines the entry point for the console application.
-//
+// Kim Bjerge
 
 #include "stdafx.h"
 #include "mcam_zei_ex.h"

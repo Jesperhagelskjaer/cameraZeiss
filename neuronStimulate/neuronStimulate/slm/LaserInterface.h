@@ -2,7 +2,7 @@
 //  LaserInterface.h
 //  Implementation of the Class LaserInterface
 //  Created on:      23-maj-2017 12:55:05
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 
 #if !defined(EA_D4E13C2A_0ECA_463c_BC2E_DA49A8EC8CD5__INCLUDED_)

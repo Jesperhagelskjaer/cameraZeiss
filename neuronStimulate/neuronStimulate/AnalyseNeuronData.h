@@ -2,7 +2,7 @@
 //  AnalyseNeuronData.h
 //  Implementation of the Class AnalyseNeuronData
 //  Created on:      19-maj-2017 22:44:35
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 
 #if !defined(EA_B3564376_2AD6_4bb7_BFF4_ACB51E0312EB__INCLUDED_)

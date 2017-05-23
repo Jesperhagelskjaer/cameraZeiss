@@ -13,7 +13,8 @@ void Thread::runThread(ThreadPriority pri, string nme)
 	priority = pri;
 	name = nme;
 	handle = CreateThread(NULL, 0, threadMapper, (void*) this, 0, NULL);
-	SetThreadPriority(handle, priority);
+	if (handle != 0)
+		SetThreadPriority(handle, priority);
 }
 
 Thread::Thread(ThreadPriority pri, string nme) 

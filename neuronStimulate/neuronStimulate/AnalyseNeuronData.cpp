@@ -2,7 +2,7 @@
 //  AnalyseNeuronData.cpp
 //  Implementation of the Class AnalyseNeuronData
 //  Created on:      19-maj-2017 22:44:35
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 
 #include "AnalyseNeuronData.h"

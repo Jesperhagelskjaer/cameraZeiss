@@ -2,7 +2,7 @@
 //  UserInteface.cpp
 //  Implementation of the Class UserInteface
 //  Created on:      20-maj-2017 08:53:04
-//  Original author: au288681
+//  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 
 #include "UserInterface.h"
@@ -35,6 +35,7 @@ void UserInterface::testCollectNeuronData(void)
 
 	// Wait seconds
 	for (int loop = 0; loop < 10; loop++) {
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_AVERAGE);
 		Sleep(500);
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);
 		Sleep(500);

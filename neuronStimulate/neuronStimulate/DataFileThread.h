@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////
+//  DataFileThread.h
+//  Implementation of the Class Configuration
+//  Created on:      20-maj-2017 08:53:06
+//  Original author: Kim Bjerge
+///////////////////////////////////////////////////////////
 #ifndef DATAFILETHREAD_H
 #define DATAFILETHREAD_H
 
