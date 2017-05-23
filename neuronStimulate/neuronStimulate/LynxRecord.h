@@ -131,7 +131,7 @@ public:
 
 		for (int j = 0; j < NUM_BOARDS; j++)
 			for (int i = 0; i < NUM_CHANNELS; i++)
-				lxRecord.board[j].data[i] = 10000 * (j + 1); // +(start + i);
+				lxRecord.board[j].data[i] = 10000 * (j + 1) + (start + i);
 	}
 
 	bool isMemPoolEmpty(bool print = false) 
