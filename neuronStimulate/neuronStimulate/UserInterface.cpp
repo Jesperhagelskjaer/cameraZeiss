@@ -7,6 +7,7 @@
 
 #include "UserInterface.h"
 
+
 UserInterface::UserInterface()
 {
 	m_Configuration = 0;
@@ -22,7 +23,7 @@ UserInterface::~UserInterface()
 
 void UserInterface::init(void)
 {
-	m_Configuration = new Configuration();
+	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, DELAY_MS);
 }
 
 void UserInterface::testCollectNeuronData(void)
@@ -49,7 +50,7 @@ void UserInterface::testCollectNeuronData(void)
 	m_AnalyseNeuronData = 0;
 }
 
-void UserInterface::runStimulateNeuron(int channel, int loops, int delayms)
+void UserInterface::runStimulateNeuron(Configuration *config)
 {
 	// Create objects
 	m_AnalyseNeuronData = new AnalyseNeuronData();
@@ -58,10 +59,11 @@ void UserInterface::runStimulateNeuron(int channel, int loops, int delayms)
 	m_GenericAlgo = new GenericAlgo();
 
 	// Start threads
-	m_AnalyseNeuronData->SetActiveChannel(channel);
-	m_StimulateNeuronThread->SetDelay(delayms);
+	m_AnalyseNeuronData->SetActiveChannel(config->m_ActiveChannel);
+	m_GenericAlgo->OpenLaserPort(config->m_LaserPort);
+	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
-	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", m_AnalyseNeuronData, m_GenericAlgo, loops);
+	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", m_AnalyseNeuronData, m_GenericAlgo, config->m_NumIterations);
 
 	// Wait for completion
 	m_StimulateNeuronThread->WaitForCompletion();
@@ -98,7 +100,7 @@ void UserInterface::run()
 				testCollectNeuronData();
 				break;
 			case '2':
-				runStimulateNeuron(3, 10000, 4); // Channel (0-31), loops, ms delay
+			    runStimulateNeuron(m_Configuration); // Channel (0-31), loops, ms delay
 				break;
 			case 'e':
 				running = false;

@@ -94,7 +94,7 @@ void CollectNeuronDataThread::run()
 			if (m_LynxRecord->AppendDataToMemPool())
 			{
 				m_AnalyseNeuronData->AnalyzeData(m_LynxRecord->GetLxRecord());
-				m_LynxRecord->AppendHeaderToFile();
+				m_LynxRecord->AppendHeaderToFile(m_AnalyseNeuronData->GetMode());
 				if (!m_Running) {
 					//cout << "Stopping Data File Thread" << endl;
 					m_DataFileThread->Stop();
@@ -127,7 +127,7 @@ void CollectNeuronDataThread::run()
 				//m_LynxRecord->AppendDataFloatToFile();
 				m_AnalyseNeuronData->AnalyzeData(m_LynxRecord->GetLxRecord());
 				if (m_LynxRecord->AppendDataToMemPool()) {
-					m_LynxRecord->AppendHeaderToFile();
+					m_LynxRecord->AppendHeaderToFile(m_AnalyseNeuronData->GetMode());
 					num++;
 				}
 				else

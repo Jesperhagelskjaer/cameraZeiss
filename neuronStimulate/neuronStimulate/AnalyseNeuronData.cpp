@@ -14,8 +14,8 @@ AnalyseNeuronData::AnalyseNeuronData() : Monitor("AnalyseData")
 	memset(m_averageDly, 0, sizeof(m_averageDly));
 	memset(m_average, 0, sizeof(m_average));
 	m_avgIdx = 0;
-	m_mode = MODE_AVERAGE;
-	m_modeLast = MODE_AVERAGE;
+	m_mode = MODE_STOP;
+	m_modeLast = MODE_STOP;
 	m_activeChannel = DEFAULT_ACTIVE_CH;
 }
 

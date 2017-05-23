@@ -5,7 +5,7 @@
 using namespace std;
 
 #define NUM_PARENTS		20	 // Number of parents
-#define NUM_ITERATIONS  2000 // Number of iterations
+#define NUM_ITERATIONS  2000 // Number of iterations - only used by camera test
 //#define NUM_ITERATIONS  200 // Number of iterations
 #define M				512  // Matrix size of SLM timeplate
 #define BIND			4    // M modulus BIND should be equal to zero !!!!

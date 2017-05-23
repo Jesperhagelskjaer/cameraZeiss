@@ -302,6 +302,18 @@ public:
 		}
 	}
 
+	void AppendHeaderToFile(uint32_t mode)
+	{
+		if (headerStream != NULL)
+		{
+			fprintf(headerStream, "%u,%u, %u\n",
+				lxRecord.header.timestampHigh,
+				lxRecord.header.timestampLow, 
+				mode);
+		}
+	}
+
+
 	void CloseDataFile(void) 
 	{
 		if (dataStream != NULL)

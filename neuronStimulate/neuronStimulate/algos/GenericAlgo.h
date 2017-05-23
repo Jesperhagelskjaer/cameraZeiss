@@ -4,12 +4,13 @@
 #include "SLMParents.h"
 #include "TemplateImages.h"
 #include "TimeMeasure.h"
+#include "LaserInterface.h"
 //KBE??? #include "SLMInterface.h"
 
 class GenericAlgo {
 public:
 	
-	GenericAlgo()
+	GenericAlgo() : laser(115200)
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
@@ -28,12 +29,19 @@ public:
 
 	}
 	
+	void OpenLaserPort(int port)
+	{
+		laser.OpenPort(port);
+	}
+
 	void TurnLaserOn(void)
 	{
+		laser.TurnOn();
 	}
 
 	void TurnLaserOff(void)
 	{
+		laser.TurnOff();
 	}
 	
 	int GetNumIterations(void) 
@@ -132,4 +140,5 @@ private:
 	int num_iterations_;
 	SLMParents *pSLMParents_;
 	CamImage *pImg_;
+	LaserInterface laser;
 };

@@ -168,6 +168,7 @@
     <ClInclude Include="os\TimeMeasure.h" />
     <ClInclude Include="os\Timer.h" />
     <ClInclude Include="slm\Blink_SDK.H" />
+    <ClInclude Include="slm\LaserInterface.h" />
     <ClInclude Include="slm\Serial.h" />
     <ClInclude Include="slm\SLMInterface.h" />
     <ClInclude Include="stdafx.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="neuronStimulate.cpp" />
     <ClCompile Include="os\Semaphore.cpp" />
     <ClCompile Include="os\Thread.cpp" />
+    <ClCompile Include="slm\LaserInterface.cpp" />
     <ClCompile Include="slm\Serial.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

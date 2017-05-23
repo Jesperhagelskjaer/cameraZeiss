@@ -12,7 +12,7 @@
 #include "LxRecord.h"
 
 
-#define AVG_DELAY			100		// Length of average delay line
+#define AVG_DELAY			50		// Length of average delay line, at 30 KHz equal to 1.66 ms
 #define DEFAULT_ACTIVE_CH	2		// Active channel for where cost is computed
 
 class AnalyseNeuronData : public Monitor
@@ -21,13 +21,18 @@ class AnalyseNeuronData : public Monitor
 public:
 	// Analysing modes
 	enum MODES {
-		MODE_AVERAGE,
-		MODE_ANALYSE,
-		MODE_STOP
+		MODE_STOP = 0,
+		MODE_AVERAGE = 1,
+		MODE_ANALYSE = 2
 	};
 
 	AnalyseNeuronData();
 	virtual ~AnalyseNeuronData();
+
+	MODES GetMode(void)
+	{
+		return m_mode;
+	}
 
 	void SetMode(MODES mode) 
 	{
