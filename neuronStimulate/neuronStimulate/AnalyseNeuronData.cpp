@@ -50,7 +50,8 @@ void AnalyseNeuronData::AnalyzeData(LxRecord * pLxRecord)
 }
 
 // Compute cost as difference between maximum of active channel 
-// and higest maximum of all other channels substracting measured average
+// and higest maximum of all other channels
+// where measured average already is substracted
 double AnalyseNeuronData::CalculateCost()
 {
 	double highestMax = 0;
@@ -58,14 +59,14 @@ double AnalyseNeuronData::CalculateCost()
 
 	for (int channel = 0; channel < NUM_CHANNELS*NUM_BOARDS; channel++)
 	{
-		maximum = m_maximum[channel] - m_average[channel];
+		maximum = m_maximum[channel];
 		if (maximum > highestMax && channel != m_activeChannel)
 			highestMax = maximum;
 	}
-	return (m_maximum[m_activeChannel] - m_average[m_activeChannel] - highestMax);
+	return (m_maximum[m_activeChannel] - highestMax);
 }
 
-// Search for maximum in all samples
+// Search for maximum in all samples substracting measured average
 void AnalyseNeuronData::SearchPattern(LxRecord * pLxRecord)
 {
 	int channel;
@@ -73,8 +74,9 @@ void AnalyseNeuronData::SearchPattern(LxRecord * pLxRecord)
 	for (int j = 0; j < NUM_BOARDS; j++)
 		for (int i = 0; i < NUM_CHANNELS; i++)
 		{
-			absSample = (int32_t)abs(pLxRecord->board[j].data[i]);
 			channel = j*NUM_BOARDS + i;
+			// Calculate absolute value as sample minus measured average
+			absSample = (int32_t)round(abs(pLxRecord->board[j].data[i] - m_average[channel])); 
 			if (absSample > m_maximum[channel])
 				m_maximum[channel] = absSample;
 		}

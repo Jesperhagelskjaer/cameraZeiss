@@ -12,6 +12,7 @@
 #include "LynxRecord.h"
 #include "DataFileThread.h"
 #include "AnalyseNeuronData.h"
+#include "TestDataGenerator.h"
 
 #define CREATE_SINGLE_FILE  false	 // Store Lynx records in one file og a file for each 32 channels
 
@@ -44,6 +45,7 @@ private:
 	AnalyseNeuronData *m_AnalyseNeuronData;
 	LynxRecord *m_LynxRecord;
 	DataFileThread *m_DataFileThread;
+	TestDataGenerator *m_TestDataGenerator;
 
 };
 #endif // !defined(EA_88D8D966_880B_41d9_8F04_02C346D2C585__INCLUDED_)

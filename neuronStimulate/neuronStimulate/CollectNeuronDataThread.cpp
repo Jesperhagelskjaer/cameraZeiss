@@ -23,10 +23,12 @@ CollectNeuronDataThread::CollectNeuronDataThread() :
 	m_LynxRecord = 0;
 	m_DataFileThread = 0;
 	m_AnalyseNeuronData = 0;
+	m_TestDataGenerator = new TestDataGenerator();
 }
 
 CollectNeuronDataThread::~CollectNeuronDataThread()
 {
+	delete m_TestDataGenerator;
 }
 
 void CollectNeuronDataThread::Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData)
@@ -91,7 +93,13 @@ void CollectNeuronDataThread::run()
 
 		while (running)
 		{
-			m_LynxRecord->CreatTestData(num);
+			//m_LynxRecord->CreatTestData(num);
+			
+			if (m_AnalyseNeuronData->GetMode() == AnalyseNeuronData::MODE_ANALYSE)
+				m_TestDataGenerator->SetPulseActive(true);
+			else
+				m_TestDataGenerator->SetPulseActive(false);
+			m_TestDataGenerator->GenerateSampleRecord((LRECORD *)m_pBuffer);
 
 			if (m_LynxRecord->AppendDataToMemPool())
 			{
