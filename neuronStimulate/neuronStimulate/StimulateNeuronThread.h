@@ -34,5 +34,6 @@ private:
 	Semaphore m_semaComplete;
 	int m_iterations;
 	int m_delayms;
+	TimeMeasure timeMeas;
 };
 #endif // !defined(EA_C34C7A4D_067D_4aaf_B24A_B39E09E63F27__INCLUDED_)

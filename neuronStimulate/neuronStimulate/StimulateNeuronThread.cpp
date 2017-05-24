@@ -27,16 +27,24 @@ void StimulateNeuronThread::run()
 
 	while (m_iterations > 0)
 	{
+			//timeMeas.setStartTime();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_AVERAGE);
 		m_GenericAlgo->GenerateParent(); // 1-8 ms
+			//timeMeas.printDuration("Generate Parent");
+			//timeMeas.setStartTime();
 		m_GenericAlgo->SendTemplateToSLM(); // 6 ms
+			//timeMeas.printDuration("Send to SLM");
+			//timeMeas.setStartTime();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);
 		m_GenericAlgo->TurnLaserOn();
 		Sleep(m_delayms); // 4 ms
 		m_GenericAlgo->TurnLaserOff();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_STOP);
+			//timeMeas.printDuration("Stimulate");
+			//timeMeas.setStartTime();
 		cost = m_AnalyseNeuronData->CalculateCost();
 		m_GenericAlgo->CompareCostAndInsertTemplate(cost);
+			//timeMeas.printDuration("Compute Cost");
 		printf("%d\r", m_iterations);
 		m_iterations--;
 	}
