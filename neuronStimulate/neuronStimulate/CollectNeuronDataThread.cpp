@@ -9,6 +9,8 @@
 using namespace std;
 #include "CollectNeuronDataThread.h"
 
+// To be defined for testing
+#define TEST_GENERATOR_
 
 CollectNeuronDataThread::CollectNeuronDataThread() :
 	Thread(),
@@ -88,7 +90,7 @@ void CollectNeuronDataThread::run()
 	try
 	{ 
 
-#if 1
+#ifdef TEST_GENERATOR_
 		m_LynxRecord->CreatTestData(0);
 
 		while (running)

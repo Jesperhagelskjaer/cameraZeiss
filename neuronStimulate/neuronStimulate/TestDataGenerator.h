@@ -24,8 +24,12 @@ public:
 	void GenerateSampleRecord(LRECORD *pLxRecord);
 
 private:
+	int32_t GenSine(int channel);
+
 	LRECORD m_LRECORD;
 	bool m_generatePulse;
+	double m_omega;
+	int m_n;
 };
 
 #endif // !defined(EA_6A44561D_E653_418c_AA0E_EB74C9963716__INCLUDED_)

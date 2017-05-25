@@ -17,8 +17,8 @@
 // User parameters 
 #define GEN_ITERATIONS	100	// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT		8		// COM port connected to laser
-#define DELAY_MS		3		// Delay in ms to turn laser on
-#define ACTIVE_CHANNEL  3		// Select channel 0-31
+#define DELAY_MS		4		// Delay in ms to turn laser on
+#define ACTIVE_CHANNEL  31		// Select channel 0-31
 
 class UserInterface
 {

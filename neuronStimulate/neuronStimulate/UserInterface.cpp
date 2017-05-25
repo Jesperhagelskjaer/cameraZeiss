@@ -62,9 +62,9 @@ void UserInterface::runStimulateNeuron(Configuration *config)
 	// Start threads
 	m_AnalyseNeuronData->SetActiveChannel(config->m_ActiveChannel);
 	m_GenericAlgo->OpenLaserPort(config->m_LaserPort);
-	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
 	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", m_AnalyseNeuronData, m_GenericAlgo, config->m_NumIterations);
+	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
 
 	// Wait for completion
 	m_StimulateNeuronThread->WaitForCompletion();

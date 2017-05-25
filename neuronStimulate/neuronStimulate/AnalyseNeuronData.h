@@ -14,6 +14,7 @@
 
 #define AVG_DELAY			50		// Length of average delay line, at 30 KHz equal to 1.66 ms
 #define DEFAULT_ACTIVE_CH	2		// Active channel for where cost is computed
+#define ANALYSE_SAMPLES     120     // Default number of samples to analyse
 
 class AnalyseNeuronData : public Monitor
 {
@@ -34,13 +35,31 @@ public:
 		return m_mode;
 	}
 
+	void SetDelaySamples(int delay)
+	{
+		enter();
+		m_analyseSamples = delay;
+		m_countSamples = delay;
+		exit();
+	}
+
 	void SetMode(MODES mode) 
 	{
+		enter();
 		m_mode = mode;
+		exit();
 	}
+
 	void SetActiveChannel(int ch)
 	{
+		enter();
 		m_activeChannel = ch;
+		exit();
+	}
+
+	void WaitAnalyseSamples(void)
+	{
+		m_semaAnalyseComplete.wait();
 	}
 
 	virtual void AnalyzeData(LxRecord * pLxRecord);
@@ -57,5 +76,8 @@ private:
 	MODES m_mode;
 	MODES m_modeLast;
 	int m_activeChannel;
+	int m_analyseSamples;
+	int m_countSamples;
+	Semaphore m_semaAnalyseComplete;
 };
 #endif // !defined(EA_B3564376_2AD6_4bb7_BFF4_ACB51E0312EB__INCLUDED_)

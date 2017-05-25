@@ -13,6 +13,8 @@
 #include "GenericAlgo.h"
 #include "AnalyseNeuronData.h"
 
+#define SAMPLE_FREQUENCY  30000 // Hz
+
 class StimulateNeuronThread : public Thread
 {
 
@@ -26,6 +28,8 @@ public:
 	void SetDelay(int ms)
 	{
 		m_delayms = ms;
+		if (m_AnalyseNeuronData != 0)
+			m_AnalyseNeuronData->SetDelaySamples((int)ceil(SAMPLE_FREQUENCY / 1000 * ms));
 	}
 
 private:

@@ -13,7 +13,8 @@ StimulateNeuronThread::StimulateNeuronThread() :
 	m_semaComplete(1, 0, "SemaSimulateNeuronThread")
 {
 	m_iterations = 0;
-	m_delayms = 4; // Delay 4 ms
+	m_delayms = 0;
+	m_AnalyseNeuronData = 0;
 }
 
 StimulateNeuronThread::~StimulateNeuronThread()
@@ -37,11 +38,13 @@ void StimulateNeuronThread::run()
 			//timeMeas.setStartTime();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);
 		m_GenericAlgo->TurnLaserOn();
-		Sleep(m_delayms); // 4 ms
+		//Sleep(m_delayms); // 4 ms
+		m_AnalyseNeuronData->WaitAnalyseSamples();
 		m_GenericAlgo->TurnLaserOff();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_STOP);
 			//timeMeas.printDuration("Stimulate");
 			//timeMeas.setStartTime();
+		Sleep(1); // NB
 		cost = m_AnalyseNeuronData->CalculateCost();
 		m_GenericAlgo->CompareCostAndInsertTemplate(cost);
 			//timeMeas.printDuration("Compute Cost");
