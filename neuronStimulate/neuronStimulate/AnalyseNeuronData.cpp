@@ -21,11 +21,40 @@ AnalyseNeuronData::AnalyseNeuronData() :
 	m_activeChannel = DEFAULT_ACTIVE_CH;
 	m_analyseSamples = ANALYSE_SAMPLES;
 	m_countSamples = m_analyseSamples;
+	costStream = NULL;
 }
 
 AnalyseNeuronData::~AnalyseNeuronData()
 {
+	CloseCostFile();
+}
 
+int AnalyseNeuronData::OpenCostFile(char *fileName)
+{
+	bool result = true;
+	CloseCostFile(); // Close file if already opened
+	costStream = fopen(fileName, "w"); // Truncate file 
+	if (costStream == NULL)
+	{
+		printf("Unable to open file: %s\r\n", fileName);
+		result = false;
+	}
+	return result;
+}
+
+void AnalyseNeuronData::CloseCostFile(void)
+{
+	if (costStream != NULL)
+		fclose(costStream);
+	costStream = NULL;
+}
+
+int AnalyseNeuronData::AppendCostToFile(double cost)
+{
+	int res = -1;
+	if (costStream != NULL)
+		res = fprintf(costStream, "%.1f\r\n", cost);
+	return res;
 }
 
 void AnalyseNeuronData::AnalyzeData(LxRecord * pLxRecord)

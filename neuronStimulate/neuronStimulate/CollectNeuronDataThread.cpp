@@ -44,12 +44,15 @@ void CollectNeuronDataThread::Start(ThreadPriority pri, string _name, AnalyseNeu
 	m_AnalyseNeuronData = pAnalyseNeuronData;
 	m_LynxRecord = new LynxRecord();
 
-	// Naming data and header text files
+	// Naming cost, data and header text files
 	sprintf(dataFileNames, "data\\LX_%d%02d%02d_%02d%02d%02d_D",
 		now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
 		now->tm_hour, now->tm_min, now->tm_sec);
 	sprintf(dataFileName, "%s.txt", dataFileNames);
 	sprintf(headerFileName, "data\\LX_%d%02d%02d_%02d%02d%02d_H.txt",
+		now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
+		now->tm_hour, now->tm_min, now->tm_sec);
+	sprintf(m_costFileName, "data\\LX_%d%02d%02d_%02d%02d%02d_C.txt",
 		now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
 		now->tm_hour, now->tm_min, now->tm_sec);
 

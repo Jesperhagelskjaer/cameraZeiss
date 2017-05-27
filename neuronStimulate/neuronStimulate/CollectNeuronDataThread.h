@@ -33,6 +33,10 @@ public:
 	virtual void run();
 	void Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData);
 	void Stop();
+	char *GetCostFileName(void) 
+	{
+		return m_costFileName;
+	}
 
 private:
 	WSASession m_Session;
@@ -41,6 +45,8 @@ private:
 	bool m_Running;
 	char *m_pBuffer;
 	int m_bufSize;
+	char m_costFileName[50];
+
 
 	AnalyseNeuronData *m_AnalyseNeuronData;
 	LynxRecord *m_LynxRecord;

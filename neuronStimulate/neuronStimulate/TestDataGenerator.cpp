@@ -53,7 +53,8 @@ void TestDataGenerator::GenerateSampleRecord(LRECORD *pLxRecord)
 		// Generate random
 		for (int j = 0; j < NUM_BOARDS; j++)
 			for (int i = 0; i < NUM_CHANNELS; i++)
-				pLxRecord->board[j].data[i] = 100*rand()/RAND_MAX;
+				pLxRecord->board[j].data[i] = 40 * rand() / RAND_MAX;
+				//pLxRecord->board[j].data[i] = 10 * rand() / RAND_MAX;
 	}
 
 }

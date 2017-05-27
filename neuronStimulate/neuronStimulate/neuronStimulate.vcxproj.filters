@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\test">
+      <UniqueIdentifier>{b15fec1a-9bc5-46f2-919c-5e3b5e2f3b12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\slm">
+      <UniqueIdentifier>{41123f14-af65-41d3-ac78-83e34b08c65e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\os">
+      <UniqueIdentifier>{bf6a5d20-ed52-47c2-8001-42681b7cea38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\net">
+      <UniqueIdentifier>{e25a1337-3968-4504-909e-171612445eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\algos">
+      <UniqueIdentifier>{d74adb45-dce0-4165-b545-cbfc8814b867}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="net\INET_Addr.h">
+      <Filter>Source Files\net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_Acceptor.h">
+      <Filter>Source Files\net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_Connector.h">
+      <Filter>Source Files\net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_Stream.h">
+      <Filter>Source Files\net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_UDP.h">
+      <Filter>Source Files\net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_WrapperFacade.h">
+      <Filter>Source Files\net</Filter>
+    </ClInclude>
+    <ClInclude Include="os\BaseTimer.h">
+      <Filter>Source Files\os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Mailbox.h">
+      <Filter>Source Files\os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Monitor.h">
+      <Filter>Source Files\os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Mutex.h">
+      <Filter>Source Files\os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Thread.h">
+      <Filter>Source Files\os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Timer.h">
+      <Filter>Source Files\os</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\GenericAlgo.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\SLMParents.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\TemplateImages.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\Blink_SDK.H">
+      <Filter>Source Files\slm</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\SLMInterface.h">
+      <Filter>Source Files\slm</Filter>
+    </ClInclude>
+    <ClInclude Include="os\TimeMeasure.h">
+      <Filter>Source Files\os</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\Serial.h">
+      <Filter>Source Files\slm</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Semaphore.h">
+      <Filter>Source Files\os</Filter>
+    </ClInclude>
+    <ClInclude Include="CollectNeuronDataThread.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnalyseNeuronData.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StimulateNeuronThread.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterface.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\LaserInterface.h">
+      <Filter>Source Files\slm</Filter>
+    </ClInclude>
+    <ClInclude Include="DataFileThread.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LxRecord.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LynxRecord.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDataGenerator.h">
+      <Filter>Source Files\test</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="neuronStimulate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="os\Semaphore.cpp">
+      <Filter>Source Files\os</Filter>
+    </ClCompile>
+    <ClCompile Include="os\Thread.cpp">
+      <Filter>Source Files\os</Filter>
+    </ClCompile>
+    <ClCompile Include="slm\Serial.cpp">
+      <Filter>Source Files\slm</Filter>
+    </ClCompile>
+    <ClCompile Include="AnalyseNeuronData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollectNeuronDataThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StimulateNeuronThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="genericAlgoTest.cpp">
+      <Filter>Source Files\test</Filter>
+    </ClCompile>
+    <ClCompile Include="neuronCaptureTest.cpp">
+      <Filter>Source Files\test</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="slm\LaserInterface.cpp">
+      <Filter>Source Files\slm</Filter>
+    </ClCompile>
+    <ClCompile Include="TestDataGenerator.cpp">
+      <Filter>Source Files\test</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

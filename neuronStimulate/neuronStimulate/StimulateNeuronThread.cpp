@@ -46,7 +46,9 @@ void StimulateNeuronThread::run()
 			//timeMeas.setStartTime();
 		Sleep(1); // NB
 		cost = m_AnalyseNeuronData->CalculateCost();
+		//printf("cost %f\r\n", cost);
 		m_GenericAlgo->CompareCostAndInsertTemplate(cost);
+		m_AnalyseNeuronData->AppendCostToFile(cost);
 			//timeMeas.printDuration("Compute Cost");
 		printf("%d\r", m_iterations);
 		m_iterations--;

@@ -8,6 +8,8 @@
 #if !defined(EA_B3564376_2AD6_4bb7_BFF4_ACB51E0312EB__INCLUDED_)
 #define EA_B3564376_2AD6_4bb7_BFF4_ACB51E0312EB__INCLUDED_
 
+#include <stdio.h>
+
 #include "Monitor.h"
 #include "LxRecord.h"
 
@@ -34,6 +36,12 @@ public:
 	{
 		return m_mode;
 	}
+
+	int OpenCostFile(char *fileName);
+
+	int AppendCostToFile(double cost);
+
+	void CloseCostFile(void);
 
 	void SetDelaySamples(int delay)
 	{
@@ -79,5 +87,6 @@ private:
 	int m_analyseSamples;
 	int m_countSamples;
 	Semaphore m_semaAnalyseComplete;
+	FILE *costStream;
 };
 #endif // !defined(EA_B3564376_2AD6_4bb7_BFF4_ACB51E0312EB__INCLUDED_)

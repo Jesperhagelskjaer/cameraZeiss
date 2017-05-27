@@ -65,6 +65,7 @@ void UserInterface::runStimulateNeuron(Configuration *config)
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
 	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", m_AnalyseNeuronData, m_GenericAlgo, config->m_NumIterations);
 	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
+	m_AnalyseNeuronData->OpenCostFile(m_CollectNeuronDataThread->GetCostFileName());
 
 	// Wait for completion
 	m_StimulateNeuronThread->WaitForCompletion();
@@ -89,18 +90,18 @@ void UserInterface::run()
 
 	while (running) {
 		printf("Select menu: \r\n");
-		printf("1. Test collect neuron data\r\n");
-		printf("2. Stimulate neuron\r\n");
+		printf("t. Test collect neuron data\r\n");
+		printf("s. Stimulate neuron\r\n");
 		printf("e. Exit\r\n");
 		printf("\r\n> ");
 		scanf("%c%c", &choise, &ret);
 
 		switch (choise) 
 		{
-			case '1':
+			case 't':
 				testCollectNeuronData();
 				break;
-			case '2':
+			case 's':
 			    runStimulateNeuron(m_Configuration); // Channel (0-31), loops, ms delay
 				break;
 			case 'e':
