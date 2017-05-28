@@ -34,6 +34,7 @@ void StimulateNeuronThread::run()
 			//timeMeas.printDuration("Generate Parent");
 			//timeMeas.setStartTime();
 		m_GenericAlgo->SendTemplateToSLM(); // 6 ms
+		Sleep(6); // Simulate SLM delay
 			//timeMeas.printDuration("Send to SLM");
 			//timeMeas.setStartTime();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);
@@ -41,10 +42,10 @@ void StimulateNeuronThread::run()
 		//Sleep(m_delayms); // 4 ms
 		m_AnalyseNeuronData->WaitAnalyseSamples();
 		m_GenericAlgo->TurnLaserOff();
-		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_STOP);
+		//m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_STOP);
 			//timeMeas.printDuration("Stimulate");
 			//timeMeas.setStartTime();
-		Sleep(1); // NB
+		//Sleep(1); // NB
 		cost = m_AnalyseNeuronData->CalculateCost();
 		//printf("cost %f\r\n", cost);
 		m_GenericAlgo->CompareCostAndInsertTemplate(cost);

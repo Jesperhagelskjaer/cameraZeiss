@@ -51,9 +51,16 @@ void AnalyseNeuronData::CloseCostFile(void)
 
 int AnalyseNeuronData::AppendCostToFile(double cost)
 {
-	int res = -1;
-	if (costStream != NULL)
-		res = fprintf(costStream, "%.1f\r\n", cost);
+	int i, res = -1;
+	if (costStream != NULL) {
+		res = fprintf(costStream, "%.1f ", cost);
+		res += fprintf(costStream, "%d ", m_activeChannel);
+		for (i = 0; i < NUM_BOARDS*NUM_CHANNELS; i++)
+			res += fprintf(costStream, "%d ", m_maximum[i]);
+		for (i = 0; i < NUM_BOARDS*NUM_CHANNELS; i++)
+			res += fprintf(costStream, "%.1f ", m_average[i]);
+		res += fprintf(costStream, "\r\n");
+	}
 	return res;
 }
 
@@ -80,6 +87,7 @@ void AnalyseNeuronData::AnalyzeData(LxRecord * pLxRecord)
 			m_countSamples--;
 			if (m_countSamples == 0) {
 				// Signal that m_analyseSamples has been searched
+				m_mode = MODE_STOP;
 				m_semaAnalyseComplete.signal();
 			}
 			break;
@@ -98,7 +106,7 @@ void AnalyseNeuronData::AnalyzeData(LxRecord * pLxRecord)
 // where measured average already is substracted
 double AnalyseNeuronData::CalculateCost()
 {
-	//enter();
+	enter();
 
 	double highestMax = 0;
 	double maximum;
@@ -112,7 +120,7 @@ double AnalyseNeuronData::CalculateCost()
 	}
 	cost = m_maximum[m_activeChannel] - highestMax;
 	
-	//exit();
+	exit();
 
 	return cost;
 }

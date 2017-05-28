@@ -9,7 +9,8 @@
 #include <math.h>
 #include "TestDataGenerator.h"
 
-
+#define FC     300 //Hz
+#define NOISE  40  //amplitude
 
 TestDataGenerator::TestDataGenerator()
 {
@@ -45,7 +46,7 @@ void TestDataGenerator::GenerateSampleRecord(LRECORD *pLxRecord)
 		// Generate pulse
 		for (int j = 0; j < NUM_BOARDS; j++)
 			for (int i = 0; i < NUM_CHANNELS; i++)
-				pLxRecord->board[j].data[i] = GenSine(NUM_CHANNELS*j + i);
+				pLxRecord->board[j].data[i] = GenSine(NUM_CHANNELS*j + i) + (NOISE * rand() / RAND_MAX);
 		m_n++;
 	}
 	else {
@@ -53,7 +54,7 @@ void TestDataGenerator::GenerateSampleRecord(LRECORD *pLxRecord)
 		// Generate random
 		for (int j = 0; j < NUM_BOARDS; j++)
 			for (int i = 0; i < NUM_CHANNELS; i++)
-				pLxRecord->board[j].data[i] = 40 * rand() / RAND_MAX;
+				pLxRecord->board[j].data[i] = NOISE * rand() / RAND_MAX;
 				//pLxRecord->board[j].data[i] = 10 * rand() / RAND_MAX;
 	}
 
