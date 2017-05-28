@@ -178,6 +178,7 @@
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="algos\SLMParents.cpp" />
     <ClCompile Include="AnalyseNeuronData.cpp" />
     <ClCompile Include="CollectNeuronDataThread.cpp" />
     <ClCompile Include="genericAlgoTest.cpp" />

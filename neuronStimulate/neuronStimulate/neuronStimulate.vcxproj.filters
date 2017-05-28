@@ -170,5 +170,8 @@
     <ClCompile Include="TestDataGenerator.cpp">
       <Filter>Source Files\test</Filter>
     </ClCompile>
+    <ClCompile Include="algos\SLMParents.cpp">
+      <Filter>Source Files\algos</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
