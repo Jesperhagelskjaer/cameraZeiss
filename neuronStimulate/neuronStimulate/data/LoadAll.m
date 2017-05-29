@@ -64,4 +64,5 @@ plot(costs)
 title('Cost');
 ylabel('amplitude');
 xlabel('sample');
+mean(costs)
 
