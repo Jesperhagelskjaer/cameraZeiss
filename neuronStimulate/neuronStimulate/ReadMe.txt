@@ -2,6 +2,15 @@
     CONSOLE APPLICATION : neuronStimulate Project Overview
 ========================================================================
 
+Some git commands.
+
+Use to checkout HEAD and skip local changes:
+git checkout -f HEAD
+
+To get latest version:
+git pull 
+
+
 AppWizard has created this neuronStimulate application for you.
 
 This file contains a summary of what you will find in each of the files that
