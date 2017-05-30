@@ -9,8 +9,8 @@
 using namespace std;
 #include "CollectNeuronDataThread.h"
 
-// To be defined for testing
-#define TEST_GENERATOR_
+// To be defined for testing KBE???
+//#define TEST_GENERATOR_
 
 CollectNeuronDataThread::CollectNeuronDataThread() :
 	Thread(),
@@ -151,7 +151,7 @@ void CollectNeuronDataThread::run()
 			{
 				cout << "Lynx record checksum error" << endl;
 			}
-			printf("%d\r", num);
+			//printf("%d\r", num);
 		
 			if (!m_Running) {
 				cout << "Stopping Data File Thread" << endl;

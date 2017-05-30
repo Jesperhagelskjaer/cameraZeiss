@@ -34,7 +34,7 @@ void StimulateNeuronThread::run()
 			//timeMeas.printDuration("Generate Parent");
 			//timeMeas.setStartTime();
 		m_GenericAlgo->SendTemplateToSLM(); // 6 ms
-		Sleep(6); // Simulate SLM delay
+		//Sleep(6); // Simulate SLM delay
 			//timeMeas.printDuration("Send to SLM");
 			//timeMeas.setStartTime();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);

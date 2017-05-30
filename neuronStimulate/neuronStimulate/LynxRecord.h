@@ -103,8 +103,10 @@ public:
 			SignalNewData();
 			return true;
 		}
+		else 
+			ResetMemPtr();
 
-		if (isMemPoolEmpty()) ResetMemPtr(); // Reset write and read pointers if all records written to files
+		//KBE???  better solution if (isMemPoolEmpty()) ResetMemPtr(); // Reset write and read pointers if all records written to files
 		return false;
 	}
 

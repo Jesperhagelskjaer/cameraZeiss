@@ -11,7 +11,8 @@
 #include "TemplateImages.h"
 #include "TimeMeasure.h"
 #include "LaserInterface.h"
-//KBE??? #include "SLMInterface.h"
+//KBE??? 
+#include "SLMInterface.h"
 
 class GenericAlgo {
 public:
@@ -26,7 +27,7 @@ public:
 	   pSLMInterface_ = new SLMInterface();
 	}
 
-	GenericAlgo(Blink_SDK *pSLMsdk)
+	GenericAlgo(Blink_SDK *pSLMsdk) : laser(115200)
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
