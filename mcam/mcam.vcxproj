@@ -127,6 +127,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClInclude Include="include\Blink_SDK.H" />
     <ClInclude Include="include\BmpUtil.h" />
     <ClInclude Include="include\ConfigReader.hpp" />
+    <ClInclude Include="include\defs.h" />
     <ClInclude Include="include\EditProperties.hpp" />
     <ClInclude Include="include\GenericAlgo.h" />
     <ClInclude Include="include\mcam.h" />
