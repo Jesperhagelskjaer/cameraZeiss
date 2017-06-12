@@ -1170,6 +1170,11 @@ void Application::handleSaveColorButton()
     thisCameraIFPtr->saveMcamProperties();
 }
 
+void Application::updateCost(long cost)
+{
+	ui->costText->setText(QString::number(cost));
+}
+
 void Application::setBusyLock(bool disabled)  // true: locked  false: unlocked
 {
     bool running = thisMCamImagePtr->isContShotRunning();
@@ -1177,6 +1182,7 @@ void Application::setBusyLock(bool disabled)  // true: locked  false: unlocked
     BOOL hasMultiplePortModes = FALSE;
     BOOL hasHDR = FALSE;
     BOOL hasHighImageRateMode = FALSE;
+	RECT rcSize;
 
     MCammHasParameter(cameraIndex, mcammParmPixelClocks, &hasPixelClocks);
     MCammHasParameter(cameraIndex, mcammParmMultiplePortModes, &hasMultiplePortModes);
@@ -1186,7 +1192,14 @@ void Application::setBusyLock(bool disabled)  // true: locked  false: unlocked
 	//KBE!!!
 	disabled = false;
 	if (!disabled) 
+	{
+		thisMCamRemotePtr->getRecAlgo(&rcSize);
+		ui->posYalgo->setText(QString::number(rcSize.top));
+		ui->posXalgo->setText(QString::number(rcSize.left));
+		ui->sizeXalgo->setText(QString::number(rcSize.right - rcSize.left));
+		ui->sizeYalgo->setText(QString::number(rcSize.bottom - rcSize.top));
 		thisMCamRemotePtr->startRemoteThread();
+	}
 
     ui->menuFile->setEnabled(!disabled);
     ui->menuCamera->setEnabled(!disabled);
@@ -1382,16 +1395,28 @@ void Application::handleApplyROIButton()
 {
     MCAM_LOG_INIT("Application::handleApplyROIButton")
     RECT rcSize;
+	RECT rcAlgoSize;
     long result = NOERR;
     long posX = ui->posX->displayText().toInt();
     long posY = ui->posY->displayText().toInt();
     long sizeX = ui->sizeX->displayText().toInt();
     long sizeY = ui->sizeY->displayText().toInt();
-    rcSize.top = posY;
+
+	long posXalgo = ui->posXalgo->displayText().toInt();
+	long posYalgo = ui->posYalgo->displayText().toInt();
+	long sizeXalgo = ui->sizeXalgo->displayText().toInt();
+	long sizeYalgo = ui->sizeYalgo->displayText().toInt();
+	rcAlgoSize.top = posYalgo;
+	rcAlgoSize.bottom = posYalgo + sizeYalgo;
+	rcAlgoSize.right = posXalgo + sizeXalgo;
+	rcAlgoSize.left = posXalgo;
+	thisMCamRemotePtr->setRecAlgo(rcAlgoSize);
+
+	rcSize.top = posY;
     rcSize.bottom = posY + sizeY;
     rcSize.right = posX + sizeX;
     rcSize.left = posX;
-    result = McammSetFrameSize(cameraIndex, &rcSize);
+	result = McammSetFrameSize(cameraIndex, &rcSize);
     if (result != NOERR)
         MCAM_LOGF_ERROR("failed to set frame size, result=%ld", result);
 
@@ -1430,7 +1455,7 @@ void Application::updateCameraGUIParamter(long cameraIndex)
     long numberOfPixelClocks = 0;
     int i;
 
-    if (cameraIndex < 0)
+	if (cameraIndex < 0)
     	return;
 
     if (!thisMCamImagePtr->isContShotRunning()) {

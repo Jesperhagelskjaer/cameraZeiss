@@ -407,11 +407,13 @@ void DumpBmpShortAsGray(char *FileName, unsigned short *Img, ROI ImSize)
 	//init headers
 	FileHeader._bm_signature = 0x4D42;
 	FileHeader._bm_file_size = 54 + 2 * ImSize.width * ImSize.height;
+	//FileHeader._bm_file_size = 54 + ImSize.width * ImSize.height;
 	FileHeader._bm_reserved = 0;
 	FileHeader._bm_bitmap_data = 0x36;
 
 	InfoHeader._bm_bitmap_size = 0;
 	InfoHeader._bm_color_depth = 16;
+	//InfoHeader._bm_color_depth = 8;
 	InfoHeader._bm_compressed = 0;
 	InfoHeader._bm_hor_resolution = 0;
 	InfoHeader._bm_image_height = ImSize.height;
@@ -431,12 +433,53 @@ void DumpBmpShortAsGray(char *FileName, unsigned short *Img, ROI ImSize)
 	{
 		for (int j=0; j<ImSize.width; j++)
 		{
-			fwrite(&(Img[i*Stride+j]), 2, 1, fp);
+			//char data = (Img[i*Stride + j] >> 8);
+			//fwrite(&data, 1, 1, fp); // Write as gray
+			fwrite(&(Img[i*Stride + j]), 2, 1, fp);
 		}
 	}
 
 	fclose(fp);
 }
+
+
+/**
+**************************************************************************
+*  This function performs dumping of image on HDD
+*
+* \param FileName		[OUT] - Image name to dump to
+* \param Img			[IN] - Image to dump
+* \param Stride			[IN] - Image stride
+* \param ImSize			[IN] - Image size
+*
+* \return None
+*/
+void DumpImgShortAsBinary(char *FileName, unsigned short *Img, ROI ImSize)
+{
+	FILE *fp = NULL;
+	fp = fopen(FileName, "wb");
+	if (fp == NULL)
+	{
+		return;
+	}
+
+	int Stride = ImSize.width;
+
+	printf("Height %d, Width %d, Stride %d\r\n", ImSize.height, ImSize.width, Stride);
+
+	for (int i = 0; i < ImSize.height; i++)
+	{
+		for (int j = 0; j<ImSize.width; j++)
+		{
+			fwrite(&(Img[i*Stride + j]), 2, 1, fp);
+		}
+	}
+
+	fflush(fp);
+	fclose(fp);
+}
+
+
 
 /**
 **************************************************************************

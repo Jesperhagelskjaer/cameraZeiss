@@ -122,13 +122,20 @@ public:
     QCheckBox *HDRModeCheckBox;
     QCheckBox *HighRateCheckBox;
     QCheckBox *BufferCheckBox;
+    QLineEdit *posXalgo;
+    QLineEdit *sizeXalgo;
+    QLineEdit *posYalgo;
+    QLineEdit *sizeYalgo;
+    QLabel *label_17;
+    QLabel *label_18;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_2;
-    QSpinBox *exposureSpinBox;
     QComboBox *exposureTimeUnitComboBox;
     QSlider *exposureSlider;
+    QSpinBox *exposureSpinBox;
     QGroupBox *groupBox_4;
     QComboBox *frequencyComboBox;
+    QLineEdit *costText;
     QHBoxLayout *horizontalLayout_13;
     QGroupBox *groupBox_6;
     QVBoxLayout *verticalLayout_5;
@@ -183,7 +190,7 @@ public:
     {
         if (Application->objectName().isEmpty())
             Application->setObjectName(QString::fromUtf8("Application"));
-        Application->resize(1016, 904);
+        Application->resize(1016, 912);
         actionOpen = new QAction(Application);
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         actionSave = new QAction(Application);
@@ -303,7 +310,7 @@ public:
         Application->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Application);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1016, 19));
+        menuBar->setGeometry(QRect(0, 0, 1016, 26));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         menuCamera = new QMenu(menuBar);
@@ -312,20 +319,24 @@ public:
         menuDevice->setObjectName(QString::fromUtf8("menuDevice"));
         actionGroupDevices = new QActionGroup(menuDevice);
         actionGroupDevices->setObjectName(QString::fromUtf8("actionGroupDevices"));
+        //actionGroupDevices->setGeometry(QRect(0, 0, 100, 30));
         menuImageProcessing = new QMenu(menuBar);
         menuImageProcessing->setObjectName(QString::fromUtf8("menuImageProcessing"));
         menuDemosaicing = new QMenu(menuImageProcessing);
         menuDemosaicing->setObjectName(QString::fromUtf8("menuDemosaicing"));
         actionGroupDemosaicingQuality = new QActionGroup(menuDemosaicing);
         actionGroupDemosaicingQuality->setObjectName(QString::fromUtf8("actionGroupDemosaicingQuality"));
+        //actionGroupDemosaicingQuality->setGeometry(QRect(0, 0, 100, 30));
         menuTileAdjustment = new QMenu(menuImageProcessing);
         menuTileAdjustment->setObjectName(QString::fromUtf8("menuTileAdjustment"));
         actionGroupTileAdjustment = new QActionGroup(menuTileAdjustment);
         actionGroupTileAdjustment->setObjectName(QString::fromUtf8("actionGroupTileAdjustment"));
+        //actionGroupTileAdjustment->setGeometry(QRect(0, 0, 100, 30));
         menuLineFlickerSuppression = new QMenu(menuImageProcessing);
         menuLineFlickerSuppression->setObjectName(QString::fromUtf8("menuLineFlickerSuppression"));
         actionGroupLineFlickerSuppression = new QActionGroup(menuLineFlickerSuppression);
         actionGroupLineFlickerSuppression->setObjectName(QString::fromUtf8("actionGroupLineFlickerSuppression"));
+        //actionGroupLineFlickerSuppression->setGeometry(QRect(0, 0, 100, 30));
         menuBlackReference = new QMenu(menuImageProcessing);
         menuBlackReference->setObjectName(QString::fromUtf8("menuBlackReference"));
         menuWhiteReference = new QMenu(menuImageProcessing);
@@ -350,7 +361,7 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(dockWidget->sizePolicy().hasHeightForWidth());
         dockWidget->setSizePolicy(sizePolicy1);
-        dockWidget->setMinimumSize(QSize(336, 825));
+        dockWidget->setMinimumSize(QSize(336, 865));
         dockWidget->setAutoFillBackground(true);
         dockWidget->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
         dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea);
@@ -383,22 +394,22 @@ public:
         groupBox_5->setMinimumSize(QSize(0, 160));
         label_9 = new QLabel(groupBox_5);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setGeometry(QRect(7, 29, 23, 16));
+        label_9->setGeometry(QRect(10, 20, 23, 16));
         posX = new QLineEdit(groupBox_5);
         posX->setObjectName(QString::fromUtf8("posX"));
-        posX->setGeometry(QRect(35, 29, 112, 22));
+        posX->setGeometry(QRect(40, 20, 51, 22));
         posY = new QLineEdit(groupBox_5);
         posY->setObjectName(QString::fromUtf8("posY"));
-        posY->setGeometry(QRect(151, 29, 112, 22));
+        posY->setGeometry(QRect(100, 20, 51, 22));
         label_11 = new QLabel(groupBox_5);
         label_11->setObjectName(QString::fromUtf8("label_11"));
-        label_11->setGeometry(QRect(7, 55, 24, 16));
+        label_11->setGeometry(QRect(10, 50, 24, 16));
         sizeX = new QLineEdit(groupBox_5);
         sizeX->setObjectName(QString::fromUtf8("sizeX"));
-        sizeX->setGeometry(QRect(35, 55, 112, 22));
+        sizeX->setGeometry(QRect(40, 50, 51, 22));
         sizeY = new QLineEdit(groupBox_5);
         sizeY->setObjectName(QString::fromUtf8("sizeY"));
-        sizeY->setGeometry(QRect(151, 55, 112, 22));
+        sizeY->setGeometry(QRect(100, 50, 51, 22));
         fullROIButton = new QPushButton(groupBox_5);
         fullROIButton->setObjectName(QString::fromUtf8("fullROIButton"));
         fullROIButton->setGeometry(QRect(35, 81, 112, 21));
@@ -413,7 +424,7 @@ public:
         portComboBox->setGeometry(QRect(151, 106, 164, 22));
         layoutWidget = new QWidget(groupBox_5);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(0, 130, 324, 22));
+        layoutWidget->setGeometry(QRect(0, 130, 324, 24));
         horizontalLayout_5 = new QHBoxLayout(layoutWidget);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
@@ -442,6 +453,24 @@ public:
 
         horizontalLayout_5->addWidget(BufferCheckBox);
 
+        posXalgo = new QLineEdit(groupBox_5);
+        posXalgo->setObjectName(QString::fromUtf8("posXalgo"));
+        posXalgo->setGeometry(QRect(200, 20, 51, 22));
+        sizeXalgo = new QLineEdit(groupBox_5);
+        sizeXalgo->setObjectName(QString::fromUtf8("sizeXalgo"));
+        sizeXalgo->setGeometry(QRect(200, 50, 51, 22));
+        posYalgo = new QLineEdit(groupBox_5);
+        posYalgo->setObjectName(QString::fromUtf8("posYalgo"));
+        posYalgo->setGeometry(QRect(260, 20, 51, 22));
+        sizeYalgo = new QLineEdit(groupBox_5);
+        sizeYalgo->setObjectName(QString::fromUtf8("sizeYalgo"));
+        sizeYalgo->setGeometry(QRect(260, 50, 51, 22));
+        label_17 = new QLabel(groupBox_5);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+        label_17->setGeometry(QRect(162, 20, 31, 20));
+        label_18 = new QLabel(groupBox_5);
+        label_18->setObjectName(QString::fromUtf8("label_18"));
+        label_18->setGeometry(QRect(160, 50, 31, 16));
 
         verticalLayout_2->addWidget(groupBox_5);
 
@@ -450,14 +479,6 @@ public:
         groupBox->setMinimumSize(QSize(0, 90));
         gridLayout_2 = new QGridLayout(groupBox);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        exposureSpinBox = new QSpinBox(groupBox);
-        exposureSpinBox->setObjectName(QString::fromUtf8("exposureSpinBox"));
-        exposureSpinBox->setMinimumSize(QSize(100, 0));
-        exposureSpinBox->setMinimum(1);
-        exposureSpinBox->setMaximum(100000);
-
-        gridLayout_2->addWidget(exposureSpinBox, 0, 0, 1, 1);
-
         exposureTimeUnitComboBox = new QComboBox(groupBox);
         exposureTimeUnitComboBox->setObjectName(QString::fromUtf8("exposureTimeUnitComboBox"));
 
@@ -475,6 +496,14 @@ public:
 
         gridLayout_2->addWidget(exposureSlider, 1, 0, 1, 2);
 
+        exposureSpinBox = new QSpinBox(groupBox);
+        exposureSpinBox->setObjectName(QString::fromUtf8("exposureSpinBox"));
+        exposureSpinBox->setMinimumSize(QSize(100, 0));
+        exposureSpinBox->setMinimum(1);
+        exposureSpinBox->setMaximum(100000);
+
+        gridLayout_2->addWidget(exposureSpinBox, 0, 0, 1, 1);
+
 
         verticalLayout_2->addWidget(groupBox);
 
@@ -483,7 +512,11 @@ public:
         groupBox_4->setMinimumSize(QSize(0, 50));
         frequencyComboBox = new QComboBox(groupBox_4);
         frequencyComboBox->setObjectName(QString::fromUtf8("frequencyComboBox"));
-        frequencyComboBox->setGeometry(QRect(10, 20, 257, 20));
+        frequencyComboBox->setGeometry(QRect(10, 20, 131, 20));
+        costText = new QLineEdit(groupBox_4);
+        costText->setObjectName(QString::fromUtf8("costText"));
+        costText->setGeometry(QRect(160, 20, 141, 22));
+        costText->setReadOnly(true);
 
         verticalLayout_2->addWidget(groupBox_4);
 
@@ -617,6 +650,7 @@ public:
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setMinimumSize(QSize(0, 230));
         verticalLayout = new QVBoxLayout(groupBox_2);
+        verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout_14 = new QHBoxLayout();
         horizontalLayout_14->setObjectName(QString::fromUtf8("horizontalLayout_14"));
@@ -750,6 +784,46 @@ public:
         groupBox_2->raise();
         cameraComboBox->raise();
         Application->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget);
+        QWidget::setTabOrder(applyROIButton, scrollArea);
+        QWidget::setTabOrder(scrollArea, cameraComboBox);
+        QWidget::setTabOrder(cameraComboBox, singleShotButton);
+        QWidget::setTabOrder(singleShotButton, contShotButton);
+        QWidget::setTabOrder(contShotButton, posX);
+        QWidget::setTabOrder(posX, posY);
+        QWidget::setTabOrder(posY, posXalgo);
+        QWidget::setTabOrder(posXalgo, posYalgo);
+        QWidget::setTabOrder(posYalgo, sizeX);
+        QWidget::setTabOrder(sizeX, sizeY);
+        QWidget::setTabOrder(sizeY, sizeXalgo);
+        QWidget::setTabOrder(sizeXalgo, sizeYalgo);
+        QWidget::setTabOrder(sizeYalgo, fullROIButton);
+        QWidget::setTabOrder(fullROIButton, portComboBox);
+        QWidget::setTabOrder(portComboBox, binningComboBox);
+        QWidget::setTabOrder(binningComboBox, compressionComboBox);
+        QWidget::setTabOrder(compressionComboBox, HDRModeCheckBox);
+        QWidget::setTabOrder(HDRModeCheckBox, HighRateCheckBox);
+        QWidget::setTabOrder(HighRateCheckBox, BufferCheckBox);
+        QWidget::setTabOrder(BufferCheckBox, exposureSpinBox);
+        QWidget::setTabOrder(exposureSpinBox, exposureTimeUnitComboBox);
+        QWidget::setTabOrder(exposureTimeUnitComboBox, exposureSlider);
+        QWidget::setTabOrder(exposureSlider, frequencyComboBox);
+        QWidget::setTabOrder(frequencyComboBox, triggerModeComboBox);
+        QWidget::setTabOrder(triggerModeComboBox, gpoIndexComboBox);
+        QWidget::setTabOrder(gpoIndexComboBox, negativePolarityCheckBox);
+        QWidget::setTabOrder(negativePolarityCheckBox, gpoSrcComboBox);
+        QWidget::setTabOrder(gpoSrcComboBox, levelTriggerCheckBox);
+        QWidget::setTabOrder(levelTriggerCheckBox, gpoInvertedCheckBox);
+        QWidget::setTabOrder(gpoInvertedCheckBox, debounceCheckBox);
+        QWidget::setTabOrder(debounceCheckBox, gpoPulseSpinBox);
+        QWidget::setTabOrder(gpoPulseSpinBox, triggerDelaySpinBox);
+        QWidget::setTabOrder(triggerDelaySpinBox, gpoDelaySpinBox);
+        QWidget::setTabOrder(gpoDelaySpinBox, colorTemperaturSlider);
+        QWidget::setTabOrder(colorTemperaturSlider, redSlider);
+        QWidget::setTabOrder(redSlider, greenSlider);
+        QWidget::setTabOrder(greenSlider, blueSlider);
+        QWidget::setTabOrder(blueSlider, saveColorButton);
+        QWidget::setTabOrder(saveColorButton, defaultColorButton);
+        QWidget::setTabOrder(defaultColorButton, resetColorButton);
 
         menuBar->addAction(menuFile->menuAction());
         menuBar->addAction(menuCamera->menuAction());
@@ -945,6 +1019,8 @@ public:
         HDRModeCheckBox->setText(QApplication::translate("Application", "HDR", 0, QApplication::UnicodeUTF8));
         HighRateCheckBox->setText(QApplication::translate("Application", "HiRate", 0, QApplication::UnicodeUTF8));
         BufferCheckBox->setText(QApplication::translate("Application", "Buffer", 0, QApplication::UnicodeUTF8));
+        label_17->setText(QApplication::translate("Application", "cPos", 0, QApplication::UnicodeUTF8));
+        label_18->setText(QApplication::translate("Application", "cSize", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("Application", "Exposure Time", 0, QApplication::UnicodeUTF8));
         exposureTimeUnitComboBox->clear();
         exposureTimeUnitComboBox->insertItems(0, QStringList()
@@ -952,7 +1028,7 @@ public:
          << QApplication::translate("Application", "ms", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Application", "s", 0, QApplication::UnicodeUTF8)
         );
-        groupBox_4->setTitle(QApplication::translate("Application", "Pixel Frequency", 0, QApplication::UnicodeUTF8));
+        groupBox_4->setTitle(QApplication::translate("Application", "Pixel Frequency                Cost (cPos, cSize)", 0, QApplication::UnicodeUTF8));
         frequencyComboBox->clear();
         frequencyComboBox->insertItems(0, QStringList()
          << QApplication::translate("Application", "13 MHz", 0, QApplication::UnicodeUTF8)

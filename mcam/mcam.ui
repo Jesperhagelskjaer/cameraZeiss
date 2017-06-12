@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1016</width>
-    <height>904</height>
+    <height>912</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,7 +61,7 @@
      <x>0</x>
      <y>0</y>
      <width>1016</width>
-     <height>19</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -82,6 +82,14 @@
       <string>Device</string>
      </property>
      <widget class="QActionGroup" name="actionGroupDevices" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>100</width>
+        <height>30</height>
+       </rect>
+      </property>
      </widget>
      <addaction name="separator"/>
      <addaction name="actionNoDevice"/>
@@ -101,6 +109,14 @@
       <string>Image Quality</string>
      </property>
      <widget class="QActionGroup" name="actionGroupDemosaicingQuality" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>100</width>
+        <height>30</height>
+       </rect>
+      </property>
       <addaction name="actionLowQualityDemosaicing"/>
       <addaction name="actionMediumQualityDemosaicing"/>
       <addaction name="actionHighQualityDemosaicing"/>
@@ -114,6 +130,14 @@
       <string>Tile adjustment</string>
      </property>
      <widget class="QActionGroup" name="actionGroupTileAdjustment" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>100</width>
+        <height>30</height>
+       </rect>
+      </property>
       <addaction name="actionTileAdjustmentOff"/>
       <addaction name="actionTileAdjustmentLinear"/>
       <addaction name="actionTileAdjustmentBilinear"/>
@@ -127,6 +151,14 @@
       <string>Line flicker suppresion</string>
      </property>
      <widget class="QActionGroup" name="actionGroupLineFlickerSuppression" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>100</width>
+        <height>30</height>
+       </rect>
+      </property>
       <addaction name="actionLineFlickerSuppressionOff"/>
       <addaction name="actionLineFlickerSuppressionLinear"/>
       <addaction name="actionLineFlickerSuppressionBilinear"/>
@@ -217,7 +249,7 @@
    <property name="minimumSize">
     <size>
      <width>336</width>
-     <height>825</height>
+     <height>865</height>
     </size>
    </property>
    <property name="autoFillBackground">
@@ -272,8 +304,8 @@
        <widget class="QLabel" name="label_9">
         <property name="geometry">
          <rect>
-          <x>7</x>
-          <y>29</y>
+          <x>10</x>
+          <y>20</y>
           <width>23</width>
           <height>16</height>
          </rect>
@@ -285,9 +317,9 @@
        <widget class="QLineEdit" name="posX">
         <property name="geometry">
          <rect>
-          <x>35</x>
-          <y>29</y>
-          <width>112</width>
+          <x>40</x>
+          <y>20</y>
+          <width>51</width>
           <height>22</height>
          </rect>
         </property>
@@ -295,9 +327,9 @@
        <widget class="QLineEdit" name="posY">
         <property name="geometry">
          <rect>
-          <x>151</x>
-          <y>29</y>
-          <width>112</width>
+          <x>100</x>
+          <y>20</y>
+          <width>51</width>
           <height>22</height>
          </rect>
         </property>
@@ -305,8 +337,8 @@
        <widget class="QLabel" name="label_11">
         <property name="geometry">
          <rect>
-          <x>7</x>
-          <y>55</y>
+          <x>10</x>
+          <y>50</y>
           <width>24</width>
           <height>16</height>
          </rect>
@@ -318,9 +350,9 @@
        <widget class="QLineEdit" name="sizeX">
         <property name="geometry">
          <rect>
-          <x>35</x>
-          <y>55</y>
-          <width>112</width>
+          <x>40</x>
+          <y>50</y>
+          <width>51</width>
           <height>22</height>
          </rect>
         </property>
@@ -328,9 +360,9 @@
        <widget class="QLineEdit" name="sizeY">
         <property name="geometry">
          <rect>
-          <x>151</x>
-          <y>55</y>
-          <width>112</width>
+          <x>100</x>
+          <y>50</y>
+          <width>51</width>
           <height>22</height>
          </rect>
         </property>
@@ -427,7 +459,7 @@
           <x>0</x>
           <y>130</y>
           <width>324</width>
-          <height>22</height>
+          <height>24</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -480,6 +512,72 @@
          </item>
         </layout>
        </widget>
+       <widget class="QLineEdit" name="posXalgo">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>20</y>
+          <width>51</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="sizeXalgo">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>50</y>
+          <width>51</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="posYalgo">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>20</y>
+          <width>51</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="sizeYalgo">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>50</y>
+          <width>51</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_17">
+        <property name="geometry">
+         <rect>
+          <x>162</x>
+          <y>20</y>
+          <width>31</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>cPos</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_18">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>50</y>
+          <width>31</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>cSize</string>
+        </property>
+       </widget>
       </widget>
      </item>
      <item>
@@ -494,22 +592,6 @@
         <string>Exposure Time</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QSpinBox" name="exposureSpinBox">
-          <property name="minimumSize">
-           <size>
-            <width>100</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>1</number>
-          </property>
-          <property name="maximum">
-           <number>100000</number>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="QComboBox" name="exposureTimeUnitComboBox">
           <item>
@@ -545,6 +627,22 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="0">
+         <widget class="QSpinBox" name="exposureSpinBox">
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>100000</number>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -557,14 +655,14 @@
         </size>
        </property>
        <property name="title">
-        <string>Pixel Frequency</string>
+        <string>Pixel Frequency                Cost (cPos, cSize)</string>
        </property>
        <widget class="QComboBox" name="frequencyComboBox">
         <property name="geometry">
          <rect>
           <x>10</x>
           <y>20</y>
-          <width>257</width>
+          <width>131</width>
           <height>20</height>
          </rect>
         </property>
@@ -578,6 +676,19 @@
           <string>39 MHz</string>
          </property>
         </item>
+       </widget>
+       <widget class="QLineEdit" name="costText">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>20</y>
+          <width>141</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
        </widget>
       </widget>
      </item>
@@ -804,6 +915,9 @@
         <string>Color Settings</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_14">
           <item>
@@ -1308,6 +1422,49 @@
    <header>qactiongroup.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>applyROIButton</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>cameraComboBox</tabstop>
+  <tabstop>singleShotButton</tabstop>
+  <tabstop>contShotButton</tabstop>
+  <tabstop>posX</tabstop>
+  <tabstop>posY</tabstop>
+  <tabstop>posXalgo</tabstop>
+  <tabstop>posYalgo</tabstop>
+  <tabstop>sizeX</tabstop>
+  <tabstop>sizeY</tabstop>
+  <tabstop>sizeXalgo</tabstop>
+  <tabstop>sizeYalgo</tabstop>
+  <tabstop>fullROIButton</tabstop>
+  <tabstop>portComboBox</tabstop>
+  <tabstop>binningComboBox</tabstop>
+  <tabstop>compressionComboBox</tabstop>
+  <tabstop>HDRModeCheckBox</tabstop>
+  <tabstop>HighRateCheckBox</tabstop>
+  <tabstop>BufferCheckBox</tabstop>
+  <tabstop>exposureSpinBox</tabstop>
+  <tabstop>exposureTimeUnitComboBox</tabstop>
+  <tabstop>exposureSlider</tabstop>
+  <tabstop>frequencyComboBox</tabstop>
+  <tabstop>triggerModeComboBox</tabstop>
+  <tabstop>gpoIndexComboBox</tabstop>
+  <tabstop>negativePolarityCheckBox</tabstop>
+  <tabstop>gpoSrcComboBox</tabstop>
+  <tabstop>levelTriggerCheckBox</tabstop>
+  <tabstop>gpoInvertedCheckBox</tabstop>
+  <tabstop>debounceCheckBox</tabstop>
+  <tabstop>gpoPulseSpinBox</tabstop>
+  <tabstop>triggerDelaySpinBox</tabstop>
+  <tabstop>gpoDelaySpinBox</tabstop>
+  <tabstop>colorTemperaturSlider</tabstop>
+  <tabstop>redSlider</tabstop>
+  <tabstop>greenSlider</tabstop>
+  <tabstop>blueSlider</tabstop>
+  <tabstop>saveColorButton</tabstop>
+  <tabstop>defaultColorButton</tabstop>
+  <tabstop>resetColorButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

@@ -102,6 +102,8 @@ MCamImage::MCamImage(Application *applicationPtr)
     connect(this, SIGNAL(contShotStart(bool)), applicationPtr, SLOT(contShotStart(bool)));
 
     connect(this, SIGNAL(cameraSelected(long)), applicationPtr, SLOT(cameraSelected(long)));
+	connect(this, SIGNAL(updateCost(long)), applicationPtr, SLOT(updateCost(long)));
+
 }
 
 MCamImage::~MCamImage()
@@ -641,10 +643,24 @@ long MCamImage::doSingleShot(long cameraIndex)
             // check if its a color image
 			if (singleShotCount++ % REFRESH_SINGLE_SHOT_RATE == 0)
 			{
+				RECT RecAlgo;
 				IMAGE_HEADER* header = (IMAGE_HEADER*)imageData;
 				image = new QImage(header->roiWidth / header->binX, header->roiHeight / header->binY, QImage::Format_RGB32);
 
 				createQImage(imageData, imageSize, image);
+
+				// Draw rectangle around area for cost calculation
+				applicationPtr->thisMCamRemotePtr->getRecAlgo(&RecAlgo);
+				// Draw black top and bottom horizontal lines
+				for (int i = RecAlgo.left; i < RecAlgo.right; i++) {
+					image->setPixel(RecAlgo.top, i, 0);
+					image->setPixel(RecAlgo.bottom, i, 0);
+				}
+				// Draw black left and right vertical lines
+				for (int j = RecAlgo.top; j < RecAlgo.right; j++) {
+					image->setPixel(j, RecAlgo.left, 0);
+					image->setPixel(j, RecAlgo.right, 0);
+				}
 
 				// delegate drawing of image (pixmap) to GUI thread!
 				// (called form other thread in stress test case)
@@ -652,8 +668,9 @@ long MCamImage::doSingleShot(long cameraIndex)
 			}
 			//KBE??
 			//printf("Remote Save Image\r\n");
-			//applicationPtr->thisMCamRemotePtr->saveImage(image);
-			applicationPtr->thisMCamRemotePtr->saveImage(imageData);
+			long cost = applicationPtr->thisMCamRemotePtr->saveImage(imageData);
+			// Update cost field on UI
+			emit updateCost(cost);
 		} else {
             MCAM_LOGF_ERROR("Error during image acquisition: result=", result);
         }

@@ -12,12 +12,15 @@
 
 #include "mcam.h"
 #include <QObject>
+#include "BmpUtil.h"
 #include "TimeMeasure.h"
 #include "GenericAlgo.h"
 
 #define START_FILE "start.txt"
 #define STOP_FILE  "stop.txt"
 #define IMAGE_FILE "image.bmp"
+#define DATA_FILE  "data\\data.txt"
+#define IMG_FILES  "data\\IM%06d_%d.bmp"
 
 class Application;
 
@@ -46,7 +49,11 @@ public:
 	int startRemoteThread();
 	int stopRemoteThread();
 	void *remoteProcMain(void *parm);
-	void saveImage(unsigned short *imageData, bool test = false);
+	long saveImage(unsigned short *imageData, bool test = false);
+	void setRecAlgo(RECT rec);
+	void getRecAlgo(RECT *pRec) {
+		*pRec = recAlgo_;
+	}
 
 signals:
 	void doSingleImage(void);
@@ -55,7 +62,13 @@ private:
 	void createTestImage(void);
 	int waitForStart(void);
 	void createStopFile(void);
+	void saveImageData(unsigned short *imageData, long cost);
+	void saveDataFile(int maxLoops);
 	TimeMeasure timeMeas;
+	RECT recAlgo_;
+	ROI imgROI_;
+	int iteration_;
+	int numBetweenSave_;
 };
 
 #endif

@@ -3,8 +3,9 @@
 #include <windows.h>
 #include "SLMParents.h"
 #include "TemplateImages.h"
-//KBE??? 
-#include "SLMInterface.h"
+#ifdef SLM_INTERFACE_
+	#include "SLMInterface.h"
+#endif
 
 class GenericAlgo {
 public:
@@ -58,7 +59,7 @@ public:
 		pSLMParents_->PrintTemplates();
 	}
 
-	void ComputeIntencity(unsigned short *pImage, RECT rec)
+	double ComputeIntencity(unsigned short *pImage, RECT rec)
 	{
 		double cost;
 		int width, height;
@@ -75,7 +76,7 @@ public:
 
 		// painting raw camera data to image
 		pixel = (unsigned short*)pImage + header->headerSize / 2;
-#if 1
+#if 0
 		// For zoom in image already zoomed
 		rec.left = 245;
 		rec.top = 245;
@@ -84,14 +85,14 @@ public:
 		//printf("Image taken L%d, R%d, T%d, B%d, H%d, W%d\r\n", rec.left, rec.right, rec.top, rec.bottom, height, width);
 		pImg_->CopyImage(pixel, height, width, rec);
 #else
-		pImg_->CopyImage(pixel, height, width);
+		pImg_->CopyImage(pixel, height, width, rec);
 #endif
 		//pImg_->Print(); //KBE??? For debug only
 		cost = pImg_->ComputeIntencity();
 		pSLMParents_->CompareCostAndInsertTemplate(cost);
 		//printf("ComputeIntencity done\r\n");
 		//pSLMParents_->PrintTemplates(); //KBE??? For debug only
-
+		return cost;
 	};
 
 	~GenericAlgo()

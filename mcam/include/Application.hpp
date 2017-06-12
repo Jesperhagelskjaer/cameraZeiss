@@ -156,6 +156,7 @@ public slots:
     void handleTriggerMode(int index);
     void updateCameraGUIParamter(long cameraIndex);
     void cameraSelected(long cameraIndex);
+	void updateCost(long cost);
 
 private:
     void updateActions();

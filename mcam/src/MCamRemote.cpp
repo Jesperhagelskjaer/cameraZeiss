@@ -1,8 +1,8 @@
 #include <math.h>
 #include <Application.hpp>
 #include <QImagereader.h>
+#include "defs.h"
 #include "MCamRemote.hpp"
-#include "BmpUtil.h"
 #include "GenericAlgo.h"
 
 void *remote_proc_main(void *parm);
@@ -23,6 +23,15 @@ MCamRemote::MCamRemote(Application *applicationPtr)
 	threadStarted = false;
 	stopProcessing = false;
 	strcpy(fileName, START_FILE);
+
+	// Default rectangle inside image
+	recAlgo_.left = 245;
+	recAlgo_.top = 245;
+	recAlgo_.right = 255;
+	recAlgo_.bottom = 255;
+	numBetweenSave_ = NUM_BETWEEN_SAVE_IMG;
+	imgROI_.width = 0;
+	imgROI_.height = 0;
 
 	connect(this, SIGNAL(doSingleImage()), this->applicationPtr, SLOT(doSingleShot()));
 }
@@ -104,6 +113,7 @@ void *MCamRemote::remoteProcMain(void *parm)
 		// Wait for start.txt file to start processing
 		waitForStart();
 		printf("Generic Algo StartSLM\r\n");
+		iteration_ = 0;
 
 		int maxLoops = pGenericAlgo->GetNumIterations();
 		for (int loop = 0; loop < maxLoops && !stopProcessing; loop++) {
@@ -113,16 +123,21 @@ void *MCamRemote::remoteProcMain(void *parm)
 			//timeMeas.printDuration("Generic and SLM");
 
 			//timeMeas.setStartTime();
-			//createTestImage();
+#ifdef TEST_WITHOUT_CAMERA_
+			createTestImage();
+#else
 			doSingleImage();
+#endif
 			
 			sem_wait(&psem);
 
 			//MCamUtil::sleep(10);
 			printf("%d\r", loop+1);
+			iteration_++;
 		}
 
 		// Create stop.txt file to indicate completed
+		saveDataFile(maxLoops); // Save data results file
 		createStopFile();
 	}
 	
@@ -172,28 +187,80 @@ void MCamRemote::createTestImage(void)
 	printf("Width %d, Height %d, Header %d\r\n", header->roiWidth/BYTES_PIXEL, header->roiHeight/BYTES_PIXEL, header->headerSize);
 
 	saveImage(imageData, true);
+	free(imageData);
 }
 
-void MCamRemote::saveImage(unsigned short *imageData, bool test)
+void MCamRemote::setRecAlgo(RECT rec)
 {
-	RECT rec = applicationPtr->getCurrentFrameSize();
-	
-	// KBE For test only
-#if 0
-	rec.left = 0;
-	rec.top = 0;
-	rec.right = COLS-1;
-	rec.bottom = ROWS-1;
-#endif
+	recAlgo_.left = rec.left;
+	recAlgo_.top = rec.top;
+	recAlgo_.right = rec.right;
+	recAlgo_.bottom = rec.bottom;
+}
+
+void MCamRemote::saveDataFile(int maxLoops)
+{
+	FILE *hDataFile;
+	time_t t = time(0);   // get time now
+	struct tm * now = localtime(&t);
+
+	hDataFile = fopen(DATA_FILE, "w"); // Create data file
+
+	if (hDataFile != 0) {
+		fprintf(hDataFile, "%d,%02d,%02d,%02d,%02d,%02d,",
+							now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
+							now->tm_hour, now->tm_min, now->tm_sec);
+		fprintf(hDataFile, "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n", 
+			                imgROI_.width, imgROI_.height, 
+			                recAlgo_.left, recAlgo_.top, recAlgo_.right, recAlgo_.bottom,
+							NUM_PARENTS, BIND, maxLoops, numBetweenSave_);
+		fclose(hDataFile);
+	}
+}
+
+void MCamRemote::saveImageData(unsigned short *imageData, long cost)
+{
+	char fileName[50];
+	IMAGE_HEADER* header = (IMAGE_HEADER*)imageData;
+	bool isColorImage = 0;
+	// painting raw data to image
+	unsigned short* pixel = NULL;
+
+	imgROI_.width = header->roiWidth / header->binX;
+	imgROI_.height = header->roiHeight / header->binY;
+
+	isColorImage = header->bitsPerPixel == MCAM_BPP_COLOR;
+
+	// painting raw camera data to image
+	pixel = (unsigned short*)imageData + header->headerSize / 2;
+
+	sprintf(fileName, IMG_FILES, iteration_, cost);
+	printf("Saving image file %s\r\n", fileName);
+
+	//DumpBmpAsGray(fileName, (byte *)pixel, imgROI_);
+	DumpImgShortAsBinary(fileName, pixel, imgROI_);
+	//DumpBmpShortAsGray(fileName, pixel, imgROI_);
+}
+
+long MCamRemote::saveImage(unsigned short *imageData, bool test)
+{
+	//RECT rec = applicationPtr->getCurrentFrameSize();
 
 	//timeMeas.printDuration("Do Single Image");
 
 	//timeMeas.setStartTime();
-	pGenericAlgo->ComputeIntencity(imageData, rec);
+	long newCost = (long)pGenericAlgo->ComputeIntencity(imageData, recAlgo_);
 	//timeMeas.printDuration("Compute Intencity");
+
+	if (iteration_ % numBetweenSave_ == 0)
+	{
+		saveImageData(imageData, newCost);
+	}
 
 	//printf("Generic iter completed\r\n");
 	sem_post(&psem);
+
+	return newCost;
 
 /*
 	ROI imgROI;

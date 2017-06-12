@@ -118,6 +118,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClCompile Include="src\MCamRemote.cpp" />
     <ClCompile Include="src\MCamTest.cpp" />
     <ClCompile Include="src\MCamUtil.cpp" />
+    <ClCompile Include="src\SLMParents.cpp" />
     <ClCompile Include="src\win\pthread.c" />
     <ClCompile Include="src\win\semaphore.c" />
   </ItemGroup>

@@ -1,7 +1,5 @@
 #pragma once
-
-#define ROWS 50 // Hight of image section
-#define COLS 50 // Width of image section
+#include "defs.h"
 
 class CamImage
 {

@@ -125,6 +125,7 @@ public:
     void updateTransferRate(QString rateStr);
     void contShotStart(bool start);
     int cameraSelected(long cameraIndex);
+	void updateCost(long cost);
 
 };
 
