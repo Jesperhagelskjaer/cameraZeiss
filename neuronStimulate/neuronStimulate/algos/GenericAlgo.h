@@ -10,14 +10,20 @@
 #include "SLMParents.h"
 #include "TemplateImages.h"
 #include "TimeMeasure.h"
-#include "LaserInterface.h"
-//KBE??? 
-#include "SLMInterface.h"
+#ifdef LASER_INTERFACE_
+	#include "LaserInterface.h"
+#endif
+#ifdef SLM_INTERFACE_
+	#include "SLMInterface.h"
+#endif
 
 class GenericAlgo {
 public:
 	
-	GenericAlgo() : laser(115200)
+	GenericAlgo() 
+#ifdef LASER_INTERFACE_
+		: laser(115200)
+#endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
@@ -27,7 +33,10 @@ public:
 	   pSLMInterface_ = new SLMInterface();
 	}
 
-	GenericAlgo(Blink_SDK *pSLMsdk) : laser(115200)
+	GenericAlgo(Blink_SDK *pSLMsdk)
+#ifdef LASER_INTERFACE_
+		: laser(115200)
+#endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
@@ -35,20 +44,26 @@ public:
 #endif
 
 	}
-	
+
 	void OpenLaserPort(int port)
 	{
+#ifdef LASER_INTERFACE_
 		laser.OpenPort(port);
+#endif
 	}
 
 	void TurnLaserOn(void)
 	{
+#ifdef LASER_INTERFACE_		
 		laser.TurnOn();
+#endif
 	}
 
 	void TurnLaserOff(void)
 	{
+#ifdef LASER_INTERFACE_
 		laser.TurnOff();
+#endif
 	}
 	
 	int GetNumIterations(void) 
@@ -58,11 +73,15 @@ public:
 		
 	void GenerateParent(void) 
 	{
+		//timeMeas.setStartTime();
+
 		if (pSLMParents_->IsTemplatesFull()) {
 			//pSLMParents_->PrintTemplates();
 			pSLMParents_->GenerateOffspring(1);
 		} else {
+			//timeMeas.printDuration("Generic Offspring");
 			pSLMParents_->GenerateNewParent();
+			//timeMeas.printDuration("Generic New Parent");
 		}
 	}
 
@@ -91,8 +110,7 @@ public:
 		pSLMParents_->PrintTemplates();
 	}
 
-	
-	void ComputeIntencity(unsigned short *pImage, RECT rec)
+	double ComputeIntencity(unsigned short *pImage, RECT rec)
 	{
 		double cost;
 		int width, height;
@@ -109,23 +127,23 @@ public:
 
 		// painting raw camera data to image
 		pixel = (unsigned short*)pImage + header->headerSize / 2;
-#if 1
+#if 0
 		// For zoom in image already zoomed
-		rec.left = 225;
-		rec.top = 225;
-		rec.right = 275;
-		rec.bottom = 275;
+		rec.left = 245;
+		rec.top = 245;
+		rec.right = 255;
+		rec.bottom = 255;
 		//printf("Image taken L%d, R%d, T%d, B%d, H%d, W%d\r\n", rec.left, rec.right, rec.top, rec.bottom, height, width);
 		pImg_->CopyImage(pixel, height, width, rec);
 #else
-		pImg_->CopyImage(pixel, height, width);
+		pImg_->CopyImage(pixel, height, width, rec);
 #endif
 		//pImg_->Print(); //KBE??? For debug only
 		cost = pImg_->ComputeIntencity();
 		CompareCostAndInsertTemplate(cost);
 		//printf("ComputeIntencity done\r\n");
 		//pSLMParents_->PrintTemplates(); //KBE??? For debug only
-
+		return cost;
 	}
 	
 
@@ -147,5 +165,8 @@ private:
 	int num_iterations_;
 	SLMParents *pSLMParents_;
 	CamImage *pImg_;
+	//TimeMeasure timeMeas;
+#ifdef LASER_INTERFACE_
 	LaserInterface laser;
+#endif
 };

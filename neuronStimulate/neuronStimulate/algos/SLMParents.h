@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////
 //  SLMParents.h
-//  Implementation of the Class AnalyseNeuronData
+//  Implementation of the Class SLMTemplate, SLMParents
 //  Created on:      19-maj-2017 22:44:35
 //  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
@@ -8,13 +8,8 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include "defs.h"
 using namespace std;
-
-#define NUM_PARENTS		20	 // Number of parents
-#define NUM_ITERATIONS  2000 // Number of iterations - only used by camera test
-//#define NUM_ITERATIONS  200 // Number of iterations
-#define M				512  // Matrix size of SLM timeplate
-#define BIND			4    // M modulus BIND should be equal to zero !!!!
 
 class SLMTemplate
 {

@@ -7,10 +7,8 @@
 #include <ctime>
 #include <iostream>
 using namespace std;
+#include "defs.h"
 #include "CollectNeuronDataThread.h"
-
-// To be defined for testing KBE???
-//#define TEST_GENERATOR_
 
 CollectNeuronDataThread::CollectNeuronDataThread() :
 	Thread(),

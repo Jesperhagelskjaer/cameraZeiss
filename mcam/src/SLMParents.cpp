@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////
 //  SLMParents.cpp
-//  Implementation of the Class AnalyseNeuronData
+//  Implementation of the Class SLMTemplate, SLMParents
 //  Created on:      19-maj-2017 22:44:35
 //  Original author: Kim Bjerge + Jesper Hagelskjær
 ///////////////////////////////////////////////////////////

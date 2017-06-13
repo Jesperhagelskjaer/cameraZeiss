@@ -10,9 +10,10 @@
 #define BIND			4    // M modulus BIND should be equal to zero !!!!
 #define M				512  // Matrix size of SLM timeplate
 
+// If defined then use SLM
+//#define SLM_INTERFACE_		1
+#define TEST_WITHOUT_CAMERA_	1
+
 // Used in MCamRemote
 #define NUM_BETWEEN_SAVE_IMG   20 // Number of iterations before saving image
 
-// If defined then use SLM
-#define SLM_INTERFACE_		1
-//#define TEST_WITHOUT_CAMERA_	1

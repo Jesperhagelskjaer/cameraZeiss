@@ -3,6 +3,9 @@
 #include <windows.h>
 #include "SLMParents.h"
 #include "TemplateImages.h"
+#ifdef LASER_INTERFACE_
+	#include "LaserInterface.h"
+#endif
 #ifdef SLM_INTERFACE_
 	#include "SLMInterface.h"
 #endif
@@ -11,6 +14,9 @@ class GenericAlgo {
 public:
 	
 	GenericAlgo()
+#ifdef LASER_INTERFACE_
+		: laser(115200)
+#endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
@@ -18,40 +24,79 @@ public:
 
 #ifdef	SLM_INTERFACE_
 	   pSLMInterface_ = new SLMInterface();
-	};
+	}
 
 	GenericAlgo(Blink_SDK *pSLMsdk)
+#ifdef LASER_INTERFACE_
+		: laser(115200)
+#endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
 		pImg_ = new CamImage();
 		pSLMInterface_ = new SLMInterface(pSLMsdk);
 #endif
 
-	};
+	}
 
-	int GetNumIterations(void) {
+	void OpenLaserPort(int port)
+	{
+#ifdef LASER_INTERFACE_
+		laser.OpenPort(port);
+#endif
+	}
+
+	void TurnLaserOn(void)
+	{
+#ifdef LASER_INTERFACE_		
+		laser.TurnOn();
+#endif
+	}
+
+	void TurnLaserOff(void)
+	{
+#ifdef LASER_INTERFACE_
+		laser.TurnOff();
+#endif
+	}
+
+	int GetNumIterations(void) 
+	{
 		return num_iterations_;
-	};
+	}
 
-	void StartSLM()
+	void GenerateParent(void)
 	{
 		//timeMeas.setStartTime();
 
 		if (pSLMParents_->IsTemplatesFull()) {
 			//pSLMParents_->PrintTemplates();
 			pSLMParents_->GenerateOffspring(1);
+		}
+		else {
 			//timeMeas.printDuration("Generic Offspring");
-		} else {
 			pSLMParents_->GenerateNewParent();
 			//timeMeas.printDuration("Generic New Parent");
 		}
+	}
+
+	void SendTemplateToSLM(void)
+	{
 #ifdef	SLM_INTERFACE_
-		//timeMeas.setStartTime();
 		//pSLMInterface_->SendTestPhase(pSLMParents_->GetNewParentMatrixPtr(), M);
 		pSLMInterface_->SendPhase(pSLMParents_->GetNewParentMatrixPtr());
-		//timeMeas.printDuration("SLM Send Phase");
 #endif
-	};
+	}
+
+	void StartSLM()
+	{
+		GenerateParent();
+		SendTemplateToSLM();
+	}
+
+	void CompareCostAndInsertTemplate(double cost)
+	{
+		pSLMParents_->CompareCostAndInsertTemplate(cost);
+	}
 
 	void TestComputeIntencity(double cost)
 	{
@@ -93,7 +138,7 @@ public:
 		//printf("ComputeIntencity done\r\n");
 		//pSLMParents_->PrintTemplates(); //KBE??? For debug only
 		return cost;
-	};
+	}
 
 	~GenericAlgo()
 	{
@@ -102,16 +147,19 @@ public:
 
 #ifdef	SLM_INTERFACE_
 		delete pSLMInterface_;
-	};
+	}
 private:
 		SLMInterface *pSLMInterface_;
 #else
-	};
+	}
 #endif
 
 private:
 	int num_iterations_;
 	SLMParents *pSLMParents_;
 	CamImage *pImg_;
-	TimeMeasure timeMeas;
+	//TimeMeasure timeMeas;
+#ifdef LASER_INTERFACE_
+	LaserInterface laser;
+#endif
 };

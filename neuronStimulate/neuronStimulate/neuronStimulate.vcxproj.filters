@@ -129,6 +129,9 @@
     <ClInclude Include="TestDataGenerator.h">
       <Filter>Source Files\test</Filter>
     </ClInclude>
+    <ClInclude Include="algos\defs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="neuronStimulate.cpp">
