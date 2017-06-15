@@ -20,7 +20,7 @@
 #define STOP_FILE  "stop.txt"
 #define IMAGE_FILE "image.bmp"
 #define DATA_FILE  "data\\data.txt"
-#define IMG_FILES  "data\\IM%06d_%d.bmp"
+#define IMG_FILES  "data\\IM%06d_%d.bin"
 
 class Application;
 
