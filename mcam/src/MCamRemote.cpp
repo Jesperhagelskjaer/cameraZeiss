@@ -49,7 +49,9 @@ int MCamRemote::startRemoteThread()
 	{
 		stopProcessing = false;
 
-		MCAM_LOGF_STATUS("Starting remote thread");
+		MCAM_LOGF_STATUS("Starting remote thread and open laser port");
+		pGenericAlgo->OpenLaserPort(LASER_PORT);
+
 		sem_init(&psem, 0, 0);
 
 		if (pthread_create(&remoteTid, NULL, &remote_proc_main, NULL) != 0)
@@ -119,7 +121,9 @@ void *MCamRemote::remoteProcMain(void *parm)
 		for (int loop = 0; loop < maxLoops && !stopProcessing; loop++) {
 
 			//timeMeas.setStartTime();
+			//pGenericAlgo->TurnLaserOn(); // KBE???
 			pGenericAlgo->StartSLM();
+			pGenericAlgo->TurnLaserOn();
 			//timeMeas.printDuration("Generic and SLM");
 
 			//timeMeas.setStartTime();
@@ -249,6 +253,8 @@ long MCamRemote::saveImage(unsigned short *imageData, bool test)
 	//timeMeas.printDuration("Do Single Image");
 
 	//timeMeas.setStartTime();
+	pGenericAlgo->TurnLaserOff();
+
 	long newCost = (long)pGenericAlgo->ComputeIntencity(imageData, recAlgo_);
 	//timeMeas.printDuration("Compute Intencity");
 

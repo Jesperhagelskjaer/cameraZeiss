@@ -110,6 +110,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClCompile Include="src\BmpUtil.cpp" />
     <ClCompile Include="src\ConfigReader.cpp" />
     <ClCompile Include="src\EditProperties.cpp" />
+    <ClCompile Include="src\LaserInterface.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MCam.cpp" />
     <ClCompile Include="src\MCamCameraIF.cpp" />
@@ -118,6 +119,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClCompile Include="src\MCamRemote.cpp" />
     <ClCompile Include="src\MCamTest.cpp" />
     <ClCompile Include="src\MCamUtil.cpp" />
+    <ClCompile Include="src\Serial.cpp" />
     <ClCompile Include="src\SLMParents.cpp" />
     <ClCompile Include="src\win\pthread.c" />
     <ClCompile Include="src\win\semaphore.c" />
@@ -130,6 +132,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClInclude Include="include\defs.h" />
     <ClInclude Include="include\EditProperties.hpp" />
     <ClInclude Include="include\GenericAlgo.h" />
+    <ClInclude Include="include\LaserInterface.h" />
     <ClInclude Include="include\mcam.h" />
     <ClInclude Include="include\MCam.hpp" />
     <ClInclude Include="include\MCamCameraIF.hpp" />
@@ -138,6 +141,7 @@ nmake -f Makefile.win</NMakeReBuildCommandLine>
     <ClInclude Include="include\MCamRemote.hpp" />
     <ClInclude Include="include\MCamTest.hpp" />
     <ClInclude Include="include\MCamUtil.hpp" />
+    <ClInclude Include="include\Serial.h" />
     <ClInclude Include="include\SLMInterface.h" />
     <ClInclude Include="include\SLMParents.h" />
     <ClInclude Include="include\TemplateImages.h" />

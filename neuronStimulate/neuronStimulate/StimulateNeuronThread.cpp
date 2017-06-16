@@ -53,6 +53,8 @@ void StimulateNeuronThread::run()
 			//timeMeas.printDuration("Compute Cost");
 		printf("%d\r", m_iterations);
 		m_iterations--;
+		if (PAUSE_MS > 0)
+			Sleep(PAUSE_MS);
 	}
 	cout << "StimulateNeuronThread completed" << endl;
 	m_semaComplete.signal();

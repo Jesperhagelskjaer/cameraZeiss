@@ -651,6 +651,11 @@ long MCamImage::doSingleShot(long cameraIndex)
 
 				// Draw rectangle around area for cost calculation
 				applicationPtr->thisMCamRemotePtr->getRecAlgo(&RecAlgo);
+				RecAlgo.left--;
+				RecAlgo.right++;
+				RecAlgo.top--;
+				RecAlgo.bottom++;
+
 				// Draw black top and bottom horizontal lines
 				for (int i = RecAlgo.left; i < RecAlgo.right; i++) {
 					image->setPixel(RecAlgo.top, i, 0);
