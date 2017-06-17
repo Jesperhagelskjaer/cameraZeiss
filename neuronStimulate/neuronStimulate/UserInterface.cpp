@@ -23,7 +23,7 @@ UserInterface::~UserInterface()
 
 void UserInterface::init(void)
 {
-	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, DELAY_MS);
+	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, DELAY_MS, LASER_INTENSITY);
 }
 
 void UserInterface::testCollectNeuronData(void)
@@ -61,7 +61,7 @@ void UserInterface::runStimulateNeuron(Configuration *config)
 
 	// Start threads
 	m_AnalyseNeuronData->SetActiveChannel(config->m_ActiveChannel);
-	m_GenericAlgo->OpenLaserPort(config->m_LaserPort);
+	m_GenericAlgo->OpenLaserPort(config->m_LaserPort, config->m_LaserIntensity);
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
 	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", m_AnalyseNeuronData, m_GenericAlgo, config->m_NumIterations);
 	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);

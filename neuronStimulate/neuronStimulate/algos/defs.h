@@ -12,7 +12,7 @@
 
 // If defined then use SLM
 #define SLM_INTERFACE_		1
-#define LASER_INTEFACE_     1
+#define LASER_INTERFACE_    1
 
 // To be defined for testing without Digital Lynx SX and UDP LxRecords
 //#define TEST_GENERATOR_			1
@@ -23,4 +23,5 @@
 #define DELAY_MS		4		// Delay in ms to turn laser on
 #define PAUSE_MS        0       // Waiting delay after each iteration
 #define ACTIVE_CHANNEL  31		// Select channel 0-31
+#define LASER_INTENSITY 0.2f    // Intensity of laser when turned on
 

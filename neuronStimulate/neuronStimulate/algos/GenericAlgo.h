@@ -22,7 +22,7 @@ public:
 	
 	GenericAlgo() 
 #ifdef LASER_INTERFACE_
-		: laser(115200)
+		: laser(115200), laserIntensity_(0)
 #endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
@@ -35,7 +35,7 @@ public:
 
 	GenericAlgo(Blink_SDK *pSLMsdk)
 #ifdef LASER_INTERFACE_
-		: laser(115200)
+		: laser(115200), laserIntensity_(0)
 #endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
@@ -45,17 +45,18 @@ public:
 
 	}
 
-	void OpenLaserPort(int port)
+	void OpenLaserPort(int port, float intensity)
 	{
 #ifdef LASER_INTERFACE_
 		laser.OpenPort(port);
+		laserIntensity_ = intensity;
 #endif
 	}
 
 	void TurnLaserOn(void)
 	{
 #ifdef LASER_INTERFACE_		
-		laser.TurnOn();
+		laser.TurnOn(laserIntensity_);
 #endif
 	}
 
@@ -168,5 +169,6 @@ private:
 	//TimeMeasure timeMeas;
 #ifdef LASER_INTERFACE_
 	LaserInterface laser;
+	float laserIntensity_;
 #endif
 };

@@ -15,6 +15,7 @@
 //#define TEST_WITHOUT_CAMERA_	1
 #define LASER_INTERFACE_    1
 #define LASER_PORT          8
+#define LASER_INTENSITY     0.2f    // Intensity of laser when turned on
 
 // Used in MCamRemote
 #define NUM_BETWEEN_SAVE_IMG   20 // Number of iterations before saving image

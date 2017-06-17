@@ -318,8 +318,10 @@ public:
 
 	void CloseDataFile(void) 
 	{
-		if (dataStream != NULL)
+		if (dataStream != NULL) {
+			fflush(dataStream);
 			fclose(dataStream);
+		}
 		dataStream = NULL;
 	}
 
@@ -328,6 +330,7 @@ public:
 		for (int ch = 0; ch < NUM_CHANNELS; ch++)
 		{
 			if (dataChStreams[ch] != NULL) {
+				fflush(dataChStreams[ch]);
 				fclose(dataChStreams[ch]);
 				dataChStreams[ch] = NULL;
 			}
@@ -336,8 +339,10 @@ public:
 
 	void CloseHeaderFile(void) 
 	{
-		if (headerStream != NULL)
+		if (headerStream != NULL) {
+			fflush(headerStream);
 			fclose(headerStream);
+		}
 		headerStream = NULL;
 	}
 

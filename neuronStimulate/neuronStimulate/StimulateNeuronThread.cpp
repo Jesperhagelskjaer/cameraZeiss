@@ -57,6 +57,7 @@ void StimulateNeuronThread::run()
 			Sleep(PAUSE_MS);
 	}
 	cout << "StimulateNeuronThread completed" << endl;
+	m_AnalyseNeuronData->CloseCostFile();
 	m_semaComplete.signal();
 }
 

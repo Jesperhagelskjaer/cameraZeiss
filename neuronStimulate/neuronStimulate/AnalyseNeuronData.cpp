@@ -44,8 +44,10 @@ int AnalyseNeuronData::OpenCostFile(char *fileName)
 
 void AnalyseNeuronData::CloseCostFile(void)
 {
-	if (costStream != NULL)
+	if (costStream != NULL) {
+		fflush(costStream);
 		fclose(costStream);
+	}
 	costStream = NULL;
 }
 

@@ -50,7 +50,7 @@ int MCamRemote::startRemoteThread()
 		stopProcessing = false;
 
 		MCAM_LOGF_STATUS("Starting remote thread and open laser port");
-		pGenericAlgo->OpenLaserPort(LASER_PORT);
+		pGenericAlgo->OpenLaserPort(LASER_PORT, LASER_INTENSITY);
 
 		sem_init(&psem, 0, 0);
 

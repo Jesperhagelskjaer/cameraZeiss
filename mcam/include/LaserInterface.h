@@ -17,7 +17,7 @@ public:
 	LaserInterface(int rate);
 	~LaserInterface();
 	bool OpenPort(int port);
-	bool TurnOn();
+	bool TurnOn(float intensity);
 	bool TurnOff();
 
 private:

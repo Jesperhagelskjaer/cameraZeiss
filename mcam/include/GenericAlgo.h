@@ -1,8 +1,15 @@
+///////////////////////////////////////////////////////////
+//  GenericAlgo.h
+//  Implementation of the Class AnalyseNeuronData
+//  Created on:      19-maj-2017 22:44:35
+//  Original author: Kim Bjerge
+///////////////////////////////////////////////////////////
 #pragma once
 
 #include <windows.h>
 #include "SLMParents.h"
 #include "TemplateImages.h"
+#include "TimeMeasure.h"
 #ifdef LASER_INTERFACE_
 	#include "LaserInterface.h"
 #endif
@@ -13,9 +20,9 @@
 class GenericAlgo {
 public:
 	
-	GenericAlgo()
+	GenericAlgo() 
 #ifdef LASER_INTERFACE_
-		: laser(115200)
+		: laser(115200), laserIntensity_(0)
 #endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
@@ -28,7 +35,7 @@ public:
 
 	GenericAlgo(Blink_SDK *pSLMsdk)
 #ifdef LASER_INTERFACE_
-		: laser(115200)
+		: laser(115200), laserIntensity_(0)
 #endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS);
@@ -38,17 +45,18 @@ public:
 
 	}
 
-	void OpenLaserPort(int port)
+	void OpenLaserPort(int port, float intensity)
 	{
 #ifdef LASER_INTERFACE_
 		laser.OpenPort(port);
+		laserIntensity_ = intensity;
 #endif
 	}
 
 	void TurnLaserOn(void)
 	{
 #ifdef LASER_INTERFACE_		
-		laser.TurnOn();
+		laser.TurnOn(laserIntensity_);
 #endif
 	}
 
@@ -58,44 +66,43 @@ public:
 		laser.TurnOff();
 #endif
 	}
-
+	
 	int GetNumIterations(void) 
 	{
 		return num_iterations_;
 	}
-
-	void GenerateParent(void)
+		
+	void GenerateParent(void) 
 	{
 		//timeMeas.setStartTime();
 
 		if (pSLMParents_->IsTemplatesFull()) {
 			//pSLMParents_->PrintTemplates();
 			pSLMParents_->GenerateOffspring(1);
-		}
-		else {
+		} else {
 			//timeMeas.printDuration("Generic Offspring");
 			pSLMParents_->GenerateNewParent();
 			//timeMeas.printDuration("Generic New Parent");
 		}
 	}
 
-	void SendTemplateToSLM(void)
+	void SendTemplateToSLM(void) 
 	{
 #ifdef	SLM_INTERFACE_
 		//pSLMInterface_->SendTestPhase(pSLMParents_->GetNewParentMatrixPtr(), M);
 		pSLMInterface_->SendPhase(pSLMParents_->GetNewParentMatrixPtr());
 #endif
 	}
-
+			
 	void StartSLM()
 	{
 		GenerateParent();
 		SendTemplateToSLM();
 	}
-
+	
 	void CompareCostAndInsertTemplate(double cost)
 	{
-		pSLMParents_->CompareCostAndInsertTemplate(cost);
+		 pSLMParents_->CompareCostAndInsertTemplate(cost);
 	}
 
 	void TestComputeIntencity(double cost)
@@ -134,11 +141,12 @@ public:
 #endif
 		//pImg_->Print(); //KBE??? For debug only
 		cost = pImg_->ComputeIntencity();
-		pSLMParents_->CompareCostAndInsertTemplate(cost);
+		CompareCostAndInsertTemplate(cost);
 		//printf("ComputeIntencity done\r\n");
 		//pSLMParents_->PrintTemplates(); //KBE??? For debug only
 		return cost;
 	}
+	
 
 	~GenericAlgo()
 	{
@@ -161,5 +169,6 @@ private:
 	//TimeMeasure timeMeas;
 #ifdef LASER_INTERFACE_
 	LaserInterface laser;
+	float laserIntensity_;
 #endif
 };

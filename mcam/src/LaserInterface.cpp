@@ -31,14 +31,15 @@ bool LaserInterface::OpenPort(int port)
 	return true;
 }
 
-bool LaserInterface::TurnOn()
+bool LaserInterface::TurnOn(float intensity)
 {
 	char data[20];
 	int num;
 	if (!m_CSerial->IsOpened()) return false;
 
 	// Sending a string on port - laser on
-	sprintf(data, ">laserPM 0.2\r\n");
+	sprintf(data, ">laserPM %.1f\r\n", intensity);
+	//printf(data);
 	num = m_CSerial->SendData(data, (int)strlen(data) + 1);
 	if (num != strlen(data) + 1) {
 		cout << "Could not turn laser on" << endl;
