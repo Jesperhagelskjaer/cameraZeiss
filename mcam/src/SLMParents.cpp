@@ -7,9 +7,10 @@
 
 #include "SLMParents.h"
 
-SLMTemplate::SLMTemplate()
+SLMTemplate::SLMTemplate(int binding)
 {
 	cost_ = 0;
+	binding_ = binding;
 }
 
 void SLMTemplate::SetCost(double cost)
@@ -25,10 +26,9 @@ double SLMTemplate::GetCost(void)
 void SLMTemplate::GenRandom(void)
 {
 	unsigned char test;
-	unsigned int bindingtest_ = BIND;
 
 	for (int i = 0; i < M; i++) {
-		while (i % bindingtest_ != 0 && i < M) {
+		while (i % binding_ != 0 && i < M) {
 			for (int k = 0; k < M; k++) {
 				matrix_[i][k] = matrix_[i-1][k];
 			}
@@ -36,7 +36,7 @@ void SLMTemplate::GenRandom(void)
 		} 
 		if (i >= M) break;
 		for (int j = 0; j < M; j++) {
-			if (j % bindingtest_ == 0) {
+			if (j % binding_ == 0) {
 				test = rand() % 255;
 			}
 			matrix_[i][j] = test;
@@ -84,25 +84,24 @@ void SLMTemplate::AddCell(SLMTemplate &templateIn, SLMTemplate &templateOut)
 void SLMTemplate::RandomMutation(void)
 {
 		//cout << "random mutation" << endl;
-		float propabililty = (float)exp(-2); //exp(-0.52);
+		float propabililty = (float)MUT_PROPABILITY; //exp(-0.52);
 		//out << "probability:" << propabililty << endl;
 		//cout << "signel rand() call: " << (float)rand() / (float)RAND_MAX << endl;
-		int bindingtest_ = BIND;
 		int j;
 		int i;
 		float threshold;
 
-		for (i = 0; i < M; i += bindingtest_) {
+		for (i = 0; i < M; i += binding_) {
 			//cout << "i " << i << endl;
-			for (j = 0; j < M; j += bindingtest_) {
+			for (j = 0; j < M; j += binding_) {
 				//cout << (int)matrix_[i][j] << " " ;
 				threshold = (float)rand() / (float)RAND_MAX;
 				if (propabililty > threshold) {  
 					threshold = (float)1.1;
 					int test = rand() % 255;
-					for (int it2 = 0; it2 < bindingtest_; ++it2){
+					for (int it2 = 0; it2 < binding_; ++it2){
 							 
-						for (int jt2 = 0; jt2 < bindingtest_; ++jt2) {
+						for (int jt2 = 0; jt2 < binding_; ++jt2) {
 							//cout << it2 << " " << jt2 << " " << i + it2 << " " << j + jt2  << " " << test << endl;
 							matrix_[i + it2][j + jt2] = test;
 							//cout << (int)matrix_[i + it2][j + jt2] << " ";
@@ -115,7 +114,6 @@ void SLMTemplate::RandomMutation(void)
 
 void SLMTemplate::Print(void)
 {
-
 	//#ifdef DEBUG_
 	printf("cost: %f\r\n", cost_);
 	printf("line1: %d %d %d %d %d %d %d\r\n", matrix_[0][0], matrix_[0][1], matrix_[0][2], matrix_[0][3], matrix_[0][4], matrix_[0][5], matrix_[0][6]);
@@ -133,10 +131,16 @@ unsigned char *SLMTemplate::GetMatrixPtr(void)
 	return &matrix_[0][0];
 }
 
-SLMParents::SLMParents(int num)
+SLMParents::SLMParents(int numParents, int numBindings) :
+	BinaryTemplate1_(numBindings),
+	BinaryTemplate2_(numBindings),
+	Parent1_(numBindings),
+	Parent2_(numBindings)
 {
-	//GenParents(num);
 	pParentNew_ = 0;
+	numParents_ = numParents;
+	numBindings_ = numBindings;
+	//GenParents();
 }
 
 SLMParents::~SLMParents()
@@ -149,7 +153,7 @@ SLMParents::~SLMParents()
 
 bool SLMParents::IsTemplatesFull(void)
 {
-	if (SLMTemplates_.size() >= NUM_PARENTS)
+	if (SLMTemplates_.size() >= numParents_)
 		return true;
 	else
 		return false;
@@ -157,7 +161,7 @@ bool SLMParents::IsTemplatesFull(void)
 	
 void SLMParents::GenerateNewParent(void)
 {
-	pParentNew_ = new SLMTemplate();
+	pParentNew_ = new SLMTemplate(numBindings_);
 	pParentNew_->GenRandom();
 }
 
@@ -173,7 +177,7 @@ void SLMParents::PrintTemplates(void)
 	}
 }
 
-SLMTemplate *SLMParents::GenerateOffspring(int NumBinding)
+SLMTemplate *SLMParents::GenerateOffspring(void)
 {
 	int number1, number2;
 	SLMTemplate *pTemplate1, *pTemplate2;
@@ -205,7 +209,7 @@ SLMTemplate *SLMParents::GenerateOffspring(int NumBinding)
 	pTemplate1->MultiplyCell(BinaryTemplate1_, Parent1_);
 	pTemplate2->MultiplyCell(BinaryTemplate2_, Parent2_);
 		
-	pParentNew_ = new SLMTemplate();
+	pParentNew_ = new SLMTemplate(numBindings_);
 	Parent1_.AddCell(Parent2_, *pParentNew_);
 		
 	//cout << "Offspring parentNew: " << endl;;
@@ -252,12 +256,14 @@ void SLMParents::CompareCostAndInsertTemplate(double cost)
 
 }
 
-void SLMParents::GenParents(int num)
+/*
+void SLMParents::GenParents(void)
 {
-	for (int i = 0; i < num; i++) {
-		SLMTemplates_.push_back(new SLMTemplate());
+	for (int i = 0; i < numParents_; i++) {
+		SLMTemplates_.push_back(new SLMTemplate(numBindings_));
 	}
 }
+*/
 
 unsigned char* SLMParents::GetNewParentMatrixPtr(void)
 {
@@ -265,12 +271,12 @@ unsigned char* SLMParents::GetNewParentMatrixPtr(void)
 		return pParentNew_->GetMatrixPtr();
 	else
 		return 0;
-}
+};
 
 void SLMParents::DeleteLastTemplate(void)
 {
 	//printf("%d\r\n", SLMTemplates_.size());
-	if (SLMTemplates_.size() > NUM_PARENTS) {
+	if (SLMTemplates_.size() > numParents_) {
 		vector<SLMTemplate*>::iterator it = SLMTemplates_.end()-1;
 		SLMTemplate* pParentLast = *it;
 		//printf("Deleting template\r\n");
@@ -282,6 +288,6 @@ void SLMParents::DeleteLastTemplate(void)
 
 void SLMParents::GetRandomTemplateIdx(int &number1, int &number2)
 {
-	number1 = rand() % NUM_PARENTS; //NUM_PARENTS;
-	number2 = rand() % NUM_PARENTS; //NUM_PARENTS;
+	number1 = rand() % numParents_;
+	number2 = rand() % numParents_;
 }

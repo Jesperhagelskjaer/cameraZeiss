@@ -22,6 +22,7 @@ AnalyseNeuronData::AnalyseNeuronData() :
 	m_analyseSamples = ANALYSE_SAMPLES;
 	m_countSamples = m_analyseSamples;
 	costStream = NULL;
+	filterEnabled = false;
 }
 
 AnalyseNeuronData::~AnalyseNeuronData()
@@ -66,10 +67,32 @@ int AnalyseNeuronData::AppendCostToFile(double cost)
 	return res;
 }
 
+LxRecord *AnalyseNeuronData::FilterData(LxRecord * pLxRecord)
+{
+	/* Output to filtLxRecord
+	LxRecord filtLxRecord;
+	if (filterEnabled) {
+		for (int j = 0; j < NUM_BOARDS; j++) {
+			firFilter[j].filter(pLxRecord->board[j].data, filtLxRecord.board[j].data);
+		}
+		return &filtLxRecord;
+	}
+	*/
+	// Overwrites input data
+	if (filterEnabled) {
+		for (int j = 0; j < NUM_BOARDS; j++) {
+			firFilter[j].filter(pLxRecord->board[j].data, pLxRecord->board[j].data);
+		}
+	}
+	return pLxRecord;
+}
+
 void AnalyseNeuronData::AnalyzeData(LxRecord * pLxRecord)
 {
 	enter();
 
+	//pLxRecord = FilterData(pLxRecord);
+	
 	switch (m_mode)
 	{
 		case MODE_AVERAGE:

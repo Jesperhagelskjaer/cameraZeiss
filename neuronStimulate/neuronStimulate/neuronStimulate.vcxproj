@@ -23,7 +23,7 @@
     <ProjectGuid>{38DF02E1-3235-47C6-B745-C71407D342EA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>neuronStimulate</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -145,6 +145,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algos\defs.h" />
+    <ClInclude Include="algos\FilterCoeffs_0_1Hz.h" />
+    <ClInclude Include="algos\FilterCoeffs_100Hz.h" />
+    <ClInclude Include="algos\FilterCoeffs_10Hz.h" />
+    <ClInclude Include="algos\FilterCoeffs_1Hz.h" />
+    <ClInclude Include="algos\FilterCoeffs_300Hz.h" />
+    <ClInclude Include="algos\FirFilter.h" />
     <ClInclude Include="algos\GenericAlgo.h" />
     <ClInclude Include="algos\SLMParents.h" />
     <ClInclude Include="algos\TemplateImages.h" />
@@ -179,6 +185,7 @@
     <ClInclude Include="UserInterface.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="algos\FirFilter.cpp" />
     <ClCompile Include="algos\SLMParents.cpp" />
     <ClCompile Include="AnalyseNeuronData.cpp" />
     <ClCompile Include="CollectNeuronDataThread.cpp" />

@@ -103,6 +103,7 @@ void CollectNeuronDataThread::run()
 			else
 				m_TestDataGenerator->SetPulseActive(false);
 			m_TestDataGenerator->GenerateSampleRecord((LRECORD *)m_pBuffer);
+			m_AnalyseNeuronData->FilterData((LRECORD *)m_pBuffer);
 
 			if (m_LynxRecord->AppendDataToMemPool())
 			{
@@ -137,6 +138,7 @@ void CollectNeuronDataThread::run()
 			if (m_LynxRecord->CheckSumOK()) // Verify using xor checksum of record data
 			{
 				//m_LynxRecord->AppendDataFloatToFile();
+				m_AnalyseNeuronData->FilterData(m_LynxRecord->GetLxRecord()); // Filters data
 				m_AnalyseNeuronData->AnalyzeData(m_LynxRecord->GetLxRecord());
 				if (m_LynxRecord->AppendDataToMemPool()) {
 					m_LynxRecord->AppendHeaderToFile(m_AnalyseNeuronData->GetMode());

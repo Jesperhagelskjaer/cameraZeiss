@@ -12,6 +12,7 @@
 
 #include "Monitor.h"
 #include "LxRecord.h"
+#include "FirFilter.h"
 
 
 #define AVG_DELAY			50		// Length of average delay line, at 30 KHz equal to 1.66 ms
@@ -72,6 +73,18 @@ public:
 
 	virtual void AnalyzeData(LxRecord * pLxRecord);
 	double CalculateCost();
+	LxRecord *FilterData(LxRecord * pLxRecord);
+
+	void SetFilterType(FirFilter::TYPES type)
+	{
+		for (int j = 0; j < NUM_BOARDS; j++) {
+			firFilter[j].setType(type);
+		}
+		if (type == FirFilter::BYPASS)
+			filterEnabled = false;
+		else
+			filterEnabled = true;
+	}
 
 private:
 	virtual void SearchPattern(LxRecord * pLxRecord);
@@ -88,5 +101,7 @@ private:
 	int m_countSamples;
 	Semaphore m_semaAnalyseComplete;
 	FILE *costStream;
+	bool filterEnabled;
+	FirFilter firFilter[NUM_BOARDS];
 };
 #endif // !defined(EA_B3564376_2AD6_4bb7_BFF4_ACB51E0312EB__INCLUDED_)

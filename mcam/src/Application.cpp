@@ -19,7 +19,7 @@
 
 #include "Application.hpp"
 
-#define ABOUT_VERSION "About MCam Version 1.62"
+#define ABOUT_VERSION "About MCam Version 2.62"
 
 Application::Application(QWidget *parent) :
                 QMainWindow(parent), ui(new Ui::Application)
@@ -81,8 +81,10 @@ Application::Application(QWidget *parent) :
     connect(ui->applyROIButton, SIGNAL(released()), this, SLOT(handleApplyROIButton()));
 
     connect(ui->singleShotButton, SIGNAL(released()), this, SLOT(doSingleShot()));
-    connect(ui->contShotButton, SIGNAL(released()), this, SLOT(handleContShotButton()));
+	connect(ui->genericShotButton, SIGNAL(released()), this, SLOT(doGenericShot()));
+	connect(ui->contShotButton, SIGNAL(released()), this, SLOT(handleContShotButton()));
     connect(ui->triggerModeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(handleTriggerMode(int)));
+	connect(ui->saveUserButton, SIGNAL(released()), this, SLOT(handleSaveUserButton()));
 
     connect(ui->cameraComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(cameraSelectedComboBox(int)));
     connect(ui->negativePolarityCheckBox, SIGNAL(toggled(bool)), this, SLOT(negativePolarityChecked(bool)));
@@ -648,6 +650,32 @@ void Application::doSingleShot()
     updateActions();
 }
 
+void Application::doGenericShot()
+{
+	thisMCamRemotePtr->createStartFile();
+	updateActions();
+}
+
+void Application::handleSaveUserButton()
+{
+	int bindings = ui->bindings->displayText().toInt();
+	int parents = ui->parents->displayText().toInt();
+	int iterations = ui->iterations->displayText().toInt();
+	int between = ui->between->displayText().toInt();
+	int delay = ui->delay->displayText().toInt();
+	int pause = ui->pause->displayText().toInt();
+	float intensity = ui->intensity->displayText().toFloat();
+
+	thisMCamRemotePtr->setNumBindings(bindings);
+	thisMCamRemotePtr->setNumParents(parents);
+	thisMCamRemotePtr->setNumIterations(iterations);
+	thisMCamRemotePtr->setNumBetweenSave(between);
+	thisMCamRemotePtr->setLaserIntensity(intensity);
+	thisMCamRemotePtr->setDelayMS(delay);
+	thisMCamRemotePtr->setPauseMS(pause);
+}
+
+
 // public
 long Application::continuousShotStartStop(bool start)
 {
@@ -1189,10 +1217,19 @@ void Application::setBusyLock(bool disabled)  // true: locked  false: unlocked
     MCammHasParameter(cameraIndex, mcammParmHDR, &hasHDR);
     MCammHasParameter(cameraIndex, mcammParmHighImageRateMode, &hasHighImageRateMode);
 	
-	//KBE!!!
+#ifdef TEST_WITHOUT_CAMERA_
 	disabled = false;
+#endif
 	if (!disabled) 
 	{
+		ui->iterations->setText(QString::number(thisMCamRemotePtr->getNumIterations()));
+		ui->parents->setText(QString::number(thisMCamRemotePtr->getNumParents()));
+		ui->bindings->setText(QString::number(thisMCamRemotePtr->getNumBindings()));
+		ui->between->setText(QString::number(thisMCamRemotePtr->getNumBetweenSave()));
+		ui->intensity->setText(QString::number((double)thisMCamRemotePtr->getLaserIntensity()));
+		ui->delay->setText(QString::number(thisMCamRemotePtr->getDelayMS()));
+		ui->pause->setText(QString::number(thisMCamRemotePtr->getPauseMS()));
+
 		thisMCamRemotePtr->getRecAlgo(&rcSize);
 		ui->posYalgo->setText(QString::number(rcSize.top));
 		ui->posXalgo->setText(QString::number(rcSize.left));
@@ -1214,7 +1251,8 @@ void Application::setBusyLock(bool disabled)  // true: locked  false: unlocked
     ui->resetColorButton->setEnabled(!disabled);
     ui->defaultColorButton->setEnabled(!disabled);
     ui->singleShotButton->setEnabled((!disabled) && (!running));
-    ui->contShotButton->setEnabled(!disabled);
+	ui->genericShotButton->setEnabled((!disabled) && (!running));
+	ui->contShotButton->setEnabled(!disabled);
     ui->triggerModeComboBox->setEnabled((!disabled) && (!running));
     ui->posX->setEnabled(!disabled);
     ui->posY->setEnabled(!disabled);
@@ -1289,6 +1327,7 @@ void Application::contShotStart(bool start)
         ui->frequencyComboBox->setEnabled(!start);
 
     ui->singleShotButton->setEnabled(!start);
+	ui->genericShotButton->setEnabled(!start);
     ui->triggerModeComboBox->setEnabled(!start);
     ui->negativePolarityCheckBox->setEnabled(!start);
     ui->levelTriggerCheckBox->setEnabled(!start);

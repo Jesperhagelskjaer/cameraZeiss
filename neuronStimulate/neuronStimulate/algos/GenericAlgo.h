@@ -20,14 +20,14 @@
 class GenericAlgo {
 public:
 	
-	GenericAlgo() 
+	GenericAlgo(int numParents, int numBindings, int numIterations) 
 #ifdef LASER_INTERFACE_
 		: laser(115200), laserIntensity_(0)
 #endif
 	{
-		pSLMParents_ = new SLMParents(NUM_PARENTS);
+		pSLMParents_ = new SLMParents(numParents, numBindings);
 		pImg_ = new CamImage();
-		num_iterations_ = NUM_ITERATIONS;
+		num_iterations_ = numIterations;
 
 #ifdef	SLM_INTERFACE_
 	   pSLMInterface_ = new SLMInterface();
@@ -38,7 +38,7 @@ public:
 		: laser(115200), laserIntensity_(0)
 #endif
 	{
-		pSLMParents_ = new SLMParents(NUM_PARENTS);
+		pSLMParents_ = new SLMParents(NUM_PARENTS, NUM_BINDINGS);
 		pImg_ = new CamImage();
 		pSLMInterface_ = new SLMInterface(pSLMsdk);
 #endif
@@ -78,7 +78,7 @@ public:
 
 		if (pSLMParents_->IsTemplatesFull()) {
 			//pSLMParents_->PrintTemplates();
-			pSLMParents_->GenerateOffspring(1);
+			pSLMParents_->GenerateOffspring();
 		} else {
 			//timeMeas.printDuration("Generic Offspring");
 			pSLMParents_->GenerateNewParent();

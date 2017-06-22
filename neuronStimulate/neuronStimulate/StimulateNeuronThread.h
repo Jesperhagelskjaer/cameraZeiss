@@ -23,7 +23,8 @@ public:
 	virtual ~StimulateNeuronThread();
 
 	virtual void run();
-	void Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData, GenericAlgo *pGenericAlgo, int iterations);
+	void Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData, 
+		       GenericAlgo *pGenericAlgo, int iterations, int pause);
 	void WaitForCompletion();
 	void SetDelay(int ms)
 	{
@@ -38,6 +39,7 @@ private:
 	Semaphore m_semaComplete;
 	int m_iterations;
 	int m_delayms;
+	int m_pausems;
 	TimeMeasure timeMeas;
 };
 #endif // !defined(EA_C34C7A4D_067D_4aaf_B24A_B39E09E63F27__INCLUDED_)

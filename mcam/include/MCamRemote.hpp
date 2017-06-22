@@ -46,6 +46,7 @@ public:
 	MCamRemote(Application *applicationPtr);
 	virtual ~MCamRemote();
 
+	void createStartFile(void); // Used to start generic algo from GUI
 	int startRemoteThread();
 	int stopRemoteThread();
 	void *remoteProcMain(void *parm);
@@ -68,7 +69,32 @@ private:
 	RECT recAlgo_;
 	ROI imgROI_;
 	int iteration_;
+
+	// User parameters
+	int numBindings_;
+	int numParents_;
+	int numIterations_;
 	int numBetweenSave_;
+	float laserIntensity_;
+	int delayMS_;
+	int pauseMS_;
+
+public:
+	void setNumBindings(int bindings) { numBindings_ = bindings; };
+	void setNumParents(int parents) { numParents_ = parents; };
+	void setNumIterations(int iterations) { numIterations_ = iterations; };
+	void setNumBetweenSave(int betweenSave) { numBetweenSave_ = betweenSave; };
+	void setLaserIntensity(float intensity) { laserIntensity_ = intensity; };
+	void setDelayMS(int delay) { delayMS_ = delay; };
+	void setPauseMS(int pause) { pauseMS_ = pause; };
+
+	int getNumBindings(void) { return numBindings_; };
+	int getNumParents(void) { return numParents_; };
+	int getNumIterations(void) { return numIterations_; };
+	int getNumBetweenSave(void) { return numBetweenSave_; };
+	float getLaserIntensity(void) { return laserIntensity_; };
+	int getDelayMS(void) { return delayMS_; };
+	int getPauseMS(void) { return pauseMS_; };
 };
 
 #endif

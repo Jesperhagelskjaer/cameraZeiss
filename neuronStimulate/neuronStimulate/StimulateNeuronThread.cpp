@@ -14,6 +14,7 @@ StimulateNeuronThread::StimulateNeuronThread() :
 {
 	m_iterations = 0;
 	m_delayms = 0;
+	m_pausems = 0;
 	m_AnalyseNeuronData = 0;
 }
 
@@ -53,18 +54,20 @@ void StimulateNeuronThread::run()
 			//timeMeas.printDuration("Compute Cost");
 		printf("%d\r", m_iterations);
 		m_iterations--;
-		if (PAUSE_MS > 0)
-			Sleep(PAUSE_MS);
+		if (m_pausems > 0)
+			Sleep(m_pausems);
 	}
 	cout << "StimulateNeuronThread completed" << endl;
 	m_AnalyseNeuronData->CloseCostFile();
 	m_semaComplete.signal();
 }
 
-void StimulateNeuronThread::Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData, GenericAlgo *pGenericAlgo, int iterations)
+void StimulateNeuronThread::Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData, 
+	                              GenericAlgo *pGenericAlgo, int iterations, int pause)
 {
 
 	m_iterations = iterations;
+	m_pausems = pause;
 	m_AnalyseNeuronData = pAnalyseNeuronData;
 	m_GenericAlgo = pGenericAlgo;
 	runThread(pri, _name);

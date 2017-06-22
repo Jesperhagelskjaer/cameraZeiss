@@ -17,7 +17,7 @@ MCamRemote::MCamRemote(Application *applicationPtr)
 {
 	this->applicationPtr = applicationPtr;
 	mcamRemotePtr = this;
-	pGenericAlgo = new GenericAlgo();
+	pGenericAlgo = 0;
 
 	// Remote single shot handling
 	threadStarted = false;
@@ -29,9 +29,18 @@ MCamRemote::MCamRemote(Application *applicationPtr)
 	recAlgo_.top = 245;
 	recAlgo_.right = 255;
 	recAlgo_.bottom = 255;
-	numBetweenSave_ = NUM_BETWEEN_SAVE_IMG;
+
 	imgROI_.width = 0;
 	imgROI_.height = 0;
+
+	// User default parameters
+	numBindings_ = NUM_BINDINGS;
+	numParents_ = NUM_PARENTS;
+	numIterations_ = GEN_ITERATIONS;
+	delayMS_ = DELAY_MS;
+	pauseMS_ = PAUSE_MS;
+	laserIntensity_ = LASER_INTENSITY;
+	numBetweenSave_ = NUM_BETWEEN_SAVE_IMG;
 
 	connect(this, SIGNAL(doSingleImage()), this->applicationPtr, SLOT(doSingleShot()));
 }
@@ -50,7 +59,6 @@ int MCamRemote::startRemoteThread()
 		stopProcessing = false;
 
 		MCAM_LOGF_STATUS("Starting remote thread and open laser port");
-		pGenericAlgo->OpenLaserPort(LASER_PORT, LASER_INTENSITY);
 
 		sem_init(&psem, 0, 0);
 
@@ -114,7 +122,20 @@ void *MCamRemote::remoteProcMain(void *parm)
 
 		// Wait for start.txt file to start processing
 		waitForStart();
-		printf("Generic Algo StartSLM\r\n");
+
+		pGenericAlgo = new GenericAlgo(numParents_, numBindings_, numIterations_);
+
+		if (pGenericAlgo == 0) {
+			printf("FAILED TO ALLOCATE GENERIC ALGORITHM\r\n");
+			stopProcessing = true;
+			break;
+		}
+
+		pGenericAlgo->OpenLaserPort(LASER_PORT, laserIntensity_);
+
+		printf("Generic Algo StartSLM: %d, %d, %d, %d, %.2f, %d, %d\r\n", 
+			    numIterations_, numParents_, numBindings_, numBetweenSave_, 
+			    laserIntensity_, delayMS_, pauseMS_);
 		iteration_ = 0;
 
 		int maxLoops = pGenericAlgo->GetNumIterations();
@@ -124,6 +145,9 @@ void *MCamRemote::remoteProcMain(void *parm)
 			//pGenericAlgo->TurnLaserOn(); // KBE???
 			pGenericAlgo->StartSLM();
 			pGenericAlgo->TurnLaserOn();
+			if (delayMS_ > 0)
+				MCamUtil::sleep(delayMS_);
+
 			//timeMeas.printDuration("Generic and SLM");
 
 			//timeMeas.setStartTime();
@@ -135,22 +159,32 @@ void *MCamRemote::remoteProcMain(void *parm)
 			
 			sem_wait(&psem);
 
-			//MCamUtil::sleep(10);
 			printf("%d\r", loop+1);
 			iteration_++;
+
+			if (pauseMS_ > 0)
+				MCamUtil::sleep(pauseMS_);
 		}
 
 		// Create stop.txt file to indicate completed
 		saveDataFile(maxLoops); // Save data results file
 		createStopFile();
+		delete pGenericAlgo;
+		pGenericAlgo = 0;
 	}
-	
+
 	threadStarted = false;
 	MCAM_LOGF_STATUS("Stopped remote thread");
 
 	return NULL;
 }
 
+void MCamRemote::createStartFile(void)
+{
+	FILE *hStartFile;
+	hStartFile = fopen(START_FILE, "w"); // Create start file
+	fclose(hStartFile);
+}
 
 void MCamRemote::createStopFile(void)
 {
@@ -217,7 +251,7 @@ void MCamRemote::saveDataFile(int maxLoops)
 		fprintf(hDataFile, "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n", 
 			                imgROI_.width, imgROI_.height, 
 			                recAlgo_.left, recAlgo_.top, recAlgo_.right, recAlgo_.bottom,
-							NUM_PARENTS, BIND, maxLoops, numBetweenSave_);
+							numParents_, numBindings_, maxLoops, numBetweenSave_);
 		fclose(hDataFile);
 	}
 }

@@ -52,7 +52,7 @@ int genericAlgoTest(void)
 	
 	//SLMTemplate *pParentNew;
 	//GenericAlgo *pGenericAlgo = new GenericAlgo(&sdk);
-	GenericAlgo *pGenericAlgo = new GenericAlgo();
+	GenericAlgo *pGenericAlgo = new GenericAlgo(NUM_PARENTS, NUM_BINDINGS, GEN_ITERATIONS);
 
 	for (int i = 0; i < TEST_SIZE; i++) 
 	{

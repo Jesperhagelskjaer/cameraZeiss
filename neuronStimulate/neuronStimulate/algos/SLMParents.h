@@ -14,7 +14,7 @@ using namespace std;
 class SLMTemplate
 {
 public:
-	SLMTemplate();
+	SLMTemplate(int binding);
 	void SetCost(double cost);
 	double GetCost(void);
 	void GenRandom(void);
@@ -29,20 +29,21 @@ public:
 private:
 	unsigned char matrix_[M][M];
 	double cost_;
+	int binding_;
 };
 
 
 class SLMParents
 {
 public:
-	SLMParents(int num);
+	SLMParents(int numParents, int numBinding);
 	~SLMParents();
 	bool IsTemplatesFull(void);
 	void GenerateNewParent(void);
 	void PrintTemplates(void);
-	SLMTemplate *GenerateOffspring(int NumBinding);
+	SLMTemplate *GenerateOffspring(void);
 	void CompareCostAndInsertTemplate(double cost);
-	void GenParents(int num);
+	//void GenParents(void);
 	unsigned char* GetNewParentMatrixPtr(void);
 
 private:
@@ -53,4 +54,6 @@ private:
 	SLMTemplate Parent1_, Parent2_;
 	SLMTemplate *pParentNew_;
 	std::vector<SLMTemplate*> SLMTemplates_;
+	int numParents_;
+	int numBindings_;
 };

@@ -132,6 +132,24 @@
     <ClInclude Include="algos\defs.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="algos\FirFilter.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_0_1Hz.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_1Hz.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_10Hz.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_100Hz.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_300Hz.h">
+      <Filter>Source Files\algos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="neuronStimulate.cpp">
@@ -174,6 +192,9 @@
       <Filter>Source Files\test</Filter>
     </ClCompile>
     <ClCompile Include="algos\SLMParents.cpp">
+      <Filter>Source Files\algos</Filter>
+    </ClCompile>
+    <ClCompile Include="algos\FirFilter.cpp">
       <Filter>Source Files\algos</Filter>
     </ClCompile>
   </ItemGroup>

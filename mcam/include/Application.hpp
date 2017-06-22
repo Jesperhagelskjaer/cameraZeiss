@@ -77,7 +77,8 @@ private slots:
     void updateCameraIndex();
     void updateDevicesComboBox();
     void doSingleShot();
-    void doContinuousShot(bool start);
+	void doGenericShot();
+	void doContinuousShot(bool start);
     void loadSettings();
     void startStressTest();
     void setImage(const QImage*);
@@ -142,6 +143,9 @@ private slots:
     void BufferChecked(bool enabled);
     void updateBufferChecked();
 
+	void updateCost(long cost);
+	void handleSaveUserButton();
+
 public:
     bool isBufferEnabledCurrentCamera();
 
@@ -156,7 +160,6 @@ public slots:
     void handleTriggerMode(int index);
     void updateCameraGUIParamter(long cameraIndex);
     void cameraSelected(long cameraIndex);
-	void updateCost(long cost);
 
 private:
     void updateActions();

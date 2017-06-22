@@ -23,7 +23,9 @@ UserInterface::~UserInterface()
 
 void UserInterface::init(void)
 {
-	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, DELAY_MS, LASER_INTENSITY);
+	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, DELAY_MS, 
+		                                PAUSE_MS, LASER_INTENSITY, FirFilter::FILTER_TYPE,
+										NUM_PARENTS, NUM_BINDINGS);
 }
 
 void UserInterface::testCollectNeuronData(void)
@@ -57,13 +59,16 @@ void UserInterface::runStimulateNeuron(Configuration *config)
 	m_AnalyseNeuronData = new AnalyseNeuronData();
 	m_CollectNeuronDataThread = new CollectNeuronDataThread();
 	m_StimulateNeuronThread = new StimulateNeuronThread();
-	m_GenericAlgo = new GenericAlgo();
+	m_GenericAlgo = new GenericAlgo(config->m_NumParents, config->m_NumBindings, config->m_NumIterations);
 
 	// Start threads
 	m_AnalyseNeuronData->SetActiveChannel(config->m_ActiveChannel);
+	m_AnalyseNeuronData->SetFilterType(config->m_FilterType);
 	m_GenericAlgo->OpenLaserPort(config->m_LaserPort, config->m_LaserIntensity);
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
-	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", m_AnalyseNeuronData, m_GenericAlgo, config->m_NumIterations);
+	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", 
+		                           m_AnalyseNeuronData, m_GenericAlgo, 
+		                           config->m_NumIterations, config->m_PauseMS);
 	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
 	m_AnalyseNeuronData->OpenCostFile(m_CollectNeuronDataThread->GetCostFileName());
 

@@ -17,6 +17,7 @@
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
 #include <QtGui/QDockWidget>
+#include <QtGui/QFormLayout>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
@@ -99,41 +100,43 @@ public:
     QLabel *fpsStatusLabel;
     QDockWidget *dockWidget;
     QWidget *dockWidgetContents;
-    QVBoxLayout *verticalLayout_2;
+    QGridLayout *gridLayout_3;
     QComboBox *cameraComboBox;
     QHBoxLayout *horizontalLayout_8;
+    QPushButton *genericShotButton;
     QPushButton *singleShotButton;
     QPushButton *contShotButton;
     QGroupBox *groupBox_5;
-    QLabel *label_9;
-    QLineEdit *posX;
-    QLineEdit *posY;
-    QLabel *label_11;
-    QLineEdit *sizeX;
-    QLineEdit *sizeY;
-    QPushButton *fullROIButton;
+    QGridLayout *gridLayout;
+    QLineEdit *sizeYalgo;
     QPushButton *applyROIButton;
+    QLineEdit *sizeXalgo;
+    QPushButton *fullROIButton;
+    QLineEdit *sizeY;
+    QLineEdit *posX;
+    QLineEdit *posYalgo;
+    QLabel *label_11;
+    QLabel *label_17;
+    QLabel *label_9;
     QComboBox *binningComboBox;
-    QComboBox *portComboBox;
-    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_16;
     QComboBox *compressionComboBox;
     QCheckBox *HDRModeCheckBox;
     QCheckBox *HighRateCheckBox;
     QCheckBox *BufferCheckBox;
-    QLineEdit *posXalgo;
-    QLineEdit *sizeXalgo;
-    QLineEdit *posYalgo;
-    QLineEdit *sizeYalgo;
-    QLabel *label_17;
+    QComboBox *portComboBox;
+    QLineEdit *sizeX;
     QLabel *label_18;
+    QLineEdit *posY;
+    QLineEdit *posXalgo;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_2;
     QComboBox *exposureTimeUnitComboBox;
     QSlider *exposureSlider;
     QSpinBox *exposureSpinBox;
     QGroupBox *groupBox_4;
+    QGridLayout *gridLayout_4;
     QComboBox *frequencyComboBox;
     QLineEdit *costText;
     QHBoxLayout *horizontalLayout_13;
@@ -161,25 +164,41 @@ public:
     QHBoxLayout *horizontalLayout_11;
     QLabel *label_14;
     QSpinBox *gpoDelaySpinBox;
-    QSpacerItem *verticalSpacer;
+    QGroupBox *groupBox_3;
+    QFormLayout *formLayout;
+    QLabel *label_19;
+    QLineEdit *iterations;
+    QLabel *label_20;
+    QLineEdit *parents;
+    QLabel *label_21;
+    QLineEdit *bindings;
+    QLabel *label_22;
+    QLineEdit *between;
+    QLabel *label_23;
+    QLineEdit *intensity;
+    QLabel *label_24;
+    QLineEdit *delay;
+    QLabel *label_25;
+    QLineEdit *pause;
+    QPushButton *saveUserButton;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_14;
     QLabel *label_5;
-    QLabel *label_4;
     QSlider *colorTemperaturSlider;
+    QLabel *label_4;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label;
-    QLabel *label_2;
     QSlider *redSlider;
+    QLabel *label_2;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
-    QLabel *label_6;
     QSlider *greenSlider;
+    QLabel *label_6;
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_7;
-    QLabel *label_8;
     QSlider *blueSlider;
+    QLabel *label_8;
     QHBoxLayout *horizontalLayout_6;
     QSpacerItem *horizontalSpacer;
     QPushButton *saveColorButton;
@@ -190,7 +209,7 @@ public:
     {
         if (Application->objectName().isEmpty())
             Application->setObjectName(QString::fromUtf8("Application"));
-        Application->resize(1016, 912);
+        Application->resize(1045, 1024);
         actionOpen = new QAction(Application);
         actionOpen->setObjectName(QString::fromUtf8("actionOpen"));
         actionSave = new QAction(Application);
@@ -291,6 +310,7 @@ public:
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         scrollArea = new QScrollArea(centralWidget);
         scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
+        scrollArea->setEnabled(false);
         scrollArea->setFrameShape(QFrame::NoFrame);
         scrollArea->setFrameShadow(QFrame::Plain);
         scrollArea->setLineWidth(0);
@@ -310,7 +330,7 @@ public:
         Application->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Application);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1016, 26));
+        menuBar->setGeometry(QRect(0, 0, 1045, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QString::fromUtf8("menuFile"));
         menuCamera = new QMenu(menuBar);
@@ -319,24 +339,20 @@ public:
         menuDevice->setObjectName(QString::fromUtf8("menuDevice"));
         actionGroupDevices = new QActionGroup(menuDevice);
         actionGroupDevices->setObjectName(QString::fromUtf8("actionGroupDevices"));
-        //actionGroupDevices->setGeometry(QRect(0, 0, 100, 30));
         menuImageProcessing = new QMenu(menuBar);
         menuImageProcessing->setObjectName(QString::fromUtf8("menuImageProcessing"));
         menuDemosaicing = new QMenu(menuImageProcessing);
         menuDemosaicing->setObjectName(QString::fromUtf8("menuDemosaicing"));
         actionGroupDemosaicingQuality = new QActionGroup(menuDemosaicing);
         actionGroupDemosaicingQuality->setObjectName(QString::fromUtf8("actionGroupDemosaicingQuality"));
-        //actionGroupDemosaicingQuality->setGeometry(QRect(0, 0, 100, 30));
         menuTileAdjustment = new QMenu(menuImageProcessing);
         menuTileAdjustment->setObjectName(QString::fromUtf8("menuTileAdjustment"));
         actionGroupTileAdjustment = new QActionGroup(menuTileAdjustment);
         actionGroupTileAdjustment->setObjectName(QString::fromUtf8("actionGroupTileAdjustment"));
-        //actionGroupTileAdjustment->setGeometry(QRect(0, 0, 100, 30));
         menuLineFlickerSuppression = new QMenu(menuImageProcessing);
         menuLineFlickerSuppression->setObjectName(QString::fromUtf8("menuLineFlickerSuppression"));
         actionGroupLineFlickerSuppression = new QActionGroup(menuLineFlickerSuppression);
         actionGroupLineFlickerSuppression->setObjectName(QString::fromUtf8("actionGroupLineFlickerSuppression"));
-        //actionGroupLineFlickerSuppression->setGeometry(QRect(0, 0, 100, 30));
         menuBlackReference = new QMenu(menuImageProcessing);
         menuBlackReference->setObjectName(QString::fromUtf8("menuBlackReference"));
         menuWhiteReference = new QMenu(menuImageProcessing);
@@ -361,21 +377,26 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(dockWidget->sizePolicy().hasHeightForWidth());
         dockWidget->setSizePolicy(sizePolicy1);
-        dockWidget->setMinimumSize(QSize(336, 865));
         dockWidget->setAutoFillBackground(true);
+        dockWidget->setFloating(true);
         dockWidget->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
         dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea);
         dockWidgetContents = new QWidget();
         dockWidgetContents->setObjectName(QString::fromUtf8("dockWidgetContents"));
-        verticalLayout_2 = new QVBoxLayout(dockWidgetContents);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        gridLayout_3 = new QGridLayout(dockWidgetContents);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         cameraComboBox = new QComboBox(dockWidgetContents);
         cameraComboBox->setObjectName(QString::fromUtf8("cameraComboBox"));
 
-        verticalLayout_2->addWidget(cameraComboBox);
+        gridLayout_3->addWidget(cameraComboBox, 0, 0, 1, 1);
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        genericShotButton = new QPushButton(dockWidgetContents);
+        genericShotButton->setObjectName(QString::fromUtf8("genericShotButton"));
+
+        horizontalLayout_8->addWidget(genericShotButton);
+
         singleShotButton = new QPushButton(dockWidgetContents);
         singleShotButton->setObjectName(QString::fromUtf8("singleShotButton"));
 
@@ -387,92 +408,125 @@ public:
         horizontalLayout_8->addWidget(contShotButton);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_8);
+        gridLayout_3->addLayout(horizontalLayout_8, 1, 0, 1, 1);
 
         groupBox_5 = new QGroupBox(dockWidgetContents);
         groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
         groupBox_5->setMinimumSize(QSize(0, 160));
-        label_9 = new QLabel(groupBox_5);
-        label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setGeometry(QRect(10, 20, 23, 16));
-        posX = new QLineEdit(groupBox_5);
-        posX->setObjectName(QString::fromUtf8("posX"));
-        posX->setGeometry(QRect(40, 20, 51, 22));
-        posY = new QLineEdit(groupBox_5);
-        posY->setObjectName(QString::fromUtf8("posY"));
-        posY->setGeometry(QRect(100, 20, 51, 22));
-        label_11 = new QLabel(groupBox_5);
-        label_11->setObjectName(QString::fromUtf8("label_11"));
-        label_11->setGeometry(QRect(10, 50, 24, 16));
-        sizeX = new QLineEdit(groupBox_5);
-        sizeX->setObjectName(QString::fromUtf8("sizeX"));
-        sizeX->setGeometry(QRect(40, 50, 51, 22));
-        sizeY = new QLineEdit(groupBox_5);
-        sizeY->setObjectName(QString::fromUtf8("sizeY"));
-        sizeY->setGeometry(QRect(100, 50, 51, 22));
-        fullROIButton = new QPushButton(groupBox_5);
-        fullROIButton->setObjectName(QString::fromUtf8("fullROIButton"));
-        fullROIButton->setGeometry(QRect(35, 81, 112, 21));
+        gridLayout = new QGridLayout(groupBox_5);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        sizeYalgo = new QLineEdit(groupBox_5);
+        sizeYalgo->setObjectName(QString::fromUtf8("sizeYalgo"));
+
+        gridLayout->addWidget(sizeYalgo, 1, 5, 1, 1);
+
         applyROIButton = new QPushButton(groupBox_5);
         applyROIButton->setObjectName(QString::fromUtf8("applyROIButton"));
-        applyROIButton->setGeometry(QRect(151, 81, 164, 21));
+
+        gridLayout->addWidget(applyROIButton, 2, 3, 1, 3);
+
+        sizeXalgo = new QLineEdit(groupBox_5);
+        sizeXalgo->setObjectName(QString::fromUtf8("sizeXalgo"));
+
+        gridLayout->addWidget(sizeXalgo, 1, 4, 1, 1);
+
+        fullROIButton = new QPushButton(groupBox_5);
+        fullROIButton->setObjectName(QString::fromUtf8("fullROIButton"));
+
+        gridLayout->addWidget(fullROIButton, 2, 1, 1, 2);
+
+        sizeY = new QLineEdit(groupBox_5);
+        sizeY->setObjectName(QString::fromUtf8("sizeY"));
+
+        gridLayout->addWidget(sizeY, 1, 2, 1, 1);
+
+        posX = new QLineEdit(groupBox_5);
+        posX->setObjectName(QString::fromUtf8("posX"));
+
+        gridLayout->addWidget(posX, 0, 1, 1, 1);
+
+        posYalgo = new QLineEdit(groupBox_5);
+        posYalgo->setObjectName(QString::fromUtf8("posYalgo"));
+
+        gridLayout->addWidget(posYalgo, 0, 5, 1, 1);
+
+        label_11 = new QLabel(groupBox_5);
+        label_11->setObjectName(QString::fromUtf8("label_11"));
+
+        gridLayout->addWidget(label_11, 1, 0, 1, 1);
+
+        label_17 = new QLabel(groupBox_5);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+
+        gridLayout->addWidget(label_17, 0, 3, 1, 1);
+
+        label_9 = new QLabel(groupBox_5);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+
+        gridLayout->addWidget(label_9, 0, 0, 1, 1);
+
         binningComboBox = new QComboBox(groupBox_5);
         binningComboBox->setObjectName(QString::fromUtf8("binningComboBox"));
-        binningComboBox->setGeometry(QRect(35, 106, 112, 22));
-        portComboBox = new QComboBox(groupBox_5);
-        portComboBox->setObjectName(QString::fromUtf8("portComboBox"));
-        portComboBox->setGeometry(QRect(151, 106, 164, 22));
-        layoutWidget = new QWidget(groupBox_5);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(0, 130, 324, 24));
-        horizontalLayout_5 = new QHBoxLayout(layoutWidget);
+
+        gridLayout->addWidget(binningComboBox, 3, 1, 1, 2);
+
+        horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
-        label_16 = new QLabel(layoutWidget);
+        label_16 = new QLabel(groupBox_5);
         label_16->setObjectName(QString::fromUtf8("label_16"));
 
         horizontalLayout_5->addWidget(label_16);
 
-        compressionComboBox = new QComboBox(layoutWidget);
+        compressionComboBox = new QComboBox(groupBox_5);
         compressionComboBox->setObjectName(QString::fromUtf8("compressionComboBox"));
 
         horizontalLayout_5->addWidget(compressionComboBox);
 
-        HDRModeCheckBox = new QCheckBox(layoutWidget);
+        HDRModeCheckBox = new QCheckBox(groupBox_5);
         HDRModeCheckBox->setObjectName(QString::fromUtf8("HDRModeCheckBox"));
 
         horizontalLayout_5->addWidget(HDRModeCheckBox);
 
-        HighRateCheckBox = new QCheckBox(layoutWidget);
+        HighRateCheckBox = new QCheckBox(groupBox_5);
         HighRateCheckBox->setObjectName(QString::fromUtf8("HighRateCheckBox"));
 
         horizontalLayout_5->addWidget(HighRateCheckBox);
 
-        BufferCheckBox = new QCheckBox(layoutWidget);
+        BufferCheckBox = new QCheckBox(groupBox_5);
         BufferCheckBox->setObjectName(QString::fromUtf8("BufferCheckBox"));
 
         horizontalLayout_5->addWidget(BufferCheckBox);
 
-        posXalgo = new QLineEdit(groupBox_5);
-        posXalgo->setObjectName(QString::fromUtf8("posXalgo"));
-        posXalgo->setGeometry(QRect(200, 20, 51, 22));
-        sizeXalgo = new QLineEdit(groupBox_5);
-        sizeXalgo->setObjectName(QString::fromUtf8("sizeXalgo"));
-        sizeXalgo->setGeometry(QRect(200, 50, 51, 22));
-        posYalgo = new QLineEdit(groupBox_5);
-        posYalgo->setObjectName(QString::fromUtf8("posYalgo"));
-        posYalgo->setGeometry(QRect(260, 20, 51, 22));
-        sizeYalgo = new QLineEdit(groupBox_5);
-        sizeYalgo->setObjectName(QString::fromUtf8("sizeYalgo"));
-        sizeYalgo->setGeometry(QRect(260, 50, 51, 22));
-        label_17 = new QLabel(groupBox_5);
-        label_17->setObjectName(QString::fromUtf8("label_17"));
-        label_17->setGeometry(QRect(162, 20, 31, 20));
+
+        gridLayout->addLayout(horizontalLayout_5, 4, 0, 1, 6);
+
+        portComboBox = new QComboBox(groupBox_5);
+        portComboBox->setObjectName(QString::fromUtf8("portComboBox"));
+
+        gridLayout->addWidget(portComboBox, 3, 3, 1, 3);
+
+        sizeX = new QLineEdit(groupBox_5);
+        sizeX->setObjectName(QString::fromUtf8("sizeX"));
+
+        gridLayout->addWidget(sizeX, 1, 1, 1, 1);
+
         label_18 = new QLabel(groupBox_5);
         label_18->setObjectName(QString::fromUtf8("label_18"));
-        label_18->setGeometry(QRect(160, 50, 31, 16));
 
-        verticalLayout_2->addWidget(groupBox_5);
+        gridLayout->addWidget(label_18, 1, 3, 1, 1);
+
+        posY = new QLineEdit(groupBox_5);
+        posY->setObjectName(QString::fromUtf8("posY"));
+
+        gridLayout->addWidget(posY, 0, 2, 1, 1);
+
+        posXalgo = new QLineEdit(groupBox_5);
+        posXalgo->setObjectName(QString::fromUtf8("posXalgo"));
+
+        gridLayout->addWidget(posXalgo, 0, 4, 1, 1);
+
+
+        gridLayout_3->addWidget(groupBox_5, 2, 0, 1, 1);
 
         groupBox = new QGroupBox(dockWidgetContents);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
@@ -505,20 +559,26 @@ public:
         gridLayout_2->addWidget(exposureSpinBox, 0, 0, 1, 1);
 
 
-        verticalLayout_2->addWidget(groupBox);
+        gridLayout_3->addWidget(groupBox, 3, 0, 1, 1);
 
         groupBox_4 = new QGroupBox(dockWidgetContents);
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
         groupBox_4->setMinimumSize(QSize(0, 50));
+        gridLayout_4 = new QGridLayout(groupBox_4);
+        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
         frequencyComboBox = new QComboBox(groupBox_4);
         frequencyComboBox->setObjectName(QString::fromUtf8("frequencyComboBox"));
-        frequencyComboBox->setGeometry(QRect(10, 20, 131, 20));
+
+        gridLayout_4->addWidget(frequencyComboBox, 0, 0, 1, 1);
+
         costText = new QLineEdit(groupBox_4);
         costText->setObjectName(QString::fromUtf8("costText"));
-        costText->setGeometry(QRect(160, 20, 141, 22));
         costText->setReadOnly(true);
 
-        verticalLayout_2->addWidget(groupBox_4);
+        gridLayout_4->addWidget(costText, 0, 1, 1, 1);
+
+
+        gridLayout_3->addWidget(groupBox_4, 4, 0, 1, 1);
 
         horizontalLayout_13 = new QHBoxLayout();
         horizontalLayout_13->setObjectName(QString::fromUtf8("horizontalLayout_13"));
@@ -640,24 +700,110 @@ public:
         horizontalLayout_13->addWidget(groupBox_7);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_13);
+        gridLayout_3->addLayout(horizontalLayout_13, 5, 0, 1, 1);
 
-        verticalSpacer = new QSpacerItem(20, 137, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        groupBox_3 = new QGroupBox(dockWidgetContents);
+        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
+        formLayout = new QFormLayout(groupBox_3);
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        label_19 = new QLabel(groupBox_3);
+        label_19->setObjectName(QString::fromUtf8("label_19"));
 
-        verticalLayout_2->addItem(verticalSpacer);
+        formLayout->setWidget(0, QFormLayout::LabelRole, label_19);
+
+        iterations = new QLineEdit(groupBox_3);
+        iterations->setObjectName(QString::fromUtf8("iterations"));
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, iterations);
+
+        label_20 = new QLabel(groupBox_3);
+        label_20->setObjectName(QString::fromUtf8("label_20"));
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, label_20);
+
+        parents = new QLineEdit(groupBox_3);
+        parents->setObjectName(QString::fromUtf8("parents"));
+
+        formLayout->setWidget(1, QFormLayout::FieldRole, parents);
+
+        label_21 = new QLabel(groupBox_3);
+        label_21->setObjectName(QString::fromUtf8("label_21"));
+
+        formLayout->setWidget(2, QFormLayout::LabelRole, label_21);
+
+        bindings = new QLineEdit(groupBox_3);
+        bindings->setObjectName(QString::fromUtf8("bindings"));
+
+        formLayout->setWidget(2, QFormLayout::FieldRole, bindings);
+
+        label_22 = new QLabel(groupBox_3);
+        label_22->setObjectName(QString::fromUtf8("label_22"));
+
+        formLayout->setWidget(3, QFormLayout::LabelRole, label_22);
+
+        between = new QLineEdit(groupBox_3);
+        between->setObjectName(QString::fromUtf8("between"));
+
+        formLayout->setWidget(3, QFormLayout::FieldRole, between);
+
+        label_23 = new QLabel(groupBox_3);
+        label_23->setObjectName(QString::fromUtf8("label_23"));
+
+        formLayout->setWidget(4, QFormLayout::LabelRole, label_23);
+
+        intensity = new QLineEdit(groupBox_3);
+        intensity->setObjectName(QString::fromUtf8("intensity"));
+
+        formLayout->setWidget(4, QFormLayout::FieldRole, intensity);
+
+        label_24 = new QLabel(groupBox_3);
+        label_24->setObjectName(QString::fromUtf8("label_24"));
+
+        formLayout->setWidget(5, QFormLayout::LabelRole, label_24);
+
+        delay = new QLineEdit(groupBox_3);
+        delay->setObjectName(QString::fromUtf8("delay"));
+
+        formLayout->setWidget(5, QFormLayout::FieldRole, delay);
+
+        label_25 = new QLabel(groupBox_3);
+        label_25->setObjectName(QString::fromUtf8("label_25"));
+
+        formLayout->setWidget(6, QFormLayout::LabelRole, label_25);
+
+        pause = new QLineEdit(groupBox_3);
+        pause->setObjectName(QString::fromUtf8("pause"));
+
+        formLayout->setWidget(6, QFormLayout::FieldRole, pause);
+
+        saveUserButton = new QPushButton(groupBox_3);
+        saveUserButton->setObjectName(QString::fromUtf8("saveUserButton"));
+
+        formLayout->setWidget(7, QFormLayout::FieldRole, saveUserButton);
+
+
+        gridLayout_3->addWidget(groupBox_3, 6, 0, 1, 1);
 
         groupBox_2 = new QGroupBox(dockWidgetContents);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setMinimumSize(QSize(0, 230));
+        groupBox_2->setEnabled(true);
         verticalLayout = new QVBoxLayout(groupBox_2);
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout_14 = new QHBoxLayout();
+        horizontalLayout_14->setSpacing(0);
         horizontalLayout_14->setObjectName(QString::fromUtf8("horizontalLayout_14"));
         label_5 = new QLabel(groupBox_2);
         label_5->setObjectName(QString::fromUtf8("label_5"));
 
         horizontalLayout_14->addWidget(label_5);
+
+        colorTemperaturSlider = new QSlider(groupBox_2);
+        colorTemperaturSlider->setObjectName(QString::fromUtf8("colorTemperaturSlider"));
+        colorTemperaturSlider->setMaximum(100);
+        colorTemperaturSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_14->addWidget(colorTemperaturSlider);
 
         label_4 = new QLabel(groupBox_2);
         label_4->setObjectName(QString::fromUtf8("label_4"));
@@ -668,19 +814,20 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_14);
 
-        colorTemperaturSlider = new QSlider(groupBox_2);
-        colorTemperaturSlider->setObjectName(QString::fromUtf8("colorTemperaturSlider"));
-        colorTemperaturSlider->setMaximum(100);
-        colorTemperaturSlider->setOrientation(Qt::Horizontal);
-
-        verticalLayout->addWidget(colorTemperaturSlider);
-
         horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         label = new QLabel(groupBox_2);
         label->setObjectName(QString::fromUtf8("label"));
 
         horizontalLayout_2->addWidget(label);
+
+        redSlider = new QSlider(groupBox_2);
+        redSlider->setObjectName(QString::fromUtf8("redSlider"));
+        redSlider->setMaximum(511);
+        redSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_2->addWidget(redSlider);
 
         label_2 = new QLabel(groupBox_2);
         label_2->setObjectName(QString::fromUtf8("label_2"));
@@ -691,19 +838,20 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_2);
 
-        redSlider = new QSlider(groupBox_2);
-        redSlider->setObjectName(QString::fromUtf8("redSlider"));
-        redSlider->setMaximum(511);
-        redSlider->setOrientation(Qt::Horizontal);
-
-        verticalLayout->addWidget(redSlider);
-
         horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(0);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         label_3 = new QLabel(groupBox_2);
         label_3->setObjectName(QString::fromUtf8("label_3"));
 
         horizontalLayout_3->addWidget(label_3);
+
+        greenSlider = new QSlider(groupBox_2);
+        greenSlider->setObjectName(QString::fromUtf8("greenSlider"));
+        greenSlider->setMaximum(511);
+        greenSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_3->addWidget(greenSlider);
 
         label_6 = new QLabel(groupBox_2);
         label_6->setObjectName(QString::fromUtf8("label_6"));
@@ -714,19 +862,20 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_3);
 
-        greenSlider = new QSlider(groupBox_2);
-        greenSlider->setObjectName(QString::fromUtf8("greenSlider"));
-        greenSlider->setMaximum(511);
-        greenSlider->setOrientation(Qt::Horizontal);
-
-        verticalLayout->addWidget(greenSlider);
-
         horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(0);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         label_7 = new QLabel(groupBox_2);
         label_7->setObjectName(QString::fromUtf8("label_7"));
 
         horizontalLayout_4->addWidget(label_7);
+
+        blueSlider = new QSlider(groupBox_2);
+        blueSlider->setObjectName(QString::fromUtf8("blueSlider"));
+        blueSlider->setMaximum(511);
+        blueSlider->setOrientation(Qt::Horizontal);
+
+        horizontalLayout_4->addWidget(blueSlider);
 
         label_8 = new QLabel(groupBox_2);
         label_8->setObjectName(QString::fromUtf8("label_8"));
@@ -737,14 +886,8 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_4);
 
-        blueSlider = new QSlider(groupBox_2);
-        blueSlider->setObjectName(QString::fromUtf8("blueSlider"));
-        blueSlider->setMaximum(511);
-        blueSlider->setOrientation(Qt::Horizontal);
-
-        verticalLayout->addWidget(blueSlider);
-
         horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(0);
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -775,7 +918,7 @@ public:
         verticalLayout->addLayout(horizontalLayout_6);
 
 
-        verticalLayout_2->addWidget(groupBox_2);
+        gridLayout_3->addWidget(groupBox_2, 7, 0, 1, 1);
 
         dockWidget->setWidget(dockWidgetContents);
         groupBox_5->raise();
@@ -783,10 +926,11 @@ public:
         groupBox_4->raise();
         groupBox_2->raise();
         cameraComboBox->raise();
+        groupBox_3->raise();
         Application->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget);
-        QWidget::setTabOrder(applyROIButton, scrollArea);
         QWidget::setTabOrder(scrollArea, cameraComboBox);
-        QWidget::setTabOrder(cameraComboBox, singleShotButton);
+        QWidget::setTabOrder(cameraComboBox, genericShotButton);
+        QWidget::setTabOrder(genericShotButton, singleShotButton);
         QWidget::setTabOrder(singleShotButton, contShotButton);
         QWidget::setTabOrder(contShotButton, posX);
         QWidget::setTabOrder(posX, posY);
@@ -797,9 +941,10 @@ public:
         QWidget::setTabOrder(sizeY, sizeXalgo);
         QWidget::setTabOrder(sizeXalgo, sizeYalgo);
         QWidget::setTabOrder(sizeYalgo, fullROIButton);
-        QWidget::setTabOrder(fullROIButton, portComboBox);
-        QWidget::setTabOrder(portComboBox, binningComboBox);
-        QWidget::setTabOrder(binningComboBox, compressionComboBox);
+        QWidget::setTabOrder(fullROIButton, applyROIButton);
+        QWidget::setTabOrder(applyROIButton, binningComboBox);
+        QWidget::setTabOrder(binningComboBox, portComboBox);
+        QWidget::setTabOrder(portComboBox, compressionComboBox);
         QWidget::setTabOrder(compressionComboBox, HDRModeCheckBox);
         QWidget::setTabOrder(HDRModeCheckBox, HighRateCheckBox);
         QWidget::setTabOrder(HighRateCheckBox, BufferCheckBox);
@@ -807,17 +952,25 @@ public:
         QWidget::setTabOrder(exposureSpinBox, exposureTimeUnitComboBox);
         QWidget::setTabOrder(exposureTimeUnitComboBox, exposureSlider);
         QWidget::setTabOrder(exposureSlider, frequencyComboBox);
-        QWidget::setTabOrder(frequencyComboBox, triggerModeComboBox);
-        QWidget::setTabOrder(triggerModeComboBox, gpoIndexComboBox);
-        QWidget::setTabOrder(gpoIndexComboBox, negativePolarityCheckBox);
-        QWidget::setTabOrder(negativePolarityCheckBox, gpoSrcComboBox);
-        QWidget::setTabOrder(gpoSrcComboBox, levelTriggerCheckBox);
-        QWidget::setTabOrder(levelTriggerCheckBox, gpoInvertedCheckBox);
-        QWidget::setTabOrder(gpoInvertedCheckBox, debounceCheckBox);
-        QWidget::setTabOrder(debounceCheckBox, gpoPulseSpinBox);
-        QWidget::setTabOrder(gpoPulseSpinBox, triggerDelaySpinBox);
-        QWidget::setTabOrder(triggerDelaySpinBox, gpoDelaySpinBox);
-        QWidget::setTabOrder(gpoDelaySpinBox, colorTemperaturSlider);
+        QWidget::setTabOrder(frequencyComboBox, costText);
+        QWidget::setTabOrder(costText, triggerModeComboBox);
+        QWidget::setTabOrder(triggerModeComboBox, negativePolarityCheckBox);
+        QWidget::setTabOrder(negativePolarityCheckBox, levelTriggerCheckBox);
+        QWidget::setTabOrder(levelTriggerCheckBox, debounceCheckBox);
+        QWidget::setTabOrder(debounceCheckBox, triggerDelaySpinBox);
+        QWidget::setTabOrder(triggerDelaySpinBox, gpoIndexComboBox);
+        QWidget::setTabOrder(gpoIndexComboBox, gpoSrcComboBox);
+        QWidget::setTabOrder(gpoSrcComboBox, gpoInvertedCheckBox);
+        QWidget::setTabOrder(gpoInvertedCheckBox, gpoPulseSpinBox);
+        QWidget::setTabOrder(gpoPulseSpinBox, gpoDelaySpinBox);
+        QWidget::setTabOrder(gpoDelaySpinBox, iterations);
+        QWidget::setTabOrder(iterations, parents);
+        QWidget::setTabOrder(parents, bindings);
+        QWidget::setTabOrder(bindings, between);
+        QWidget::setTabOrder(between, intensity);
+        QWidget::setTabOrder(intensity, delay);
+        QWidget::setTabOrder(delay, pause);
+        QWidget::setTabOrder(pause, colorTemperaturSlider);
         QWidget::setTabOrder(colorTemperaturSlider, redSlider);
         QWidget::setTabOrder(redSlider, greenSlider);
         QWidget::setTabOrder(greenSlider, blueSlider);
@@ -988,13 +1141,15 @@ public:
         menuHelp->setTitle(QApplication::translate("Application", "Help", 0, QApplication::UnicodeUTF8));
         fpsStatusLabel->setText(QString());
         dockWidget->setWindowTitle(QApplication::translate("Application", " MCam Functions", 0, QApplication::UnicodeUTF8));
+        genericShotButton->setText(QApplication::translate("Application", "GenericShot", 0, QApplication::UnicodeUTF8));
         singleShotButton->setText(QApplication::translate("Application", "SingleShot", 0, QApplication::UnicodeUTF8));
         contShotButton->setText(QApplication::translate("Application", "ContShot", 0, QApplication::UnicodeUTF8));
         groupBox_5->setTitle(QApplication::translate("Application", "Acquisition Parameter", 0, QApplication::UnicodeUTF8));
-        label_9->setText(QApplication::translate("Application", "Pos", 0, QApplication::UnicodeUTF8));
-        label_11->setText(QApplication::translate("Application", "Size", 0, QApplication::UnicodeUTF8));
-        fullROIButton->setText(QApplication::translate("Application", "Full", 0, QApplication::UnicodeUTF8));
         applyROIButton->setText(QApplication::translate("Application", "Apply", 0, QApplication::UnicodeUTF8));
+        fullROIButton->setText(QApplication::translate("Application", "Full", 0, QApplication::UnicodeUTF8));
+        label_11->setText(QApplication::translate("Application", "Size", 0, QApplication::UnicodeUTF8));
+        label_17->setText(QApplication::translate("Application", "cPos", 0, QApplication::UnicodeUTF8));
+        label_9->setText(QApplication::translate("Application", "Pos", 0, QApplication::UnicodeUTF8));
         binningComboBox->clear();
         binningComboBox->insertItems(0, QStringList()
          << QApplication::translate("Application", "Binning 1x1", 0, QApplication::UnicodeUTF8)
@@ -1002,12 +1157,6 @@ public:
          << QApplication::translate("Application", "Binning 3x3", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Application", "Binning 4x4", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Application", "Binning 5x5", 0, QApplication::UnicodeUTF8)
-        );
-        portComboBox->clear();
-        portComboBox->insertItems(0, QStringList()
-         << QApplication::translate("Application", "Single Port", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Application", "Dual Port", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Application", "Quad Port", 0, QApplication::UnicodeUTF8)
         );
         label_16->setText(QApplication::translate("Application", "Compress", 0, QApplication::UnicodeUTF8));
         compressionComboBox->clear();
@@ -1019,7 +1168,12 @@ public:
         HDRModeCheckBox->setText(QApplication::translate("Application", "HDR", 0, QApplication::UnicodeUTF8));
         HighRateCheckBox->setText(QApplication::translate("Application", "HiRate", 0, QApplication::UnicodeUTF8));
         BufferCheckBox->setText(QApplication::translate("Application", "Buffer", 0, QApplication::UnicodeUTF8));
-        label_17->setText(QApplication::translate("Application", "cPos", 0, QApplication::UnicodeUTF8));
+        portComboBox->clear();
+        portComboBox->insertItems(0, QStringList()
+         << QApplication::translate("Application", "Single Port", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Application", "Dual Port", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("Application", "Quad Port", 0, QApplication::UnicodeUTF8)
+        );
         label_18->setText(QApplication::translate("Application", "cSize", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("Application", "Exposure Time", 0, QApplication::UnicodeUTF8));
         exposureTimeUnitComboBox->clear();
@@ -1028,7 +1182,7 @@ public:
          << QApplication::translate("Application", "ms", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Application", "s", 0, QApplication::UnicodeUTF8)
         );
-        groupBox_4->setTitle(QApplication::translate("Application", "Pixel Frequency                Cost (cPos, cSize)", 0, QApplication::UnicodeUTF8));
+        groupBox_4->setTitle(QApplication::translate("Application", "Pixel Frequency                           Cost (cPos, cSize)", 0, QApplication::UnicodeUTF8));
         frequencyComboBox->clear();
         frequencyComboBox->insertItems(0, QStringList()
          << QApplication::translate("Application", "13 MHz", 0, QApplication::UnicodeUTF8)
@@ -1066,6 +1220,15 @@ public:
         gpoInvertedCheckBox->setText(QApplication::translate("Application", "Inverted", 0, QApplication::UnicodeUTF8));
         label_13->setText(QApplication::translate("Application", "Pulse", 0, QApplication::UnicodeUTF8));
         label_14->setText(QApplication::translate("Application", "Delay", 0, QApplication::UnicodeUTF8));
+        groupBox_3->setTitle(QApplication::translate("Application", "User Parameters", 0, QApplication::UnicodeUTF8));
+        label_19->setText(QApplication::translate("Application", "Iterations", 0, QApplication::UnicodeUTF8));
+        label_20->setText(QApplication::translate("Application", "Parents", 0, QApplication::UnicodeUTF8));
+        label_21->setText(QApplication::translate("Application", "Bindings", 0, QApplication::UnicodeUTF8));
+        label_22->setText(QApplication::translate("Application", "Between", 0, QApplication::UnicodeUTF8));
+        label_23->setText(QApplication::translate("Application", "Intensity", 0, QApplication::UnicodeUTF8));
+        label_24->setText(QApplication::translate("Application", "Delay (ms)", 0, QApplication::UnicodeUTF8));
+        label_25->setText(QApplication::translate("Application", "Pause (ms)", 0, QApplication::UnicodeUTF8));
+        saveUserButton->setText(QApplication::translate("Application", "Update", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("Application", "Color Settings", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("Application", "Warm", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("Application", "Cool", 0, QApplication::UnicodeUTF8));
