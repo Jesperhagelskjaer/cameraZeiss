@@ -91,11 +91,14 @@ void UserInterface::run()
 {
 	bool running = true;
 	char choise, ret;
+	char fileName[50];
 	init();
 
 	while (running) {
 		printf("Select menu: \r\n");
 		printf("t. Test collect neuron data\r\n");
+		printf("p. Print configuration\r\n");
+		printf("r. Read configuration file\r\n");
 		printf("s. Stimulate neuron\r\n");
 		printf("e. Exit\r\n");
 		printf("\r\n> ");
@@ -105,6 +108,15 @@ void UserInterface::run()
 		{
 			case 't':
 				testCollectNeuronData();
+				break;
+			case 'p':
+				m_Configuration->Print();
+				break;
+			case 'r':
+				printf("Enter configuration file name: ");
+				scanf("%s%c", fileName, &ret);
+				m_Configuration->ReadConfiguration(fileName);
+				m_Configuration->Print();
 				break;
 			case 's':
 			    runStimulateNeuron(m_Configuration); // Channel (0-31), loops, ms delay

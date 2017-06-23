@@ -10,10 +10,20 @@
 #define TAPS			257 // Number of filter taps
 #define NUM_CHS			32  // Number of channels to filter
 
+const char FilerTypesText[7][10] =
+{
+	"bypass   ",
+	"custom   ",
+	"fc 0.1Hz ",
+	"fc 1Hz   ",
+	"fc 10Hz  ",
+	"fc 100Hz ",
+	"fc 300Hz "
+};
+
 class FirFilter
 {
 public:
-	 
 	enum TYPES {
 		BYPASS,
 		CUSTOM,

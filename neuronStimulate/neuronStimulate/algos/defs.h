@@ -21,9 +21,10 @@
 #define GEN_ITERATIONS		20000		// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT			8			// COM port connected to laser
 #define LASER_INTENSITY		0.6f		// Intensity of laser when turned on
+#define DELAY_MS			4			// Delay in ms laser is turned on while analysing neuron pulses
 #define PAUSE_MS			0			// Waiting delay in ms after each iteration
 
-#define DELAY_MS			4			// Delay in ms laser is turned on while analysing neuron pulses
 #define ACTIVE_CHANNEL		31			// Select active channel 0-31
-#define FILTER_TYPE			FC_0_1Hz   	// Bandpass filter type low cut fq: BYPASS, FC_0_1Hz, FC_1Hz, FC_10Hz, FC_100Hz, FC_300Hz
-
+#define FILTER_TYPE			FC_0_1Hz   	// Bandpass filter type low cut fq: 
+                                        // BYPASS(0), CUSTOM(1), FC_0_1Hz(2), 
+                                        ///FC_1Hz(3), FC_10Hz(4), FC_100Hz(5), FC_300Hz(6)

@@ -1,0 +1,9 @@
+Bindings : 4
+Parents : 20
+Iterations : 100
+Port : 8
+Intensity : 0.6
+Delay : 4
+Pause : 0
+Channel : 30
+Filter : 4

@@ -27,14 +27,67 @@ public:
 		m_NumBindings = numBindings;
 	}
 
+	void Print(void)
+	{
+		printf("Bindings : %d\r\n", m_NumBindings);
+		printf("Parents : %d\r\n", m_NumParents);
+		printf("Iterations : %d\r\n", m_NumIterations);
+		printf("Port : %d\r\n", m_LaserPort);
+		printf("Intensity : %.1f\r\n", m_LaserIntensity);
+		printf("Delay : %d\r\n", m_DelayMS);
+		printf("Pause : %d\r\n", m_PauseMS);
+		printf("Channel : %d\r\n", m_ActiveChannel);
+		printf("Filter : %s\r\n\r\n", FilerTypesText[m_FilterType]);
+	}
+	
+	void ReadConfiguration(char *fileName)
+	{
+		char configName[50];
+		float value;
+		char seperator;
+	    int valInt;
+		FILE *hConfigFile;
+		hConfigFile = fopen(fileName, "r");
+		if (hConfigFile != NULL) {
+			while (fscanf(hConfigFile, "%s %c %f", configName, &seperator, &value) != EOF)
+			{
+				if (!strcmp(configName, "Bindings"))
+					m_NumBindings = (int)value;
+				if (!strcmp(configName, "Parents"))
+					m_NumParents = (int)value;
+				if (!strcmp(configName, "Iterations"))
+					m_NumIterations = (int)value;
+				if (!strcmp(configName, "Port"))
+					m_LaserPort = (int)value;
+				if (!strcmp(configName, "Intensity"))
+					m_LaserIntensity = value;
+				if (!strcmp(configName, "Delay"))
+					m_DelayMS = (int)value;
+				if (!strcmp(configName, "Pause"))
+					m_PauseMS = (int)value;
+				if (!strcmp(configName, "Channel"))
+					m_ActiveChannel = (int)value;
+				if (!strcmp(configName, "Filter")) {
+					valInt = (int)value;
+					m_FilterType = (FirFilter::TYPES)valInt;
+				}
+			}
+			fclose(hConfigFile);
+		}
+		else
+		{
+			printf("Could not open file: %s\r\n", fileName);
+		}
+	}
+
+	int m_NumBindings;
+	int m_NumParents;
 	int m_NumIterations;
-	int m_ActiveChannel;
 	int m_LaserPort;
+	float m_LaserIntensity;
 	int m_DelayMS;
 	int m_PauseMS;
-	float m_LaserIntensity;
+	int m_ActiveChannel;
 	FirFilter::TYPES m_FilterType;
-	int m_NumParents;
-	int m_NumBindings;
 };
 #endif // !defined(EA_F26F424A_2953_466e_976E_2D9054E58697__INCLUDED_)
