@@ -15,6 +15,8 @@
 #include "GenericAlgo.h"
 #include "defs.h"
 
+#define DEFAULT_CONFIG "config.txt"
+
 class UserInterface
 {
 

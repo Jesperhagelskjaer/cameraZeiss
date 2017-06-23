@@ -92,6 +92,7 @@ void UserInterface::run()
 	bool running = true;
 	char choise, ret;
 	char fileName[50];
+	int len;
 	init();
 
 	while (running) {
@@ -114,7 +115,12 @@ void UserInterface::run()
 				break;
 			case 'r':
 				printf("Enter configuration file name: ");
-				scanf("%s%c", fileName, &ret);
+				fgets(fileName, sizeof(fileName), stdin);
+				len = (int)strlen(fileName);
+				if (len > 1)
+					fileName[len - 1] = 0; // Remove CR
+				else
+					strcpy(fileName, DEFAULT_CONFIG); // Default configuration
 				m_Configuration->ReadConfiguration(fileName);
 				m_Configuration->Print();
 				break;

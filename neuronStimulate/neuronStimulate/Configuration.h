@@ -49,6 +49,7 @@ public:
 		FILE *hConfigFile;
 		hConfigFile = fopen(fileName, "r");
 		if (hConfigFile != NULL) {
+			printf("Reading configuration file: %s\r\n\r\n", fileName);
 			while (fscanf(hConfigFile, "%s %c %f", configName, &seperator, &value) != EOF)
 			{
 				if (!strcmp(configName, "Bindings"))
