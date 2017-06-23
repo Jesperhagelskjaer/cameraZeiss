@@ -34,8 +34,8 @@ public:
 		printf("Iterations : %d\r\n", m_NumIterations);
 		printf("Port : %d\r\n", m_LaserPort);
 		printf("Intensity : %.1f\r\n", m_LaserIntensity);
-		printf("Delay : %d\r\n", m_DelayMS);
-		printf("Pause : %d\r\n", m_PauseMS);
+		printf("On : %d\r\n", m_DelayMS);
+		printf("Off : %d\r\n", m_PauseMS);
 		printf("Channel : %d\r\n", m_ActiveChannel);
 		printf("Filter : %s\r\n\r\n", FilerTypesText[m_FilterType]);
 	}
@@ -62,9 +62,9 @@ public:
 					m_LaserPort = (int)value;
 				if (!strcmp(configName, "Intensity"))
 					m_LaserIntensity = value;
-				if (!strcmp(configName, "Delay"))
+				if (!strcmp(configName, "On"))
 					m_DelayMS = (int)value;
-				if (!strcmp(configName, "Pause"))
+				if (!strcmp(configName, "Off"))
 					m_PauseMS = (int)value;
 				if (!strcmp(configName, "Channel"))
 					m_ActiveChannel = (int)value;

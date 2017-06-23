@@ -1226,8 +1226,8 @@ public:
         label_21->setText(QApplication::translate("Application", "Bindings", 0, QApplication::UnicodeUTF8));
         label_22->setText(QApplication::translate("Application", "Between", 0, QApplication::UnicodeUTF8));
         label_23->setText(QApplication::translate("Application", "Intensity", 0, QApplication::UnicodeUTF8));
-        label_24->setText(QApplication::translate("Application", "Delay (ms)", 0, QApplication::UnicodeUTF8));
-        label_25->setText(QApplication::translate("Application", "Pause (ms)", 0, QApplication::UnicodeUTF8));
+        label_24->setText(QApplication::translate("Application", "On (ms)", 0, QApplication::UnicodeUTF8));
+        label_25->setText(QApplication::translate("Application", "Off (ms)", 0, QApplication::UnicodeUTF8));
         saveUserButton->setText(QApplication::translate("Application", "Update", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("Application", "Color Settings", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("Application", "Warm", 0, QApplication::UnicodeUTF8));
