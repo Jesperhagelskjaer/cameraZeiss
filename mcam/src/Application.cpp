@@ -1455,7 +1455,7 @@ void Application::handleApplyROIButton()
     rcSize.bottom = posY + sizeY;
     rcSize.right = posX + sizeX;
     rcSize.left = posX;
-	result = McammSetFrameSize(cameraIndex, &rcSize);
+	result = McammSetFrameSize(cameraIndex, &rcSize); // KBE???
     if (result != NOERR)
         MCAM_LOGF_ERROR("failed to set frame size, result=%ld", result);
 
