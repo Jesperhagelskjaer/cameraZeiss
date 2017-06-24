@@ -11,7 +11,7 @@
 #include "CollectNeuronDataThread.h"
 #include "Configuration.h"
 #include "StimulateNeuronThread.h"
-#include "AnalyseNeuronData.h"
+#include "AnalyseNeuronDataCAR.h"
 #include "GenericAlgo.h"
 #include "defs.h"
 

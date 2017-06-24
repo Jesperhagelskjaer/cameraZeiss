@@ -14,7 +14,8 @@ class Configuration
 
 public:
 	Configuration(int numIterations, int activeCh, int port, int delay, int pause, 
-		          float intensity, FirFilter::TYPES type, int numParents, int numBindings)
+		          float intensity, FirFilter::TYPES type, int numParents, int numBindings,
+		          int commonAvgRef)
 	{
 		m_NumIterations = numIterations;
 		m_ActiveChannel = activeCh;
@@ -25,6 +26,7 @@ public:
 		m_FilterType = type;
 		m_NumParents = numParents;
 		m_NumBindings = numBindings;
+		m_CommonAvgRef = commonAvgRef;
 	}
 
 	void Print(void)
@@ -37,7 +39,9 @@ public:
 		printf("On : %d\r\n", m_DelayMS);
 		printf("Off : %d\r\n", m_PauseMS);
 		printf("Channel : %d\r\n", m_ActiveChannel);
-		printf("Filter : %s\r\n\r\n", FilerTypesText[m_FilterType]);
+		printf("Filter : %s\r\n", FilerTypesText[m_FilterType]);
+		printf("CAR : %d\r\n", m_CommonAvgRef);
+		printf("\r\n");
 	}
 	
 	void ReadConfiguration(char *fileName)
@@ -72,6 +76,8 @@ public:
 					valInt = (int)value;
 					m_FilterType = (FirFilter::TYPES)valInt;
 				}
+				if (!strcmp(configName, "CAR"))
+					m_CommonAvgRef = (int)value;
 			}
 			fclose(hConfigFile);
 		}
@@ -90,5 +96,6 @@ public:
 	int m_PauseMS;
 	int m_ActiveChannel;
 	FirFilter::TYPES m_FilterType;
+	int m_CommonAvgRef;
 };
 #endif // !defined(EA_F26F424A_2953_466e_976E_2D9054E58697__INCLUDED_)

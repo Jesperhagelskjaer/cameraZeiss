@@ -25,7 +25,7 @@ void UserInterface::init(void)
 {
 	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, DELAY_MS, 
 		                                PAUSE_MS, LASER_INTENSITY, FirFilter::FILTER_TYPE,
-										NUM_PARENTS, NUM_BINDINGS);
+										NUM_PARENTS, NUM_BINDINGS, COMMON_AVG_REF);
 }
 
 void UserInterface::testCollectNeuronData(void)
@@ -56,7 +56,10 @@ void UserInterface::testCollectNeuronData(void)
 void UserInterface::runStimulateNeuron(Configuration *config)
 {
 	// Create objects
-	m_AnalyseNeuronData = new AnalyseNeuronData();
+	if (config->m_CommonAvgRef == 1)
+		m_AnalyseNeuronData = new AnalyseNeuronDataCAR();
+	else
+		m_AnalyseNeuronData = new AnalyseNeuronData();
 	m_CollectNeuronDataThread = new CollectNeuronDataThread();
 	m_StimulateNeuronThread = new StimulateNeuronThread();
 	m_GenericAlgo = new GenericAlgo(config->m_NumParents, config->m_NumBindings, config->m_NumIterations);

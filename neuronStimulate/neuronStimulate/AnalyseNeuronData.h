@@ -86,7 +86,7 @@ public:
 			filterEnabled = true;
 	}
 
-private:
+protected:
 	virtual void SearchPattern(LxRecord * pLxRecord);
 	void RecursiveAverage(LxRecord * pLxRecord);
 

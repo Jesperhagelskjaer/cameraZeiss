@@ -28,3 +28,4 @@
 #define FILTER_TYPE			FC_0_1Hz   	// Bandpass filter type low cut fq: 
                                         // BYPASS(0), CUSTOM(1), FC_0_1Hz(2), 
                                         ///FC_1Hz(3), FC_10Hz(4), FC_100Hz(5), FC_300Hz(6)
+#define COMMON_AVG_REF      1           // Enable common average reference filtering
