@@ -26,7 +26,7 @@ public:
 	void Print(void);
 	unsigned char *GetMatrixPtr(void);
 
-private:
+protected:
 	unsigned char matrix_[M][M];
 	double cost_;
 	int binding_;
@@ -46,14 +46,16 @@ public:
 	//void GenParents(void);
 	unsigned char* GetNewParentMatrixPtr(void);
 
-private:
+protected:
 	void DeleteLastTemplate(void);
 	void GetRandomTemplateIdx(int &number1, int &number2);
 
-	SLMTemplate BinaryTemplate1_, BinaryTemplate2_;
-	SLMTemplate Parent1_, Parent2_;
 	SLMTemplate *pParentNew_;
 	std::vector<SLMTemplate*> SLMTemplates_;
 	int numParents_;
 	int numBindings_;
+
+private:
+	SLMTemplate BinaryTemplate1_, BinaryTemplate2_;
+	SLMTemplate Parent1_, Parent2_;
 };
