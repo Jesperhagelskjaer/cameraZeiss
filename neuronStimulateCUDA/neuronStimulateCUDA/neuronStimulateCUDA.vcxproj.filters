@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CudaCompile Include="algos\SLMParentsCUDA.cu">
+      <Filter>algos</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="neuronStimulate.cpp" />
+    <ClCompile Include="algos\SLMParents.cpp">
+      <Filter>algos</Filter>
+    </ClCompile>
+    <ClCompile Include="algos\SLMParentsCUDA.cpp">
+      <Filter>algos</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="algos">
+      <UniqueIdentifier>{aeaebe9c-27d8-454b-ae22-bbfbbb0e4be4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cuda">
+      <UniqueIdentifier>{ac11f855-ee12-4b4f-ac17-4d6e9e97598e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="algos\SLMParents.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\GenericAlgo.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\SLMParentsCUDA.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda\cutil_inline_runtime.h">
+      <Filter>cuda</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda\helper_timer.h">
+      <Filter>cuda</Filter>
+    </ClInclude>
+    <ClInclude Include="cuda\TimerCUDA.h">
+      <Filter>cuda</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
