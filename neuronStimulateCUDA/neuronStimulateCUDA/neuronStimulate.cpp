@@ -20,8 +20,8 @@ int main(int argc, _TCHAR* argv[])
 {
 	/** User Interface to Optical Neuron Stimulator  **/
 	//UserInterface userInterface;
-	SLMParents *pSLMParents = new SLMParents(2);
-	SLMParentsCUDA *pSLMParentsC = new SLMParentsCUDA(2);
+	SLMParents *pSLMParents = new SLMParents(NUM_PARENTS, NUM_BINDINGS);
+	SLMParentsCUDA *pSLMParentsC = new SLMParentsCUDA(NUM_PARENTS, NUM_BINDINGS);
 
 	TimeMeasure timeMeas;
 	StopWatchInterface *cudaTimer = 0;
@@ -41,7 +41,7 @@ int main(int argc, _TCHAR* argv[])
 	if (pSLMParents->IsTemplatesFull()) {
 		//timeMeas.setStartTime();
 	    RestartTimer(&cudaTimer);
-		pSLMParents->GenerateOffspring(1);
+		pSLMParents->GenerateOffspring();
 	    StopTimer(&cudaTimer);
 		printf("Offspring %.2f ms\r\n", GetTimer(&cudaTimer));
 		//timeMeas.printDuration("Offspring");
@@ -61,11 +61,11 @@ int main(int argc, _TCHAR* argv[])
 	if (pSLMParentsC->IsTemplatesFull()) {
 		//timeMeas.setStartTime();
 		RestartTimer(&cudaTimer);
-		pSLMParentsC->GenerateOffspring(1);
+		pSLMParentsC->GenerateOffspring();
 		StopTimer(&cudaTimer);
 		printf("CUDA Offspring %.2f ms\r\n", GetTimer(&cudaTimer));
 		RestartTimer(&cudaTimer);
-		pSLMParentsC->GenerateOffspring(1);
+		pSLMParentsC->GenerateOffspring();
 		StopTimer(&cudaTimer);
 		printf("CUDA Offspring %.2f ms\r\n", GetTimer(&cudaTimer));
 		//timeMeas.printDuration("CUDA Offspring");

@@ -17,7 +17,7 @@ void MultiplyCellCUDA(unsigned char* dst, unsigned char* src1, unsigned char* sr
 void AddCellCUDA(unsigned char* dst, unsigned char* src1, unsigned char* src2, int strideDst, int strideSrc);
 
 
-SLMTemplateCUDA::SLMTemplateCUDA() : SLMTemplate()
+SLMTemplateCUDA::SLMTemplateCUDA(int binding) : SLMTemplate(binding)
 {
 	matrixCUDA_ = 0;
 	Stride_ = 0;
@@ -99,7 +99,12 @@ bool SLMTemplateCUDA::CopyFromCUDA(void)
 }
 
 //-------------------------------------------------------------------------------------------------------
-SLMParentsCUDA::SLMParentsCUDA(int num) : SLMParents(num)
+SLMParentsCUDA::SLMParentsCUDA(int numParents, int numBindings) : 
+	SLMParents(numParents, numBindings),
+	BinaryTemplate1_(numBindings),
+	BinaryTemplate2_(numBindings),
+	Parent1_(numBindings),
+	Parent2_(numBindings)
 {
 };
 
@@ -151,14 +156,14 @@ bool SLMParentsCUDA::ExitCUDA(void)
 
 void SLMParentsCUDA::GenerateNewParent(void)
 {
-	SLMTemplateCUDA *pNewTemplate =  new SLMTemplateCUDA();
+	SLMTemplateCUDA *pNewTemplate =  new SLMTemplateCUDA(numBindings_);
 	pNewTemplate->GenRandom();
 	pNewTemplate->MallocMatrixOnCUDA();
 	pNewTemplate->CopyToCUDA();
 	pParentNew_ = pNewTemplate;
 }
 
-SLMTemplate *SLMParentsCUDA::GenerateOffspring(int NumBinding)
+SLMTemplate *SLMParentsCUDA::GenerateOffspring(void)
 {
 	int number1, number2;
 	SLMTemplateCUDA *pTemplate1, *pTemplate2;
@@ -190,7 +195,7 @@ SLMTemplate *SLMParentsCUDA::GenerateOffspring(int NumBinding)
 	MultiplyCellCUDA(Parent1_.matrixCUDA_, pTemplate1->matrixCUDA_, BinaryTemplate1_.matrixCUDA_, (int)Parent1_.Stride_, (int)BinaryTemplate1_.Stride_); 
 	MultiplyCellCUDA(Parent2_.matrixCUDA_, pTemplate2->matrixCUDA_, BinaryTemplate2_.matrixCUDA_, (int)Parent2_.Stride_, (int)BinaryTemplate2_.Stride_); 
 		
-	SLMTemplateCUDA *pNewTemplate = new SLMTemplateCUDA();
+	SLMTemplateCUDA *pNewTemplate = new SLMTemplateCUDA(numBindings_);
 	pNewTemplate->MallocMatrixOnCUDA();
 	AddCellCUDA(pNewTemplate->matrixCUDA_, Parent1_.matrixCUDA_, Parent2_.matrixCUDA_, (int)pNewTemplate->Stride_, (int)Parent2_.Stride_);
 	pNewTemplate->CopyFromCUDA();

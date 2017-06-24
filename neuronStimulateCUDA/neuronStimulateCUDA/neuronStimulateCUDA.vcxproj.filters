@@ -41,5 +41,6 @@
     <ClInclude Include="cuda\TimerCUDA.h">
       <Filter>cuda</Filter>
     </ClInclude>
+    <ClInclude Include="algos\defs.h" />
   </ItemGroup>
 </Project>

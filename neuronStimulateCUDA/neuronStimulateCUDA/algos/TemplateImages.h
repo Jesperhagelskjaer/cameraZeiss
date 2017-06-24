@@ -1,13 +1,11 @@
 ///////////////////////////////////////////////////////////
 //  TemplateImages.h
-//  Implementation of the Class AnalyseNeuronData
+//  Implementation of the Class CamImage, TemplateImages
 //  Created on:      19-maj-2017 22:44:35
 //  Original author: Kim Bjerge
 ///////////////////////////////////////////////////////////
 #pragma once
-
-#define ROWS 50 // Hight of image section
-#define COLS 50 // Width of image section
+#include "defs.h"
 
 class CamImage
 {

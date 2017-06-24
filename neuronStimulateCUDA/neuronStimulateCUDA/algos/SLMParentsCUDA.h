@@ -19,7 +19,7 @@ class SLMTemplateCUDA : public SLMTemplate
 
 public:
 
-	SLMTemplateCUDA();
+	SLMTemplateCUDA(int binding);
 	~SLMTemplateCUDA();
 
 	// CUDA implementation
@@ -42,14 +42,14 @@ private:
 class SLMParentsCUDA : public SLMParents
 {
 public:
-	SLMParentsCUDA(int num);
+	SLMParentsCUDA(int numParents, int numBinding);
 	~SLMParentsCUDA();
 	bool InitCUDA(void);
 	bool ExitCUDA(void);
 
 	// CUDA implementation
 	virtual void GenerateNewParent(void);
-	virtual SLMTemplate *GenerateOffspring(int NumBinding);
+	virtual SLMTemplate *GenerateOffspring(void);
 
 private:
 	SLMTemplateCUDA BinaryTemplate1_, BinaryTemplate2_;
