@@ -28,6 +28,9 @@
     <Filter Include="Source Files\algos">
       <UniqueIdentifier>{d74adb45-dce0-4165-b545-cbfc8814b867}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\analyse">
+      <UniqueIdentifier>{114aeb75-ec20-47fc-b3fb-0b828f9a6394}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -100,9 +103,6 @@
     <ClInclude Include="CollectNeuronDataThread.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnalyseNeuronData.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="StimulateNeuronThread.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -151,8 +151,14 @@
     <ClInclude Include="algos\FilterCoeffs_300Hz.h">
       <Filter>Source Files\algos</Filter>
     </ClInclude>
+    <ClInclude Include="AnalyseNeuronData.h">
+      <Filter>Source Files\analyse</Filter>
+    </ClInclude>
     <ClInclude Include="AnalyseNeuronDataCAR.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\analyse</Filter>
+    </ClInclude>
+    <ClInclude Include="AnalyseNeuronDataCMR.h">
+      <Filter>Source Files\analyse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,9 +173,6 @@
     </ClCompile>
     <ClCompile Include="slm\Serial.cpp">
       <Filter>Source Files\slm</Filter>
-    </ClCompile>
-    <ClCompile Include="AnalyseNeuronData.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CollectNeuronDataThread.cpp">
       <Filter>Source Files</Filter>
@@ -201,8 +204,14 @@
     <ClCompile Include="algos\FirFilter.cpp">
       <Filter>Source Files\algos</Filter>
     </ClCompile>
+    <ClCompile Include="AnalyseNeuronData.cpp">
+      <Filter>Source Files\analyse</Filter>
+    </ClCompile>
     <ClCompile Include="AnalyseNeuronDataCAR.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\analyse</Filter>
+    </ClCompile>
+    <ClCompile Include="AnalyseNeuronDataCMR.cpp">
+      <Filter>Source Files\analyse</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

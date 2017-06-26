@@ -6,6 +6,8 @@
 ///////////////////////////////////////////////////////////
 
 #include "UserInterface.h"
+#include "AnalyseNeuronDataCAR.h"
+#include "AnalyseNeuronDataCMR.h"
 
 
 UserInterface::UserInterface()
@@ -25,7 +27,7 @@ void UserInterface::init(void)
 {
 	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, DELAY_MS, 
 		                                PAUSE_MS, LASER_INTENSITY, FirFilter::FILTER_TYPE,
-										NUM_PARENTS, NUM_BINDINGS, COMMON_AVG_REF);
+										NUM_PARENTS, NUM_BINDINGS, COMMON_REF);
 }
 
 void UserInterface::testCollectNeuronData(void)
@@ -56,10 +58,17 @@ void UserInterface::testCollectNeuronData(void)
 void UserInterface::runStimulateNeuron(Configuration *config)
 {
 	// Create objects
-	if (config->m_CommonAvgRef == 1)
-		m_AnalyseNeuronData = new AnalyseNeuronDataCAR();
-	else
-		m_AnalyseNeuronData = new AnalyseNeuronData();
+	switch (config->m_CommonAvgRef) {
+		case 1:
+			m_AnalyseNeuronData = new AnalyseNeuronDataCAR();
+			break;
+		case 2:
+			m_AnalyseNeuronData = new AnalyseNeuronDataCMR();
+			break;
+		default:
+			m_AnalyseNeuronData = new AnalyseNeuronData();
+			break;
+	}
 	m_CollectNeuronDataThread = new CollectNeuronDataThread();
 	m_StimulateNeuronThread = new StimulateNeuronThread();
 	m_GenericAlgo = new GenericAlgo(config->m_NumParents, config->m_NumBindings, config->m_NumIterations);

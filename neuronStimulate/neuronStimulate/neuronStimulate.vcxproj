@@ -157,6 +157,7 @@
     <ClInclude Include="algos\TemplateImages.h" />
     <ClInclude Include="AnalyseNeuronData.h" />
     <ClInclude Include="AnalyseNeuronDataCAR.h" />
+    <ClInclude Include="AnalyseNeuronDataCMR.h" />
     <ClInclude Include="CollectNeuronDataThread.h" />
     <ClInclude Include="Configuration.h" />
     <ClInclude Include="DataFileThread.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="algos\SLMParents.cpp" />
     <ClCompile Include="AnalyseNeuronData.cpp" />
     <ClCompile Include="AnalyseNeuronDataCAR.cpp" />
+    <ClCompile Include="AnalyseNeuronDataCMR.cpp" />
     <ClCompile Include="CollectNeuronDataThread.cpp" />
     <ClCompile Include="genericAlgoTest.cpp" />
     <ClCompile Include="neuronCaptureTest.cpp" />

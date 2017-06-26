@@ -40,7 +40,7 @@ public:
 		printf("Off : %d\r\n", m_PauseMS);
 		printf("Channel : %d\r\n", m_ActiveChannel);
 		printf("Filter : %s\r\n", FilerTypesText[m_FilterType]);
-		printf("CAR : %d\r\n", m_CommonAvgRef);
+		printf("CommonRef : %d\r\n", m_CommonAvgRef);
 		printf("\r\n");
 	}
 	
@@ -76,7 +76,7 @@ public:
 					valInt = (int)value;
 					m_FilterType = (FirFilter::TYPES)valInt;
 				}
-				if (!strcmp(configName, "CAR"))
+				if (!strcmp(configName, "CommonRef"))
 					m_CommonAvgRef = (int)value;
 			}
 			fclose(hConfigFile);
