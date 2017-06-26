@@ -662,7 +662,7 @@ long MCamImage::doSingleShot(long cameraIndex)
 					image->setPixel(RecAlgo.bottom, i, 0);
 				}
 				// Draw black left and right vertical lines
-				for (int j = RecAlgo.top; j < RecAlgo.right; j++) {
+				for (int j = RecAlgo.top; j < RecAlgo.bottom; j++) {
 					image->setPixel(j, RecAlgo.left, 0);
 					image->setPixel(j, RecAlgo.right, 0);
 				}
