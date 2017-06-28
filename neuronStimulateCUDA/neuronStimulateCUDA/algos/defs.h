@@ -1,11 +1,11 @@
 #pragma once
 
 // If defined then use SLM and LASER
-#define SLM_INTERFACE_		1
+//#define SLM_INTERFACE_		1
 #define LASER_INTERFACE_    1
 
 // To be defined for testing without Digital Lynx SX and UDP LxRecords
-//#define TEST_GENERATOR_		  1
+#define TEST_GENERATOR_		  1
 
 // Used in TemplateImages together with zeiss camera
 #define ROWS				50			// Max. hight of image section
@@ -17,7 +17,7 @@
 
 // User parameters, set as default in Configuration.h
 #define NUM_BINDINGS		4			// M modulus NUM_BINDINGS should be equal to zero !!!!
-#define NUM_PARENTS			2			// Number of parents
+#define NUM_PARENTS			20			// Number of parents
 #define GEN_ITERATIONS		20000		// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT			8			// COM port connected to laser
 #define LASER_INTENSITY		0.6f		// Intensity of laser when turned on
@@ -28,4 +28,4 @@
 #define FILTER_TYPE			FC_0_1Hz   	// Bandpass filter type low cut fq: 
                                         // BYPASS(0), CUSTOM(1), FC_0_1Hz(2), 
                                         ///FC_1Hz(3), FC_10Hz(4), FC_100Hz(5), FC_300Hz(6)
-#define COMMON_AVG_REF      1           // Enable common average reference filtering
+#define COMMON_REF          2           // Enable common average(1)/median(2) reference filtering

@@ -13,6 +13,36 @@
     <ClCompile Include="algos\SLMParentsCUDA.cpp">
       <Filter>algos</Filter>
     </ClCompile>
+    <ClCompile Include="algos\FirFilter.cpp">
+      <Filter>algos</Filter>
+    </ClCompile>
+    <ClCompile Include="AnalyseNeuronData.cpp">
+      <Filter>analyse</Filter>
+    </ClCompile>
+    <ClCompile Include="AnalyseNeuronDataCAR.cpp">
+      <Filter>analyse</Filter>
+    </ClCompile>
+    <ClCompile Include="AnalyseNeuronDataCMR.cpp">
+      <Filter>analyse</Filter>
+    </ClCompile>
+    <ClCompile Include="slm\LaserInterface.cpp">
+      <Filter>slm</Filter>
+    </ClCompile>
+    <ClCompile Include="slm\Serial.cpp">
+      <Filter>slm</Filter>
+    </ClCompile>
+    <ClCompile Include="os\Semaphore.cpp">
+      <Filter>os</Filter>
+    </ClCompile>
+    <ClCompile Include="os\Thread.cpp">
+      <Filter>os</Filter>
+    </ClCompile>
+    <ClCompile Include="CollectNeuronDataThread.cpp" />
+    <ClCompile Include="genericAlgoTest.cpp" />
+    <ClCompile Include="neuronCaptureTest.cpp" />
+    <ClCompile Include="StimulateNeuronThread.cpp" />
+    <ClCompile Include="TestDataGenerator.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="algos">
@@ -20,6 +50,15 @@
     </Filter>
     <Filter Include="cuda">
       <UniqueIdentifier>{ac11f855-ee12-4b4f-ac17-4d6e9e97598e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="os">
+      <UniqueIdentifier>{1f4191ac-b16c-4945-87b9-6c70f9001eb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="slm">
+      <UniqueIdentifier>{0e5a1e7a-a154-4254-b3f5-50d8f8f31ed4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="analyse">
+      <UniqueIdentifier>{6041fe29-eabe-4eb9-8232-0c02e98a9bbe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,5 +81,70 @@
       <Filter>cuda</Filter>
     </ClInclude>
     <ClInclude Include="algos\defs.h" />
+    <ClInclude Include="algos\FirFilter.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\TemplateImages.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="AnalyseNeuronData.h">
+      <Filter>analyse</Filter>
+    </ClInclude>
+    <ClInclude Include="AnalyseNeuronDataCAR.h">
+      <Filter>analyse</Filter>
+    </ClInclude>
+    <ClInclude Include="AnalyseNeuronDataCMR.h">
+      <Filter>analyse</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\Blink_SDK.H">
+      <Filter>slm</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\LaserInterface.h">
+      <Filter>slm</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\Serial.h">
+      <Filter>slm</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\SLMInterface.h">
+      <Filter>slm</Filter>
+    </ClInclude>
+    <ClInclude Include="os\BaseTimer.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Mailbox.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Monitor.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Mutex.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Semaphore.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Thread.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\TimeMeasure.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Timer.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\TimerCUDA.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="CollectNeuronDataThread.h" />
+    <ClInclude Include="Configuration.h" />
+    <ClInclude Include="DataFileThread.h" />
+    <ClInclude Include="LxRecord.h" />
+    <ClInclude Include="LynxRecord.h" />
+    <ClInclude Include="StimulateNeuronThread.h" />
+    <ClInclude Include="TestDataGenerator.h" />
+    <ClInclude Include="UserInterface.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="config.txt" />
   </ItemGroup>
 </Project>

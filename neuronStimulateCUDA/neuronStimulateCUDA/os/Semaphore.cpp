@@ -6,7 +6,7 @@
 //--------------------------------------------------------
 Semaphore::Semaphore(unsigned max, unsigned init, char *name)
 { 
-  semaphoreHandle = CreateSemaphore(NULL, (LONG)init, (LONG)max, (LPCWSTR)name); 
+  semaphoreHandle = CreateSemaphore(NULL, (LONG)init, (LONG)max, (LPCSTR)name); 
 }
 
 //--------------------------------------------------------
