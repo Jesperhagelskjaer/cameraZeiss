@@ -166,6 +166,7 @@ copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
     <ClCompile Include="AnalyseNeuronDataCMR.cpp" />
     <ClCompile Include="CollectNeuronDataThread.cpp" />
     <ClCompile Include="genericAlgoTest.cpp" />
+    <ClCompile Include="genericCUDATest.cpp" />
     <ClCompile Include="neuronCaptureTest.cpp" />
     <ClCompile Include="neuronStimulate.cpp" />
     <ClCompile Include="os\Semaphore.cpp" />
