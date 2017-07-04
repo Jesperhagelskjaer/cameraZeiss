@@ -19,7 +19,7 @@
 #define NUM_BINDINGS		4			// M modulus NUM_BINDINGS should be equal to zero !!!!
 #define NUM_PARENTS			20			// Number of parents
 #define GEN_ITERATIONS		1000   		// Number of iterations for genetic algorithm to convergate
-#define LASER_PORT			8			// COM port connected to laser
+#define LASER_PORT			4			// COM port connected to laser
 #define LASER_INTENSITY		0.2f		// Intensity of laser when turned on
 #define DELAY_MS			150			// Delay in ms laser is turned on before taking image (On)
 #define PAUSE_MS			200			// Waiting delay in ms after each iteration before laser turned off (Off)
