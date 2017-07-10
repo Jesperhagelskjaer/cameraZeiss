@@ -18,8 +18,8 @@
 // User parameters, set as default in Configuration.h
 #define NUM_BINDINGS		4			// M modulus NUM_BINDINGS should be equal to zero !!!!
 #define NUM_PARENTS			20			// Number of parents
-#define GEN_ITERATIONS		500		// Number of iterations for genetic algorithm to convergate
-#define LASER_PORT			8			// COM port connected to laser
+#define GEN_ITERATIONS		20000		// Number of iterations for genetic algorithm to convergate
+#define LASER_PORT			4			// COM port connected to laser
 #define LASER_INTENSITY		0.6f		// Intensity of laser when turned on
 #define DELAY_MS			4			// Delay in ms laser is turned on while analysing neuron pulses (On)
 #define PAUSE_MS			0			// Waiting delay in ms after each iteration (Off)
