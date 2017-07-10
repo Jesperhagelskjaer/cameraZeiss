@@ -19,6 +19,7 @@ int main(int argc, _TCHAR* argv[])
 	//genericAlgoTest();
 	//neuronCaptureTest();
 
+	printf("Neuron Stimulate Completed\r\n");
 	return 0;
 
 }
