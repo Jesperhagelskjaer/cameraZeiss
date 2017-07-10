@@ -110,10 +110,7 @@ SLMParentsCUDA::SLMParentsCUDA(int numParents, int numBindings) :
 
 SLMParentsCUDA::~SLMParentsCUDA()
 {
-	for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
-		SLMTemplate* pTemplate = *it;
-		delete pTemplate;
-	}
+	ExitCUDA();
 }
 
 bool SLMParentsCUDA::InitCUDA(void)

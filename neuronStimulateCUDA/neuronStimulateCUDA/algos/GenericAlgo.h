@@ -7,7 +7,7 @@
 #pragma once
 
 #include <windows.h>
-#include "SLMParents.h"
+#include "SLMParentsCUDA.h"
 #include "TemplateImages.h"
 #include "TimeMeasure.h"
 #ifdef LASER_INTERFACE_
@@ -25,9 +25,10 @@ public:
 		: laser(115200), laserIntensity_(0)
 #endif
 	{
-		pSLMParents_ = new SLMParents(numParents, numBindings);
+		pSLMParents_ = new SLMParentsCUDA(numParents, numBindings);
 		pImg_ = new CamImage();
 		num_iterations_ = numIterations;
+		pSLMParents_->InitCUDA();
 
 #ifdef	SLM_INTERFACE_
 	   pSLMInterface_ = new SLMInterface();
@@ -38,8 +39,9 @@ public:
 		: laser(115200), laserIntensity_(0)
 #endif
 	{
-		pSLMParents_ = new SLMParents(NUM_PARENTS, NUM_BINDINGS);
+		pSLMParents_ = new SLMParentsCUDA(NUM_PARENTS, NUM_BINDINGS);
 		pImg_ = new CamImage();
+		pSLMParents_->InitCUDA();
 		pSLMInterface_ = new SLMInterface(pSLMsdk);
 #endif
 
@@ -164,7 +166,7 @@ private:
 
 private:
 	int num_iterations_;
-	SLMParents *pSLMParents_;
+	SLMParentsCUDA *pSLMParents_;
 	CamImage *pImg_;
 	//TimeMeasure timeMeas;
 #ifdef LASER_INTERFACE_
