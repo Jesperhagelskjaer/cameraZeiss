@@ -56,10 +56,10 @@ COST_FUNCTION   =  1
 The probability should be higher picking af random template of high cost relative to one with low cost
 
 Default Values for new Parameters:
-RAND_PROPABILITY = 1
+RAND_PROPABILITY = 1  - logistic probability distribution
 
 
-Files changed:
+Files changed 10-8-2017:
 defs.h
 GenericAlgo.h
 SLMParents.h
