@@ -22,12 +22,13 @@ public:
 	
 	GenericAlgo(int numParents, int numBindings, int numIterations) 
 #ifdef LASER_INTERFACE_
-		: laser(115200), laserIntensity_(0)
+		: laser(115200)
 #endif
 	{
 		pSLMParents_ = new SLMParents(numParents, numBindings);
 		pImg_ = new CamImage();
 		num_iterations_ = numIterations;
+		laserIntensity_ = 0;
 
 #ifdef	SLM_INTERFACE_
 	   pSLMInterface_ = new SLMInterface();
@@ -35,12 +36,13 @@ public:
 
 	GenericAlgo(Blink_SDK *pSLMsdk)
 #ifdef LASER_INTERFACE_
-		: laser(115200), laserIntensity_(0)
+		: laser(115200)
 #endif
 	{
 		pSLMParents_ = new SLMParents(NUM_PARENTS, NUM_BINDINGS);
 		pImg_ = new CamImage();
 		pSLMInterface_ = new SLMInterface(pSLMsdk);
+		laserIntensity_ = 0;
 #endif
 
 	}
@@ -49,8 +51,8 @@ public:
 	{
 #ifdef LASER_INTERFACE_
 		laser.OpenPort(port);
-		laserIntensity_ = intensity;
 #endif
+		laserIntensity_ = intensity;
 	}
 
 	void TurnLaserOn(void)
@@ -65,6 +67,11 @@ public:
 #ifdef LASER_INTERFACE_
 		laser.TurnOff();
 #endif
+	}
+
+	float GetLaserIntensity(void)
+	{
+		return laserIntensity_;
 	}
 	
 	int GetNumIterations(void) 
@@ -137,14 +144,28 @@ public:
 		//printf("Image taken L%d, R%d, T%d, B%d, H%d, W%d\r\n", rec.left, rec.right, rec.top, rec.bottom, height, width);
 		pImg_->CopyImage(pixel, height, width, rec);
 #else
-		pImg_->CopyImage(pixel, height, width, rec);
+		pImg_->CopyImage(pixel, height, width, rec, COST_FUNCTION);
 #endif
 		//pImg_->Print(); //KBE??? For debug only
 		cost = pImg_->ComputeIntencity();
 		CompareCostAndInsertTemplate(cost);
+
+		// Decrease laser intencity if many pixels are saturated
+		if (pImg_->getSaturated() > NUM_SATURATED && laserIntensity_ > LASER_STEP) 
+		{
+			laserIntensity_ -= LASER_STEP;
+			printf("Decreased laser intensity to %0.2f\r\n", laserIntensity_);
+		}
+
 		//printf("ComputeIntencity done\r\n");
 		//pSLMParents_->PrintTemplates(); //KBE??? For debug only
 		return cost;
+	}
+
+	// Generates a number of random templates every num_iterations by deleting lowest cost templates
+	void DeleteTemplates(int num_templates)
+	{
+		pSLMParents_->DeleteTemplates(num_templates);
 	}
 	
 
@@ -167,8 +188,8 @@ private:
 	SLMParents *pSLMParents_;
 	CamImage *pImg_;
 	//TimeMeasure timeMeas;
+	float laserIntensity_;
 #ifdef LASER_INTERFACE_
 	LaserInterface laser;
-	float laserIntensity_;
 #endif
 };

@@ -222,7 +222,8 @@ void MCamRemote::createTestImage(void)
 	printf("Image loaded %s\r\n", TEST_FILE);
 	header->roiWidth = imgROI.width*BYTES_PIXEL;
 	header->roiHeight = imgROI.height*BYTES_PIXEL;
-	printf("Width %d, Height %d, Header %d\r\n", header->roiWidth/BYTES_PIXEL, header->roiHeight/BYTES_PIXEL, header->headerSize);
+	printf("Width %d, Height %d, Header %d\r\n", header->roiWidth/BYTES_PIXEL, 
+												 header->roiHeight/BYTES_PIXEL, header->headerSize);
 
 	saveImage(imageData, true);
 	free(imageData);
@@ -248,10 +249,11 @@ void MCamRemote::saveDataFile(int maxLoops)
 		fprintf(hDataFile, "%d,%02d,%02d,%02d,%02d,%02d,",
 							now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
 							now->tm_hour, now->tm_min, now->tm_sec);
-		fprintf(hDataFile, "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\r\n", 
+		fprintf(hDataFile, "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%0.2f\r\n", 
 			                imgROI_.width, imgROI_.height, 
 			                recAlgo_.left, recAlgo_.top, recAlgo_.right, recAlgo_.bottom,
-							numParents_, numBindings_, maxLoops, numBetweenSave_);
+							numParents_, numBindings_, maxLoops, numBetweenSave_, 
+							pGenericAlgo->GetLaserIntensity());
 		fclose(hDataFile);
 	}
 }
@@ -292,9 +294,14 @@ long MCamRemote::saveImage(unsigned short *imageData, bool test)
 	long newCost = (long)pGenericAlgo->ComputeIntencity(imageData, recAlgo_);
 	//timeMeas.printDuration("Compute Intencity");
 
-	if (iteration_ % numBetweenSave_ == 0)
-	{
+	if (iteration_ % numBetweenSave_ == 0) {
+		// Save image and data to files
 		saveImageData(imageData, newCost);
+	}
+
+	if (NUM_RAND_ITERATIONS > 0 && (iteration_%NUM_RAND_ITERATIONS == 0)) {
+		// Delete num parents each NUM_RAND_ITERATIONS
+		pGenericAlgo->DeleteTemplates(NUM_RAND_TEMPLATES);
 	}
 
 	//printf("Generic iter completed\r\n");

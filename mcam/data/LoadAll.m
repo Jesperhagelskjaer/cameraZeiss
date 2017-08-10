@@ -18,6 +18,7 @@ genAlgo.numParents = data(13);
 genAlgo.bind = data(14);
 genAlgo.iterations = data(15);
 numBetweenSave = data(16);
+laserIntensity = data(17);
 
 fileList = dir('IM*.bin');
 for i=1:size(fileList,1)

@@ -22,7 +22,7 @@ public:
 	void GenBinaryInverse(SLMTemplate &templateIn);
 	void MultiplyCell(SLMTemplate &templateIn, SLMTemplate &templateOut);
 	void AddCell(SLMTemplate &templateIn, SLMTemplate &templateOut);
-	void RandomMutation(void);
+	void RandomMutation(int n);
 	void Print(void);
 	unsigned char *GetMatrixPtr(void);
 
@@ -31,7 +31,6 @@ protected:
 	double cost_;
 	int binding_;
 };
-
 
 class SLMParents
 {
@@ -45,15 +44,18 @@ public:
 	void CompareCostAndInsertTemplate(double cost);
 	//void GenParents(void);
 	unsigned char* GetNewParentMatrixPtr(void);
+	void DeleteTemplates(int num);
 
 protected:
 	void DeleteLastTemplate(void);
+	int SigmoidRandomDistribution(void);
 	void GetRandomTemplateIdx(int &number1, int &number2);
 
 	SLMTemplate *pParentNew_;
 	std::vector<SLMTemplate*> SLMTemplates_;
 	int numParents_;
 	int numBindings_;
+	int numOffsprings_;
 
 private:
 	SLMTemplate BinaryTemplate1_, BinaryTemplate2_;

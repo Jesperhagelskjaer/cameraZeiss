@@ -81,10 +81,10 @@ void SLMTemplate::AddCell(SLMTemplate &templateIn, SLMTemplate &templateOut)
 			templateOut.matrix_[i][j] = matrix_[i][j] + templateIn.matrix_[i][j];
 }
 
-void SLMTemplate::RandomMutation(void)
+void SLMTemplate::RandomMutation(int n)
 {
 		//cout << "random mutation" << endl;
-		float propabililty = (float)MUT_PROPABILITY; //exp(-0.52);
+		float propabililty = (float)MUT_PROPABILITY(n); //exp(-0.52);
 		//out << "probability:" << propabililty << endl;
 		//cout << "signel rand() call: " << (float)rand() / (float)RAND_MAX << endl;
 		int j;
@@ -138,6 +138,7 @@ SLMParents::SLMParents(int numParents, int numBindings) :
 	Parent2_(numBindings)
 {
 	pParentNew_ = 0;
+	numOffsprings_ = 0;
 	numParents_ = numParents;
 	numBindings_ = numBindings;
 	//GenParents();
@@ -218,7 +219,7 @@ SLMTemplate *SLMParents::GenerateOffspring(void)
 		
 
 	//Parent1_.RandomMutation(); This must be an error 
-	pParentNew_->RandomMutation();
+	pParentNew_->RandomMutation(++numOffsprings_);
 	//cout << "Offspring mutation: " << endl;;
 	//pParentNew_->Print();
 	//cout << "test" << endl;;
@@ -286,8 +287,51 @@ void SLMParents::DeleteLastTemplate(void)
 	}
 }
 
+void SLMParents::DeleteTemplates(int num)
+{
+	if (SLMTemplates_.size() > num) {
+		for (int n = 0; n < num; n++) {
+			vector<SLMTemplate*>::iterator it = SLMTemplates_.end() - 1;
+			SLMTemplate* pParentLast = *it;
+			printf("Deleted template with cost %.0f\r\n", pParentLast->GetCost());
+			SLMTemplates_.erase(it);
+			delete pParentLast;
+		}
+	}
+}
+
+
+/**
+% Try MATLAB script below to see logistic probability distribution:
+	MAX = 20;
+	x = rand([1 1000])*MAX;
+	hist(x)
+	y = ones(size(x)). / (1 + exp(x)); % Sigmoid function, logistic sigmoid
+	figure, plot(y, '.')
+	y = floor(MAX * 2*y)
+	figure, hist(y)
+*/
+int SLMParents::SigmoidRandomDistribution(void)
+{
+	double x = ((double)rand() / RAND_MAX) * numParents_;
+	double y = 1 / (1 + exp(x)); // Sigmoid function
+	return (int)floor(numParents_*2*y);
+}
+
 void SLMParents::GetRandomTemplateIdx(int &number1, int &number2)
 {
-	number1 = rand() % numParents_;
-	number2 = rand() % numParents_;
+	// Seed random number generator KBE try???
+	//srand((unsigned int)time(NULL));
+
+	if (RAND_PROPABILITY == 0) {
+		number1 = rand() % numParents_;
+		number2 = rand() % numParents_;
+	}
+	else {
+		// Probability higer picking af template with high cost (logistic probability distribution)
+		number1 = SigmoidRandomDistribution();
+		number2 = SigmoidRandomDistribution();
+		printf("Logistic Random Distribution %d, %d\r\n", number1, number2);
+	}
+
 }
