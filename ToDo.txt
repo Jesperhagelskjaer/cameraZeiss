@@ -24,7 +24,7 @@ Default values for new Parameters:
 RSTART = 400
 REND   = 100
 LAMBDA = 1.0
-MUT_PROPABILITY(n)  = ( (RSTART - REND)*exp(-n/LAMBDA) + REND )
+MUT_PROBABILITY(n)  = ( (RSTART - REND)*exp(-n/LAMBDA) + REND )
 
 n is incremented for every new offspring generation
 

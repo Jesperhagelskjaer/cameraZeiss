@@ -10,6 +10,7 @@
 SLMTemplate::SLMTemplate(int binding)
 {
 	cost_ = 0;
+	probabililty_ = 0;
 	binding_ = binding;
 }
 
@@ -84,7 +85,7 @@ void SLMTemplate::AddCell(SLMTemplate &templateIn, SLMTemplate &templateOut)
 void SLMTemplate::RandomMutation(int n)
 {
 		//cout << "random mutation" << endl;
-		float propabililty = (float)MUT_PROPABILITY(n); //exp(-0.52);
+		probabililty_ = MUT_PROBABILITY(n); //exp(-0.52);
 		//out << "probability:" << propabililty << endl;
 		//cout << "signel rand() call: " << (float)rand() / (float)RAND_MAX << endl;
 		int j;
@@ -96,7 +97,7 @@ void SLMTemplate::RandomMutation(int n)
 			for (j = 0; j < M; j += binding_) {
 				//cout << (int)matrix_[i][j] << " " ;
 				threshold = (float)rand() / (float)RAND_MAX;
-				if (propabililty > threshold) {  
+				if (probabililty_ > threshold) {
 					threshold = (float)1.1;
 					int test = rand() % 255;
 					for (int it2 = 0; it2 < binding_; ++it2){
@@ -142,6 +143,8 @@ SLMParents::SLMParents(int numParents, int numBindings) :
 	numParents_ = numParents;
 	numBindings_ = numBindings;
 	//GenParents();
+	// Seed random number generator
+	srand((unsigned int)time(NULL));
 }
 
 SLMParents::~SLMParents()
@@ -246,7 +249,7 @@ void SLMParents::CompareCostAndInsertTemplate(double cost)
 			}
 		}
 		if (found) {
-			printf("New template inserted cost %.0f\r\n", cost);
+			printf("New template inserted cost %.0f, %.2f\r\n", cost, pParentNew_->GetProbability());
 			DeleteLastTemplate();
 		} else {
 			//printf("Template cost too low %.0f\r\n", cost);
@@ -320,17 +323,18 @@ int SLMParents::SigmoidRandomDistribution(void)
 
 void SLMParents::GetRandomTemplateIdx(int &number1, int &number2)
 {
-	// Seed random number generator KBE try???
-	//srand((unsigned int)time(NULL));
-
 	if (RAND_PROPABILITY == 0) {
 		number1 = rand() % numParents_;
 		number2 = rand() % numParents_;
+		while (number1 == number2)
+			number2 = rand() % numParents_;
 	}
 	else {
 		// Probability higer picking af template with high cost (logistic probability distribution)
 		number1 = SigmoidRandomDistribution();
 		number2 = SigmoidRandomDistribution();
+		while (number1 == number2)
+			number2 = SigmoidRandomDistribution();
 		printf("Logistic Random Distribution %d, %d\r\n", number1, number2);
 	}
 

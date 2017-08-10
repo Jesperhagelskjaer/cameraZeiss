@@ -7,8 +7,6 @@
 #pragma once
 #include "defs.h"
 
-#define SATURATE_VAL 16380 // Pixel saturation value - 14 bits
-
 class CamImage
 {
 public:

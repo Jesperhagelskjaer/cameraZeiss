@@ -25,11 +25,13 @@ public:
 	void RandomMutation(int n);
 	void Print(void);
 	unsigned char *GetMatrixPtr(void);
+	double GetProbability(void) { return probabililty_; }
 
 protected:
 	unsigned char matrix_[M][M];
 	double cost_;
 	int binding_;
+	double probabililty_;
 };
 
 class SLMParents

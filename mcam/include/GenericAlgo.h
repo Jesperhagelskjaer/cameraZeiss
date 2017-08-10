@@ -151,7 +151,7 @@ public:
 		CompareCostAndInsertTemplate(cost);
 
 		// Decrease laser intencity if many pixels are saturated
-		if (pImg_->getSaturated() > NUM_SATURATED && laserIntensity_ > LASER_STEP) 
+		if (pImg_->getSaturated() > NUM_SATURATED && laserIntensity_ >= LASER_STEP+0.2) 
 		{
 			laserIntensity_ -= LASER_STEP;
 			printf("Decreased laser intensity to %0.2f\r\n", laserIntensity_);
