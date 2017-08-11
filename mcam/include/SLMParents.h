@@ -22,7 +22,9 @@ public:
 	void GenBinaryInverse(SLMTemplate &templateIn);
 	void MultiplyCell(SLMTemplate &templateIn, SLMTemplate &templateOut);
 	void AddCell(SLMTemplate &templateIn, SLMTemplate &templateOut);
-	void RandomMutation(int n);
+	void RandomMutation(int n = 1, int type = 1); // Perfoms mutation TYPE1 or TYPE2
+	void RandomMutation1(void);
+	void RandomMutation2(int n);
 	void Print(void);
 	unsigned char *GetMatrixPtr(void);
 	double GetProbability(void) { return probabililty_; }

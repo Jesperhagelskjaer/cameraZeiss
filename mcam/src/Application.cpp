@@ -1250,7 +1250,8 @@ void Application::setBusyLock(bool disabled)  // true: locked  false: unlocked
     ui->saveColorButton->setEnabled(!disabled);
     ui->resetColorButton->setEnabled(!disabled);
     ui->defaultColorButton->setEnabled(!disabled);
-    ui->singleShotButton->setEnabled((!disabled) && (!running));
+    //KBE??? ui->singleShotButton->setEnabled((!disabled) && (!running));
+	ui->singleShotButton->setEnabled(false);
 	ui->genericShotButton->setEnabled((!disabled) && (!running));
 	ui->contShotButton->setEnabled(!disabled);
     ui->triggerModeComboBox->setEnabled((!disabled) && (!running));

@@ -17,8 +17,9 @@
 #define RSTART              400			// Number of start modes
 #define REND                100         // Number of end modes
 #define LAMBDA              100.0	    // Constant
-//#define MUT_PROBABILITY(n)  ( (RSTART - REND)*exp(-n/LAMBDA) + REND )	    // Generic mutation propability - paper version
-#define MUT_PROBABILITY(n)  exp(-2)		// Generic mutation propability - exp(-0.52)
+#define MUT_PROBABILITY_TYPE2(n)  ( (RSTART - REND)*exp(-n/LAMBDA) + REND ) // Generic mutation propability - paper version
+#define MUT_PROBABILITY_TYPE1       exp(-2)		// Generic mutation propability - first version exp(-0.52)
+#define MUT_TYPE			2           // Specifies the mutation TYPE1 or TYPE2 to be used
 
 // User parameters, set as default in MCamRemote.cpp
 #define NUM_BINDINGS		4			// M modulus NUM_BINDINGS should be equal to zero !!!!

@@ -82,10 +82,18 @@ void SLMTemplate::AddCell(SLMTemplate &templateIn, SLMTemplate &templateOut)
 			templateOut.matrix_[i][j] = matrix_[i][j] + templateIn.matrix_[i][j];
 }
 
-void SLMTemplate::RandomMutation(int n)
+void SLMTemplate::RandomMutation(int n, int type)
+{
+	if (type == 2)
+		RandomMutation2(n); // Random mutation according to paper
+	else
+		RandomMutation1(); // First version of random mutation
+}
+
+void SLMTemplate::RandomMutation1(void)
 {
 		//cout << "random mutation" << endl;
-		probabililty_ = MUT_PROBABILITY(n); //exp(-0.52);
+		probabililty_ = MUT_PROBABILITY_TYPE1; //exp(-0.52);
 		//out << "probability:" << propabililty << endl;
 		//cout << "signel rand() call: " << (float)rand() / (float)RAND_MAX << endl;
 		int j;
@@ -111,6 +119,47 @@ void SLMTemplate::RandomMutation(int n)
 				}
 			}
 		}
+}
+
+void SLMTemplate::RandomMutation2(int n)
+{
+	// Creates and clear matrix to hold modes modified
+	static unsigned char modifiedMatrix[M][M];
+	memset(&modifiedMatrix[0][0], 0, sizeof(modifiedMatrix));
+
+	// Computes the number modes to modify
+	probabililty_ = MUT_PROBABILITY_TYPE2(n);
+	int numRandModes = (int)round(probabililty_);
+
+	// Modifies random position in matrix_
+	while (numRandModes > 0) {
+		int randIdx = rand() / (M*M); // Random index to matrix
+		int i = randIdx / M; // Computes matrix row position
+		int j = randIdx % M; // Computes matrix coloum position
+		int oi = i % binding_; // Computes binding row offset
+		int oj = j % binding_; // Computes binding coloum offset
+		i -= oi; // Binding row position
+		j -= oj; // Binding coloum position
+
+		// Check if random binding position already modified
+		if (modifiedMatrix[i][j] == 0) {
+
+			// Mark matrix binding position changed
+			modifiedMatrix[i][j] = 1;
+			
+			// Generate new random mode
+			unsigned char mode = rand() % 255;
+			
+			// Change mode in matrix binding position
+			for (int ib = i; ib < i+binding_; ++ib) {
+				for (int jb = j; jb < j+binding_; ++jb) {
+					matrix_[ib][jb] = mode;
+					numRandModes--;
+					//cout << (int)matrix_[ib][jb] << " ";
+				}
+			}
+		}
+	}
 }
 
 void SLMTemplate::Print(void)
@@ -222,7 +271,8 @@ SLMTemplate *SLMParents::GenerateOffspring(void)
 		
 
 	//Parent1_.RandomMutation(); This must be an error 
-	pParentNew_->RandomMutation(++numOffsprings_);
+	//pParentNew_->RandomMutation1();
+	pParentNew_->RandomMutation(++numOffsprings_, MUT_TYPE);
 	//cout << "Offspring mutation: " << endl;;
 	//pParentNew_->Print();
 	//cout << "test" << endl;;
