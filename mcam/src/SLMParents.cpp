@@ -130,16 +130,21 @@ void SLMTemplate::RandomMutation2(int n)
 	// Computes the number modes to modify
 	probabililty_ = MUT_PROBABILITY_TYPE2(n);
 	int numRandModes = (int)round(probabililty_);
+	printf("RandomMutation2 enter %d\r\n", numRandModes);
 
 	// Modifies random position in matrix_
 	while (numRandModes > 0) {
-		int randIdx = rand() / (M*M); // Random index to matrix
+		int randIdx = rand() % (M*M); // Random index to matrix
+		printf("%d\r\n", randIdx);
 		int i = randIdx / M; // Computes matrix row position
 		int j = randIdx % M; // Computes matrix coloum position
+		printf("%d,%d\r\n", i, j);
 		int oi = i % binding_; // Computes binding row offset
 		int oj = j % binding_; // Computes binding coloum offset
+		printf("%d,%d\r\n", oi, oj);
 		i -= oi; // Binding row position
 		j -= oj; // Binding coloum position
+		printf("%d,%d\r\n", i, j);
 
 		// Check if random binding position already modified
 		if (modifiedMatrix[i][j] == 0) {
@@ -147,6 +152,7 @@ void SLMTemplate::RandomMutation2(int n)
 			// Mark matrix binding position changed
 			modifiedMatrix[i][j] = 1;
 			numRandModes--;
+			printf("Modes left %d\r\n", numRandModes);
 
 			// Generate new random mode
 			unsigned char mode = rand() % 255;
@@ -160,6 +166,9 @@ void SLMTemplate::RandomMutation2(int n)
 			}
 		}
 	}
+
+	printf("RandomMutation2 exit %d\r\n", numRandModes);
+
 }
 
 void SLMTemplate::Print(void)
@@ -287,19 +296,29 @@ void SLMParents::CompareCostAndInsertTemplate(double cost)
 	// then insert ParentNew_ in SLMTemplates and
 	// delete template with lowest cost
 	pParentNew_->SetCost(cost);
-	if (SLMTemplates_.size() == 0)
-		SLMTemplates_.push_back(pParentNew_);
-	else {
+	if (SLMTemplates_.size() == 0) {
+		SLMTemplates_.push_back(pParentNew_); // Empty list
+		printf("New template inserted first cost %.0f, %.2f\r\n", cost, pParentNew_->GetProbability());
+	} else {
+
 		for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
 			SLMTemplate* pTemplate = *it;
 			if (cost > pTemplate->GetCost()) {
-				SLMTemplates_.insert(it, pParentNew_);
+				SLMTemplates_.insert(it, pParentNew_); // Template higher cost insert
+				printf("New template inserted cost %.0f, %.2f\r\n", cost, pParentNew_->GetProbability());
 				found = true;
 				break;
 			}
 		}
-		if (found) {
-			printf("New template inserted cost %.0f, %.2f\r\n", cost, pParentNew_->GetProbability());
+
+		if (SLMTemplates_.size() < numParents_) {
+			// First number of random templates
+			if (!found) {
+				printf("New template inserted back cost %.0f, %.2f\r\n", cost, pParentNew_->GetProbability());
+				SLMTemplates_.push_back(pParentNew_); // Template lower cost and list not full
+			}
+		} else if (found) {
+			// Offspring templates
 			DeleteLastTemplate();
 		} else {
 			//printf("Template cost too low %.0f\r\n", cost);

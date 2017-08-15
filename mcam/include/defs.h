@@ -27,8 +27,8 @@
 #define GEN_ITERATIONS		100   		// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT			4			// COM port connected to laser
 #define LASER_INTENSITY		2.0f		// Intensity of laser when turned on
-#define DELAY_MS			150			// Delay in ms laser is turned on before taking image (On)
-#define PAUSE_MS			200			// Waiting delay in ms after each iteration before laser turned off (Off)
+#define DELAY_MS			50			// Delay in ms laser is turned on before taking image (On)
+#define PAUSE_MS			50			// Waiting delay in ms after each iteration before laser turned off (Off)
 
 // Parameters not set in UI
 #define NUM_RAND_ITERATIONS 50          // Number of iterations before replacing templates with lowest cost with new random templates (0=turned off)
@@ -39,7 +39,7 @@
 #define LASER_STEP          0.0f		// Step size decreasing laser intensity when pixels are saturated (0=turned off)
 #define NUM_SATURATED       0			// Number of pixels (+1) saturated before decreasing laser intensity
 #define SATURATE_VAL		16380		// Pixel saturation value - 14 bits (16380)
-#define COST_FUNCTION       1			// 0 - computes cost as sum of pixels in image focus area
+#define COST_FUNCTION       0			// 0 - computes cost as sum of pixels in image focus area
 									    // 1 - computes cost as sum of pixels divided by mean of local maximum area
 
 // User parameters only used by neuronStimulate 
