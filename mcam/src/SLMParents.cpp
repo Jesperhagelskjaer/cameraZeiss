@@ -146,7 +146,8 @@ void SLMTemplate::RandomMutation2(int n)
 
 			// Mark matrix binding position changed
 			modifiedMatrix[i][j] = 1;
-			
+			numRandModes--;
+
 			// Generate new random mode
 			unsigned char mode = rand() % 255;
 			
@@ -154,7 +155,6 @@ void SLMTemplate::RandomMutation2(int n)
 			for (int ib = i; ib < i+binding_; ++ib) {
 				for (int jb = j; jb < j+binding_; ++jb) {
 					matrix_[ib][jb] = mode;
-					numRandModes--;
 					//cout << (int)matrix_[ib][jb] << " ";
 				}
 			}
@@ -367,7 +367,7 @@ void SLMParents::DeleteTemplates(int num)
 int SLMParents::SigmoidRandomDistribution(void)
 {
 	double x = ((double)rand() / RAND_MAX) * numParents_;
-	double y = 1 / (1 + exp(x)); // Sigmoid function
+	double y = 1 / (1 + exp(0.19*x)); // Sigmoid function
 	return (int)floor(numParents_*2*y);
 }
 
