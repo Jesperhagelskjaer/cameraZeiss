@@ -22,18 +22,18 @@
 #define MUT_TYPE			2           // Specifies the mutation TYPE1 or TYPE2 to be used
 
 // User parameters, set as default in MCamRemote.cpp
-#define NUM_BINDINGS		4			// M modulus NUM_BINDINGS should be equal to zero !!!!
+#define NUM_BINDINGS		8			// M modulus NUM_BINDINGS should be equal to zero !!!!
 #define NUM_PARENTS			20			// Number of parents
-#define GEN_ITERATIONS		100   		// Number of iterations for genetic algorithm to convergate
+#define GEN_ITERATIONS		3000   		// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT			4			// COM port connected to laser
-#define LASER_INTENSITY		2.0f		// Intensity of laser when turned on
-#define DELAY_MS			50			// Delay in ms laser is turned on before taking image (On)
-#define PAUSE_MS			50			// Waiting delay in ms after each iteration before laser turned off (Off)
+#define LASER_INTENSITY		0.4f		// Intensity of laser when turned on
+#define DELAY_MS			100			// Delay in ms laser is turned on before taking image (On)
+#define PAUSE_MS			100			// Waiting delay in ms after each iteration before laser turned off (Off)
 
 // Parameters not set in UI
 #define NUM_RAND_ITERATIONS 50          // Number of iterations before replacing templates with lowest cost with new random templates (0=turned off)
 #define NUM_RAND_TEMPLATES  10			// Number of templates with lowest cost to to be replaced
-#define RAND_PROPABILITY    0			// Probability function selecting templates when generating offsprings (1 = logistic probability distribution)
+#define RAND_PROPABILITY    1			// Probability function selecting templates when generating offsprings (1 = logistic probability distribution)
 
 // User parameter for MCAM only
 #define LASER_STEP          0.0f		// Step size decreasing laser intensity when pixels are saturated (0=turned off)
@@ -47,4 +47,4 @@
 //#define FILTER_TYPE			FC_0_1Hz   	// Bandpass filter type low cut fq: BYPASS, FC_0_1Hz, FC_1Hz, FC_10Hz, FC_100Hz, FC_300Hz
 
 // Used in MCamRemote only
-#define NUM_BETWEEN_SAVE_IMG    20			// Number of iterations before saving image
+#define NUM_BETWEEN_SAVE_IMG    2			// Number of iterations before saving image
