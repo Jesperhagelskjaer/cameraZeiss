@@ -14,6 +14,8 @@ LASER_STEP  	= 0.1
 
 Intensity is logged in the data file and printed on screen.
 
+Teset working ok, but problem, cost need to be calculated again with reduced laser power for each SLM front send to SLM and camera.
+
 
 2. Genectic algorithm - probability computaion
 
@@ -28,6 +30,8 @@ MUT_PROBABILITY(n)  = ( (RSTART - REND)*exp(-n/LAMBDA) + REND )
 
 n is incremented for every new offspring generation
 
+Tested working ok.
+
 
 3. Generate new random templates
 
@@ -37,6 +41,8 @@ with new random generated templates.
 Default Values for new Parameters:
 NUM_RAN_ITERATIONS = 100
 NUM_RAN_TEMPLATES  = 10
+
+Tested working ok.
 
 
 4. New cost function
@@ -51,6 +57,8 @@ new cost = old cost / cost for area around local maximum intensity
 Default Values for new Parameters:
 COST_FUNCTION   =  1
 
+Not working - truncation ?? - not used 
+
 
 5. New function to genetic algorithm
 The probability should be higher picking af random template of high cost relative to one with low cost
@@ -58,6 +66,8 @@ The probability should be higher picking af random template of high cost relativ
 Default Values for new Parameters:
 RAND_PROPABILITY = 1  - logistic probability distribution
 
+Tested working ok.
+ 
 
 Files changed 10-8-2017:
 defs.h
