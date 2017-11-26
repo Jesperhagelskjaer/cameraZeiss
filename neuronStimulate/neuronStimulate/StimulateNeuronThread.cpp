@@ -26,6 +26,7 @@ StimulateNeuronThread::~StimulateNeuronThread()
 void StimulateNeuronThread::run()
 {
 	double cost;
+	int iter = 0;
 
 	while (m_iterations > 0)
 	{
@@ -54,6 +55,10 @@ void StimulateNeuronThread::run()
 			//timeMeas.printDuration("Compute Cost");
 		printf("%d\r", m_iterations);
 		m_iterations--;
+		if (NUM_RAND_ITERATIONS > 0 && (++iter%NUM_RAND_ITERATIONS == 0)) {
+			// Delete num parents each NUM_RAND_ITERATIONS
+			m_GenericAlgo->DeleteTemplates(NUM_RAND_TEMPLATES);
+		}
 		if (m_pausems > 0)
 			Sleep(m_pausems);
 	}

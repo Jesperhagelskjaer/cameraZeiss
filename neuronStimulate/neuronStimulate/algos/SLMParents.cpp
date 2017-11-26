@@ -10,6 +10,7 @@
 SLMTemplate::SLMTemplate(int binding)
 {
 	cost_ = 0;
+	probabililty_ = 0;
 	binding_ = binding;
 }
 
@@ -81,10 +82,18 @@ void SLMTemplate::AddCell(SLMTemplate &templateIn, SLMTemplate &templateOut)
 			templateOut.matrix_[i][j] = matrix_[i][j] + templateIn.matrix_[i][j];
 }
 
-void SLMTemplate::RandomMutation(void)
+void SLMTemplate::RandomMutation(int n, int type)
+{
+	if (type == 2)
+		RandomMutation2(n); // Random mutation according to paper
+	else
+		RandomMutation1(); // First version of random mutation
+}
+
+void SLMTemplate::RandomMutation1(void)
 {
 		//cout << "random mutation" << endl;
-		float propabililty = (float)MUT_PROPABILITY; //exp(-0.52);
+		probabililty_ = MUT_PROBABILITY_TYPE1; //exp(-0.52);
 		//out << "probability:" << propabililty << endl;
 		//cout << "signel rand() call: " << (float)rand() / (float)RAND_MAX << endl;
 		int j;
@@ -96,7 +105,7 @@ void SLMTemplate::RandomMutation(void)
 			for (j = 0; j < M; j += binding_) {
 				//cout << (int)matrix_[i][j] << " " ;
 				threshold = (float)rand() / (float)RAND_MAX;
-				if (propabililty > threshold) {  
+				if (probabililty_ > threshold) {
 					threshold = (float)1.1;
 					int test = rand() % 255;
 					for (int it2 = 0; it2 < binding_; ++it2){
@@ -110,6 +119,56 @@ void SLMTemplate::RandomMutation(void)
 				}
 			}
 		}
+}
+
+void SLMTemplate::RandomMutation2(int n)
+{
+	// Creates and clear matrix to hold modes modified
+	static unsigned char modifiedMatrix[M][M];
+	memset(&modifiedMatrix[0][0], 0, sizeof(modifiedMatrix));
+
+	// Computes the number modes to modify
+	probabililty_ = MUT_PROBABILITY_TYPE2(n);
+	int numRandModes = (int)round(probabililty_);
+	//printf("RandomMutation2 enter %d\r\n", numRandModes);
+
+	// Modifies random position in matrix_
+	while (numRandModes > 0) {
+		int randIdx = rand() % (M*M); // Random index to matrix
+		//printf("%d\r\n", randIdx);
+		int i = randIdx / M; // Computes matrix row position
+		int j = randIdx % M; // Computes matrix coloum position
+		//printf("%d,%d\r\n", i, j);
+		int oi = i % binding_; // Computes binding row offset
+		int oj = j % binding_; // Computes binding coloum offset
+		//printf("%d,%d\r\n", oi, oj);
+		i -= oi; // Binding row position
+		j -= oj; // Binding coloum position
+		//printf("%d,%d\r\n", i, j);
+
+		// Check if random binding position already modified
+		if (modifiedMatrix[i][j] == 0) {
+
+			// Mark matrix binding position changed
+			modifiedMatrix[i][j] = 1;
+			numRandModes--;
+			//printf("Modes left %d\r\n", numRandModes);
+
+			// Generate new random mode
+			unsigned char mode = rand() % 255;
+			
+			// Change mode in matrix binding position
+			for (int ib = i; ib < i+binding_; ++ib) {
+				for (int jb = j; jb < j+binding_; ++jb) {
+					matrix_[ib][jb] = mode;
+					//cout << (int)matrix_[ib][jb] << " ";
+				}
+			}
+		}
+	}
+
+	//printf("RandomMutation2 exit %d\r\n", numRandModes);
+
 }
 
 void SLMTemplate::Print(void)
@@ -138,9 +197,12 @@ SLMParents::SLMParents(int numParents, int numBindings) :
 	Parent2_(numBindings)
 {
 	pParentNew_ = 0;
+	numOffsprings_ = 0;
 	numParents_ = numParents;
 	numBindings_ = numBindings;
 	//GenParents();
+	// Seed random number generator
+	srand((unsigned int)time(NULL));
 }
 
 SLMParents::~SLMParents()
@@ -218,7 +280,8 @@ SLMTemplate *SLMParents::GenerateOffspring(void)
 		
 
 	//Parent1_.RandomMutation(); This must be an error 
-	pParentNew_->RandomMutation();
+	//pParentNew_->RandomMutation1();
+	pParentNew_->RandomMutation(++numOffsprings_, MUT_TYPE);
 	//cout << "Offspring mutation: " << endl;;
 	//pParentNew_->Print();
 	//cout << "test" << endl;;
@@ -233,19 +296,29 @@ void SLMParents::CompareCostAndInsertTemplate(double cost)
 	// then insert ParentNew_ in SLMTemplates and
 	// delete template with lowest cost
 	pParentNew_->SetCost(cost);
-	if (SLMTemplates_.size() == 0)
-		SLMTemplates_.push_back(pParentNew_);
-	else {
+	if (SLMTemplates_.size() == 0) {
+		SLMTemplates_.push_back(pParentNew_); // Empty list
+		printf("New template inserted first cost %.0f, %.2f\r\n", cost, pParentNew_->GetProbability());
+	} else {
+
 		for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
 			SLMTemplate* pTemplate = *it;
 			if (cost > pTemplate->GetCost()) {
-				SLMTemplates_.insert(it, pParentNew_);
+				SLMTemplates_.insert(it, pParentNew_); // Template higher cost insert
+				printf("New template inserted cost %.0f, %.2f\r\n", cost, pParentNew_->GetProbability());
 				found = true;
 				break;
 			}
 		}
-		if (found) {
-			printf("New template inserted cost %.0f\r\n", cost);
+
+		if (SLMTemplates_.size() < numParents_) {
+			// First number of random templates
+			if (!found) {
+				printf("New template inserted back cost %.0f, %.2f\r\n", cost, pParentNew_->GetProbability());
+				SLMTemplates_.push_back(pParentNew_); // Template lower cost and list not full
+			}
+		} else if (found) {
+			// Offspring templates
 			DeleteLastTemplate();
 		} else {
 			//printf("Template cost too low %.0f\r\n", cost);
@@ -286,8 +359,52 @@ void SLMParents::DeleteLastTemplate(void)
 	}
 }
 
+void SLMParents::DeleteTemplates(int num)
+{
+	if (SLMTemplates_.size() > num) {
+		for (int n = 0; n < num; n++) {
+			vector<SLMTemplate*>::iterator it = SLMTemplates_.end() - 1;
+			SLMTemplate* pParentLast = *it;
+			printf("Deleted template with cost %.0f\r\n", pParentLast->GetCost());
+			SLMTemplates_.erase(it);
+			delete pParentLast;
+		}
+	}
+}
+
+
+/**
+% Try MATLAB script below to see logistic probability distribution:
+	MAX = 20;
+	x = rand([1 1000])*MAX;
+	hist(x)
+	y = ones(size(x)). / (1 + exp(x)); % Sigmoid function, logistic sigmoid
+	figure, plot(y, '.')
+	y = floor(MAX * 2*y)
+	figure, hist(y)
+*/
+int SLMParents::SigmoidRandomDistribution(void)
+{
+	double x = ((double)rand() / RAND_MAX) * numParents_;
+	double y = 1 / (1 + exp(0.19*x)); // Sigmoid function
+	return (int)floor(numParents_*2*y);
+}
+
 void SLMParents::GetRandomTemplateIdx(int &number1, int &number2)
 {
-	number1 = rand() % numParents_;
-	number2 = rand() % numParents_;
+	if (RAND_PROPABILITY == 0) {
+		number1 = rand() % numParents_;
+		number2 = rand() % numParents_;
+		while (number1 == number2)
+			number2 = rand() % numParents_;
+	}
+	else {
+		// Probability higer picking af template with high cost (logistic probability distribution)
+		number1 = SigmoidRandomDistribution();
+		number2 = SigmoidRandomDistribution();
+		while (number1 == number2)
+			number2 = SigmoidRandomDistribution();
+		//printf("Logistic Random Distribution %d, %d\r\n", number1, number2);
+	}
+
 }

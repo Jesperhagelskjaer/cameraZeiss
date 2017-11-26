@@ -1,9 +1,9 @@
 Metting 8/8 -2017 (Jesper + Kim)
 --------------------------------
 
-New functionality for GenericAlgo.
+New functionality for GenericAlgo (mcam)
 
-1. Adjust laser intensity
+1. Adjust laser intensity (only mcam)
 
 A function can be turned on that decreases the laser intensity in a configurable step,
 whenever a number of specified pixels are saturated (255) within the specified area computing the cost function.
@@ -17,7 +17,7 @@ Intensity is logged in the data file and printed on screen.
 Teset working ok, but problem, cost need to be calculated again with reduced laser power for each SLM front send to SLM and camera.
 
 
-2. Genectic algorithm - probability computaion
+2. Genectic algorithm - probability computaion (both mcam and neuronStimulate)
 
 Compute the probability when performing a random mutation according to forumla below:
 probablility = (Rstart - Rend)*exp(-n/lambda) + Rend
@@ -33,7 +33,7 @@ n is incremented for every new offspring generation
 Tested working ok.
 
 
-3. Generate new random templates
+3. Generate new random templates (both mcam and neuronStimulate)
 
 For a configurated number of iterations a number of templates with the lowest cost is replaced 
 with new random generated templates.
@@ -45,7 +45,7 @@ NUM_RAN_TEMPLATES  = 10
 Tested working ok.
 
 
-4. New cost function
+4. New cost function (only mcam)
 
 A new cost function has to be calculated as the relation between a cost of area around a local maximum outside the area 
 of computing the old intensity cost. 
@@ -60,7 +60,7 @@ COST_FUNCTION   =  1
 Not working - truncation ?? - not used 
 
 
-5. New function to genetic algorithm
+5. New function to genetic algorithm (both mcam and neuronStimulate)
 The probability should be higher picking af random template of high cost relative to one with low cost
 
 Default Values for new Parameters:
@@ -70,12 +70,14 @@ Tested working ok.
  
 
 Files changed 10-8-2017:
-defs.h
-GenericAlgo.h
-SLMParents.h
-TemplateImages.h
-SLMParents.cpp
+Moved to neuronStimulate 26-11-2017:
+defs.h - merged to neuronStimulate
+GenericAlgo.h - moved
+SLMParents.h - moved
+TemplateImages.h - moved
+SLMParents.cpp - moved
 
-MCAMRemote.cpp
+MCAMRemote.cpp - point 3. added to StimulateNeuronThread.cpp
+
 
 

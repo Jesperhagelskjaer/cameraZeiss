@@ -11,10 +11,10 @@ class CamImage
 {
 public:
 
-	CamImage() : cost_(0) 
+	CamImage() : cost_(0), localCost_(0), numSaturated_(0)
 	{
 		ClearData();
-	};
+	}
 
 	void CopyImage(unsigned short *pImage, int height, int width)
 	{
@@ -33,9 +33,9 @@ public:
 					data_[i][j] = pImage[i*width + j];
 			}
 		}
-	};
+	}
 
-	void CopyImage(unsigned short *pImage, int height, int width, RECT rec)
+	void CopyImageOnly(unsigned short *pImage, int height, int width, RECT rec)
 	{
 		int id, jd;
 		ClearData();
@@ -61,17 +61,115 @@ public:
 			if (rec.top <= i && i < rec.bottom)
 				id++;
 		}
-	};
+		localCost_ = 0;
+	}
 
+	// Copies part of image specified by RECT and computes cost for area around local maximum
+	void CopyImageFindLocalMax(unsigned short *pImage, int height, int width, RECT rec)
+	{
+		int id, jd;
+		ClearData();
+		int Wrec = rec.right - rec.left;
+		int Hrec = rec.bottom - rec.top;
+		int lj, li, localArea;
+		unsigned short data;
+		unsigned short localMaximum = 0;
+		if (Wrec > COLS) {
+			printf("CamImage::CopyImage width %d too big\r\n", Wrec);
+			return;
+		}
+		if (Hrec > ROWS) {
+			printf("CamImage::CopyImage height %d too big\r\n", Hrec);
+			return;
+		}
+
+		// Copy focus area and search for local maximum outside focus area
+		id = 0;
+		li = 0; 
+		lj = 0;
+		for (int i = 0; i < height; i++) {
+			jd = 0;
+			for (int j = 0; j < width; j++) {
+				data = pImage[i*width + j];
+				if ((rec.top <= i && i < rec.bottom) &&
+					(rec.left <= j && j < rec.right))
+					data_[id][jd++] = data; // Copies RECT area
+				else {
+					if (data > localMaximum) { // Finds local maximum outside RECT area
+						localMaximum = data;
+						lj = j - Wrec / 2;
+						li = i - Hrec / 2;
+					}
+				}
+			}
+			if (rec.top <= i && i < rec.bottom)
+				id++;
+		}
+
+		// Computes cost for area around local maximum
+		localCost_ = 0;
+		localArea = 0;
+		if (localMaximum > 0) {
+			if (li < 0) { // Adjust vertical corner case
+				Hrec += li;
+				li = 0;
+			}
+			if (lj < 0) { // Adjust horisontal corner case
+				Wrec += lj; 
+				lj = 0;
+			}
+			for (int i = li; i < Hrec+li && i < height; i++) {
+				for (int j = lj; j < Wrec+lj && j < width; j++) {
+					data = pImage[i*width + j];
+					// Check local maximum area outside focus area
+					if ((i < rec.top || i >= rec.bottom) &&
+						(j < rec.left || j >= rec.right)) {
+						localCost_ += data;
+						localArea++;
+					}
+				}
+			}
+		}
+		if (localArea > 0) 
+			localCost_ = localCost_ / localArea; // Normalize local cost as average value
+	}
+
+	void CopyImage(unsigned short *pImage, int height, int width, RECT rec, int costFunction = 0)
+	{
+		if (costFunction == 1)
+			CopyImageFindLocalMax(pImage, height, width, rec);
+		else {
+			CopyImageOnly(pImage, height, width, rec);
+		}
+	}
+	
 	double ComputeIntencity(void)
 	{
+		unsigned short data;
 		cost_ = 0;
+		numSaturated_ = 0;
+
+		// computes cost as sum of pixels in image focus area
 		for (int i = 0; i < ROWS; i++) {
-			for (int j = 0; j < COLS; j++)
-				cost_ += data_[i][j];
+			for (int j = 0; j < COLS; j++) {
+				data = data_[i][j];
+				cost_ += data;
+				if (data >= SATURATE_VAL) 
+					numSaturated_++; // computes number saturated pixels
+			}
 		}
+
+		// computes cost as sum of pixels divided by mean of local maximum area
+		if (localCost_ > 0)
+			cost_ = cost_ / localCost_; // Cost function = 1
+	
 		return cost_;
-	};
+	}
+
+	int getSaturated(void)
+	{
+		return numSaturated_;
+	}
 
 	void Print(void) 
 	{
@@ -85,11 +183,13 @@ public:
 		printf("line49: %d %d %d %d %d %d %d\r\n", data_[ROWS-1][0], data_[ROWS-1][1], data_[ROWS-1][2], data_[ROWS-1][3], 
 												   data_[ROWS-1][4], data_[ROWS-1][5], data_[ROWS-1][COLS - 1]);
 
-	};
+	}
 
 private:
 	unsigned short data_[ROWS][COLS];
 	double cost_;
+	double localCost_;
+	int numSaturated_;
 
 	void ClearData(void) 
 	{
@@ -99,14 +199,6 @@ private:
 			for (int j = 0; j < COLS; j++)
 				data_[i][j] = 0;
 		*/
-	};
+	}
 };
 
-class TemplateImages
-{
-public:
-	TemplateImages() {};
-
-private:
-	std::vector<CamImage*> TemplateImgs_;
-};
