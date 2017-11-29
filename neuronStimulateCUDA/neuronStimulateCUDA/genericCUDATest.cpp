@@ -15,7 +15,8 @@ int genericCUDATest(void)
 	/** User Interface to Optical Neuron Stimulator  **/
 	//UserInterface userInterface;
 	SLMParents *pSLMParents = new SLMParents(NUM_PARENTS, NUM_BINDINGS);
-	SLMParentsCUDA *pSLMParentsC = new SLMParentsCUDA(NUM_PARENTS, NUM_BINDINGS);
+	//SLMParentsCUDA *pSLMParentsC = new SLMParentsCUDA(NUM_PARENTS, NUM_BINDINGS);
+	SLMParentsCUDA *pSLMParentsC = new SLMParentsCUDA(2, NUM_BINDINGS);
 
 	TimeMeasure timeMeas;
 	StopWatchInterface *cudaTimer = 0;

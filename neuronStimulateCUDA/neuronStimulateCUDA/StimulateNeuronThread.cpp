@@ -29,10 +29,10 @@ void StimulateNeuronThread::run()
 
 	while (m_iterations > 0)
 	{
-			//timeMeas.setStartTime();
+			timeMeas.setStartTime();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_AVERAGE);
 		m_GenericAlgo->GenerateParent(); // 1-8 ms
-			//timeMeas.printDuration("Generate Parent");
+			timeMeas.printDuration("Generate Parent");
 			//timeMeas.setStartTime();
 		m_GenericAlgo->SendTemplateToSLM(); // 6 ms
 		//Sleep(6); // Simulate SLM delay
