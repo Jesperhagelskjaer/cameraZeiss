@@ -52,7 +52,7 @@ void FirFilter::filter(int32_t *x, int32_t *y)
 		idx = (idx + 1) % TAPS;
 	}
 	for (int ch = 0; ch < NUM_CHS; ch++) {
-		y[ch] = (int32_t)floor(yf[ch]+0.5);
+		y[ch] = (int32_t)round(yf[ch]);
 	}
 }
 

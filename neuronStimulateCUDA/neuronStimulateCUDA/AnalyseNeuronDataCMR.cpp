@@ -43,7 +43,7 @@ void AnalyseNeuronDataCMR::SearchPattern(LxRecord * pLxRecord)
 		for (int i = 0; i < NUM_CHANNELS; i++)
 		{
 			channel = j*NUM_BOARDS + i;
-			absSample = (int32_t)floor(abs(avgSample[channel] - commonMedian + 0.5));
+			absSample = (int32_t)round(abs(avgSample[channel] - commonMedian));
 			if (absSample > m_maximum[channel])
 				m_maximum[channel] = absSample;
 		}

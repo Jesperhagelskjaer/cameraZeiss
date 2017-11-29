@@ -30,7 +30,7 @@ TestDataGenerator::~TestDataGenerator()
 int32_t TestDataGenerator::GenSine(int channel)
 {
 	double sample = (100+(channel*10))*sin(m_omega*m_n);
-	return int32_t(floor(sample + 0.5));
+	return int32_t(round(sample));
 }
 
 void TestDataGenerator::GenerateSampleRecord(LRECORD *pLxRecord)

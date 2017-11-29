@@ -9,7 +9,6 @@
 #define EA_B3564376_2AD6_4bb7_BFF4_ACB51E0312EB__INCLUDED_
 
 #include <stdio.h>
-#include <math.h>
 
 #include "Monitor.h"
 #include "LxRecord.h"

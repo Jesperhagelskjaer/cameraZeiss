@@ -7,6 +7,7 @@
 
 #include "AnalyseNeuronData.h"
 
+
 AnalyseNeuronData::AnalyseNeuronData() : 
     Monitor("AnalyseData"), 
 	m_semaAnalyseComplete(1, 0, "SemaAnalyse")
@@ -159,7 +160,7 @@ void AnalyseNeuronData::SearchPattern(LxRecord * pLxRecord)
 		{
 			channel = j*NUM_BOARDS + i;
 			// Calculate absolute value as sample minus measured average
-			absSample = (int32_t)abs((int)floor(pLxRecord->board[j].data[i] - m_average[channel] + 0.5)); 
+			absSample = (int32_t)round(abs(pLxRecord->board[j].data[i] - m_average[channel])); 
 			if (absSample > m_maximum[channel])
 				m_maximum[channel] = absSample;
 		}
