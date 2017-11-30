@@ -130,21 +130,21 @@ void SLMTemplate::RandomMutation2(int n)
 	// Computes the number modes to modify
 	probabililty_ = MUT_PROBABILITY_TYPE2(n);
 	int numRandModes = (int)round(probabililty_);
-	printf("RandomMutation2 enter %d\r\n", numRandModes);
+	//printf("RandomMutation2 enter %d\r\n", numRandModes);
 
 	// Modifies random position in matrix_
 	while (numRandModes > 0) {
 		int randIdx = rand() % (M*M); // Random index to matrix
-		printf("%d\r\n", randIdx);
+		//printf("%d\r\n", randIdx);
 		int i = randIdx / M; // Computes matrix row position
 		int j = randIdx % M; // Computes matrix coloum position
-		printf("%d,%d\r\n", i, j);
+		//printf("%d,%d\r\n", i, j);
 		int oi = i % binding_; // Computes binding row offset
 		int oj = j % binding_; // Computes binding coloum offset
-		printf("%d,%d\r\n", oi, oj);
+		//printf("%d,%d\r\n", oi, oj);
 		i -= oi; // Binding row position
 		j -= oj; // Binding coloum position
-		printf("%d,%d\r\n", i, j);
+		//printf("%d,%d\r\n", i, j);
 
 		// Check if random binding position already modified
 		if (modifiedMatrix[i][j] == 0) {
@@ -152,7 +152,7 @@ void SLMTemplate::RandomMutation2(int n)
 			// Mark matrix binding position changed
 			modifiedMatrix[i][j] = 1;
 			numRandModes--;
-			printf("Modes left %d\r\n", numRandModes);
+			//printf("Modes left %d\r\n", numRandModes);
 
 			// Generate new random mode
 			unsigned char mode = rand() % 255;
@@ -167,7 +167,7 @@ void SLMTemplate::RandomMutation2(int n)
 		}
 	}
 
-	printf("RandomMutation2 exit %d\r\n", numRandModes);
+	//printf("RandomMutation2 exit %d\r\n", numRandModes);
 
 }
 
@@ -342,6 +342,19 @@ unsigned char* SLMParents::GetNewParentMatrixPtr(void)
 {
 	if (pParentNew_)
 		return pParentNew_->GetMatrixPtr();
+	else
+		return 0;
+};
+
+unsigned char* SLMParents::GetMaxCostParentMatrixPtr(void)
+{
+	SLMTemplate *pTemplateMaxCost;
+	if (SLMTemplates_.size() > 0) {
+		vector<SLMTemplate*>::iterator it = SLMTemplates_.begin();
+		pTemplateMaxCost = *it;
+		printf("Using template with max cost %.0f\r\n", pTemplateMaxCost->GetCost());
+		return pTemplateMaxCost->GetMatrixPtr();
+	}
 	else
 		return 0;
 };

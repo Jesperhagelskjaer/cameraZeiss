@@ -69,11 +69,13 @@ private:
 	RECT recAlgo_;
 	ROI imgROI_;
 	int iteration_;
+	bool trainMode_; // Genetic algo training or final mode
 
 	// User parameters
 	int numBindings_;
 	int numParents_;
 	int numIterations_;
+	int numEndIterations_;
 	int numBetweenSave_;
 	float laserIntensity_;
 	int delayMS_;

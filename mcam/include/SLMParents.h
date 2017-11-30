@@ -48,6 +48,7 @@ public:
 	void CompareCostAndInsertTemplate(double cost);
 	//void GenParents(void);
 	unsigned char* GetNewParentMatrixPtr(void);
+	unsigned char* GetMaxCostParentMatrixPtr(void);
 	void DeleteTemplates(int num);
 
 protected:

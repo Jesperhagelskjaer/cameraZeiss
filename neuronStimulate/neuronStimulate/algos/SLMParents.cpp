@@ -346,6 +346,19 @@ unsigned char* SLMParents::GetNewParentMatrixPtr(void)
 		return 0;
 };
 
+unsigned char* SLMParents::GetMaxCostParentMatrixPtr(void)
+{
+	SLMTemplate *pTemplateMaxCost;
+	if (SLMTemplates_.size() > 0) {
+		vector<SLMTemplate*>::iterator it = SLMTemplates_.begin();
+		pTemplateMaxCost = *it;
+		printf("Using template with max cost %.0f\r\n", pTemplateMaxCost->GetCost());
+		return pTemplateMaxCost->GetMatrixPtr();
+	}
+	else
+		return 0;
+};
+
 void SLMParents::DeleteLastTemplate(void)
 {
 	//printf("%d\r\n", SLMTemplates_.size());
@@ -404,7 +417,7 @@ void SLMParents::GetRandomTemplateIdx(int &number1, int &number2)
 		number2 = SigmoidRandomDistribution();
 		while (number1 == number2)
 			number2 = SigmoidRandomDistribution();
-		//printf("Logistic Random Distribution %d, %d\r\n", number1, number2);
+		printf("Logistic Random Distribution %d, %d\r\n", number1, number2);
 	}
 
 }

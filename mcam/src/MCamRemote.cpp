@@ -41,6 +41,7 @@ MCamRemote::MCamRemote(Application *applicationPtr)
 	pauseMS_ = PAUSE_MS;
 	laserIntensity_ = LASER_INTENSITY;
 	numBetweenSave_ = NUM_BETWEEN_SAVE_IMG;
+	numEndIterations_ = NUM_END_ITERATIONS;
 
 	connect(this, SIGNAL(doSingleImage()), this->applicationPtr, SLOT(doSingleShot()));
 }
@@ -138,12 +139,14 @@ void *MCamRemote::remoteProcMain(void *parm)
 			    laserIntensity_, delayMS_, pauseMS_);
 		iteration_ = 0;
 
-		int maxLoops = pGenericAlgo->GetNumIterations();
+		int numLoopsTrain = pGenericAlgo->GetNumIterations();
+		int maxLoops = numLoopsTrain + numEndIterations_;
 		for (int loop = 0; loop < maxLoops && !stopProcessing; loop++) {
 
 			//timeMeas.setStartTime();
 			//pGenericAlgo->TurnLaserOn(); // KBE???
-			pGenericAlgo->StartSLM();
+			trainMode_ = (loop < numLoopsTrain);
+			pGenericAlgo->StartSLM(trainMode_); // Training generic algorihm, use parent with max cost after training
 			pGenericAlgo->TurnLaserOn();
 			if (delayMS_ > 0)
 				MCamUtil::sleep(delayMS_);
@@ -159,7 +162,7 @@ void *MCamRemote::remoteProcMain(void *parm)
 			
 			sem_wait(&psem);
 
-			printf("%d\r", loop+1);
+			printf("%d\r\n", loop+1);
 			iteration_++;
 
 			if (pauseMS_ > 0)
@@ -284,6 +287,7 @@ void MCamRemote::saveImageData(unsigned short *imageData, long cost)
 
 long MCamRemote::saveImage(unsigned short *imageData, bool test)
 {
+	long newCost = 0;
 	//RECT rec = applicationPtr->getCurrentFrameSize();
 
 	//timeMeas.printDuration("Do Single Image");
@@ -291,48 +295,24 @@ long MCamRemote::saveImage(unsigned short *imageData, bool test)
 	//timeMeas.setStartTime();
 	pGenericAlgo->TurnLaserOff();
 
-	long newCost = (long)pGenericAlgo->ComputeIntencity(imageData, recAlgo_);
-	//timeMeas.printDuration("Compute Intencity");
+	newCost = (long)pGenericAlgo->ComputeIntencity(imageData, recAlgo_, trainMode_);
+
+	if (trainMode_) {
+		//timeMeas.printDuration("Compute Intencity");
+		if (NUM_RAND_ITERATIONS > 0 && (iteration_%NUM_RAND_ITERATIONS == 0)) {
+			// Delete num parents each NUM_RAND_ITERATIONS
+			pGenericAlgo->DeleteTemplates(NUM_RAND_TEMPLATES);
+		}
+	}
 
 	if (iteration_ % numBetweenSave_ == 0) {
 		// Save image and data to files
 		saveImageData(imageData, newCost);
 	}
 
-	if (NUM_RAND_ITERATIONS > 0 && (iteration_%NUM_RAND_ITERATIONS == 0)) {
-		// Delete num parents each NUM_RAND_ITERATIONS
-		pGenericAlgo->DeleteTemplates(NUM_RAND_TEMPLATES);
-	}
-
 	//printf("Generic iter completed\r\n");
 	sem_post(&psem);
 
 	return newCost;
-
-/*
-	ROI imgROI;
-	IMAGE_HEADER* header = (IMAGE_HEADER*)imageData;
-
-	bool isColorImage = 0;
-	// painting raw data to image
-	unsigned short* pixel = NULL;
-
-	imgROI.width = header->roiWidth / header->binX;
-	imgROI.height = header->roiHeight / header->binY;
-
-	isColorImage = header->bitsPerPixel == MCAM_BPP_COLOR;
-
-	// painting raw camera data to image
-	pixel = (unsigned short*)imageData + header->headerSize / 2;
-
-	printf("Saving image file\r\n");
-
-	if (test)
-		DumpBmpAsGray(IMAGE_FILE, (byte *)pixel, imgROI);
-	else
-	    DumpBmpShortAsGray(IMAGE_FILE, pixel, imgROI);
-
-	createStopFile();
-*/
-
 }
+

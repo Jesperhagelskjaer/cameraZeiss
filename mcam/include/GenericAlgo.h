@@ -93,18 +93,24 @@ public:
 		}
 	}
 
-	void SendTemplateToSLM(void) 
+	void SendTemplateToSLM(bool trainGenericAlgo)
 	{
+		unsigned char *pSLMParentMatrix;
+		if (trainGenericAlgo)
+			pSLMParentMatrix = pSLMParents_->GetNewParentMatrixPtr();
+		else
+			pSLMParentMatrix = pSLMParents_->GetMaxCostParentMatrixPtr();
 #ifdef	SLM_INTERFACE_
-		//pSLMInterface_->SendTestPhase(pSLMParents_->GetNewParentMatrixPtr(), M);
-		pSLMInterface_->SendPhase(pSLMParents_->GetNewParentMatrixPtr());
+		pSLMInterface_->SendPhase(pSLMParentMatrix);
 #endif
 	}
 			
-	void StartSLM()
+	void StartSLM(bool trainGenericAlgo = true)
 	{
-		GenerateParent();
-		SendTemplateToSLM();
+		if (trainGenericAlgo) {
+			GenerateParent();
+		}
+		SendTemplateToSLM(trainGenericAlgo);
 	}
 	
 	void CompareCostAndInsertTemplate(double cost)
@@ -118,7 +124,7 @@ public:
 		pSLMParents_->PrintTemplates();
 	}
 
-	double ComputeIntencity(unsigned short *pImage, RECT rec)
+	double ComputeIntencity(unsigned short *pImage, RECT rec, bool trainMode = true)
 	{
 		double cost;
 		int width, height;
@@ -148,13 +154,17 @@ public:
 #endif
 		//pImg_->Print(); //KBE??? For debug only
 		cost = pImg_->ComputeIntencity();
-		CompareCostAndInsertTemplate(cost);
+		
+		if (trainMode) {
+			// Only in training mode
+			CompareCostAndInsertTemplate(cost);
 
-		// Decrease laser intencity if many pixels are saturated
-		if (pImg_->getSaturated() > NUM_SATURATED && laserIntensity_ >= LASER_STEP+0.2) 
-		{
-			laserIntensity_ -= LASER_STEP;
-			printf("Decreased laser intensity to %0.2f\r\n", laserIntensity_);
+			// Decrease laser intencity if many pixels are saturated
+			if (pImg_->getSaturated() > NUM_SATURATED && laserIntensity_ >= LASER_STEP + 0.2)
+			{
+				laserIntensity_ -= LASER_STEP;
+				printf("Decreased laser intensity to %0.2f\r\n", laserIntensity_);
+			}
 		}
 
 		//printf("ComputeIntencity done\r\n");

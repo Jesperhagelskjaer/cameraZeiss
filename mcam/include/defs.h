@@ -34,6 +34,7 @@
 #define NUM_RAND_ITERATIONS 50          // Number of iterations before replacing templates with lowest cost with new random templates (0=turned off)
 #define NUM_RAND_TEMPLATES  10			// Number of templates with lowest cost to to be replaced
 #define RAND_PROPABILITY    1			// Probability function selecting templates when generating offsprings (1 = logistic probability distribution)
+#define NUM_END_ITERATIONS  20	        // Number of iterations after genetic algorithm is trained and converged, using template with highest cost
 
 // User parameter for MCAM only
 #define LASER_STEP          0.0f		// Step size decreasing laser intensity when pixels are saturated (0=turned off)

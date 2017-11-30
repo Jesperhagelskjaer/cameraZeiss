@@ -10,7 +10,7 @@ A function can be turned on that decreases the laser intensity in a configurable
 whenever a number of specified pixels are saturated (255) within the specified area computing the cost function.
 
 Default Values for new Parameters:
-NUM_SATURATION 	= 1
+NUM_SATURATED 	= 1
 LASER_STEP  	= 0.1
 
 Intensity is logged in the data file and printed on screen.
@@ -44,7 +44,7 @@ For a configurated number of iterations a number of templates with the lowest co
 with new random generated templates.
 
 Default Values for new Parameters:
-NUM_RAN_ITERATIONS = 100
+NUM_RAN_ITERATIONS = 50
 NUM_RAN_TEMPLATES  = 10
 
 Tested working ok.
@@ -80,7 +80,7 @@ Tested working ok.
  
 
 -----------------------------------------------------------------------------------------------------------------------------------
-Files changed 10-8-2017:
+Files changed in mcam 10-8-2017:
 Moved to neuronStimulate 26-11-2017:
 defs.h - merged to neuronStimulate
 GenericAlgo.h - moved
@@ -96,14 +96,22 @@ Metting September 2017 (Jesper + Kim)
 
 6. Efter N iterationer skal den template med højeste cost vælges og gentage SLM front M iterationer - billede gemmes i en fil (mcam)
 - Efter N iterartioner, hvor SLM og laser har fundet et fokus gentages den bedste SLM front med at fokusere lys
-- For hver antal iterationer K gemmes billede i en fil.
+- For hver antal iterationer K gemmes billede i en fil, defineret med NUM_BETWEEN_SAVE_IMG
 
 Default values for new Parameter:
-NUM_FINAL_ITERATIONS   1000
-NUM_FINAL_SAVE_IMG     100 
+NUM_END_ITERATIONS   200
 
 Hvis parameterene er sat til 0 udføres funktionerne ikke.
 
 7. Fejl og rettelser (mcam)
 - Slet start.txt når programmet startes
 
+-----------------------------------------------------------------------------------------------------------------------------------
+Files changed in mcam 30-11-2017:
+defs.h - merged to neuronStimulate
+SLMParents.h - moved
+SLMParents.cpp - moved
+GenericAlgo.h - moved
+
+MCAMRemote.cpp - point 6. not yet added to StimulateNeuronThread.cpp, but all files moved
+MCAMRemote.hpp
