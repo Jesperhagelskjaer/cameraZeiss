@@ -15,7 +15,7 @@ class Configuration
 public:
 	Configuration(int numIterations, int activeCh, int port, int delay, int pause, 
 		          float intensity, FirFilter::TYPES type, int numParents, int numBindings,
-		          int commonAvgRef)
+		          int commonAvgRef, int randIterations, int randTemplates, int endIterations)
 	{
 		m_NumIterations = numIterations;
 		m_ActiveChannel = activeCh;
@@ -27,6 +27,9 @@ public:
 		m_NumParents = numParents;
 		m_NumBindings = numBindings;
 		m_CommonAvgRef = commonAvgRef;
+		m_RandIterations = randIterations;
+		m_RandTemplates = randTemplates;
+		m_EndIterations = endIterations;
 	}
 
 	void Print(void)
@@ -41,6 +44,9 @@ public:
 		printf("Channel : %d\r\n", m_ActiveChannel);
 		printf("Filter : %s\r\n", FilerTypesText[m_FilterType]);
 		printf("CommonRef : %d\r\n", m_CommonAvgRef);
+		printf("RandIterations : %d\r\n", m_RandIterations);
+		printf("RandTemplates : %d\r\n", m_RandTemplates);
+		printf("EndIterations : %d\r\n", m_EndIterations);
 		printf("\r\n");
 	}
 	
@@ -78,6 +84,12 @@ public:
 				}
 				if (!strcmp(configName, "CommonRef"))
 					m_CommonAvgRef = (int)value;
+				if (!strcmp(configName, "RandIterations"))
+					m_RandIterations = (int)value;
+				if (!strcmp(configName, "RandTemplates"))
+					m_RandTemplates = (int)value;
+				if (!strcmp(configName, "EndIterations"))
+					m_EndIterations = (int)value;
 			}
 			fclose(hConfigFile);
 		}
@@ -97,5 +109,8 @@ public:
 	int m_ActiveChannel;
 	FirFilter::TYPES m_FilterType;
 	int m_CommonAvgRef;
+	int m_RandIterations;
+	int m_RandTemplates;
+	int m_EndIterations;
 };
 #endif // !defined(EA_F26F424A_2953_466e_976E_2D9054E58697__INCLUDED_)

@@ -27,7 +27,8 @@ void UserInterface::init(void)
 {
 	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, DELAY_MS, 
 		                                PAUSE_MS, LASER_INTENSITY, FirFilter::FILTER_TYPE,
-										NUM_PARENTS, NUM_BINDINGS, COMMON_REF);
+										NUM_PARENTS, NUM_BINDINGS, COMMON_REF,
+										NUM_RAND_ITERATIONS, NUM_RAND_TEMPLATES, NUM_END_ITERATIONS);
 }
 
 void UserInterface::testCollectNeuronData(void)
@@ -80,7 +81,8 @@ void UserInterface::runStimulateNeuron(Configuration *config)
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
 	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", 
 		                           m_AnalyseNeuronData, m_GenericAlgo, 
-		                           config->m_NumIterations, config->m_PauseMS);
+		                           config->m_NumIterations, config->m_PauseMS,
+								   config->m_RandIterations, config->m_RandTemplates, config->m_EndIterations);
 	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
 	m_AnalyseNeuronData->OpenCostFile(m_CollectNeuronDataThread->GetCostFileName());
 

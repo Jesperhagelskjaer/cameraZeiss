@@ -24,7 +24,8 @@ public:
 
 	virtual void run();
 	void Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData, 
-		       GenericAlgo *pGenericAlgo, int iterations, int pause);
+		       GenericAlgo *pGenericAlgo, int iterations, int pause, 
+			   int randIterations, int randTemplates, int endIterations);
 	void WaitForCompletion();
 	void SetDelay(int ms)
 	{
@@ -40,6 +41,9 @@ private:
 	int m_iterations;
 	int m_delayms;
 	int m_pausems;
+	int m_randIterations;
+	int m_randTemplates;
+	int m_endIterations;
 	TimeMeasure timeMeas;
 };
 #endif // !defined(EA_C34C7A4D_067D_4aaf_B24A_B39E09E63F27__INCLUDED_)
