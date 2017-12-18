@@ -21,7 +21,7 @@
 #define MUT_PROBABILITY_TYPE1       exp(-2)		// Generic mutation propability - first version exp(-0.52)
 #define MUT_TYPE			2           // Specifies the mutation TYPE1 or TYPE2 to be used
 
-// User parameters, set as default in Configuration.h
+// User parameters see config.txt, set as default in Configuration.h
 #define NUM_BINDINGS		8			// M modulus NUM_BINDINGS should be equal to zero !!!!
 #define NUM_PARENTS			20			// Number of parents
 #define GEN_ITERATIONS		2000		// Number of iterations for genetic algorithm to convergate
@@ -29,12 +29,12 @@
 #define LASER_INTENSITY		0.6f		// Intensity of laser when turned on
 #define DELAY_MS			4			// Delay in ms laser is turned on while analysing neuron pulses (On)
 #define PAUSE_MS			0			// Waiting delay in ms after each iteration (Off)
-
-// Parameters not set in UI
 #define NUM_RAND_ITERATIONS 50          // Number of iterations before replacing templates with lowest cost with new random templates (0=turned off)
 #define NUM_RAND_TEMPLATES  10			// Number of templates with lowest cost to to be replaced
-#define RAND_PROPABILITY    1			// Probability function selecting templates when generating offsprings (1 = logistic probability distribution)
 #define NUM_END_ITERATIONS  200	        // Number of iterations after genetic algorithm is trained and converged, using template with highest cost
+
+// Parameters not set in UI
+#define RAND_PROPABILITY    1			// Probability function selecting templates when generating offsprings (1 = logistic probability distribution)
 
 // User parameter for MCAM only, used in TemplateImages.h but not called
 #define LASER_STEP          0.0f		// Step size decreasing laser intensity when pixels are saturated (0=turned off)

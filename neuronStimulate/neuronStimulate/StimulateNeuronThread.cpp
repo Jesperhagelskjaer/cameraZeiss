@@ -76,9 +76,9 @@ void StimulateNeuronThread::run()
 			//timeMeas.printDuration("Compute Cost");
 		printf("Train %d     \r", m_iterations);
 		m_iterations--;
-		if (NUM_RAND_ITERATIONS > 0 && (++iter%NUM_RAND_ITERATIONS == 0)) {
+		if (m_randIterations > 0 && (++iter%m_randIterations == 0)) {
 			// Delete num parents each NUM_RAND_ITERATIONS
-			m_GenericAlgo->DeleteTemplates(NUM_RAND_TEMPLATES);
+			m_GenericAlgo->DeleteTemplates(m_randTemplates);
 		}
 		if (m_pausems > 0)
 			Sleep(m_pausems);
@@ -92,13 +92,16 @@ void StimulateNeuronThread::run()
 }
 
 void StimulateNeuronThread::Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData, 
-	                              GenericAlgo *pGenericAlgo, int iterations, int pause)
+	                              GenericAlgo *pGenericAlgo, int iterations, int pause,
+								  int randIterations, int randTemplates, int endIterations)
 {
-
-	m_iterations = iterations;
+	m_endIterations = endIterations;
+	m_randTemplates = randTemplates;
+	m_randIterations = randIterations;
 	m_pausems = pause;
-	m_AnalyseNeuronData = pAnalyseNeuronData;
+	m_iterations = iterations;
 	m_GenericAlgo = pGenericAlgo;
+	m_AnalyseNeuronData = pAnalyseNeuronData;
 	runThread(pri, _name);
 }
 
