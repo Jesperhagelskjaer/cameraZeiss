@@ -85,7 +85,7 @@ void StimulateNeuronThread::run()
 	}
 
 	cout << "StimulateNeuronThread final runs using best template" << endl;
-	finalRun(NUM_END_ITERATIONS);
+	finalRun(m_endIterations);
 	cout << "StimulateNeuronThread completed" << endl;
 	m_AnalyseNeuronData->CloseCostFile();
 	m_semaComplete.signal();
