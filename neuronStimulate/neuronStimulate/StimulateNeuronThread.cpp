@@ -23,6 +23,27 @@ StimulateNeuronThread::~StimulateNeuronThread()
 
 }
 
+void StimulateNeuronThread::finalRun(int iterations)
+{
+	double cost;
+	int iter = iterations;
+	while (iter > 0)
+	{
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_AVERAGE);
+		m_GenericAlgo->SendTemplateToSLM(false); // 6 ms
+		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);
+		m_GenericAlgo->TurnLaserOn();
+		m_AnalyseNeuronData->WaitAnalyseSamples();
+		m_GenericAlgo->TurnLaserOff();
+		cost = m_AnalyseNeuronData->CalculateCost();
+		m_AnalyseNeuronData->AppendCostToFile(cost);
+		printf("Final %d     \r", iter);
+		iter--;
+		if (m_pausems > 0)
+			Sleep(m_pausems);
+	}
+}
+
 void StimulateNeuronThread::run()
 {
 	double cost;
@@ -53,7 +74,7 @@ void StimulateNeuronThread::run()
 		m_GenericAlgo->CompareCostAndInsertTemplate(cost);
 		m_AnalyseNeuronData->AppendCostToFile(cost);
 			//timeMeas.printDuration("Compute Cost");
-		printf("%d\r", m_iterations);
+		printf("Train %d     \r", m_iterations);
 		m_iterations--;
 		if (NUM_RAND_ITERATIONS > 0 && (++iter%NUM_RAND_ITERATIONS == 0)) {
 			// Delete num parents each NUM_RAND_ITERATIONS
@@ -62,6 +83,9 @@ void StimulateNeuronThread::run()
 		if (m_pausems > 0)
 			Sleep(m_pausems);
 	}
+
+	cout << "StimulateNeuronThread final runs using best template" << endl;
+	finalRun(NUM_END_ITERATIONS);
 	cout << "StimulateNeuronThread completed" << endl;
 	m_AnalyseNeuronData->CloseCostFile();
 	m_semaComplete.signal();

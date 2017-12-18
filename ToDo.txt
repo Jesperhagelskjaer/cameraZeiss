@@ -104,7 +104,7 @@ NUM_END_ITERATIONS   200
 Hvis parameterene er sat til 0 udføres funktionerne ikke.
 
 7. Fejl og rettelser (mcam)
-- Slet start.txt når programmet startes
+- Slet start.txt når programmet startes - not done
 
 -----------------------------------------------------------------------------------------------------------------------------------
 Files changed in mcam 30-11-2017:
@@ -113,5 +113,5 @@ SLMParents.h - moved
 SLMParents.cpp - moved
 GenericAlgo.h - moved
 
-MCAMRemote.cpp - point 6. not yet added to StimulateNeuronThread.cpp, but all files moved
+MCAMRemote.cpp - point 6. added to StimulateNeuronThread.cpp 18-12-2017
 MCAMRemote.hpp

@@ -34,6 +34,7 @@ public:
 	}
 
 private:
+	void finalRun(int iterations);
 	GenericAlgo *m_GenericAlgo;
 	AnalyseNeuronData *m_AnalyseNeuronData;
 	Semaphore m_semaComplete;
