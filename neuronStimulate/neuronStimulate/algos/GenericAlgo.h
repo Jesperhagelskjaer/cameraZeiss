@@ -93,6 +93,11 @@ public:
 		}
 	}
 
+	void PrintTemplateCost(void)
+	{
+		pSLMParents_->PrintTemplatesCost();
+	}
+
 	void SendTemplateToSLM(bool trainGenericAlgo)
 	{
 		unsigned char *pSLMParentMatrix;

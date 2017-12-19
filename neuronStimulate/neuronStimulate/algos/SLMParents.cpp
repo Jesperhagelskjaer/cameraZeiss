@@ -227,6 +227,17 @@ void SLMParents::GenerateNewParent(void)
 	pParentNew_->GenRandom();
 }
 
+void SLMParents::PrintTemplatesCost(void) 
+{
+	int count = 1;
+	printf("Template costs: ");
+	for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
+		SLMTemplate* pTemplate = *it;
+		printf("%.2f, ", pTemplate->GetCost());
+	}
+	printf("\r\n");
+}
+
 void SLMParents::PrintTemplates(void)
 {
 	int count = 1;
@@ -352,7 +363,7 @@ unsigned char* SLMParents::GetMaxCostParentMatrixPtr(void)
 	if (SLMTemplates_.size() > 0) {
 		vector<SLMTemplate*>::iterator it = SLMTemplates_.begin();
 		pTemplateMaxCost = *it;
-		printf("Using template with max cost %.0f\r\n", pTemplateMaxCost->GetCost());
+		//printf("Using template with max cost %.0f\r\n", pTemplateMaxCost->GetCost());
 		return pTemplateMaxCost->GetMatrixPtr();
 	}
 	else

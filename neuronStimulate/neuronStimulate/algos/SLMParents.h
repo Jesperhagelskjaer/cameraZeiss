@@ -43,6 +43,7 @@ public:
 	~SLMParents();
 	bool IsTemplatesFull(void);
 	void GenerateNewParent(void);
+	void PrintTemplatesCost(void);
 	void PrintTemplates(void);
 	SLMTemplate *GenerateOffspring(void);
 	void CompareCostAndInsertTemplate(double cost);
