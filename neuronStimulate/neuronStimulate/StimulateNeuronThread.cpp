@@ -27,6 +27,9 @@ void StimulateNeuronThread::finalRun(int iterations)
 {
 	double cost;
 	int iter = iterations;
+
+	m_GenericAlgo->PrintTemplateCost();
+	
 	while (iter > 0)
 	{
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_AVERAGE);
