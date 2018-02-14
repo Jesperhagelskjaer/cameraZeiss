@@ -1,0 +1,13 @@
+Bindings : 4
+Parents : 20
+Iterations : 100
+Port : 4
+Intensity : 0.2
+On : 100
+Off : 200
+Channel : 31
+Filter : 0
+CommonRef : 0
+RandIterations : 50
+RandTemplates : 10
+EndIterations : 100

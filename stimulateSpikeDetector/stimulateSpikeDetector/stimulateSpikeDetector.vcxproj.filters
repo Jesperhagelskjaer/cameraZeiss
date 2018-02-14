@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="spike">
+      <UniqueIdentifier>{b6aab737-5590-4cc6-9879-aaf93e62cfbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="algos">
+      <UniqueIdentifier>{c246fde5-6cc7-40e9-8890-247c57fd8afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="appl">
+      <UniqueIdentifier>{6432c24f-51db-45e4-a765-35936cc30f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{66589c7c-c047-4b7f-90bf-33049f29b640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="os">
+      <UniqueIdentifier>{8b7a6914-68b2-4585-9d38-bd30ca8a6fc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="slm">
+      <UniqueIdentifier>{7c542bcb-f4d5-49b4-b238-ff04cc8e7c58}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="algos\FilterCoeffs_0_1Hz.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_1Hz.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_10Hz.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_100Hz.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FilterCoeffs_300Hz.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\FirFilter.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\GenericAlgo.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\mcam_zei.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\mcam_zei_ex.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\SLMParents.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\TemplateImages.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\AnalyseNeuronData.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\AnalyseNeuronDataCAR.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\AnalyseNeuronDataCMR.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\CollectNeuronDataThread.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\Configuration.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\DataFileThread.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\LxRecord.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\LynxRecord.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\StimulateNeuronThread.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\TestDataGenerator.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="appl\UserInterface.h">
+      <Filter>appl</Filter>
+    </ClInclude>
+    <ClInclude Include="net\INET_Addr.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_Acceptor.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_Connector.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_Stream.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_UDP.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="net\SOCK_WrapperFacade.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\Blink_SDK.H">
+      <Filter>slm</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\LaserInterface.h">
+      <Filter>slm</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\Serial.h">
+      <Filter>slm</Filter>
+    </ClInclude>
+    <ClInclude Include="slm\SLMInterface.h">
+      <Filter>slm</Filter>
+    </ClInclude>
+    <ClInclude Include="os\BaseTimer.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Mailbox.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Monitor.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Mutex.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Semaphore.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Thread.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\TimeMeasure.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="os\Timer.h">
+      <Filter>os</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\defs.h" />
+    <ClInclude Include="spike\ProjectDefinitions.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="spike\ChannelFilter.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\ClassifierController.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\DataLoader.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\KernelFilter.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\NXCOR.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\NXCORController.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\ProjectInfo.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\SpikeDetect.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\SpikeDetectCUDA.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\SpikeDetectCUDA_RTP.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\TemplateController.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\TemplateHandler.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+    <ClInclude Include="spike\TTClassifier.h">
+      <Filter>spike</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="algos\FirFilter.cpp">
+      <Filter>algos</Filter>
+    </ClCompile>
+    <ClCompile Include="algos\SLMParents.cpp">
+      <Filter>algos</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\AnalyseNeuronData.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\AnalyseNeuronDataCAR.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\AnalyseNeuronDataCMR.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\CollectNeuronDataThread.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\genericAlgoTest.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\neuronCaptureTest.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\StimulateNeuronThread.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\TestDataGenerator.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\UserInterface.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="slm\LaserInterface.cpp">
+      <Filter>slm</Filter>
+    </ClCompile>
+    <ClCompile Include="slm\Serial.cpp">
+      <Filter>slm</Filter>
+    </ClCompile>
+    <ClCompile Include="os\Semaphore.cpp">
+      <Filter>os</Filter>
+    </ClCompile>
+    <ClCompile Include="os\Thread.cpp">
+      <Filter>os</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="config.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="spike\Channel_CUDA.cu">
+      <Filter>spike</Filter>
+    </CudaCompile>
+    <CudaCompile Include="spike\Classifier_CUDA.cu">
+      <Filter>spike</Filter>
+    </CudaCompile>
+    <CudaCompile Include="spike\Kernel_CUDA.cu">
+      <Filter>spike</Filter>
+    </CudaCompile>
+    <CudaCompile Include="spike\MemoryHelper_CUDA.cu">
+      <Filter>spike</Filter>
+    </CudaCompile>
+    <CudaCompile Include="spike\NXCOR_CUDA.cu">
+      <Filter>spike</Filter>
+    </CudaCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="algos\defs.h" />
+    <ClInclude Include="algos\FilterCoeffs_0_1Hz.h" />
+    <ClInclude Include="algos\FilterCoeffs_100Hz.h" />
+    <ClInclude Include="algos\FilterCoeffs_10Hz.h" />
+    <ClInclude Include="algos\FilterCoeffs_1Hz.h" />
+    <ClInclude Include="algos\FilterCoeffs_300Hz.h" />
+    <ClInclude Include="algos\FirFilter.h" />
+    <ClInclude Include="algos\GenericAlgo.h" />
+    <ClInclude Include="algos\mcam_zei.h" />
+    <ClInclude Include="algos\mcam_zei_ex.h" />
+    <ClInclude Include="algos\SLMParents.h" />
+    <ClInclude Include="algos\TemplateImages.h" />
+    <ClInclude Include="appl\AnalyseNeuronData.h" />
+    <ClInclude Include="appl\AnalyseNeuronDataCAR.h" />
+    <ClInclude Include="appl\AnalyseNeuronDataCMR.h" />
+    <ClInclude Include="appl\CollectNeuronDataThread.h" />
+    <ClInclude Include="appl\Configuration.h" />
+    <ClInclude Include="appl\DataFileThread.h" />
+    <ClInclude Include="appl\LxRecord.h" />
+    <ClInclude Include="appl\LynxRecord.h" />
+    <ClInclude Include="appl\StimulateNeuronThread.h" />
+    <ClInclude Include="appl\TestDataGenerator.h" />
+    <ClInclude Include="appl\UserInterface.h" />
+    <ClInclude Include="net\INET_Addr.h" />
+    <ClInclude Include="net\SOCK_Acceptor.h" />
+    <ClInclude Include="net\SOCK_Connector.h" />
+    <ClInclude Include="net\SOCK_Stream.h" />
+    <ClInclude Include="net\SOCK_UDP.h" />
+    <ClInclude Include="net\SOCK_WrapperFacade.h" />
+    <ClInclude Include="os\BaseTimer.h" />
+    <ClInclude Include="os\Mailbox.h" />
+    <ClInclude Include="os\Monitor.h" />
+    <ClInclude Include="os\Mutex.h" />
+    <ClInclude Include="os\Semaphore.h" />
+    <ClInclude Include="os\Thread.h" />
+    <ClInclude Include="os\TimeMeasure.h" />
+    <ClInclude Include="os\Timer.h" />
+    <ClInclude Include="slm\Blink_SDK.H" />
+    <ClInclude Include="slm\LaserInterface.h" />
+    <ClInclude Include="slm\Serial.h" />
+    <ClInclude Include="slm\SLMInterface.h" />
+    <ClInclude Include="spike\ChannelFilter.h" />
+    <ClInclude Include="spike\ClassifierController.h" />
+    <ClInclude Include="spike\DataLoader.h" />
+    <ClInclude Include="spike\KernelFilter.h" />
+    <ClInclude Include="spike\NXCOR.h" />
+    <ClInclude Include="spike\NXCORController.h" />
+    <ClInclude Include="spike\ProjectDefinitions.h" />
+    <ClInclude Include="spike\ProjectInfo.h" />
+    <ClInclude Include="spike\SpikeDetect.h" />
+    <ClInclude Include="spike\SpikeDetectCUDA.h" />
+    <ClInclude Include="spike\SpikeDetectCUDA_RTP.h" />
+    <ClInclude Include="spike\TemplateController.h" />
+    <ClInclude Include="spike\TemplateHandler.h" />
+    <ClInclude Include="spike\TTClassifier.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="algos\FirFilter.cpp" />
+    <ClCompile Include="algos\SLMParents.cpp" />
+    <ClCompile Include="appl\AnalyseNeuronData.cpp" />
+    <ClCompile Include="appl\AnalyseNeuronDataCAR.cpp" />
+    <ClCompile Include="appl\AnalyseNeuronDataCMR.cpp" />
+    <ClCompile Include="appl\CollectNeuronDataThread.cpp" />
+    <ClCompile Include="appl\genericAlgoTest.cpp" />
+    <ClCompile Include="appl\neuronCaptureTest.cpp" />
+    <ClCompile Include="appl\StimulateNeuronThread.cpp" />
+    <ClCompile Include="appl\TestDataGenerator.cpp" />
+    <ClCompile Include="appl\UserInterface.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="os\Semaphore.cpp" />
+    <ClCompile Include="os\Thread.cpp" />
+    <ClCompile Include="slm\LaserInterface.cpp" />
+    <ClCompile Include="slm\Serial.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="config.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="spike\Channel_CUDA.cu" />
+    <CudaCompile Include="spike\Classifier_CUDA.cu" />
+    <CudaCompile Include="spike\Kernel_CUDA.cu" />
+    <CudaCompile Include="spike\MemoryHelper_CUDA.cu" />
+    <CudaCompile Include="spike\NXCOR_CUDA.cu" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4149B5F9-71D6-4495-B526-0A306F00744F}</ProjectGuid>
+    <RootNamespace>stimulateSpikeDetector</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 9.0.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv\build\include;.\slm;.\os;.\net;.\appl;.\algos;.\spike;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>Blink_SDK.lib;opencv_world330d.lib;cudart.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(CudaToolkitLibDir);C:\opencv\build\x64\vc14\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"
+copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_WINSOCK_DEPRECATED_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\opencv\build\include;.\slm;.\os;.\net;.\appl;.\algos;.\spike;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>Blink_SDK.lib;opencv_world330.lib;cudart.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(CudaToolkitLibDir);C:\opencv\build\x64\vc14\lib</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>echo copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"
+copy "$(CudaToolkitBinDir)\cudart*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 9.0.targets" />
+  </ImportGroup>
+</Project>
