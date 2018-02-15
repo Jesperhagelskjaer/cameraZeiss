@@ -16,6 +16,7 @@ UserInterface::UserInterface()
 	m_AnalyseNeuronData = 0;
 	m_CollectNeuronDataThread = 0;
 	m_StimulateNeuronThread = 0;
+	m_NeuronSpikeDetector = 0;
 }
 
 UserInterface::~UserInterface()
@@ -29,6 +30,15 @@ void UserInterface::init(void)
 		                                PAUSE_MS, LASER_INTENSITY, FirFilter::FILTER_TYPE,
 										NUM_PARENTS, NUM_BINDINGS, COMMON_REF,
 										NUM_RAND_ITERATIONS, NUM_RAND_TEMPLATES, NUM_END_ITERATIONS);
+}
+
+void UserInterface::testNeuronSpikeDetector(void)
+{
+	m_NeuronSpikeDetector = new NeuronSpikeDetector();
+	m_NeuronSpikeDetector->Create();
+	m_NeuronSpikeDetector->Train();
+	m_NeuronSpikeDetector->Predict();
+	m_NeuronSpikeDetector->Terminate();
 }
 
 void UserInterface::testCollectNeuronData(void)
@@ -112,6 +122,7 @@ void UserInterface::run()
 	while (running) {
 		printf("Select menu: \r\n");
 		printf("t. Test collect neuron data\r\n");
+		printf("n. Test neuron spike detector \r\n");
 		printf("p. Print configuration\r\n");
 		printf("r. Read configuration file\r\n");
 		printf("s. Stimulate neuron\r\n");
@@ -140,6 +151,9 @@ void UserInterface::run()
 				break;
 			case 's':
 			    runStimulateNeuron(m_Configuration); // Channel (0-31), loops, ms delay
+				break;
+			case 'n':
+				testNeuronSpikeDetector(); // Test train and predict on simulated test data
 				break;
 			case 'e':
 				running = false;

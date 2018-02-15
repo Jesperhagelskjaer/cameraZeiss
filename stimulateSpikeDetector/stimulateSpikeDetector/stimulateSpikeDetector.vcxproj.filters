@@ -184,6 +184,9 @@
     <ClInclude Include="spike\TTClassifier.h">
       <Filter>spike</Filter>
     </ClInclude>
+    <ClInclude Include="appl\NeuronSpikeDetector.h">
+      <Filter>appl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -233,6 +236,9 @@
       <Filter>os</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="appl\NeuronSpikeDetector.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="config.txt" />

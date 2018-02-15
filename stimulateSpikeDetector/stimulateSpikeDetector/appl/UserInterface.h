@@ -14,6 +14,7 @@
 #include "AnalyseNeuronData.h"
 #include "GenericAlgo.h"
 #include "defs.h"
+#include "NeuronSpikeDetector.h"
 
 #define DEFAULT_CONFIG "config.txt"
 
@@ -32,9 +33,11 @@ private:
 	StimulateNeuronThread *m_StimulateNeuronThread;
 	CollectNeuronDataThread *m_CollectNeuronDataThread;
 	GenericAlgo *m_GenericAlgo;
+	NeuronSpikeDetector *m_NeuronSpikeDetector;
 
 	// Tests
 	void testCollectNeuronData(void);
+	void testNeuronSpikeDetector(void);
 	// Run stimulation of neuron maximizing light intensity for channel
 	void runStimulateNeuron(Configuration *config);
 

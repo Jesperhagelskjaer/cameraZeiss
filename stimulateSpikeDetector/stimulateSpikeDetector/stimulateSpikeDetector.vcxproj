@@ -31,6 +31,7 @@
     <ClInclude Include="appl\DataFileThread.h" />
     <ClInclude Include="appl\LxRecord.h" />
     <ClInclude Include="appl\LynxRecord.h" />
+    <ClInclude Include="appl\NeuronSpikeDetector.h" />
     <ClInclude Include="appl\StimulateNeuronThread.h" />
     <ClInclude Include="appl\TestDataGenerator.h" />
     <ClInclude Include="appl\UserInterface.h" />
@@ -78,6 +79,7 @@
     <ClCompile Include="appl\CollectNeuronDataThread.cpp" />
     <ClCompile Include="appl\genericAlgoTest.cpp" />
     <ClCompile Include="appl\neuronCaptureTest.cpp" />
+    <ClCompile Include="appl\NeuronSpikeDetector.cpp" />
     <ClCompile Include="appl\StimulateNeuronThread.cpp" />
     <ClCompile Include="appl\TestDataGenerator.cpp" />
     <ClCompile Include="appl\UserInterface.cpp" />

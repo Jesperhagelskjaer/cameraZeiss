@@ -1,4 +1,4 @@
-#if 0
+#if 1
 
 /****************************************************
 ** Optical Stimulation of Individual Neurons in Brain
@@ -77,5 +77,6 @@ int main(void)
 	
 	return returnValue;
 }
+
 
 #endif
