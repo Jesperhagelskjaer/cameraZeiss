@@ -30,7 +30,7 @@ void AnalyseNeuronDataCAR::SearchPattern(LxRecord * pLxRecord)
 		for (int i = 0; i < NUM_CHANNELS; i++)
 		{
 			channel = j*NUM_BOARDS + i;
-			absSample = (int32_t)round(abs(avgSample[channel] - commonAverage));
+			absSample = abs((int32_t)round(avgSample[channel] - commonAverage));
 			if (absSample > m_maximum[channel])
 				m_maximum[channel] = absSample;
 		}

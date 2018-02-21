@@ -160,7 +160,7 @@ void AnalyseNeuronData::SearchPattern(LxRecord * pLxRecord)
 		{
 			channel = j*NUM_BOARDS + i;
 			// Calculate absolute value as sample minus measured average
-			absSample = (int32_t)round(abs(pLxRecord->board[j].data[i] - m_average[channel])); 
+			absSample = abs((int32_t)round(pLxRecord->board[j].data[i] - m_average[channel])); 
 			if (absSample > m_maximum[channel])
 				m_maximum[channel] = absSample;
 		}
