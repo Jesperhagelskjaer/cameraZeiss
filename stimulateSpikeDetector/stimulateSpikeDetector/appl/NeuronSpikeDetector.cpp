@@ -33,9 +33,13 @@ void NeuronSpikeDetector::Create(void)
 
 void NeuronSpikeDetector::Train(void)
 {
-	pSpikeDetector->runTraining(); // Training not using CUDA
-	//spikeDetector->runTrainingCUDA();
-
+#ifdef USE_CUDA
+	SpikeDetectCUDA_RTP<USED_DATATYPE> *spikeDetector = (SpikeDetectCUDA_RTP<USED_DATATYPE> *)pSpikeDetector;
+	//spikeDetector->runTraining(); // Training not using CUDA
+	spikeDetector->runTrainingCUDA();
+#else
+	pSpikeDetector->runTraining();
+#endif
 }
 
 void NeuronSpikeDetector::Predict(void)
