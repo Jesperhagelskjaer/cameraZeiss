@@ -72,7 +72,7 @@ public:
 	}
 
 	virtual void AnalyzeData(LxRecord * pLxRecord);
-	double CalculateCost();
+	virtual double CalculateCost();
 	LxRecord *FilterData(LxRecord * pLxRecord);
 
 	void SetFilterType(FirFilter::TYPES type)
@@ -86,6 +86,10 @@ public:
 			filterEnabled = true;
 	}
 
+	int GetNumSamplesToAnalyse(void) {
+		return m_analyseSamples;
+	}
+
 protected:
 	virtual void SearchPattern(LxRecord * pLxRecord);
 	void RecursiveAverage(LxRecord * pLxRecord);
@@ -97,7 +101,7 @@ protected:
 	MODES m_mode;
 	MODES m_modeLast;
 	int m_activeChannel;
-	int m_analyseSamples;
+	int m_analyseSamples; // Number of samples to analyse
 	int m_countSamples;
 	Semaphore m_semaAnalyseComplete;
 	FILE *costStream;

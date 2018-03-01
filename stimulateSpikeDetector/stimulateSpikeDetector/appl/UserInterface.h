@@ -38,8 +38,12 @@ private:
 	// Tests
 	void testCollectNeuronData(void);
 	void testNeuronSpikeDetector(void);
-	// Run stimulation of neuron maximizing light intensity for channel
-	void runStimulateNeuron(Configuration *config);
+
+	// Run stimulation of neurons maximizing light intensity for channel
+	void runStimulateNeurons(Configuration *config);
+
+	// Run stimulation of individual neurons using spike detection
+	void runStimulateIndividualNeurons(Configuration *config);
 
 };
 #endif // !defined(EA_3929C698_D918_4faa_A2C9_25238069C926__INCLUDED_)

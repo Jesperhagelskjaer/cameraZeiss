@@ -187,6 +187,9 @@
     <ClInclude Include="appl\NeuronSpikeDetector.h">
       <Filter>appl</Filter>
     </ClInclude>
+    <ClInclude Include="appl\AnalyseNeuronSpikeDetector.h">
+      <Filter>appl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -237,6 +240,9 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="appl\NeuronSpikeDetector.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\AnalyseNeuronSpikeDetector.cpp">
       <Filter>appl</Filter>
     </ClCompile>
   </ItemGroup>

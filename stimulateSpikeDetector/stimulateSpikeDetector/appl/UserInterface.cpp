@@ -8,6 +8,7 @@
 #include "UserInterface.h"
 #include "AnalyseNeuronDataCAR.h"
 #include "AnalyseNeuronDataCMR.h"
+#include "AnalyseNeuronSpikeDetector.h"
 
 
 UserInterface::UserInterface()
@@ -66,7 +67,50 @@ void UserInterface::testCollectNeuronData(void)
 	m_AnalyseNeuronData = 0;
 }
 
-void UserInterface::runStimulateNeuron(Configuration *config)
+void UserInterface::runStimulateIndividualNeurons(Configuration *config)
+{
+	// Create objects
+	m_NeuronSpikeDetector = new NeuronSpikeDetector();
+	m_NeuronSpikeDetector->Create(); // Loads training files and templates
+	m_NeuronSpikeDetector->Train(); // Train spike detector
+
+	m_AnalyseNeuronData = new AnalyseNeuronSpikeDetector();
+	m_CollectNeuronDataThread = new CollectNeuronDataThread();
+	m_StimulateNeuronThread = new StimulateNeuronThread();
+	m_GenericAlgo = new GenericAlgo(config->m_NumParents, config->m_NumBindings, config->m_NumIterations);
+
+	// Start threads
+	m_AnalyseNeuronData->SetActiveChannel(config->m_ActiveChannel);
+	m_AnalyseNeuronData->SetFilterType(config->m_FilterType);
+	m_GenericAlgo->OpenLaserPort(config->m_LaserPort, config->m_LaserIntensity);
+	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
+	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread",
+		m_AnalyseNeuronData, m_GenericAlgo,
+		config->m_NumIterations, config->m_PauseMS,
+		config->m_RandIterations, config->m_RandTemplates, config->m_EndIterations);
+	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
+	m_AnalyseNeuronData->OpenCostFile(m_CollectNeuronDataThread->GetCostFileName());
+	((AnalyseNeuronSpikeDetector *)m_AnalyseNeuronData)->AddSpikeDetector(m_NeuronSpikeDetector);
+
+	// Wait for completion
+	m_StimulateNeuronThread->WaitForCompletion();
+	m_CollectNeuronDataThread->Stop();
+	m_NeuronSpikeDetector->Terminate();
+
+	// Delete objects
+	delete m_CollectNeuronDataThread;
+	delete m_AnalyseNeuronData;
+	delete m_StimulateNeuronThread;
+	delete m_GenericAlgo;
+	delete m_NeuronSpikeDetector;
+	m_CollectNeuronDataThread = 0;
+	m_AnalyseNeuronData = 0;
+	m_StimulateNeuronThread = 0;
+	m_GenericAlgo = 0;
+}
+
+
+void UserInterface::runStimulateNeurons(Configuration *config)
 {
 	// Create objects
 	switch (config->m_CommonAvgRef) {
@@ -125,7 +169,8 @@ void UserInterface::run()
 		printf("n. Test neuron spike detector \r\n");
 		printf("p. Print configuration\r\n");
 		printf("r. Read configuration file\r\n");
-		printf("s. Stimulate neuron\r\n");
+		printf("s. Stimulate neurons\r\n");
+		printf("i. Stimulate individual neurons\r\n");
 		printf("e. Exit\r\n");
 		printf("\r\n> ");
 		scanf("%c%c", &choise, &ret);
@@ -150,7 +195,10 @@ void UserInterface::run()
 				m_Configuration->Print();
 				break;
 			case 's':
-			    runStimulateNeuron(m_Configuration); // Channel (0-31), loops, ms delay
+			    runStimulateNeurons(m_Configuration); // Channel (0-31), loops, ms delay
+				break;
+			case 'i':
+				runStimulateIndividualNeurons(m_Configuration); 
 				break;
 			case 'n':
 				testNeuronSpikeDetector(); // Test train and predict on simulated test data

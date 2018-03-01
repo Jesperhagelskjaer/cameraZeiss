@@ -26,6 +26,7 @@
     <ClInclude Include="appl\AnalyseNeuronData.h" />
     <ClInclude Include="appl\AnalyseNeuronDataCAR.h" />
     <ClInclude Include="appl\AnalyseNeuronDataCMR.h" />
+    <ClInclude Include="appl\AnalyseNeuronSpikeDetector.h" />
     <ClInclude Include="appl\CollectNeuronDataThread.h" />
     <ClInclude Include="appl\Configuration.h" />
     <ClInclude Include="appl\DataFileThread.h" />
@@ -76,6 +77,7 @@
     <ClCompile Include="appl\AnalyseNeuronData.cpp" />
     <ClCompile Include="appl\AnalyseNeuronDataCAR.cpp" />
     <ClCompile Include="appl\AnalyseNeuronDataCMR.cpp" />
+    <ClCompile Include="appl\AnalyseNeuronSpikeDetector.cpp" />
     <ClCompile Include="appl\CollectNeuronDataThread.cpp" />
     <ClCompile Include="appl\genericAlgoTest.cpp" />
     <ClCompile Include="appl\neuronCaptureTest.cpp" />
