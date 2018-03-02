@@ -35,4 +35,5 @@ private:
 	USED_DATATYPE *m_pSampleData; // Pointer to start of sample block
 	USED_DATATYPE *m_pData; // Pointer to current position in sample block
 	int m_SampleDataSize; // Size of sample block to analyse
+	bool m_predictInitialized; // Is predicion of spike detector initialized
 };

@@ -428,7 +428,7 @@ void SLMParents::GetRandomTemplateIdx(int &number1, int &number2)
 		number2 = SigmoidRandomDistribution();
 		while (number1 == number2)
 			number2 = SigmoidRandomDistribution();
-		printf("Logistic Random Distribution %d, %d\r\n", number1, number2);
+		//printf("Logistic Random Distribution %d, %d\r\n", number1, number2);
 	}
 
 }
