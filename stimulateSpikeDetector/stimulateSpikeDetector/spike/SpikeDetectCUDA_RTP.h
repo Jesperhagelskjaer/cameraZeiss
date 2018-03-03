@@ -100,7 +100,7 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 {
 	cudaError_t cudaStatus = cudaError_t::cudaSuccess;
 
-	//t1 = high_resolution_clock::now();
+	t1 = high_resolution_clock::now();
 
 	/* Memory copy raw data to GPU*/
 	cudaStatus = MemCpyCUDAData(dev_DataPointerP, dataPointerP, (uint32_t)RTP_DATA_LENGTH, (uint32_t)DATA_CHANNELS, (uint16_t)sizeof(USED_DATATYPE));
@@ -155,16 +155,14 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 	}
 
 
-/*
 #ifdef PRINT_OUTPUT_INFO
-	classifierController.verifyPredictionBasedOnTemplatesCUDA(host_FoundTimesCounters, host_FoundTimesP, &templateController);
+//	classifierController.verifyPredictionBasedOnTemplatesCUDA(host_FoundTimesCounters, host_FoundTimesP, &templateController);
 #endif
 
 	t2 = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(t2 - t1).count();
 	f_latestExecutionTime = (float)duration;
 	std::cout << "RTP: " << f_latestExecutionTime / 1000 << " ms" << std::endl;
-*/
 
 	return cudaStatus;
 }
