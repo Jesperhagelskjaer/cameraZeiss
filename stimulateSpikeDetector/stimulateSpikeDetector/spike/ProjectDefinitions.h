@@ -8,17 +8,15 @@
 #define PROJECT_DEFINITIONS_H
 
 /*********************************** GENERAL SETUP ****************************************************/
-#define					USE_OPENCV
-//
-#define					USE_CUDA // Working with 2 seconds train and predict
+#define					USE_OPENCV // Use OPENCV for training, when training with C++/OPENCV
+#define                 USE_CUDA_TRAIN // Use CUDA for training
+
+#define					USE_CUDA // The USE_CUDA define must always be enabled for prediction
 //#define                 CUDA_VERIFY // ONLY valid with USE_KERNEL_FILTER
-//
 #define					PRINT_OUTPUT_INFO
 
-#ifdef USE_OPENCV
-#ifdef USE_CUDA
-//#error Selecting both USE_OPENCV and USE_CUDA is not allowed
-#endif
+#ifndef USE_CUDA 
+#error Only woriking with USE_CUDA defined for prediction
 #endif
 
 /*********************************** PATHS ************************************************************/
@@ -31,7 +29,7 @@
 /*********************************** SAMPLING *********************************************************/
 #define					USED_DATATYPE						float
 #define					SAMPLING_FREQUENCY					30000
-#define					TRAINING_DATA_TIME					30 // 10 s, must be same size
+#define					TRAINING_DATA_TIME					10 // 10 s, must be same size
 #define					RUNTIME_DATA_TIME					2 // 4 ms // The runtime/prediction data is assumed to be consecutive to the training data
 #define                 RTP_DATA_TIME                       0.005f // Runtime buffer length in seconds, must be equal to DELAY_MS in defs.h!!
 #define					TRAINING_DATA_LENGTH				SAMPLING_FREQUENCY*TRAINING_DATA_TIME

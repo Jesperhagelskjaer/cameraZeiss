@@ -24,10 +24,12 @@ void AnalyseNeuronSpikeDetector::AddSpikeDetector(NeuronSpikeDetector *pNeuronSp
 
 double AnalyseNeuronSpikeDetector::CalculateCost()
 {
-	// TODO must be changed 
-	double cost = m_pNeuronSpikeDetector->RealtimePredict();
-	m_pNeuronSpikeDetector->ResetBlock();
-	cost = rand();
+	double cost = 0;
+	if (m_pNeuronSpikeDetector != 0) {
+		cost = m_pNeuronSpikeDetector->RealtimePredict();
+		m_pNeuronSpikeDetector->ResetBlock();
+		cost = rand();
+	}
 	return cost;
 }
 

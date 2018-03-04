@@ -77,10 +77,13 @@ void NeuronSpikeDetector::Train(void)
 {
 #ifdef USE_CUDA
 	SpikeDetectCUDA_RTP<USED_DATATYPE> *spikeDetector = (SpikeDetectCUDA_RTP<USED_DATATYPE> *)m_pSpikeDetector;
-	//spikeDetector->runTraining(); // Training not using CUDA
+
+#ifdef	USE_CUDA_TRAIN
 	spikeDetector->runTrainingCUDA();
 #else
-	pSpikeDetector->runTraining();
+	spikeDetector->runTraining(); // Training not using CUDA
+#endif
+
 #endif
 }
 
