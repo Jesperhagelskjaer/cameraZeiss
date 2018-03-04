@@ -17,9 +17,11 @@ public:
 	AnalyseNeuronSpikeDetector();
 	void AddSpikeDetector(NeuronSpikeDetector *pNeuronSpikeDetector);
 	virtual double CalculateCost();
+	NeuronSpikeDetector *GetNeuronSpikeDetector(void) { return m_pNeuronSpikeDetector; };
 protected:
 	virtual void SearchPattern(LxRecord * pLxRecord);
 private:
 	NeuronSpikeDetector * m_pNeuronSpikeDetector;
+	int m_TotalSpikesFound;
 };
 

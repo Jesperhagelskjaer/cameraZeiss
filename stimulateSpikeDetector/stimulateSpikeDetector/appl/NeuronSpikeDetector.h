@@ -9,6 +9,7 @@
 #include <cstdint>
 
 template <class T> class SpikeDetect;
+class ProjectInfo;
 
 class NeuronSpikeDetector
 {
@@ -29,6 +30,8 @@ public:
 	}; 
 	void AddSampleBlock(int32_t *pSamples); // Add samples from DATA_CHANNELS to block
 	double RealtimePredict(void); // Predict on realtime data collected in sample block (m_pSampleData)
+
+	ProjectInfo *GetProjectInfo(void);
 
 private:
 	SpikeDetect<USED_DATATYPE> *m_pSpikeDetector;

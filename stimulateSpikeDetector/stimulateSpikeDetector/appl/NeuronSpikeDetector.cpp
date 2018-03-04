@@ -46,6 +46,11 @@ void NeuronSpikeDetector::SetSampleSize(int size)
 #endif
 }
 
+ProjectInfo *NeuronSpikeDetector::GetProjectInfo(void)
+{
+	return m_pSpikeDetector->getProjectInfo();
+}
+
 void NeuronSpikeDetector::AddSampleBlock(int32_t *pSamples)
 {
 

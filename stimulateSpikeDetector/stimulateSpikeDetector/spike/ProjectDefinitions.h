@@ -9,14 +9,14 @@
 
 /*********************************** GENERAL SETUP ****************************************************/
 #define					USE_OPENCV // Use OPENCV for training, when training with C++/OPENCV
-#define                 USE_CUDA_TRAIN // Use CUDA for training
+//#define                 USE_CUDA_TRAIN // Use CUDA for training
 
 #define					USE_CUDA // The USE_CUDA define must always be enabled for prediction
 //#define                 CUDA_VERIFY // ONLY valid with USE_KERNEL_FILTER
 #define					PRINT_OUTPUT_INFO
 
 #ifndef USE_CUDA 
-#error Only woriking with USE_CUDA defined for prediction
+#error Only woriking with USE_CUDA defined for stimulator and prediction
 #endif
 
 /*********************************** PATHS ************************************************************/

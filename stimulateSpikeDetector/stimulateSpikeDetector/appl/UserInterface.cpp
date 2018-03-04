@@ -79,18 +79,21 @@ void UserInterface::runStimulateIndividualNeurons(Configuration *config)
 	m_StimulateNeuronThread = new StimulateNeuronThread();
 	m_GenericAlgo = new GenericAlgo(config->m_NumParents, config->m_NumBindings, config->m_NumIterations);
 
-	// Start threads
+	// Initialization of objects
+	m_GenericAlgo->OpenLaserPort(config->m_LaserPort, config->m_LaserIntensity);
+	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
+	m_AnalyseNeuronData->SetDelaySamples((int)ceil(SAMPLE_FREQUENCY / 1000 * config->m_DelayMS));
 	m_AnalyseNeuronData->SetActiveChannel(config->m_ActiveChannel);
 	m_AnalyseNeuronData->SetFilterType(config->m_FilterType);
-	m_GenericAlgo->OpenLaserPort(config->m_LaserPort, config->m_LaserIntensity);
+	((AnalyseNeuronSpikeDetector *)m_AnalyseNeuronData)->AddSpikeDetector(m_NeuronSpikeDetector);
+
+	// Start threads
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
+	m_AnalyseNeuronData->OpenCostFile(m_CollectNeuronDataThread->GetCostFileName());
 	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread",
 		m_AnalyseNeuronData, m_GenericAlgo,
 		config->m_NumIterations, config->m_PauseMS,
 		config->m_RandIterations, config->m_RandTemplates, config->m_EndIterations);
-	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
-	m_AnalyseNeuronData->OpenCostFile(m_CollectNeuronDataThread->GetCostFileName());
-	((AnalyseNeuronSpikeDetector *)m_AnalyseNeuronData)->AddSpikeDetector(m_NeuronSpikeDetector);
 
 	// Wait for completion
 	m_StimulateNeuronThread->WaitForCompletion();
@@ -133,12 +136,12 @@ void UserInterface::runStimulateNeurons(Configuration *config)
 	m_AnalyseNeuronData->SetFilterType(config->m_FilterType);
 	m_GenericAlgo->OpenLaserPort(config->m_LaserPort, config->m_LaserIntensity);
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);
-	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread", 
+	m_AnalyseNeuronData->OpenCostFile(m_CollectNeuronDataThread->GetCostFileName());
+	m_StimulateNeuronThread->Start(Thread::PRIORITY_ABOVE_NORMAL, "StimulateNeuronThread",
 		                           m_AnalyseNeuronData, m_GenericAlgo, 
 		                           config->m_NumIterations, config->m_PauseMS,
 								   config->m_RandIterations, config->m_RandTemplates, config->m_EndIterations);
 	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
-	m_AnalyseNeuronData->OpenCostFile(m_CollectNeuronDataThread->GetCostFileName());
 
 	// Wait for completion
 	m_StimulateNeuronThread->WaitForCompletion();

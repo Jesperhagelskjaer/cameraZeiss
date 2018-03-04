@@ -9,6 +9,9 @@
 using namespace std;
 #include "defs.h"
 #include "CollectNeuronDataThread.h"
+#include "AnalyseNeuronSpikeDetector.h"
+#include "NeuronSpikeDetector.h"
+#include "SpikeDataGenerator.h"
 
 CollectNeuronDataThread::CollectNeuronDataThread() :
 	Thread(),
@@ -23,7 +26,7 @@ CollectNeuronDataThread::CollectNeuronDataThread() :
 	m_LynxRecord = 0;
 	m_DataFileThread = 0;
 	m_AnalyseNeuronData = 0;
-	m_TestDataGenerator = new TestDataGenerator();
+	m_TestDataGenerator = 0; 
 }
 
 CollectNeuronDataThread::~CollectNeuronDataThread()
@@ -92,8 +95,16 @@ void CollectNeuronDataThread::run()
 	{ 
 
 #ifdef TEST_GENERATOR_
+
 		m_LynxRecord->CreatTestData(0);
 
+#ifdef TEST_GEN_SPIKES_
+		m_TestDataGenerator = new SpikeDataGenerator();
+		NeuronSpikeDetector *neuronSpikeDetector = ((AnalyseNeuronSpikeDetector *)m_AnalyseNeuronData)->GetNeuronSpikeDetector();
+		((SpikeDataGenerator *)m_TestDataGenerator)->SetProjectInfo(neuronSpikeDetector->GetProjectInfo());
+#else
+		m_TestDataGenerator = new TestDataGenerator();
+#endif
 		while (running)
 		{
 			//m_LynxRecord->CreatTestData(num);

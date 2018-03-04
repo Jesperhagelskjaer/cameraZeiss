@@ -13,8 +13,6 @@
 #include "GenericAlgo.h"
 #include "AnalyseNeuronData.h"
 
-#define SAMPLE_FREQUENCY  30000 // Hz
-
 class StimulateNeuronThread : public Thread
 {
 

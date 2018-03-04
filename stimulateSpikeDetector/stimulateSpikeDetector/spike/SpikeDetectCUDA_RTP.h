@@ -162,7 +162,7 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 	t2 = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(t2 - t1).count();
 	f_latestExecutionTime = (float)duration;
-	std::cout << "RTP: " << f_latestExecutionTime / 1000 << " ms" << std::endl;
+	//std::cout << "RTP: " << f_latestExecutionTime / 1000 << " ms" << std::endl;
 
 	return cudaStatus;
 }

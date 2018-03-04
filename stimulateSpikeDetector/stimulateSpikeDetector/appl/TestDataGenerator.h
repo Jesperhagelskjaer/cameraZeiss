@@ -21,7 +21,7 @@ public:
 		m_generatePulse = generate;
 	}
 
-	void GenerateSampleRecord(LRECORD *pLxRecord);
+	virtual void GenerateSampleRecord(LRECORD *pLxRecord);
 
 private:
 	int32_t GenSine(int channel);

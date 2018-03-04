@@ -190,6 +190,9 @@
     <ClInclude Include="appl\AnalyseNeuronSpikeDetector.h">
       <Filter>appl</Filter>
     </ClInclude>
+    <ClInclude Include="appl\SpikeDataGenerator.h">
+      <Filter>appl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -244,6 +247,12 @@
     </ClCompile>
     <ClCompile Include="appl\AnalyseNeuronSpikeDetector.cpp">
       <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\SpikeDataGenerator.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
+    <ClCompile Include="spike\ProjectInfo.cpp">
+      <Filter>spike</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

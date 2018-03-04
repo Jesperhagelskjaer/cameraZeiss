@@ -7,6 +7,9 @@
 
 // To be defined for testing without Digital Lynx SX and UDP LxRecords
 #define TEST_GENERATOR_		  1
+#define TEST_GEN_SPIKES_      1         // Use data from spike simulation files
+
+#define SAMPLE_FREQUENCY	SAMPLING_FREQUENCY // Hz
 
 // Used in TemplateImages together with zeiss camera
 #define ROWS				50			// Max. hight of image section
@@ -25,7 +28,7 @@
 // User parameters see config.txt, set as default in Configuration.h
 #define NUM_BINDINGS		8			// M modulus NUM_BINDINGS should be equal to zero !!!!
 #define NUM_PARENTS			20			// Number of parents
-#define GEN_ITERATIONS		200		// Number of iterations for genetic algorithm to convergate
+#define GEN_ITERATIONS		350		// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT			4			// COM port connected to laser
 #define LASER_INTENSITY		0.6f		// Intensity of laser when turned on
 #define DELAY_MS			(RTP_DATA_TIME*1000) // Delay in ms laser is turned on while analysing neuron pulses (On)
