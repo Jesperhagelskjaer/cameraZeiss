@@ -30,7 +30,7 @@ double AnalyseNeuronSpikeDetector::CalculateCost()
 		cost = m_pNeuronSpikeDetector->RealtimePredict();
 		m_TotalSpikesFound += (int)cost;
 		m_pNeuronSpikeDetector->ResetBlock();
-		cost = rand();
+		cost = 0; // rand();
 	}
 	return cost;
 }

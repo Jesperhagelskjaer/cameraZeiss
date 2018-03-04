@@ -20,10 +20,8 @@ public:
 
 	virtual void GenerateSampleRecord(LRECORD *pLxRecord);
 	void SetProjectInfo(ProjectInfo *pProjectInfo);
-
+	int GetNumChannelSamples(void) { return m_sampleOffset; };
 private:
-	LRECORD m_LRECORD;
-	bool m_generatePulse;
 	ProjectInfo *m_projectInfo;
 	int m_sampleOffset;
 };

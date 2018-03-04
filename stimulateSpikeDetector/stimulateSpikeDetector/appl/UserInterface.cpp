@@ -98,6 +98,8 @@ void UserInterface::runStimulateIndividualNeurons(Configuration *config)
 	// Wait for completion
 	m_StimulateNeuronThread->WaitForCompletion();
 	m_CollectNeuronDataThread->Stop();
+
+	printf("Total number of neuron spikes found %d \r\n", ((AnalyseNeuronSpikeDetector *)m_AnalyseNeuronData)->GetTotalSpikesFound());
 	m_NeuronSpikeDetector->Terminate();
 
 	// Delete objects

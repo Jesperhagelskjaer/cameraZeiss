@@ -31,7 +31,6 @@ CollectNeuronDataThread::CollectNeuronDataThread() :
 
 CollectNeuronDataThread::~CollectNeuronDataThread()
 {
-	delete m_TestDataGenerator;
 }
 
 void CollectNeuronDataThread::Start(ThreadPriority pri, string _name, AnalyseNeuronData *pAnalyseNeuronData)
@@ -202,10 +201,16 @@ void CollectNeuronDataThread::Stop()
 		m_Running = false;
 		// Wait for collection thread to complete
 		m_semaStop.wait(); 
-
 		delete m_DataFileThread;
 		delete m_LynxRecord;
 		m_DataFileThread = 0;
 		m_LynxRecord = 0;
+#ifdef TEST_GENERATOR_
+#ifdef TEST_GEN_SPIKES_
+		printf("Generated duration of %d samples \r\n", ((SpikeDataGenerator *)m_TestDataGenerator)->GetNumChannelSamples());
+#endif
+		delete m_TestDataGenerator;
+#endif
+		m_TestDataGenerator = 0;
 	}
 }

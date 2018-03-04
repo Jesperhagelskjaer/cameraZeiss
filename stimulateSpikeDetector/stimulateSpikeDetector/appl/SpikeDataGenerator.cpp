@@ -44,8 +44,10 @@ void SpikeDataGenerator::GenerateSampleRecord(LRECORD *pLxRecord)
 		currentDataPointer = m_projectInfo->getPredictionData();
 		currentDataPointer += m_sampleOffset;
 		// Generate pulse based on predition data, only 32 channels
-		for (int i = 0; i < DATA_CHANNELS; i++)
-			pLxRecord->board[0].data[i] = (int32_t)currentDataPointer[i];
+		for (int i = 0; i < DATA_CHANNELS; i++) {
+			USED_DATATYPE sample = currentDataPointer[i];
+			pLxRecord->board[0].data[i] = (int32_t)sample;
+		}
 		// Next sample to generate
 		if (m_sampleOffset < (DATA_CHANNELS*(RUNTIME_DATA_LENGTH - 1)) ) 
 			m_sampleOffset += (int)(DATA_CHANNELS);
@@ -54,7 +56,7 @@ void SpikeDataGenerator::GenerateSampleRecord(LRECORD *pLxRecord)
 		// Generate random
 		for (int j = 0; j < NUM_BOARDS; j++)
 			for (int i = 0; i < NUM_CHANNELS; i++)
-				pLxRecord->board[j].data[i] = NOISE * rand() / RAND_MAX;
+				pLxRecord->board[j].data[i] = 0; // NOISE * rand() / RAND_MAX;
 				//pLxRecord->board[j].data[i] = 10 * rand() / RAND_MAX;
 	}
 

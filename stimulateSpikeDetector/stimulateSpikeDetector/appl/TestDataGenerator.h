@@ -23,7 +23,7 @@ public:
 
 	virtual void GenerateSampleRecord(LRECORD *pLxRecord);
 
-private:
+protected:
 	int32_t GenSine(int channel);
 
 	LRECORD m_LRECORD;
