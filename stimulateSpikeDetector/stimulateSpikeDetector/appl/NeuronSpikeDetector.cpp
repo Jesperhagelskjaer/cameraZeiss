@@ -15,9 +15,9 @@
 NeuronSpikeDetector::NeuronSpikeDetector()
 {
 	m_pSpikeDetector = 0;
-	m_pSampleData = 0;
 	m_pData = 0;
 	m_predictInitialized = false;
+	m_SampleDataCollected = 0;
 }
 
 NeuronSpikeDetector::~NeuronSpikeDetector()
@@ -26,17 +26,16 @@ NeuronSpikeDetector::~NeuronSpikeDetector()
 	if (m_predictInitialized)
 		((SpikeDetectCUDA_RTP<USED_DATATYPE> *)m_pSpikeDetector)->CUDACleanUpPrediction();
 #endif
-	if (m_pSampleData != 0)
-		delete m_pSampleData;
 }
 
 void NeuronSpikeDetector::SetSampleSize(int size)
 {
-	if (m_pSampleData != 0) 
-		delete m_pSampleData;
-
-	m_SampleDataSize = size;
-	m_pSampleData = new USED_DATATYPE[m_SampleDataSize*DATA_CHANNELS];
+	m_SampleDataSize = DATA_CHANNELS * size;
+	if (m_SampleDataSize > DATA_CHANNELS * RTP_DATA_LENGTH)
+		m_SampleDataSize = (int)(DATA_CHANNELS * RTP_DATA_LENGTH);
+	memset(m_pSampleData, 0, (int)(DATA_CHANNELS * RTP_DATA_LENGTH * sizeof(USED_DATATYPE)));
+	m_pData = m_pSampleData;
+	m_SampleDataCollected = 0;
 	
 #ifdef USE_CUDA
 	if (!m_predictInitialized) {
@@ -62,8 +61,8 @@ void NeuronSpikeDetector::AddSampleBlock(int32_t *pSamples)
 
 		// Increment position in block to insert samples
 		m_pData += DATA_CHANNELS;
-
-		if (m_pData >= m_pSampleData + DATA_CHANNELS)
+		m_SampleDataCollected += DATA_CHANNELS;
+		if (m_SampleDataCollected >=  m_SampleDataSize)
 			m_pData = 0; // Mark end of block, no more space in block
 	}
 }
@@ -125,6 +124,8 @@ double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data co
 		}
 	}
 #endif
+	m_pData = m_pSampleData;
+	m_SampleDataCollected = 0;
 
 	return spikesFound;
 }

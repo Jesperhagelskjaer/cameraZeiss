@@ -25,9 +25,6 @@ public:
 
 	// Handling collecting samples
 	void SetSampleSize(int size); // Set size and allocate sample block
-	void ResetBlock(void) { // Reset current position to start of sample block
-		m_pData = m_pSampleData;
-	}; 
 	void AddSampleBlock(int32_t *pSamples); // Add samples from DATA_CHANNELS to block
 	double RealtimePredict(void); // Predict on realtime data collected in sample block (m_pSampleData)
 
@@ -35,8 +32,9 @@ public:
 
 private:
 	SpikeDetect<USED_DATATYPE> *m_pSpikeDetector;
-	USED_DATATYPE *m_pSampleData; // Pointer to start of sample block
+	USED_DATATYPE m_pSampleData[(int)(DATA_CHANNELS*RTP_DATA_LENGTH)]; // Pointer to start of sample block
 	USED_DATATYPE *m_pData; // Pointer to current position in sample block
 	int m_SampleDataSize; // Size of sample block to analyse
+	int m_SampleDataCollected; // Number of samples in sample block
 	bool m_predictInitialized; // Is predicion of spike detector initialized
 };
