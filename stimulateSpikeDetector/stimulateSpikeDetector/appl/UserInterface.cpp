@@ -169,7 +169,7 @@ void UserInterface::run()
 	init();
 
 	while (running) {
-		printf("Select menu: \r\n");
+		printf("\r\nSelect menu: \r\n");
 		printf("t. Test collect neuron data\r\n");
 		printf("n. Test neuron spike detector \r\n");
 		printf("p. Print configuration\r\n");

@@ -18,6 +18,7 @@ NeuronSpikeDetector::NeuronSpikeDetector()
 	m_pData = 0;
 	m_predictInitialized = false;
 	m_SampleDataCollected = 0;
+	m_Iterations = 0;
 }
 
 NeuronSpikeDetector::~NeuronSpikeDetector()
@@ -28,43 +29,9 @@ NeuronSpikeDetector::~NeuronSpikeDetector()
 #endif
 }
 
-void NeuronSpikeDetector::SetSampleSize(int size)
-{
-	m_SampleDataSize = DATA_CHANNELS * size;
-	if (m_SampleDataSize > DATA_CHANNELS * RTP_DATA_LENGTH)
-		m_SampleDataSize = (int)(DATA_CHANNELS * RTP_DATA_LENGTH);
-	memset(m_pSampleData, 0, (int)(DATA_CHANNELS * RTP_DATA_LENGTH * sizeof(USED_DATATYPE)));
-	m_pData = m_pSampleData;
-	m_SampleDataCollected = 0;
-	
-#ifdef USE_CUDA
-	if (!m_predictInitialized) {
-		if (((SpikeDetectCUDA_RTP<USED_DATATYPE> *)m_pSpikeDetector)->prepareCUDAPrediction() == 0)
-			m_predictInitialized = true;
-	}
-#endif
-}
-
 ProjectInfo *NeuronSpikeDetector::GetProjectInfo(void)
 {
 	return m_pSpikeDetector->getProjectInfo();
-}
-
-void NeuronSpikeDetector::AddSampleBlock(int32_t *pSamples)
-{
-
-	if (m_pData > 0)  // Check more space in sample block
-	{
-		// Convert and insert sample data in block to analyse
-		for (int i = 0; i < DATA_CHANNELS; i++)
-			m_pData[i] = (float)pSamples[i]; 
-
-		// Increment position in block to insert samples
-		m_pData += DATA_CHANNELS;
-		m_SampleDataCollected += DATA_CHANNELS;
-		if (m_SampleDataCollected >=  m_SampleDataSize)
-			m_pData = 0; // Mark end of block, no more space in block
-	}
 }
 
 void NeuronSpikeDetector::Create(void)
@@ -106,6 +73,52 @@ void NeuronSpikeDetector::Terminate(void)
 	delete m_pSpikeDetector;
 }
 
+void NeuronSpikeDetector::SetSampleSize(int size)
+{
+	m_SampleDataSize = DATA_CHANNELS * size;
+	if (m_SampleDataSize > DATA_CHANNELS * RTP_DATA_LENGTH)
+		m_SampleDataSize = (int)(DATA_CHANNELS * RTP_DATA_LENGTH);
+	memset(m_pSampleData, 0, (int)(DATA_CHANNELS * RTP_DATA_LENGTH * sizeof(USED_DATATYPE)));
+	m_pData = m_pSampleData;
+	m_SampleDataCollected = 0;
+	m_Iterations = 0;
+
+	for (int i = 0; i < MAXIMUM_NUMBER_OF_TEMPLATES; i++) {
+		m_TotalSpikeCounters[i] = 0;
+	}
+
+#ifdef USE_CUDA
+	if (!m_predictInitialized) {
+		if (((SpikeDetectCUDA_RTP<USED_DATATYPE> *)m_pSpikeDetector)->prepareCUDAPrediction() == 0)
+			m_predictInitialized = true;
+	}
+	for (int i = 0; i < MAXIMUM_NUMBER_OF_TEMPLATES; i++) {
+		m_TotalSpikeCounters[i] = 0;
+		if (GetProjectInfo()->isTemplateUsedTraining(i + 1))
+			printf("T%02d ", i + 1);
+	}
+	printf("\r\n---------------------------------------------------------------------------------------------------------------------------------------------------------\r\n");
+#endif
+}
+
+
+void NeuronSpikeDetector::AddSampleBlock(int32_t *pSamples)
+{
+
+	if (m_pData > 0)  // Check more space in sample block
+	{
+		// Convert and insert sample data in block to analyse
+		for (int i = 0; i < DATA_CHANNELS; i++)
+			m_pData[i] = (float)pSamples[i];
+
+		// Increment position in block to insert samples
+		m_pData += DATA_CHANNELS;
+		m_SampleDataCollected += DATA_CHANNELS;
+		if (m_SampleDataCollected >= m_SampleDataSize)
+			m_pData = 0; // Mark end of block, no more space in block
+	}
+}
+
 double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data collected in sample block (m_pSampleData)
 {
 	// TODO needs to be rewritten calculating af cost function
@@ -116,11 +129,17 @@ double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data co
 		SpikeDetectCUDA_RTP<USED_DATATYPE> *spikeDetector = (SpikeDetectCUDA_RTP<USED_DATATYPE> *)m_pSpikeDetector;
 		if (spikeDetector->runPredictionRTP(m_pSampleData) == 0) { // Perform prediction
 			uint32_t *TemplateFoundCounters = spikeDetector->getFoundTimesCounters();
-			for (int j = 0; j < MAXIMUM_NUMBER_OF_TEMPLATES; j++)
-				if (TemplateFoundCounters[j] > 0) { // Read number of spikes for each template
-					std::cout << "  T" << (j + 1) << " spikes: " << TemplateFoundCounters[j] << std::endl;
-					spikesFound += TemplateFoundCounters[j];
+			for (int i = 0; i < MAXIMUM_NUMBER_OF_TEMPLATES; i++) {
+				if (TemplateFoundCounters[i] > 0) { // Read number of spikes for each template
+					//std::cout << "  T" << (i + 1) << " spikes: " << TemplateFoundCounters[i] << std::endl;
+					spikesFound += TemplateFoundCounters[i];
+					m_TotalSpikeCounters[i] += TemplateFoundCounters[i];
 				}
+				if (GetProjectInfo()->isTemplateUsedTraining(i + 1))
+					printf("%3d ", m_TotalSpikeCounters[i]);
+			}
+			printf("\r");
+			if (++m_Iterations % 100 == 0) printf("\n");
 		}
 	}
 #endif
