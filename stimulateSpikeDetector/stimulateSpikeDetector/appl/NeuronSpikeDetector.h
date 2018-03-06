@@ -42,4 +42,5 @@ private:
 	int m_SampleDataCollected; // Number of samples in sample block
 	bool m_predictInitialized; // Is predicion of spike detector initialized
 	int m_Iterations;
+	float m_PredictTime;
 };

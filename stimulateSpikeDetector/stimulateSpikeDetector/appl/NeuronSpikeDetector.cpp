@@ -12,13 +12,16 @@
 #include "SpikeDetect.h"
 #endif
 
+#define PRINT_ITERATIONS		10
+
 NeuronSpikeDetector::NeuronSpikeDetector()
 {
 	m_pSpikeDetector = 0;
 	m_pData = 0;
 	m_predictInitialized = false;
 	m_SampleDataCollected = 0;
-	m_Iterations = 0;
+	m_Iterations = 1;
+	m_PredictTime = 0;
 }
 
 NeuronSpikeDetector::~NeuronSpikeDetector()
@@ -81,7 +84,8 @@ void NeuronSpikeDetector::SetSampleSize(int size)
 	memset(m_pSampleData, 0, (int)(DATA_CHANNELS * RTP_DATA_LENGTH * sizeof(USED_DATATYPE)));
 	m_pData = m_pSampleData;
 	m_SampleDataCollected = 0;
-	m_Iterations = 0;
+	m_Iterations = PRINT_ITERATIONS;
+	m_PredictTime = 0;
 
 	for (int i = 0; i < MAXIMUM_NUMBER_OF_TEMPLATES; i++) {
 		m_TotalSpikeCounters[i] = 0;
@@ -128,6 +132,7 @@ double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data co
 	if (m_predictInitialized) {
 		SpikeDetectCUDA_RTP<USED_DATATYPE> *spikeDetector = (SpikeDetectCUDA_RTP<USED_DATATYPE> *)m_pSpikeDetector;
 		if (spikeDetector->runPredictionRTP(m_pSampleData) == 0) { // Perform prediction
+			m_Iterations--;
 			uint32_t *TemplateFoundCounters = spikeDetector->getFoundTimesCounters();
 			for (int i = 0; i < MAXIMUM_NUMBER_OF_TEMPLATES; i++) {
 				if (TemplateFoundCounters[i] > 0) { // Read number of spikes for each template
@@ -135,11 +140,18 @@ double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data co
 					spikesFound += TemplateFoundCounters[i];
 					m_TotalSpikeCounters[i] += TemplateFoundCounters[i];
 				}
-				if (GetProjectInfo()->isTemplateUsedTraining(i + 1))
-					printf("%3d ", m_TotalSpikeCounters[i]);
+				if (m_Iterations == 0) {
+					if (GetProjectInfo()->isTemplateUsedTraining(i + 1))
+						printf("%3d ", m_TotalSpikeCounters[i]);
+				}
 			}
-			printf("\r");
-			if (++m_Iterations % 100 == 0) printf("\n");
+			m_PredictTime += spikeDetector->getLatestExecutionTime();
+			if (m_Iterations == 0) {
+				// Average predition time
+				printf(" predict : %0.2f ms\r\n", m_PredictTime/(1000*PRINT_ITERATIONS));
+				m_PredictTime = 0;
+				m_Iterations = PRINT_ITERATIONS;
+			}
 		}
 	}
 #endif

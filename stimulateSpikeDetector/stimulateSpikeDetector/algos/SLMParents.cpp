@@ -386,13 +386,15 @@ void SLMParents::DeleteLastTemplate(void)
 void SLMParents::DeleteTemplates(int num)
 {
 	if (SLMTemplates_.size() > num) {
+		printf("Deleted templates with cost: ");
 		for (int n = 0; n < num; n++) {
 			vector<SLMTemplate*>::iterator it = SLMTemplates_.end() - 1;
 			SLMTemplate* pParentLast = *it;
-			printf("Deleted template with cost %.0f\r\n", pParentLast->GetCost());
+			printf("%.0f, ", pParentLast->GetCost());
 			SLMTemplates_.erase(it);
 			delete pParentLast;
 		}
+		printf("\r\n");
 	}
 }
 
