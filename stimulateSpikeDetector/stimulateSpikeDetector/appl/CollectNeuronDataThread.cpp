@@ -52,9 +52,15 @@ void CollectNeuronDataThread::Start(ThreadPriority pri, string _name, AnalyseNeu
 	sprintf(headerFileName, "data\\LX_%d%02d%02d_%02d%02d%02d_H.txt",
 		now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
 		now->tm_hour, now->tm_min, now->tm_sec);
-	sprintf(m_costFileName, "data\\LX_%d%02d%02d_%02d%02d%02d_C.txt",
-		now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
-		now->tm_hour, now->tm_min, now->tm_sec);
+
+	if (pAnalyseNeuronData->IsNeuronSpikeDetector())
+		sprintf(m_costFileName, "data\\LX_%d%02d%02d_%02d%02d%02d_T.txt", // Neuron Spike Detector then create template cost file
+			now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
+			now->tm_hour, now->tm_min, now->tm_sec);
+	else
+		sprintf(m_costFileName, "data\\LX_%d%02d%02d_%02d%02d%02d_C.txt", // Else create channel cost file
+			now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
+			now->tm_hour, now->tm_min, now->tm_sec);
 
 	m_bufSize = m_LynxRecord->GetBuffer(&m_pBuffer);
 	// Create memory pool

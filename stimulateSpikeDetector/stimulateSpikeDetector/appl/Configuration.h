@@ -15,10 +15,12 @@ class Configuration
 public:
 	Configuration(int numIterations, int activeCh, int port, int delay, int pause, 
 		          float intensity, FirFilter::TYPES type, int numParents, int numBindings,
-		          int commonAvgRef, int randIterations, int randTemplates, int endIterations)
+		          int commonAvgRef, int randIterations, int randTemplates, int endIterations, 
+				  int activeTemplate)
 	{
 		m_NumIterations = numIterations;
 		m_ActiveChannel = activeCh;
+		m_ActiveTemplate = activeTemplate;
 		m_LaserPort = port;
 		m_DelayMS = delay;
 		m_PauseMS = pause;
@@ -42,6 +44,7 @@ public:
 		printf("On : %d\r\n", m_DelayMS);
 		printf("Off : %d\r\n", m_PauseMS);
 		printf("Channel : %d\r\n", m_ActiveChannel);
+		printf("Template : %d\r\n", m_ActiveTemplate);
 		printf("Filter : %s\r\n", FilerTypesText[m_FilterType]);
 		printf("CommonRef : %d\r\n", m_CommonAvgRef);
 		printf("RandIterations : %d\r\n", m_RandIterations);
@@ -78,6 +81,8 @@ public:
 					m_PauseMS = (int)value;
 				if (!strcmp(configName, "Channel"))
 					m_ActiveChannel = (int)value;
+				if (!strcmp(configName, "Template"))
+					m_ActiveTemplate = (int)value;
 				if (!strcmp(configName, "Filter")) {
 					valInt = (int)value;
 					m_FilterType = (FirFilter::TYPES)valInt;
@@ -107,6 +112,7 @@ public:
 	int m_DelayMS;
 	int m_PauseMS;
 	int m_ActiveChannel;
+	int m_ActiveTemplate;
 	FirFilter::TYPES m_FilterType;
 	int m_CommonAvgRef;
 	int m_RandIterations;

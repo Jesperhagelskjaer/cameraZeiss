@@ -2,6 +2,7 @@ clear;
 close all;
 fileList = dir('LX_*.txt');
 NUM_CH = 32;
+NUM_TEMPLATES = 64;
 
 for i=1:size(fileList,1)
     channelName = fileList(i).name;
@@ -13,12 +14,18 @@ for i=1:size(fileList,1)
     if (channelName(20) == 'H')
         header = load(channelName);
     end
-    if (channelName(20) == 'C')
+    if (channelName(20) == 'C') % Stimulate Active Channels
         result = load(channelName);
         costs = result(:,1); % First field cost
         activeCh = result(:,2); % Second field active channel
         maximum = result(:,3:NUM_CH+2); % 3-34 Peak value 
         average = result(:,NUM_CH+3:2*NUM_CH+2); % 35-66 Average value
+    end
+    if (channelName(20) == 'T') % Stimulate Single Neuron with Spike Detector
+        result = load(channelName);
+        costs = result(:,1); % First field cost
+        activeTemplate = result(:,2); % Second field active template
+        templateSpikeCounts = result(:,3:NUM_TEMPLATES+2); % 3-66 Neuron spike counts
     end
 end
 
@@ -66,3 +73,11 @@ ylabel('amplitude');
 xlabel('sample');
 mean(costs)
 
+if exist('templateSpikeCounts', 'var')
+    figure, 
+    surf(templateSpikeCounts);
+    xlabel('template');
+    ylabel('iteration');
+    zlabel('accumulated counts');
+    title('Accumulated Counts of Neuron Spikes');
+end

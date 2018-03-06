@@ -18,11 +18,12 @@ AnalyseNeuronData::AnalyseNeuronData() :
 	m_avgIdx = 0;
 	m_mode = MODE_STOP;
 	m_modeLast = MODE_STOP;
-	m_activeChannel = DEFAULT_ACTIVE_CH;
+	m_activeChannelOrTemplate = DEFAULT_ACTIVE_CH;
 	m_analyseSamples = ANALYSE_SAMPLES;
 	m_countSamples = m_analyseSamples;
 	costStream = NULL;
 	filterEnabled = false;
+	m_useNeuronSpikeDetector = false;
 }
 
 AnalyseNeuronData::~AnalyseNeuronData()
@@ -57,7 +58,7 @@ int AnalyseNeuronData::AppendCostToFile(double cost)
 	int i, res = -1;
 	if (costStream != NULL) {
 		res = fprintf(costStream, "%.1f ", cost);
-		res += fprintf(costStream, "%d ", m_activeChannel);
+		res += fprintf(costStream, "%d ", m_activeChannelOrTemplate);
 		for (i = 0; i < NUM_BOARDS*NUM_CHANNELS; i++)
 			res += fprintf(costStream, "%d ", m_maximum[i]);
 		for (i = 0; i < NUM_BOARDS*NUM_CHANNELS; i++)
@@ -140,10 +141,10 @@ double AnalyseNeuronData::CalculateCost()
 	for (int channel = 0; channel < NUM_CHANNELS*NUM_BOARDS; channel++)
 	{
 		maximum = m_maximum[channel];
-		if (maximum > highestMax && channel != m_activeChannel)
+		if (maximum > highestMax && channel != m_activeChannelOrTemplate)
 			highestMax = maximum;
 	}
-	cost = m_maximum[m_activeChannel] - highestMax;
+	cost = m_maximum[m_activeChannelOrTemplate] - highestMax;
 	
 	exit();
 

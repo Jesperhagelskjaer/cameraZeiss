@@ -27,6 +27,9 @@ public:
 	void SetSampleSize(int size); // Set size and allocate sample block
 	void AddSampleBlock(int32_t *pSamples); // Add samples from DATA_CHANNELS to block
 	double RealtimePredict(void); // Predict on realtime data collected in sample block (m_pSampleData)
+	uint32_t *GetTotalSpikeCounters(void) {
+		return m_TotalSpikeCounters;
+	}
 
 	ProjectInfo *GetProjectInfo(void);
 

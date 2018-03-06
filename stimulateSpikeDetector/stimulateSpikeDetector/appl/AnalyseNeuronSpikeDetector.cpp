@@ -17,10 +17,27 @@ AnalyseNeuronSpikeDetector::AnalyseNeuronSpikeDetector()
 	m_TotalSpikesFound = 0;
 }
 
+int AnalyseNeuronSpikeDetector::AppendCostToFile(double cost)
+{
+	uint32_t *pTotalSpikeCounters;
+	int i, res = -1;
+	if (costStream != NULL) {
+		pTotalSpikeCounters = m_pNeuronSpikeDetector->GetTotalSpikeCounters();
+		res = fprintf(costStream, "%.1f ", cost);
+		res += fprintf(costStream, "%d ", m_activeChannelOrTemplate);
+		for (i = 0; i < MAXIMUM_NUMBER_OF_TEMPLATES; i++)
+			res += fprintf(costStream, "%d ", pTotalSpikeCounters[i]);
+		res += fprintf(costStream, "\r\n");
+	}
+	return res;
+}
+
+
 void AnalyseNeuronSpikeDetector::AddSpikeDetector(NeuronSpikeDetector *pNeuronSpikeDetector)
 {
 	pNeuronSpikeDetector->SetSampleSize(GetNumSamplesToAnalyse());
 	m_pNeuronSpikeDetector = pNeuronSpikeDetector;
+	m_useNeuronSpikeDetector = true;
 }
 
 double AnalyseNeuronSpikeDetector::CalculateCost()

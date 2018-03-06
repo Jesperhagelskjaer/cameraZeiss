@@ -9,14 +9,14 @@
 
 /*********************************** GENERAL SETUP ****************************************************/
 #define					USE_OPENCV // Use OPENCV for training, when training with C++/OPENCV
-//#define                 USE_CUDA_TRAIN // Use CUDA for training
+#define                 USE_CUDA_TRAIN // Use CUDA for training
 
 #define					USE_CUDA // The USE_CUDA define must always be enabled for prediction
 //#define                 CUDA_VERIFY // ONLY valid with USE_KERNEL_FILTER
 #define					PRINT_OUTPUT_INFO
 
 #ifndef USE_CUDA 
-#error Only woriking with USE_CUDA defined for stimulator and prediction
+#error Only woriking with USE_CUDA defined for single neuron stimulator and prediction
 #endif
 
 /*********************************** PATHS ************************************************************/
@@ -29,9 +29,9 @@
 /*********************************** SAMPLING *********************************************************/
 #define					USED_DATATYPE						float
 #define					SAMPLING_FREQUENCY					30000
-#define					TRAINING_DATA_TIME					10 // 10 s, must be same size
-#define					RUNTIME_DATA_TIME					2 // 4 ms // The runtime/prediction data is assumed to be consecutive to the training data
-#define                 RTP_DATA_TIME                       0.01f // Runtime buffer length in seconds, must be equal to DELAY_MS in defs.h!!
+#define					TRAINING_DATA_TIME					30 // 10 s, must be same size
+#define					RUNTIME_DATA_TIME					20 // The runtime/prediction data is assumed to be consecutive to the training data
+#define                 RTP_DATA_TIME                       0.005f // Runtime buffer length in seconds, must be equal to DELAY_MS in defs.h!!
 #define					TRAINING_DATA_LENGTH				SAMPLING_FREQUENCY*TRAINING_DATA_TIME
 #define					RUNTIME_DATA_LENGTH					SAMPLING_FREQUENCY*RUNTIME_DATA_TIME
 #define                 RTP_DATA_LENGTH						(SAMPLING_FREQUENCY*RTP_DATA_TIME)

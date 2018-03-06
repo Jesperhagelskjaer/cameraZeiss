@@ -30,7 +30,8 @@ void UserInterface::init(void)
 	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, (int)DELAY_MS, 
 		                                PAUSE_MS, LASER_INTENSITY, FirFilter::FILTER_TYPE,
 										NUM_PARENTS, NUM_BINDINGS, COMMON_REF,
-										NUM_RAND_ITERATIONS, NUM_RAND_TEMPLATES, NUM_END_ITERATIONS);
+										NUM_RAND_ITERATIONS, NUM_RAND_TEMPLATES, NUM_END_ITERATIONS,
+										ACTIVE_TEMPLATE);
 }
 
 void UserInterface::testNeuronSpikeDetector(void)
@@ -83,7 +84,7 @@ void UserInterface::runStimulateIndividualNeurons(Configuration *config)
 	m_GenericAlgo->OpenLaserPort(config->m_LaserPort, config->m_LaserIntensity);
 	m_StimulateNeuronThread->SetDelay(config->m_DelayMS);
 	m_AnalyseNeuronData->SetDelaySamples((int)ceil(SAMPLE_FREQUENCY / 1000 * config->m_DelayMS));
-	m_AnalyseNeuronData->SetActiveChannel(config->m_ActiveChannel);
+	m_AnalyseNeuronData->SetActiveChannelOrTemplate(config->m_ActiveTemplate);
 	m_AnalyseNeuronData->SetFilterType(config->m_FilterType);
 	((AnalyseNeuronSpikeDetector *)m_AnalyseNeuronData)->AddSpikeDetector(m_NeuronSpikeDetector);
 
@@ -134,7 +135,7 @@ void UserInterface::runStimulateNeurons(Configuration *config)
 	m_GenericAlgo = new GenericAlgo(config->m_NumParents, config->m_NumBindings, config->m_NumIterations);
 
 	// Start threads
-	m_AnalyseNeuronData->SetActiveChannel(config->m_ActiveChannel);
+	m_AnalyseNeuronData->SetActiveChannelOrTemplate(config->m_ActiveChannel);
 	m_AnalyseNeuronData->SetFilterType(config->m_FilterType);
 	m_GenericAlgo->OpenLaserPort(config->m_LaserPort, config->m_LaserIntensity);
 	m_CollectNeuronDataThread->Start(Thread::PRIORITY_HIGH, "NeuronDataThread", m_AnalyseNeuronData);

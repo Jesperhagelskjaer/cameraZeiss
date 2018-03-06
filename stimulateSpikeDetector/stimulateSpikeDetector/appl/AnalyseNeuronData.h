@@ -40,7 +40,7 @@ public:
 
 	int OpenCostFile(char *fileName);
 
-	int AppendCostToFile(double cost);
+	virtual int AppendCostToFile(double cost);
 
 	void CloseCostFile(void);
 
@@ -59,10 +59,10 @@ public:
 		exit();
 	}
 
-	void SetActiveChannel(int ch)
+	void SetActiveChannelOrTemplate(int ch)
 	{
 		enter();
-		m_activeChannel = ch;
+		m_activeChannelOrTemplate = ch;
 		exit();
 	}
 
@@ -90,6 +90,10 @@ public:
 		return m_analyseSamples;
 	}
 
+	bool IsNeuronSpikeDetector(void) {
+		return m_useNeuronSpikeDetector;
+	}
+
 protected:
 	virtual void SearchPattern(LxRecord * pLxRecord);
 	void RecursiveAverage(LxRecord * pLxRecord);
@@ -100,12 +104,13 @@ protected:
 	int32_t m_maximum[NUM_BOARDS*NUM_CHANNELS];
 	MODES m_mode;
 	MODES m_modeLast;
-	int m_activeChannel;
+	int m_activeChannelOrTemplate; // Channel or template to stimulate
 	int m_analyseSamples; // Number of samples to analyse
 	int m_countSamples;
 	Semaphore m_semaAnalyseComplete;
 	FILE *costStream;
 	bool filterEnabled;
 	FirFilter firFilter[NUM_BOARDS];
+	bool m_useNeuronSpikeDetector; // Set true when neuron spike detector is active
 };
 #endif // !defined(EA_B3564376_2AD6_4bb7_BFF4_ACB51E0312EB__INCLUDED_)
