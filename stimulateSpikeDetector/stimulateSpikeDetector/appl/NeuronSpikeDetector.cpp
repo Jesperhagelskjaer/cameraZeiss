@@ -12,7 +12,7 @@
 #include "SpikeDetect.h"
 #endif
 
-#define PRINT_ITERATIONS		10
+#define PRINT_ITERATIONS		40
 
 NeuronSpikeDetector::NeuronSpikeDetector()
 {

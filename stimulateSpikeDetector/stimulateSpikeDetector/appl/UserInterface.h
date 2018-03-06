@@ -9,12 +9,12 @@
 #define EA_3929C698_D918_4faa_A2C9_25238069C926__INCLUDED_
 
 #include "CollectNeuronDataThread.h"
-#include "Configuration.h"
 #include "StimulateNeuronThread.h"
 #include "AnalyseNeuronData.h"
 #include "GenericAlgo.h"
 #include "defs.h"
 #include "NeuronSpikeDetector.h"
+#include "Configuration.h"
 
 #define DEFAULT_CONFIG "config.txt"
 

@@ -80,4 +80,19 @@ if exist('templateSpikeCounts', 'var')
     ylabel('iteration');
     zlabel('accumulated counts');
     title('Accumulated Counts of Neuron Spikes');
+
+    iterations = size(templateSpikeCounts,1);
+    for i=1:size(templateSpikeCounts,2)
+        if (iterations > templateSpikeCounts(iterations,i) && ...
+            templateSpikeCounts(iterations,i) > 10)
+            % Plot only valid templates where spikes found 
+            figure,
+            plot(templateSpikeCounts(:,i));
+            name = ['Template #' num2str(i)];
+            title(name);
+            xlabel('iteration');
+            ylabel('accumulated counts');
+            pause(1);
+        end
+    end
 end

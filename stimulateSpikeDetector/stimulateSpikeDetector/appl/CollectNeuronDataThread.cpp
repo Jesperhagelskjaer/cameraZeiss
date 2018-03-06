@@ -131,7 +131,7 @@ void CollectNeuronDataThread::run()
 					running = false;
 				}
 				--num;
-				if (num % 60 == 0)
+				if (num % 200 == 0) // 60, 80 
 					Sleep(1);
 			}
 			else

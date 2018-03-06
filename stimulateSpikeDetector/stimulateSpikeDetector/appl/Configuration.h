@@ -13,25 +13,23 @@ class Configuration
 {
 
 public:
-	Configuration(int numIterations, int activeCh, int port, int delay, int pause, 
-		          float intensity, FirFilter::TYPES type, int numParents, int numBindings,
-		          int commonAvgRef, int randIterations, int randTemplates, int endIterations, 
-				  int activeTemplate)
+	Configuration(void)
 	{
-		m_NumIterations = numIterations;
-		m_ActiveChannel = activeCh;
-		m_ActiveTemplate = activeTemplate;
-		m_LaserPort = port;
-		m_DelayMS = delay;
-		m_PauseMS = pause;
-		m_LaserIntensity = intensity;
-		m_FilterType = type;
-		m_NumParents = numParents;
-		m_NumBindings = numBindings;
-		m_CommonAvgRef = commonAvgRef;
-		m_RandIterations = randIterations;
-		m_RandTemplates = randTemplates;
-		m_EndIterations = endIterations;
+		// Using default values defined in defs.h
+		m_NumIterations = GEN_ITERATIONS;
+		m_ActiveChannel = ACTIVE_CHANNEL;
+		m_ActiveTemplate = ACTIVE_TEMPLATE;
+		m_LaserPort = LASER_PORT;
+		m_DelayMS = (int)DELAY_MS;
+		m_PauseMS = PAUSE_MS;
+		m_LaserIntensity = LASER_INTENSITY;
+		m_FilterType = FirFilter::FILTER_TYPE;
+		m_NumParents = NUM_PARENTS;
+		m_NumBindings = NUM_BINDINGS;
+		m_CommonAvgRef = COMMON_REF;
+		m_RandIterations = NUM_RAND_ITERATIONS;
+		m_RandTemplates = NUM_RAND_TEMPLATES;
+		m_EndIterations = NUM_END_ITERATIONS;
 	}
 
 	void Print(void)

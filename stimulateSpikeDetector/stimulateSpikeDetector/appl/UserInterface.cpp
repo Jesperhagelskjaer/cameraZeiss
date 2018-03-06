@@ -27,11 +27,7 @@ UserInterface::~UserInterface()
 
 void UserInterface::init(void)
 {
-	m_Configuration = new Configuration(GEN_ITERATIONS, ACTIVE_CHANNEL, LASER_PORT, (int)DELAY_MS, 
-		                                PAUSE_MS, LASER_INTENSITY, FirFilter::FILTER_TYPE,
-										NUM_PARENTS, NUM_BINDINGS, COMMON_REF,
-										NUM_RAND_ITERATIONS, NUM_RAND_TEMPLATES, NUM_END_ITERATIONS,
-										ACTIVE_TEMPLATE);
+	m_Configuration = new Configuration();
 }
 
 void UserInterface::testNeuronSpikeDetector(void)
