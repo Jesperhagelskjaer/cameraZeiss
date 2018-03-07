@@ -80,8 +80,8 @@ if exist('templateSpikeCounts', 'var')
     ylabel('iteration');
     zlabel('accumulated counts');
     title('Accumulated Counts of Neuron Spikes');
+    iterations = size(templateSpikeCounts,1);
 
-%     iterations = size(templateSpikeCounts,1);
 %     for i=1:size(templateSpikeCounts,2)
 %         spikesCount = templateSpikeCounts(iterations,i);
 %         if (iterations > spikesCount && ...
