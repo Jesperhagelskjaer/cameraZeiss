@@ -6,7 +6,7 @@ Intensity : 0.2
 On : 100
 Off : 200
 Channel : 31
-Template : 2
+Template : 19
 Filter : 0
 CommonRef : 0
 RandIterations : 50
