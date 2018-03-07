@@ -81,18 +81,58 @@ if exist('templateSpikeCounts', 'var')
     zlabel('accumulated counts');
     title('Accumulated Counts of Neuron Spikes');
 
-    iterations = size(templateSpikeCounts,1);
+%     iterations = size(templateSpikeCounts,1);
+%     for i=1:size(templateSpikeCounts,2)
+%         spikesCount = templateSpikeCounts(iterations,i);
+%         if (iterations > spikesCount && ...
+%             spikesCount > 10)
+%             % Plot only valid templates where spikes found 
+%             plot(templateSpikeCounts(:,i));
+%             name = ['Template #' num2str(i)];
+%             title(name);
+%             xlabel('iteration');
+%             ylabel('accumulated counts');
+%             pause(1);
+%         end
+%     end
+    
+    name1 = 'Templates (5-100):';
+    iterLim1 =  100;
+    name2 = 'Templates (100-1000):';
+    iterLim2 = 1000;
+    name3 = 'Templates (1000-25000):';
+    iterLim3 = 25000;
     for i=1:size(templateSpikeCounts,2)
-        if (iterations > templateSpikeCounts(iterations,i) && ...
-            templateSpikeCounts(iterations,i) > 10)
-            % Plot only valid templates where spikes found 
-            figure,
+        spikesCount = templateSpikeCounts(iterations,i);
+        if (iterLim1 > spikesCount && spikesCount > 5)
+            figure(5)
             plot(templateSpikeCounts(:,i));
-            name = ['Template #' num2str(i)];
-            title(name);
+            hold on
             xlabel('iteration');
             ylabel('accumulated counts');
-            pause(1);
+            name1 = [name1 ' T' num2str(i+1)];
+        end
+        if (iterLim2 > spikesCount && spikesCount > iterLim1)
+            figure(6)
+            plot(templateSpikeCounts(:,i));
+            hold on
+            xlabel('iteration');
+            ylabel('accumulated counts');            
+            name2 = [name2 ' T' num2str(i+1)];
+        end
+        if (iterLim3 > spikesCount && spikesCount > iterLim2)
+            figure(7)
+            plot(templateSpikeCounts(:,i));
+            hold on
+            xlabel('iteration');
+            ylabel('accumulated counts');            
+            name3 = [name3 ' T' num2str(i+1)];
         end
     end
+    figure(5)
+    title(name1);
+    figure(6)
+    title(name2);
+    figure(7)
+    title(name3);
 end
