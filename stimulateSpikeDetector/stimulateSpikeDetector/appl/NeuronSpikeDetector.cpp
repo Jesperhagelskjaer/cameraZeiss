@@ -12,7 +12,7 @@
 #include "SpikeDetect.h"
 #endif
 
-#define PRINT_ITERATIONS		40
+#define PRINT_ITERATIONS		5
 
 NeuronSpikeDetector::NeuronSpikeDetector()
 {
@@ -141,14 +141,15 @@ double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data co
 					m_TotalSpikeCounters[i] += TemplateFoundCounters[i];
 				}
 				if (m_Iterations == 0) {
-					if (GetProjectInfo()->isTemplateUsedTraining(i + 1))
-						printf("%3d ", m_TotalSpikeCounters[i]);
+					if (GetProjectInfo()->isTemplateUsedTraining(i + 1) && m_TotalSpikeCounters[i] > 0)
+						printf("%3d ", m_TotalSpikeCounters[i]%1000);
 				}
 			}
 			m_PredictTime += spikeDetector->getLatestExecutionTime();
 			if (m_Iterations == 0) {
 				// Average predition time
-				printf(" predict : %0.2f ms\r\n", m_PredictTime/(1000*PRINT_ITERATIONS));
+				//printf(" time : %0.2f ms\r\n", m_PredictTime/(1000*PRINT_ITERATIONS));
+				printf("\r");
 				m_PredictTime = 0;
 				m_Iterations = PRINT_ITERATIONS;
 			}

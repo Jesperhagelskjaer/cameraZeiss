@@ -95,7 +95,7 @@ void SpikeDetectCUDA_RTP<T>::runPrediction(void)
 					TotalFoundTimesCounters[j] += host_FoundTimesCounters[j];
 				}
 				if (projectInfo.isTemplateUsedTraining(j + 1))
-					printf("%3d ", TotalFoundTimesCounters[j]);
+					printf("%3d ", TotalFoundTimesCounters[j]%1000);
 			}
 			printf("\r");
 		}
