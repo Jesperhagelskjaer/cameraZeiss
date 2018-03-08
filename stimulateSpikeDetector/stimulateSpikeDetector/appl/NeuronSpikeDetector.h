@@ -36,6 +36,7 @@ public:
 private:
 	SpikeDetect<USED_DATATYPE> *m_pSpikeDetector;
 	uint32_t m_TotalSpikeCounters[MAXIMUM_NUMBER_OF_TEMPLATES];
+	uint32_t m_LastTotalSpikeCounters[MAXIMUM_NUMBER_OF_TEMPLATES];
 	USED_DATATYPE m_pSampleData[(int)(DATA_CHANNELS*RTP_DATA_LENGTH)]; // Pointer to start of sample block
 	USED_DATATYPE *m_pData; // Pointer to current position in sample block
 	int m_SampleDataSize; // Size of sample block to analyse

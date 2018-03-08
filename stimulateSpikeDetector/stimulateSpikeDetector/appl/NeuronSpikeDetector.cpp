@@ -12,7 +12,7 @@
 #include "SpikeDetect.h"
 #endif
 
-#define PRINT_ITERATIONS		5
+#define PRINT_ITERATIONS		10
 
 NeuronSpikeDetector::NeuronSpikeDetector()
 {
@@ -89,6 +89,7 @@ void NeuronSpikeDetector::SetSampleSize(int size)
 
 	for (int i = 0; i < MAXIMUM_NUMBER_OF_TEMPLATES; i++) {
 		m_TotalSpikeCounters[i] = 0;
+		m_LastTotalSpikeCounters[i] = 0;
 	}
 
 #ifdef USE_CUDA
@@ -96,12 +97,12 @@ void NeuronSpikeDetector::SetSampleSize(int size)
 		if (((SpikeDetectCUDA_RTP<USED_DATATYPE> *)m_pSpikeDetector)->prepareCUDAPrediction() == 0)
 			m_predictInitialized = true;
 	}
+	printf("\r\n------------------------------------------------------------ TEMPLATES USED --------------------------------------------------------------------------------------\r\n");
 	for (int i = 0; i < MAXIMUM_NUMBER_OF_TEMPLATES; i++) {
 		m_TotalSpikeCounters[i] = 0;
 		if (GetProjectInfo()->isTemplateUsedTraining(i + 1))
-			printf("T%02d ", i + 1);
+			printf("%02d ", i + 1);
 	}
-	printf("\r\n---------------------------------------------------------------------------------------------------------------------------------------------------------\r\n");
 #endif
 }
 
@@ -141,9 +142,11 @@ double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data co
 					m_TotalSpikeCounters[i] += TemplateFoundCounters[i];
 				}
 				if (m_Iterations == 0) {
-					if (GetProjectInfo()->isTemplateUsedTraining(i + 1) && m_TotalSpikeCounters[i] > 0)
-						printf("%3d ", m_TotalSpikeCounters[i]%1000);
+					if (GetProjectInfo()->isTemplateUsedTraining(i + 1)) // && m_TotalSpikeCounters[i] > 0)
+						printf("%2d ", m_TotalSpikeCounters[i] - m_LastTotalSpikeCounters[i]);
+						//printf("%3d ", m_TotalSpikeCounters[i]%1000);
 				}
+				m_LastTotalSpikeCounters[i] = m_TotalSpikeCounters[i];
 			}
 			m_PredictTime += spikeDetector->getLatestExecutionTime();
 			if (m_Iterations == 0) {

@@ -105,7 +105,7 @@ if exist('templateSpikeCounts', 'var')
     for i=1:size(templateSpikeCounts,2)
         spikesCount = templateSpikeCounts(iterations,i);
         if (iterLim1 > spikesCount && spikesCount > 5)
-            figure(5)
+            figure(7)
             plot(templateSpikeCounts(:,i));
             hold on
             xlabel('iteration');
@@ -113,7 +113,7 @@ if exist('templateSpikeCounts', 'var')
             name1 = [name1 ' T' num2str(i+1)];
         end
         if (iterLim2 > spikesCount && spikesCount > iterLim1)
-            figure(6)
+            figure(8)
             plot(templateSpikeCounts(:,i));
             hold on
             xlabel('iteration');
@@ -121,7 +121,7 @@ if exist('templateSpikeCounts', 'var')
             name2 = [name2 ' T' num2str(i+1)];
         end
         if (iterLim3 > spikesCount && spikesCount > iterLim2)
-            figure(7)
+            figure(9)
             plot(templateSpikeCounts(:,i));
             hold on
             xlabel('iteration');
@@ -129,10 +129,10 @@ if exist('templateSpikeCounts', 'var')
             name3 = [name3 ' T' num2str(i+1)];
         end
     end
-    figure(5)
-    title(name1);
-    figure(6)
-    title(name2);
     figure(7)
+    title(name1);
+    figure(8)
+    title(name2);
+    figure(9)
     title(name3);
 end
