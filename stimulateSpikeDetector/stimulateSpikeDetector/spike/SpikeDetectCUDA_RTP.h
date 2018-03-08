@@ -39,6 +39,7 @@ template <class T>
 SpikeDetectCUDA_RTP<T>::SpikeDetectCUDA_RTP() :
 	SpikeDetectCUDA()
 {
+	t1 = high_resolution_clock::now(); // Init start time t1
 	host_FoundTimesCounters = NULL;
 	host_FoundTimesP = NULL;
 }
@@ -58,7 +59,7 @@ uint32_t* SpikeDetectCUDA_RTP<T>::getFoundTimesCounters(void)
 /*----------------------------------------------------------------------------*/
 /**
 * @brief The testing/prediction loop using the trained model upon new data.
-*
+* 
 * @retval void : none
 */
 template <class T>
@@ -115,7 +116,7 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 {
 	cudaError_t cudaStatus = cudaError_t::cudaSuccess;
 
-	t1 = high_resolution_clock::now();
+	//t1 = high_resolution_clock::now(); // Duration approx 1.0 ms for 5.0 ms data
 
 	/* Memory copy raw data to GPU*/
 	cudaStatus = MemCpyCUDAData(dev_DataPointerP, dataPointerP, (uint32_t)RTP_DATA_LENGTH, (uint32_t)DATA_CHANNELS, (uint16_t)sizeof(USED_DATATYPE));
@@ -162,13 +163,14 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 		return cudaStatus;
 	}
 
+	/* NOT USED YET! - save time to copy result - takes 4-5 ms
 	cudaStatus = RetreiveResultsU32(dev_FoundTimesP, host_FoundTimesP, (uint32_t)MAXIMUM_NUMBER_OF_TEMPLATES, (uint32_t)MAXIMUM_PREDICTION_SAMPLES, (uint16_t)sizeof(uint32_t));
 	if (cudaStatus != cudaError_t::cudaSuccess)
 	{
 		std::cout << "CUDA Error fetching times array" << std::endl;
 		return cudaStatus;
 	}
-
+	*/
 
 #ifdef PRINT_OUTPUT_INFO
 //	classifierController.verifyPredictionBasedOnTemplatesCUDA(host_FoundTimesCounters, host_FoundTimesP, &templateController);
@@ -177,6 +179,8 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 	t2 = high_resolution_clock::now();
 	auto duration = duration_cast<microseconds>(t2 - t1).count();
 	f_latestExecutionTime = (float)duration;
+	t1 = high_resolution_clock::now(); // Measure turn total turnaround time
+
 	//std::cout << "RTP: " << f_latestExecutionTime / 1000 << " ms" << std::endl;
 
 	return cudaStatus;

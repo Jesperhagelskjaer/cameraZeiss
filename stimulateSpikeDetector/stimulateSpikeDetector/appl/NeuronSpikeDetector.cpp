@@ -151,8 +151,8 @@ double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data co
 			m_PredictTime += spikeDetector->getLatestExecutionTime();
 			if (m_Iterations == 0) {
 				// Average predition time
-				//printf(" time : %0.2f ms\r\n", m_PredictTime/(1000*PRINT_ITERATIONS));
-				printf("\r");
+				printf(" time %0.2f ms\r", m_PredictTime/(1000*PRINT_ITERATIONS));
+				//printf("\r");
 				m_PredictTime = 0;
 				m_Iterations = PRINT_ITERATIONS;
 			}
