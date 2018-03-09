@@ -179,7 +179,9 @@ SLMTemplate *SLMParentsCUDA::GenerateOffspring(void)
 	//pTemplate2->Print();
 	//cout << endl << endl;
 
-	GenBinaryCUDA(BinaryTemplate1C_.matrixCUDA_, (int)BinaryTemplate1C_.Stride_);
+	//TO BE FIXED!!! GenBinaryCUDA(BinaryTemplate1C_.matrixCUDA_, (int)BinaryTemplate1C_.Stride_);
+	BinaryTemplate1C_.GenBinary();
+	BinaryTemplate1C_.CopyToCUDA();
 
 	GenBinaryInverseCUDA(BinaryTemplate2C_.matrixCUDA_, BinaryTemplate1C_.matrixCUDA_, (int)BinaryTemplate2C_.Stride_, (int)BinaryTemplate1C_.Stride_);
 

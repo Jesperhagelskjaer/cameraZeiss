@@ -43,6 +43,8 @@ int genericCUDATest(void)
 	    StopTimer(&cudaTimer);
 		printf("Offspring %.2f ms\r\n", GetTimer(&cudaTimer));
 		pSLMParents->CompareCostAndInsertTemplate(8);
+		pSLMParents->GenerateOffspring();
+		pSLMParents->CompareCostAndInsertTemplate(9);
 		//timeMeas.printDuration("Offspring");
 	}
 	pSLMParents->PrintTemplates();

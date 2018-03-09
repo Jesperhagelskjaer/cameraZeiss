@@ -22,7 +22,7 @@
  *
  */
 __global__ void
-genBinaryTemplate( unsigned char* dst, int strideDst)
+genBinaryTemplate( unsigned char* dst, int seed, int strideDst)
 {
   int row = blockIdx.y * blockDim.y + threadIdx.y;
   int col = blockIdx.x * blockDim.x + threadIdx.x;
@@ -32,15 +32,16 @@ genBinaryTemplate( unsigned char* dst, int strideDst)
   curandState_t state;
 
   /* we have to initialize the state */
-  curand_init(0, /* the seed controls the sequence of random values that are produced */
-              0, /* the sequence number is only important with multiple cores */
-              0, /* the offset is how much extra we advance in the sequence for each call, can be 0 */
+  curand_init(seed, /* the seed controls the sequence of random values that are produced */
+              0,  /* the sequence number is only important with multiple cores */
+              0,    /* the offset is how much extra we advance in the sequence for each call, can be 0 */
               &state);
 
   /* curand works like rand - except that it takes a state as a parameter */
   dst[row * strideDst + col] = curand(&state) % 2;
 }
 
+// THIS FUNCTION IS NOT WORKING YET KBE!!!!
 void GenBinaryCUDA(unsigned char* matrixCUDA_, int Stride_)
 {
 	//setup execution parameters
@@ -51,7 +52,7 @@ void GenBinaryCUDA(unsigned char* matrixCUDA_, int Stride_)
     //DEBUG_MSG("Threads in Block [%d,%d]\n", threads.x, threads.y);
 
     // Generate binary template
-    genBinaryTemplate<<< grid, threads >>>(matrixCUDA_, Stride_);
+    genBinaryTemplate<<< grid, threads >>>(matrixCUDA_, (int)time(NULL), Stride_);
     //cutilSafeCall(cudaThreadSynchronize());
 }
 

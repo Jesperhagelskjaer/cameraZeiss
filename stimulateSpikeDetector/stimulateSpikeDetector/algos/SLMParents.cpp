@@ -180,13 +180,13 @@ void SLMTemplate::Print(void)
 {
 	//#ifdef DEBUG_
 	printf("cost: %f\r\n", cost_);
-	printf("line1: %d %d %d %d %d %d %d\r\n", matrix_[0][0], matrix_[0][1], matrix_[0][2], matrix_[0][3], matrix_[0][4], matrix_[0][5], matrix_[0][6]);
-	printf("line2: %d %d %d %d %d %d %d\r\n", matrix_[1][0], matrix_[1][1], matrix_[1][2], matrix_[1][3], matrix_[1][4], matrix_[1][5], matrix_[1][6]);
-	printf("line3: %d %d %d %d %d %d %d\r\n", matrix_[2][0], matrix_[2][1], matrix_[2][2], matrix_[2][3], matrix_[2][4], matrix_[2][5], matrix_[2][6]);
-	printf("line4: %d %d %d %d %d %d %d\r\n", matrix_[3][0], matrix_[3][1], matrix_[3][2], matrix_[3][3], matrix_[3][4], matrix_[3][5], matrix_[3][6]);
-	printf("line5: %d %d %d %d %d %d %d\r\n", matrix_[4][0], matrix_[4][1], matrix_[4][2], matrix_[4][3], matrix_[4][4], matrix_[4][5], matrix_[4][6]);
-	printf("line6: %d %d %d %d %d %d %d\r\n", matrix_[5][0], matrix_[5][1], matrix_[5][2], matrix_[5][3], matrix_[5][4], matrix_[5][5], matrix_[5][6]);
-	printf("line7: %d %d %d %d %d %d %d\r\n", matrix_[6][0], matrix_[6][1], matrix_[6][2], matrix_[6][3], matrix_[6][4], matrix_[6][5], matrix_[6][6]);
+
+	for (int j = 0; j < 10; j++) {
+		printf("line%02d:", j + 1);
+		for (int i = 0; i < 16; i++)
+			printf(" %3d", matrix_[j][i]);
+		printf("\r\n");
+	}
 	//#endif
 }
 
