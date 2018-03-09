@@ -14,6 +14,11 @@ SLMTemplate::SLMTemplate(int binding)
 	binding_ = binding;
 }
 
+SLMTemplate::~SLMTemplate()
+{
+	//std::cout << "Destroy template" << std::endl;
+}
+
 void SLMTemplate::SetCost(double cost)
 {
 	cost_ = cost;

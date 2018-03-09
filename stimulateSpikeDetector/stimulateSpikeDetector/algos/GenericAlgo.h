@@ -7,7 +7,8 @@
 #pragma once
 
 #include <windows.h>
-#include "SLMParents.h"
+#include <stdio.h>
+
 #include "TemplateImages.h"
 #include "TimeMeasure.h"
 #ifdef LASER_INTERFACE_
@@ -15,6 +16,12 @@
 #endif
 #ifdef SLM_INTERFACE_
 	#include "SLMInterface.h"
+#endif
+
+#ifdef USE_CUDA_GEN
+#include "SLMParentsCUDA.h"
+#else
+#include "SLMParents.h"
 #endif
 
 class GenericAlgo {
@@ -25,7 +32,12 @@ public:
 		: laser(115200)
 #endif
 	{
+#ifdef USE_CUDA_GEN
+		pSLMParents_ = new SLMParentsCUDA(numParents, numBindings);
+		pSLMParents_->InitCUDA();
+#else
 		pSLMParents_ = new SLMParents(numParents, numBindings);
+#endif
 		pImg_ = new CamImage();
 		num_iterations_ = numIterations;
 		laserIntensity_ = 0;
@@ -39,7 +51,13 @@ public:
 		: laser(115200)
 #endif
 	{
-		pSLMParents_ = new SLMParents(NUM_PARENTS, NUM_BINDINGS);
+
+#ifdef USE_CUDA_GEN
+		pSLMParents_ = new SLMParentsCUDA(numParents, numBindings);
+		pSLMParents_->InitCUDA();
+#else
+		pSLMParents_ = new SLMParents(numParents, numBindings);
+#endif
 		pImg_ = new CamImage();
 		pSLMInterface_ = new SLMInterface(pSLMsdk);
 		laserIntensity_ = 0;
@@ -200,7 +218,13 @@ private:
 
 private:
 	int num_iterations_;
+
+#ifdef USE_CUDA_GEN
+	SLMParentsCUDA *pSLMParents_;
+#else
 	SLMParents *pSLMParents_;
+#endif
+	
 	CamImage *pImg_;
 	//TimeMeasure timeMeas;
 	float laserIntensity_;

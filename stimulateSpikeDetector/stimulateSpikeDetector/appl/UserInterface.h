@@ -38,6 +38,8 @@ private:
 	// Tests
 	void testCollectNeuronData(void);
 	void testNeuronSpikeDetector(void);
+	void testGenericAlgorithm(void);
+
 
 	// Run stimulation of neurons maximizing light intensity for channel
 	void runStimulateNeurons(Configuration *config);

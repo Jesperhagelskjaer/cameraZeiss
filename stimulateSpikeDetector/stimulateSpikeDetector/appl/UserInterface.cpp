@@ -30,6 +30,19 @@ void UserInterface::init(void)
 	m_Configuration = new Configuration();
 }
 
+int genericAlgoTest(void);
+int genericCUDATest(void);
+
+void UserInterface::testGenericAlgorithm(void)
+{
+#ifdef USE_CUDA_GEN
+	genericCUDATest();
+#else
+	genericAlgoTest();
+#endif
+
+}
+
 void UserInterface::testNeuronSpikeDetector(void)
 {
 	m_NeuronSpikeDetector = new NeuronSpikeDetector();
@@ -169,6 +182,7 @@ void UserInterface::run()
 		printf("\r\nSelect menu: \r\n");
 		printf("t. Test collect neuron data\r\n");
 		printf("n. Test neuron spike detector \r\n");
+		printf("g. Test generic algorithm \r\n");
 		printf("p. Print configuration\r\n");
 		printf("r. Read configuration file\r\n");
 		printf("s. Stimulate neurons\r\n");
@@ -204,6 +218,9 @@ void UserInterface::run()
 				break;
 			case 'n':
 				testNeuronSpikeDetector(); // Test train and predict on simulated test data
+				break;
+			case 'g':
+				testGenericAlgorithm();
 				break;
 			case 'e':
 				running = false;

@@ -15,6 +15,7 @@ class SLMTemplate
 {
 public:
 	SLMTemplate(int binding);
+	virtual ~SLMTemplate();
 	void SetCost(double cost);
 	double GetCost(void);
 	void GenRandom(void);
@@ -42,10 +43,10 @@ public:
 	SLMParents(int numParents, int numBinding);
 	~SLMParents();
 	bool IsTemplatesFull(void);
-	void GenerateNewParent(void);
+	virtual void GenerateNewParent(void);
 	void PrintTemplatesCost(void);
 	void PrintTemplates(void);
-	SLMTemplate *GenerateOffspring(void);
+	virtual SLMTemplate *GenerateOffspring(void);
 	void CompareCostAndInsertTemplate(double cost);
 	//void GenParents(void);
 	unsigned char* GetNewParentMatrixPtr(void);

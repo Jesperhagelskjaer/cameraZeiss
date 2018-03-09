@@ -193,6 +193,18 @@
     <ClInclude Include="appl\SpikeDataGenerator.h">
       <Filter>appl</Filter>
     </ClInclude>
+    <ClInclude Include="algos\SLMParentsCUDA.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\cutil_inline_runtime.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\helper_timer.h">
+      <Filter>algos</Filter>
+    </ClInclude>
+    <ClInclude Include="algos\TimerCUDA.h">
+      <Filter>algos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -254,6 +266,12 @@
     <ClCompile Include="spike\ProjectInfo.cpp">
       <Filter>spike</Filter>
     </ClCompile>
+    <ClCompile Include="algos\SLMParentsCUDA.cpp">
+      <Filter>algos</Filter>
+    </ClCompile>
+    <ClCompile Include="appl\genericCUDATest.cpp">
+      <Filter>appl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="config.txt" />
@@ -273,6 +291,9 @@
     </CudaCompile>
     <CudaCompile Include="spike\NXCOR_CUDA.cu">
       <Filter>spike</Filter>
+    </CudaCompile>
+    <CudaCompile Include="algos\SLMParentsCUDA.cu">
+      <Filter>algos</Filter>
     </CudaCompile>
   </ItemGroup>
 </Project>

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algos\cutil_inline_runtime.h" />
     <ClInclude Include="algos\defs.h" />
     <ClInclude Include="algos\FilterCoeffs_0_1Hz.h" />
     <ClInclude Include="algos\FilterCoeffs_100Hz.h" />
@@ -19,10 +20,13 @@
     <ClInclude Include="algos\FilterCoeffs_300Hz.h" />
     <ClInclude Include="algos\FirFilter.h" />
     <ClInclude Include="algos\GenericAlgo.h" />
+    <ClInclude Include="algos\helper_timer.h" />
     <ClInclude Include="algos\mcam_zei.h" />
     <ClInclude Include="algos\mcam_zei_ex.h" />
     <ClInclude Include="algos\SLMParents.h" />
+    <ClInclude Include="algos\SLMParentsCUDA.h" />
     <ClInclude Include="algos\TemplateImages.h" />
+    <ClInclude Include="algos\TimerCUDA.h" />
     <ClInclude Include="appl\AnalyseNeuronData.h" />
     <ClInclude Include="appl\AnalyseNeuronDataCAR.h" />
     <ClInclude Include="appl\AnalyseNeuronDataCMR.h" />
@@ -75,12 +79,14 @@
   <ItemGroup>
     <ClCompile Include="algos\FirFilter.cpp" />
     <ClCompile Include="algos\SLMParents.cpp" />
+    <ClCompile Include="algos\SLMParentsCUDA.cpp" />
     <ClCompile Include="appl\AnalyseNeuronData.cpp" />
     <ClCompile Include="appl\AnalyseNeuronDataCAR.cpp" />
     <ClCompile Include="appl\AnalyseNeuronDataCMR.cpp" />
     <ClCompile Include="appl\AnalyseNeuronSpikeDetector.cpp" />
     <ClCompile Include="appl\CollectNeuronDataThread.cpp" />
     <ClCompile Include="appl\genericAlgoTest.cpp" />
+    <ClCompile Include="appl\genericCUDATest.cpp" />
     <ClCompile Include="appl\neuronCaptureTest.cpp" />
     <ClCompile Include="appl\NeuronSpikeDetector.cpp" />
     <ClCompile Include="appl\SpikeDataGenerator.cpp" />
@@ -99,6 +105,7 @@
     <Text Include="config.txt" />
   </ItemGroup>
   <ItemGroup>
+    <CudaCompile Include="algos\SLMParentsCUDA.cu" />
     <CudaCompile Include="spike\Channel_CUDA.cu" />
     <CudaCompile Include="spike\Classifier_CUDA.cu" />
     <CudaCompile Include="spike\Kernel_CUDA.cu" />
