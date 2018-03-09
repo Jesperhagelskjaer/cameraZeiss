@@ -38,8 +38,8 @@ Blink_SDK sdk(bits_per_pixel, pixel_dimension, &n_boards_found,
 //#define TEST_SIZE 4
 //double costTest[TEST_SIZE] = { 2, 4, 1, 3 };
 
-#define TEST_SIZE 6
-double costTest[TEST_SIZE] = { 0, 0, 2, 4, 1, 3 };
+#define TEST_SIZE 5
+double costTest[TEST_SIZE] = { 5, 7, 12, 8, 10};
 
 int genericAlgoTest(void)
 {

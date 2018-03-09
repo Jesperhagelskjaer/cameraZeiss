@@ -179,9 +179,10 @@ void UserInterface::run()
 	init();
 
 	while (running) {
-		printf("\r\nOptical Neuron Stimulator with Spike Detection Ver. 1.0\r\n");
+		printf("\r\n");
 		printf("-------------------------------------------------------\r\n");
-		printf("Select function: \r\n");
+		printf("Optical Neuron Stimulator with Spike Detection Ver. 1.0\r\n");
+		printf("-------------------------------------------------------\r\n");
 #ifndef TEST_GEN_SPIKES_ 
 		printf("t. Test collect neuron data\r\n");
 #endif

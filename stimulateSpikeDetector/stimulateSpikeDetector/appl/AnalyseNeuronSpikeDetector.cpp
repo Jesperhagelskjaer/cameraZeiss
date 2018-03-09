@@ -42,12 +42,16 @@ void AnalyseNeuronSpikeDetector::AddSpikeDetector(NeuronSpikeDetector *pNeuronSp
 
 double AnalyseNeuronSpikeDetector::CalculateCost()
 {
+	enter();
+
 	double cost = 0;
 	if (m_pNeuronSpikeDetector != 0) {
 		cost = m_pNeuronSpikeDetector->RealtimePredict();
 		m_TotalSpikesFound += (int)cost;
 		//cost = rand();
 	}
+
+	exit();
 	return cost;
 }
 

@@ -129,7 +129,7 @@ void ClassifierController<T>::performTrainingBasedOnTemplates(NXCORController<T>
 
 #ifdef PRINT_OUTPUT_INFO
 			float wF1Score = pointer->calculateWF1Score(pointer->getLatestTrainingPrecision(), pointer->getLatestTrainingRecall());
-			std::cout << "Train template: " << i + 1 << " thredshold: " << pointer->getThreshold() << " W-F1 score: " << wF1Score << std::endl;
+			std::cout << "Train template: " << setw(2) << i + 1 << " thredshold: " << setw(4) << pointer->getThreshold() << " W-F1 score: " << wF1Score << std::endl;
 #endif
 		}
 	}
@@ -224,7 +224,7 @@ void ClassifierController<T>::performTrainingBasedOnTemplatesPart2(uint32_t *hos
 			pointer->TrainFromCUDAResults(projectInfoRefPtr->isTemplateUsedTraining(i + 1), PredictionCountsForTemplate, TPScoresForTemplate);
 #ifdef PRINT_OUTPUT_INFO
 			float wF1Score = pointer->calculateWF1Score(pointer->getLatestTrainingPrecision(), pointer->getLatestTrainingRecall());
-			std::cout << "Train template: " << i + 1 << " threshold: " << pointer->getThreshold() << " W-F1 score: " << wF1Score << std::endl;
+			std::cout << "Train template: " << setw(2) << i + 1 << " threshold: " << setw(4) << pointer->getThreshold() << " W-F1 score: " << wF1Score << std::endl;
 #endif
 		}
 	}
@@ -325,7 +325,7 @@ void ClassifierController<T>::performPredictionBasedOnTemplates(NXCORController<
 			TTClassifier<T>* pointer = arrayOfClassifier[i];
 			wF1Score = pointer->PredictAndCompare(nxcorControllerRef->getFeatureForTemplate(i + 1), projectInfoRefPtr->getTemplateTruthTablePrediction(i + 1), projectInfoRefPtr->isTemplateUsedPrediction(i + 1), (TRAINING_DATA_LENGTH - TEMPLATE_CROPPED_LENGTH), templateController->getTemplatePeakOffset(i + 1));
 #ifdef PRINT_OUTPUT_INFO
-			std::cout << "Predict template: " << i+1 << " W-F1 score: " << wF1Score << std::endl;
+			std::cout << "Predict template: " << setw(2) << i+1 << " W-F1 score: " << wF1Score << std::endl;
 #endif	
 		}
 	}
