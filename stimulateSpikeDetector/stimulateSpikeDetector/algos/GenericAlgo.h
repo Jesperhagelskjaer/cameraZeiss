@@ -11,9 +11,8 @@
 
 #include "TemplateImages.h"
 #include "TimeMeasure.h"
-#ifdef LASER_INTERFACE_
-	#include "LaserInterface.h"
-#endif
+#include "LaserInterface.h"
+
 #ifdef SLM_INTERFACE_
 	#include "SLMInterface.h"
 #endif
@@ -28,13 +27,12 @@ class GenericAlgo {
 public:
 	
 	GenericAlgo(int numParents, int numBindings, int numIterations) 
-#ifdef LASER_INTERFACE_
 		: laser(115200)
-#endif
 	{
 #ifdef USE_CUDA_GEN
 		pSLMParents_ = new SLMParentsCUDA(numParents, numBindings);
 		pSLMParents_->InitCUDA();
+		std::cout << "CUDA Optimized Generic Algorithm, NOT FULLY TESTED" << std::endl;
 #else
 		pSLMParents_ = new SLMParents(numParents, numBindings);
 #endif
@@ -47,9 +45,7 @@ public:
 	}
 
 	GenericAlgo(Blink_SDK *pSLMsdk)
-#ifdef LASER_INTERFACE_
 		: laser(115200)
-#endif
 	{
 
 #ifdef USE_CUDA_GEN
@@ -67,24 +63,18 @@ public:
 
 	void OpenLaserPort(int port, float intensity)
 	{
-#ifdef LASER_INTERFACE_
 		laser.OpenPort(port);
-#endif
 		laserIntensity_ = intensity;
 	}
 
 	void TurnLaserOn(void)
 	{
-#ifdef LASER_INTERFACE_		
 		laser.TurnOn(laserIntensity_);
-#endif
 	}
 
 	void TurnLaserOff(void)
 	{
-#ifdef LASER_INTERFACE_
 		laser.TurnOff();
-#endif
 	}
 
 	float GetLaserIntensity(void)
@@ -228,7 +218,5 @@ private:
 	CamImage *pImg_;
 	//TimeMeasure timeMeas;
 	float laserIntensity_;
-#ifdef LASER_INTERFACE_
 	LaserInterface laser;
-#endif
 };

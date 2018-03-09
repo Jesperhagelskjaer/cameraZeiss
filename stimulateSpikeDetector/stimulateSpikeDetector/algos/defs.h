@@ -1,16 +1,15 @@
 #pragma once
 #include "ProjectDefinitions.h"
 
-// If defined then use SLM and LASER
+// If defined then use SLM
 //#define SLM_INTERFACE_		1
-#define LASER_INTERFACE_    1
 
 // To be defined for testing without Digital Lynx SX and UDP LxRecords
 #define TEST_GENERATOR_		  1
 #define TEST_GEN_SPIKES_      1         // Use data from spike simulation files
 
 // To be define for using optimized CUDA version of Generic algorithm
-//#define USE_CUDA_GEN          1  // Need more testing, CUDA memory deallocation KBE!!!
+#define USE_CUDA_GEN          1			// Need more testing, CUDA memory deallocation KBE!!!
 
 #define SAMPLE_FREQUENCY	SAMPLING_FREQUENCY // Hz
 
@@ -31,14 +30,14 @@
 // User parameters see config.txt, set as default in Configuration.h
 #define NUM_BINDINGS		8			// M modulus NUM_BINDINGS should be equal to zero !!!!
 #define NUM_PARENTS			20			// Number of parents
-#define GEN_ITERATIONS		10000		// Number of iterations for genetic algorithm to convergate
+#define GEN_ITERATIONS		20000		// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT			4			// COM port connected to laser
 #define LASER_INTENSITY		0.6f		// Intensity of laser when turned on
 #define DELAY_MS			(RTP_DATA_TIME*1000) // Delay in ms laser is turned on while analysing neuron pulses (On)
 #define PAUSE_MS			0			// Waiting delay in ms after each iteration (Off)
 #define NUM_RAND_ITERATIONS 1000        // Number of iterations before replacing templates with lowest cost with new random templates (0=turned off)
 #define NUM_RAND_TEMPLATES  10			// Number of templates with lowest cost to to be replaced
-#define NUM_END_ITERATIONS  2000        // Number of iterations after genetic algorithm is trained and converged, using template with highest cost
+#define NUM_END_ITERATIONS  4000        // Number of iterations after genetic algorithm is trained and converged, using template with highest cost
 
 // Parameters not set in UI
 #define RAND_PROPABILITY    1			// Probability function selecting templates when generating offsprings (1 = logistic probability distribution)

@@ -179,13 +179,23 @@ void UserInterface::run()
 	init();
 
 	while (running) {
-		printf("\r\nSelect menu: \r\n");
+		printf("\r\nOptical Neuron Stimulator with Spike Detection Ver. 1.0\r\n");
+		printf("-------------------------------------------------------\r\n");
+		printf("Select function: \r\n");
+#ifndef TEST_GEN_SPIKES_ 
 		printf("t. Test collect neuron data\r\n");
+#endif
 		printf("n. Test neuron spike detector \r\n");
+#ifdef	USE_CUDA_GEN
+		printf("g. Test CUDA optimized generic algorithm \r\n");
+#else
 		printf("g. Test generic algorithm \r\n");
+#endif
 		printf("p. Print configuration\r\n");
 		printf("r. Read configuration file\r\n");
+#ifndef TEST_GEN_SPIKES_ 
 		printf("s. Stimulate neurons\r\n");
+#endif
 		printf("i. Stimulate individual neurons\r\n");
 		printf("e. Exit\r\n");
 		printf("\r\n> ");
@@ -193,9 +203,14 @@ void UserInterface::run()
 
 		switch (choise) 
 		{
+#ifndef TEST_GEN_SPIKES_ 
 			case 't':
 				testCollectNeuronData();
 				break;
+			case 's':
+				runStimulateNeurons(m_Configuration); // Channel (0-31), loops, ms delay
+				break;
+#endif
 			case 'p':
 				m_Configuration->Print();
 				break;
@@ -209,9 +224,6 @@ void UserInterface::run()
 					strcpy(fileName, DEFAULT_CONFIG); // Default configuration
 				m_Configuration->ReadConfiguration(fileName);
 				m_Configuration->Print();
-				break;
-			case 's':
-			    runStimulateNeurons(m_Configuration); // Channel (0-31), loops, ms delay
 				break;
 			case 'i':
 				runStimulateIndividualNeurons(m_Configuration); 
