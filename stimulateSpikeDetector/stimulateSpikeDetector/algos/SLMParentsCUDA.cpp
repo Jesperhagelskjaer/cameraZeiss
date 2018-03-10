@@ -15,7 +15,8 @@ void GenBinaryCUDA(unsigned char* matrixCUDA_, int Stride_);
 void GenBinaryInverseCUDA(unsigned char* dst, unsigned char* src, int strideDst, int strideSrc);
 void MultiplyCellCUDA(unsigned char* dst, unsigned char* src1, unsigned char* src2, int strideDst, int strideSrc);
 void AddCellCUDA(unsigned char* dst, unsigned char* src1, unsigned char* src2, int strideDst, int strideSrc);
-
+void initCUDARandom(void);
+void freeCUDARandom(void);
 
 SLMTemplateCUDA::SLMTemplateCUDA(int binding) : SLMTemplate(binding)
 {
@@ -125,6 +126,8 @@ bool SLMParentsCUDA::InitCUDA(void)
         return false;
     }
 
+	initCUDARandom();
+
 	BinaryTemplate1C_.MallocMatrixOnCUDA();
 	BinaryTemplate2C_.MallocMatrixOnCUDA();
 	Parent1C_.MallocMatrixOnCUDA();
@@ -141,6 +144,8 @@ bool SLMParentsCUDA::ExitCUDA(void)
    BinaryTemplate2C_.FreeMemoryOnCUDA();
    Parent1C_.FreeMemoryOnCUDA();
    Parent2C_.FreeMemoryOnCUDA();
+
+   freeCUDARandom();
 
     // cudaDeviceReset must be called before exiting in order for profiling and
     // tracing tools such as Nsight and Visual Profiler to show complete traces.
@@ -179,9 +184,10 @@ SLMTemplate *SLMParentsCUDA::GenerateOffspring(void)
 	//pTemplate2->Print();
 	//cout << endl << endl;
 
-	//TO BE FIXED!!! GenBinaryCUDA(BinaryTemplate1C_.matrixCUDA_, (int)BinaryTemplate1C_.Stride_);
-	BinaryTemplate1C_.GenBinary();
-	BinaryTemplate1C_.CopyToCUDA();
+	GenBinaryCUDA(BinaryTemplate1C_.matrixCUDA_, (int)BinaryTemplate1C_.Stride_);
+	BinaryTemplate1C_.CopyFromCUDA();
+	//BinaryTemplate1C_.GenBinary();
+	//BinaryTemplate1C_.CopyToCUDA();
 
 	GenBinaryInverseCUDA(BinaryTemplate2C_.matrixCUDA_, BinaryTemplate1C_.matrixCUDA_, (int)BinaryTemplate2C_.Stride_, (int)BinaryTemplate1C_.Stride_);
 

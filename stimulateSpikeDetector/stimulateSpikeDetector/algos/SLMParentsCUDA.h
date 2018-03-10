@@ -11,7 +11,7 @@
 using namespace std;
 #include "SLMParents.h"
 
-#define BLOCK_SIZE		16   // CUDA block size
+#define BLOCK_SIZE		32   // CUDA block size
 
 class SLMTemplateCUDA : public SLMTemplate
 {
