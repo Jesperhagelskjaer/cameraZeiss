@@ -9,7 +9,7 @@
 #define TEST_GEN_SPIKES_      1         // Use data from spike simulation files
 
 // To be define for using optimized CUDA version of Generic algorithm
-//#define USE_CUDA_GEN          1			// Need more testing, CUDA memory deallocation KBE!!!
+//#define USE_CUDA_GEN          1			// Not verified in lab.
 
 #define SAMPLE_FREQUENCY	SAMPLING_FREQUENCY // Hz
 

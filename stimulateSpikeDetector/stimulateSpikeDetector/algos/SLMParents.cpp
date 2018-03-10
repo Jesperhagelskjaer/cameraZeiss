@@ -314,14 +314,14 @@ void SLMParents::CompareCostAndInsertTemplate(double cost)
 	pParentNew_->SetCost(cost);
 	if (SLMTemplates_.size() == 0) {
 		SLMTemplates_.push_back(pParentNew_); // Empty list
-		printf("New first cost %.0f, %.1f  \r\n", cost, pParentNew_->GetProbability());
+		printf("New first cost %3.0f, %.1f  \r\n", cost, pParentNew_->GetProbability());
 	} else {
 
 		for (vector<SLMTemplate*>::iterator it = SLMTemplates_.begin(); it != SLMTemplates_.end(); ++it) {
 			SLMTemplate* pTemplate = *it;
 			if (cost > pTemplate->GetCost()) {
 				SLMTemplates_.insert(it, pParentNew_); // Template higher cost insert
-				printf("New cost %.0f, %.1f  \r\n", cost, pParentNew_->GetProbability());
+				printf("New cost %3.0f, %.1f  \r\n", cost, pParentNew_->GetProbability());
 				found = true;
 				break;
 			}
@@ -330,7 +330,7 @@ void SLMParents::CompareCostAndInsertTemplate(double cost)
 		if (SLMTemplates_.size() < numParents_) {
 			// First number of random templates
 			if (!found) {
-				printf("New back cost %.0f, %.1f  \r\n", cost, pParentNew_->GetProbability());
+				printf("New back cost %3.0f, %.1f  \r\n", cost, pParentNew_->GetProbability());
 				SLMTemplates_.push_back(pParentNew_); // Template lower cost and list not full
 			}
 		} else if (found) {
@@ -395,7 +395,7 @@ void SLMParents::DeleteTemplates(int num)
 		for (int n = 0; n < num; n++) {
 			vector<SLMTemplate*>::iterator it = SLMTemplates_.end() - 1;
 			SLMTemplate* pParentLast = *it;
-			printf("%.0f, ", pParentLast->GetCost());
+			printf("%3.0f, ", pParentLast->GetCost());
 			SLMTemplates_.erase(it);
 			delete pParentLast;
 		}

@@ -20,6 +20,13 @@ public:
 	virtual int AppendCostToFile(double cost);
 	NeuronSpikeDetector *GetNeuronSpikeDetector(void) { return m_pNeuronSpikeDetector; };
 	int GetTotalSpikesFound(void) { return m_TotalSpikesFound; };
+	void PrintTotalSpikeCounters(void) {
+		uint32_t *TotalSpikeCounters = m_pNeuronSpikeDetector->GetTotalSpikeCounters();
+		for (int j = 0; j < MAXIMUM_NUMBER_OF_TEMPLATES; j++) {
+			printf("Template: %2d spike counts: %5d\r\n", j + 1, TotalSpikeCounters[j]);
+		}
+	}
+
 protected:
 	virtual void SearchPattern(LxRecord * pLxRecord);
 private:

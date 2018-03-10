@@ -39,6 +39,8 @@ void StimulateNeuronThread::finalRun(int iterations)
 		m_AnalyseNeuronData->WaitAnalyseSamples();
 		m_GenericAlgo->TurnLaserOff();
 		cost = m_AnalyseNeuronData->CalculateCost();
+		timeMeas.printDuration("");
+		timeMeas.setStartTime();
 		m_AnalyseNeuronData->AppendCostToFile(cost);
 		printf("\rEND %3d ", iter);
 		iter--;
