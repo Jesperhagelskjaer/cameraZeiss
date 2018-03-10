@@ -29,7 +29,7 @@ for i=1:size(fileList,1)
     end
 end
 
-length = 10000;
+length = 20000;
 figure,
 surf(channels(1:length,:));
 xlabel('channels');
@@ -37,7 +37,7 @@ ylabel('samples');
 zlabel('amplitude');
 
 figure
-plot(header(1:length,3));
+plot(header(1:length*2,3));
 xlabel('samples');
 % 0 = stopped
 % 1 = measure average
@@ -110,7 +110,7 @@ if exist('templateSpikeCounts', 'var')
             hold on
             xlabel('iteration');
             ylabel('accumulated counts');
-            name1 = [name1 ' T' num2str(i+1)];
+            name1 = [name1 ' T' num2str(i)];
         end
         if (iterLim2 > spikesCount && spikesCount > iterLim1)
             figure(8)
@@ -118,7 +118,7 @@ if exist('templateSpikeCounts', 'var')
             hold on
             xlabel('iteration');
             ylabel('accumulated counts');            
-            name2 = [name2 ' T' num2str(i+1)];
+            name2 = [name2 ' T' num2str(i)];
         end
         if (iterLim3 > spikesCount && spikesCount > iterLim2)
             figure(9)
@@ -126,7 +126,7 @@ if exist('templateSpikeCounts', 'var')
             hold on
             xlabel('iteration');
             ylabel('accumulated counts');            
-            name3 = [name3 ' T' num2str(i+1)];
+            name3 = [name3 ' T' num2str(i)];
         end
     end
     figure(7)
