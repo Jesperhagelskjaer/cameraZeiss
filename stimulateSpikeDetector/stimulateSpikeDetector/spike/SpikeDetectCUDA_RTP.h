@@ -107,7 +107,11 @@ void SpikeDetectCUDA_RTP<T>::runPrediction(void)
 		std::cout << "CUDA Error allocating memory, processing stopped" << std::endl;
 	}
 
-	std::cout << std::endl << "Total number of neuron spikes : " << spikesFound << std::endl;
+	std::cout << std::endl;
+	for (int j = 0; j < MAXIMUM_NUMBER_OF_TEMPLATES; j++) {
+		printf("Template: %2d spike counts: %5d\r\n", j + 1, TotalFoundTimesCounters[j]);
+	}
+	std::cout << "Total number of neuron spikes : " << spikesFound << std::endl;
 
 	// Clean up GPU and Memory
 	delete TotalFoundTimesCounters;

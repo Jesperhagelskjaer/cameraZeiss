@@ -52,15 +52,17 @@ void StimulateNeuronThread::run()
 	double cost;
 	int iter = 0;
 
+	timeMeas.setStartTime();
 	while (m_iterations > 0)
 	{
-		timeMeas.setStartTime();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_AVERAGE);
 		m_GenericAlgo->GenerateParent(); // 1-8 ms
 			//timeMeas.printDuration("Generate Parent");
 			//timeMeas.setStartTime();
 		m_GenericAlgo->SendTemplateToSLM(true); // 6 ms
-		//Sleep(5); // Simulate SLM delay
+#ifdef	TEST_GENERATOR_
+		Sleep(4); // Simulate SLM delay
+#endif
 			//timeMeas.printDuration("Send to SLM");
 			//timeMeas.setStartTime();
 		m_AnalyseNeuronData->SetMode(AnalyseNeuronData::MODE_ANALYSE);
@@ -73,11 +75,12 @@ void StimulateNeuronThread::run()
 			//timeMeas.setStartTime();
 		//Sleep(1); // NB
 		cost = m_AnalyseNeuronData->CalculateCost();
+		timeMeas.printDuration("");
+		timeMeas.setStartTime();
 		//printf("cost %f\r\n", cost);
 		m_GenericAlgo->CompareCostAndInsertTemplate(cost);
 		m_AnalyseNeuronData->AppendCostToFile(cost);
 		   //timeMeas.printDuration("Compute Cost");
-		timeMeas.printDuration("");
 		printf("\rDO %5d ", m_iterations);
 		m_iterations--;
 		if (m_randIterations > 0 && (++iter%m_randIterations == 0)) {
