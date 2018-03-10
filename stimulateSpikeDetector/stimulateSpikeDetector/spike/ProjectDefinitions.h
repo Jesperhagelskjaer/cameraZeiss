@@ -29,7 +29,7 @@
 /*********************************** SAMPLING *********************************************************/
 #define					USED_DATATYPE						float
 #define					SAMPLING_FREQUENCY					30000
-#define					TRAINING_DATA_TIME					50 // Training time must same size as generated from MATLAB
+#define					TRAINING_DATA_TIME					30 // Training time must same size as generated from MATLAB
 #define					RUNTIME_DATA_TIME					60 // The runtime/prediction data is assumed to be consecutive to the training data
 #define                 RTP_DATA_TIME                       0.005f // Runtime buffer length in seconds, must be equal to DELAY_MS in defs.h!!
 #define					TRAINING_DATA_LENGTH				SAMPLING_FREQUENCY*TRAINING_DATA_TIME
@@ -68,8 +68,8 @@
 #define					PRECISION_WEIGHT					0.7f
 #define					RECALL_WEIGHT						0.3f
 #define					ACCEPTED_TIMELINE_SLACK				3
-#define					NUMBER_OF_THRESHOLDS_TO_TEST		40
-#define				    MINIMUM_THRESHOLD_TO_TEST			0.2f
+#define					NUMBER_OF_THRESHOLDS_TO_TEST		40   
+#define				    MINIMUM_THRESHOLD_TO_TEST			0.6f // 0.2
 #define				    MAXIMUM_THRESHOLD_TO_TEST			1
 #define					MAXIMUM_TRAINING_SAMPLES			TRAINING_DATA_TIME*1000 // inidcats a Maximum 1000 spikes per template per second
 #define					MAXIMUM_PREDICTION_SAMPLES			(RTP_DATA_TIME*4000) // inidcats a Maximum peak 4000 spikes per template per second
