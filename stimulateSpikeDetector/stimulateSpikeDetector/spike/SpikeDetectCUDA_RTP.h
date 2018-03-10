@@ -25,6 +25,9 @@ public:
 	virtual void CUDACleanUpPrediction(void);
 	cudaError_t runPredictionRTP(T *dataPointerP);
 protected:
+	/* Helper variables */
+	high_resolution_clock::time_point t1RTP;
+	high_resolution_clock::time_point t2RTP;
 	uint32_t* host_FoundTimesCounters;
 	uint32_t* host_FoundTimesP;
 	uint32_t myArray[(uint32_t)MAXIMUM_NUMBER_OF_TEMPLATES] = { 0 };
@@ -39,7 +42,7 @@ template <class T>
 SpikeDetectCUDA_RTP<T>::SpikeDetectCUDA_RTP() :
 	SpikeDetectCUDA()
 {
-	t1 = high_resolution_clock::now(); // Init start time t1
+	t1RTP = high_resolution_clock::now(); // Init start time t1
 	host_FoundTimesCounters = NULL;
 	host_FoundTimesP = NULL;
 }
@@ -176,10 +179,10 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 //	classifierController.verifyPredictionBasedOnTemplatesCUDA(host_FoundTimesCounters, host_FoundTimesP, &templateController);
 #endif
 
-	t2 = high_resolution_clock::now();
-	auto duration = duration_cast<microseconds>(t2 - t1).count();
+	t2RTP = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(t2RTP - t1RTP).count();
 	f_latestExecutionTime = (float)duration;
-	t1 = high_resolution_clock::now(); // Measure turn total turnaround time
+	t1RTP = high_resolution_clock::now(); // Measure turn total turnaround time
 
 	//std::cout << "RTP: " << f_latestExecutionTime / 1000 << " ms" << std::endl;
 
