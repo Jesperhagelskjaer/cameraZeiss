@@ -42,7 +42,7 @@ void StimulateNeuronThread::finalRun(int iterations)
 		timeMeas.printDuration("");
 		timeMeas.setStartTime();
 		m_AnalyseNeuronData->AppendCostToFile(cost);
-		printf("\rEND %3d ", iter);
+		printf("\rEND %4d  ", iter);
 		iter--;
 		if (m_pausems > 0)
 			Sleep(m_pausems);
@@ -83,7 +83,7 @@ void StimulateNeuronThread::run()
 		m_GenericAlgo->CompareCostAndInsertTemplate(cost);
 		m_AnalyseNeuronData->AppendCostToFile(cost);
 		   //timeMeas.printDuration("Compute Cost");
-		printf("\rDO %5d ", m_iterations);
+		printf("\rDO %5d  ", m_iterations);
 		m_iterations--;
 		if (m_randIterations > 0 && (++iter%m_randIterations == 0)) {
 			// Delete num parents each NUM_RAND_ITERATIONS
