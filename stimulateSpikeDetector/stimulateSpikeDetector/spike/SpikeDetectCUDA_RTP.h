@@ -119,7 +119,7 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 {
 	cudaError_t cudaStatus = cudaError_t::cudaSuccess;
 
-	//t1 = high_resolution_clock::now(); // Duration approx 1.0 ms for 5.0 ms data
+	//t1RTP = high_resolution_clock::now(); // Duration approx 1.0 ms for 5.0 ms data
 
 	/* Memory copy raw data to GPU*/
 	cudaStatus = MemCpyCUDAData(dev_DataPointerP, dataPointerP, (uint32_t)RTP_DATA_LENGTH, (uint32_t)DATA_CHANNELS, (uint16_t)sizeof(USED_DATATYPE));
@@ -179,10 +179,10 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 //	classifierController.verifyPredictionBasedOnTemplatesCUDA(host_FoundTimesCounters, host_FoundTimesP, &templateController);
 #endif
 
-	t2RTP = high_resolution_clock::now();
-	auto duration = duration_cast<microseconds>(t2RTP - t1RTP).count();
-	f_latestExecutionTime = (float)duration;
-	t1RTP = high_resolution_clock::now(); // Measure turn total turnaround time
+	//t2RTP = high_resolution_clock::now();
+	//auto duration = duration_cast<microseconds>(t2RTP - t1RTP).count();
+	//f_latestExecutionTime = (float)duration;
+	//t1RTP = high_resolution_clock::now(); // Measure turn total turnaround time
 
 	//std::cout << "RTP: " << f_latestExecutionTime / 1000 << " ms" << std::endl;
 
@@ -299,7 +299,7 @@ cudaError_t SpikeDetectCUDA_RTP<T>::prepareCUDAPrediction(void)
 	cudaStatus = MemCpyCUDAData(dev_thresholdsP, thresholdsArray, (uint32_t)MAXIMUM_NUMBER_OF_TEMPLATES, (uint32_t)1, (uint16_t)sizeof(USED_DATATYPE));
 	
 	host_FoundTimesCounters = new uint32_t[MAXIMUM_NUMBER_OF_TEMPLATES];
-	host_FoundTimesP = new uint32_t[MAXIMUM_NUMBER_OF_TEMPLATES*MAXIMUM_PREDICTION_SAMPLES];
+	host_FoundTimesP = new uint32_t[MAXIMUM_NUMBER_OF_TEMPLATES*(int)MAXIMUM_PREDICTION_SAMPLES];
 
 	return cudaStatus;
 }

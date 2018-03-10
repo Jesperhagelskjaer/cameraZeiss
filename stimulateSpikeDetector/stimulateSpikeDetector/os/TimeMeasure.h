@@ -40,7 +40,9 @@ public:
 	void printDuration(char *text)
 	{
 		uint64_t endTime = getTimeMicroSec();
-		printf("%s duration %llu us\r\n", text, endTime - startTime_);
+		float timeMs = (float)(endTime - startTime_);
+		timeMs = timeMs / 1000;
+		printf("%s time %.2f ms \r", text, timeMs);
 	}
 
 private:

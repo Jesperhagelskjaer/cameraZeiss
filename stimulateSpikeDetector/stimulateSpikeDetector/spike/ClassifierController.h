@@ -287,7 +287,7 @@ void ClassifierController<T>::verifyPredictionBasedOnTemplatesCUDA(uint32_t* fou
 				                           &recall, 
 				                           projectInfoRefPtr->getTemplateTruthTablePrediction(i + 1), 
 				                           projectInfoRefPtr->isTemplateUsedPrediction(i + 1),
-										   &foundTimesP[i*MAXIMUM_PREDICTION_SAMPLES], 
+										   &foundTimesP[i*(int)MAXIMUM_PREDICTION_SAMPLES], 
 										   foundTimesCounter[i],
 				                           3, 
 				                           templateController->getTemplatePeakOffset(i + 1));

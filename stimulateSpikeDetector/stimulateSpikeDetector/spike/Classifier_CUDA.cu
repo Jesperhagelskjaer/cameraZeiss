@@ -275,19 +275,19 @@ extern "C" void TrainPart1CUDA(const float *dev_signal, char *dev_aboveThreshold
 	CheckForError((char*)"naive_GPU_FindValuesAboveThreshold3D");
 	naive_GPU_FindPeaks3D << <gridsize, blockSize >> > (dev_signal, dev_aboveThreshold, signalLength, templateLength);
 	CheckForError((char*)"naive_GPU_FindPeaks3D");
-	naive_GPU_MakesFoundTimes3D << <gridsize, blockSize >> > (dev_foundTimes, dev_aboveThreshold, signalLength, (uint32_t)MAXIMUM_PREDICTION_SAMPLES, dev_foundTimesCounter, templateLength);
+	naive_GPU_MakesFoundTimes3D << <gridsize, blockSize >> > (dev_foundTimes, dev_aboveThreshold, signalLength, (uint32_t)MAXIMUM_TRAINING_SAMPLES, dev_foundTimesCounter, templateLength);
 	CheckForError((char*)"naive_GPU_MakesFoundTimes3D");
 
 	const dim3 blockSizeCompare(MAXIMUM_NUMBER_OF_THREADS_COMPARING, 1, 1);
 
-	GridXSize = MAXIMUM_PREDICTION_SAMPLES / MAXIMUM_NUMBER_OF_THREADS_COMPARING;
-	if (MAXIMUM_PREDICTION_SAMPLES % MAXIMUM_NUMBER_OF_THREADS_COMPARING != 0)
+	GridXSize = MAXIMUM_TRAINING_SAMPLES / MAXIMUM_NUMBER_OF_THREADS_COMPARING;
+	if (MAXIMUM_TRAINING_SAMPLES % MAXIMUM_NUMBER_OF_THREADS_COMPARING != 0)
 	{
 		GridXSize++;
 	}
 	const dim3 gridsizeCompare(GridXSize, numberOfTemplates, 1);
 
-	naive_compare_with_truth_table3D << <gridsizeCompare, blockSizeCompare >> > (dev_TPCounter, devTruthTable, dev_foundTimes, devTruthTableStartInd, devTruthTableSize, dev_foundTimesCounter, dev_peaksOffsets, (uint32_t)MAXIMUM_PREDICTION_SAMPLES);
+	naive_compare_with_truth_table3D << <gridsizeCompare, blockSizeCompare >> > (dev_TPCounter, devTruthTable, dev_foundTimes, devTruthTableStartInd, devTruthTableSize, dev_foundTimesCounter, dev_peaksOffsets, (uint32_t)MAXIMUM_TRAINING_SAMPLES);
 	CheckForError((char*)"naive_compare_with_truth_table3D");
 
 }

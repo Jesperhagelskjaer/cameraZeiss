@@ -42,7 +42,7 @@ void AnalyseNeuronSpikeDetector::AddSpikeDetector(NeuronSpikeDetector *pNeuronSp
 
 double AnalyseNeuronSpikeDetector::CalculateCost()
 {
-	enter();
+	//enter();
 
 	double cost = 0;
 	if (m_pNeuronSpikeDetector != 0) {
@@ -51,7 +51,7 @@ double AnalyseNeuronSpikeDetector::CalculateCost()
 		//cost = rand();
 	}
 
-	exit();
+	//exit();
 	return cost;
 }
 

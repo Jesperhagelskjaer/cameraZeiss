@@ -302,7 +302,7 @@ void SpikeDetectCUDA<T>::runPrediction(void)
 		return;
 	}
 
-	uint32_t* host_FoundTimesP = new uint32_t[MAXIMUM_NUMBER_OF_TEMPLATES*MAXIMUM_PREDICTION_SAMPLES];
+	uint32_t* host_FoundTimesP = new uint32_t[MAXIMUM_NUMBER_OF_TEMPLATES*(int)MAXIMUM_PREDICTION_SAMPLES];
 	if (RetreiveResultsU32(dev_FoundTimesP, host_FoundTimesP, (uint32_t)MAXIMUM_NUMBER_OF_TEMPLATES, (uint32_t)MAXIMUM_PREDICTION_SAMPLES, (uint16_t)sizeof(uint32_t)) != cudaError_t::cudaSuccess)
 	{
 		CUDACleanUpPrediction();
@@ -392,7 +392,7 @@ cudaError_t SpikeDetectCUDA<T>::prepareCUDATraining(void)
 	if (cudaStatus != cudaSuccess) return cudaStatus;
 	
 	/* Allocate Space For spike detection counts */
-	cudaStatus = AllocateCUDADataU32(&dev_FoundTimes, (uint32_t)MAXIMUM_NUMBER_OF_TEMPLATES, (uint32_t)MAXIMUM_PREDICTION_SAMPLES, (uint16_t)sizeof(uint32_t));
+	cudaStatus = AllocateCUDADataU32(&dev_FoundTimes, (uint32_t)MAXIMUM_NUMBER_OF_TEMPLATES, (uint32_t)MAXIMUM_TRAINING_SAMPLES, (uint16_t)sizeof(uint32_t));
 	if (cudaStatus != cudaSuccess) return cudaStatus;
 
 	/* Allocate Space for peak offsets */
