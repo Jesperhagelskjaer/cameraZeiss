@@ -231,14 +231,14 @@ __global__ void naive_custom_normalized_cross_correlation3D_STD(
 
 extern "C" void NXCOR_CUDA_3D(float *dev_result, const float *dev_templates, const float *dev_signal, uint16_t templateLength, uint16_t templateChannels, uint32_t signalLength, uint16_t signalChannels, uint16_t numberOfTemplates, uint16_t* dev_signalLowerIndex)
 {
-	uint32_t GridXSize = signalLength / MAXIMUM_NUMBER_OF_THREADS;
+	uint32_t GridXSize = signalLength / MAXIMUM_NUMBER_OF_THREADS_NXCOR; 
 
-	if (signalLength % MAXIMUM_NUMBER_OF_THREADS != 0)
+	if (signalLength % MAXIMUM_NUMBER_OF_THREADS_NXCOR != 0)
 	{
 		GridXSize++;
 	}
 
-	const dim3 blockSize(MAXIMUM_NUMBER_OF_THREADS, 1, 1);
+	const dim3 blockSize(MAXIMUM_NUMBER_OF_THREADS_NXCOR, 1, 1);
 	const dim3 gridsize(GridXSize, numberOfTemplates, 1);
 
 	naive_custom_normalized_cross_correlation3D << <gridsize, blockSize >> >(dev_result, dev_signal, dev_templates, templateLength, templateChannels, signalLength, signalChannels, dev_signalLowerIndex);

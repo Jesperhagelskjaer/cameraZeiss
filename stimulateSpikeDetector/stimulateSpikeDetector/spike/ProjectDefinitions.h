@@ -9,7 +9,7 @@
 
 /*********************************** GENERAL SETUP ****************************************************/
 #define					USE_OPENCV // Use OPENCV for training, when training with C++/OPENCV
-//#define                 USE_CUDA_TRAIN // Use CUDA for training
+#define                 USE_CUDA_TRAIN // Use CUDA for training
 
 #define					USE_CUDA // The USE_CUDA define must always be enabled for prediction
 //#define                 CUDA_VERIFY // ONLY valid with USE_KERNEL_FILTER
@@ -29,7 +29,7 @@
 /*********************************** SAMPLING *********************************************************/
 #define					USED_DATATYPE						float
 #define					SAMPLING_FREQUENCY					30000
-#define					TRAINING_DATA_TIME					30 // Training time must same size as generated from MATLAB
+#define					TRAINING_DATA_TIME					40 // Training time must same size as generated from MATLAB
 #define					RUNTIME_DATA_TIME					60 // The runtime/prediction data is assumed to be consecutive to the training data
 #define                 RTP_DATA_TIME                       0.005f // Runtime buffer length in seconds, must be equal to DELAY_MS in defs.h!!
 #define					TRAINING_DATA_LENGTH				SAMPLING_FREQUENCY*TRAINING_DATA_TIME
@@ -77,7 +77,8 @@
 //#define					MAXIMUM_PREDICTION_SAMPLES			TRAINING_DATA_TIME*1000 // inidcats a Maximum 1000 spikes per template per second
 
 /*********************************** CUDA OPTIMIZATION ************************************************/
-#define					MAXIMUM_NUMBER_OF_THREADS						1024
+#define					MAXIMUM_NUMBER_OF_THREADS						192 // 1024 for optimized training - block size 5 ms = 150 samples
+#define					MAXIMUM_NUMBER_OF_THREADS_NXCOR					192 // 512 for optimized training
 #define					MAXIMUM_NUMBER_OF_THREADS_COMPARING				500
 #define					MAXIMUM_NUMBER_OF_THREADS_DRIFT_HANDLING		1024
 
