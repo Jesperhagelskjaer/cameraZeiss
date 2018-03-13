@@ -185,7 +185,7 @@ SLMTemplate *SLMParentsCUDA::GenerateOffspring(void)
 	//cout << endl << endl;
 
 	GenBinaryCUDA(BinaryTemplate1C_.matrixCUDA_, (int)BinaryTemplate1C_.Stride_);
-	BinaryTemplate1C_.CopyFromCUDA();
+	//BinaryTemplate1C_.CopyFromCUDA();
 	//BinaryTemplate1C_.GenBinary();
 	//BinaryTemplate1C_.CopyToCUDA();
 
