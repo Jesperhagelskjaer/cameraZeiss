@@ -31,11 +31,14 @@
 #define					SAMPLING_FREQUENCY					30000
 #define					TRAINING_DATA_TIME					40 // Training time must same size as generated from MATLAB
 #define					RUNTIME_DATA_TIME					60 // The runtime/prediction data is assumed to be consecutive to the training data
-#define                 RTP_DATA_TIME                       0.005f // Runtime buffer length in seconds, must be equal to DELAY_MS in defs.h!!
 #define					TRAINING_DATA_LENGTH				SAMPLING_FREQUENCY*TRAINING_DATA_TIME
 #define					RUNTIME_DATA_LENGTH					SAMPLING_FREQUENCY*RUNTIME_DATA_TIME
-#define                 RTP_DATA_LENGTH						(SAMPLING_FREQUENCY*RTP_DATA_TIME)
 #define					DATA_CHANNELS						32		
+
+//#define                 RTP_DATA_TIME                     0.004f // Runtime buffer length in seconds, must be equal to DELAY_MS in defs.h!!
+//#define                 RTP_DATA_LENGTH					120    // Calculated as (SAMPLING_FREQUENCY*RTP_DATA_TIME)
+#define                 RTP_DATA_TIME                       0.005f // Runtime buffer length in seconds, must be equal to DELAY_MS in defs.h!!
+#define                 RTP_DATA_LENGTH					    150    // Calculated as (SAMPLING_FREQUENCY*RTP_DATA_TIME)
 
 /*********************************** MATLAB OUTPUT ****************************************************/
 #define					KILOSORT_ST3_WIDTH_USED				2
@@ -77,8 +80,17 @@
 //#define					MAXIMUM_PREDICTION_SAMPLES			TRAINING_DATA_TIME*1000 // inidcats a Maximum 1000 spikes per template per second
 
 /*********************************** CUDA OPTIMIZATION ************************************************/
-#define					MAXIMUM_NUMBER_OF_THREADS						192 // 1024 for optimized training - block size 5 ms = 150 samples
-#define					MAXIMUM_NUMBER_OF_THREADS_NXCOR					192 // 512 for optimized training
+#if RTP_DATA_LENGTH < 256
+#define					MAXIMUM_NUMBER_OF_THREADS						256 // block size < 8.5 ms 
+#define					MAXIMUM_NUMBER_OF_THREADS_NXCOR					256 
+#elif RTP_DATA_LENGTH < 512
+#define					MAXIMUM_NUMBER_OF_THREADS						512 // block size < 17 ms 
+#define					MAXIMUM_NUMBER_OF_THREADS_NXCOR					512 
+#else
+#define					MAXIMUM_NUMBER_OF_THREADS						1024 // 1024 for optimized training
+#define					MAXIMUM_NUMBER_OF_THREADS_NXCOR					1024 
+#endif
+
 #define					MAXIMUM_NUMBER_OF_THREADS_COMPARING				500
 #define					MAXIMUM_NUMBER_OF_THREADS_DRIFT_HANDLING		1024
 
