@@ -12,6 +12,20 @@
 
 using namespace std::chrono;
 
+#if 1 // For debugging using valid templates in invivo-data 2017-04-21_16-58-45
+
+#define USE_TRUE_TEMPLATES_ONLY  1
+short testTrueTemplates[MAXIMUM_NUMBER_OF_TEMPLATES] =
+{  
+// 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 
+   1,0,1,0,0,1,0,0,1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0,
+   1,1,0,0,0,0,0,1,0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1,
+   1,1,0,1 
+};
+
+#endif
+
+
 template <class T>
 class SpikeDetectCUDA_RTP : public SpikeDetectCUDA<T>
 {
@@ -189,6 +203,10 @@ cudaError_t SpikeDetectCUDA_RTP<T>::runPredictionRTP(T *dataPointerP)
 	//t1RTP = high_resolution_clock::now(); // Measure turn total turnaround time
 
 	//std::cout << "RTP: " << f_latestExecutionTime / 1000 << " ms" << std::endl;
+#ifdef	USE_TRUE_TEMPLATES_ONLY
+	for (int j = 0; j < MAXIMUM_NUMBER_OF_TEMPLATES; j++) 
+		if (testTrueTemplates[j] == 0) host_FoundTimesCounters[j] = 0;
+#endif
 
 	return cudaStatus;
 }

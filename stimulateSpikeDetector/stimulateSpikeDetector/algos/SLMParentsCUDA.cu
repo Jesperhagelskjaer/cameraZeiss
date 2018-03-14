@@ -132,7 +132,7 @@ void MultiplyCellCUDA(unsigned char* dst, unsigned char* src1, unsigned char* sr
 
 	// Generate binary template
     multiplyTemplates<<< grid, threads >>>(dst, src1, src2, strideDst, strideSrc);
-    //cutilSafeCall(cudaThreadSynchronize());
+    cutilSafeCall(cudaThreadSynchronize());
 }
 
 __global__ void
@@ -152,5 +152,5 @@ void AddCellCUDA(unsigned char* dst, unsigned char* src1, unsigned char* src2, i
 
 	// Generate binary template
     addTemplates<<< grid, threads >>>(dst, src1, src2, strideDst, strideSrc);
-    //cutilSafeCall(cudaThreadSynchronize());
+    cutilSafeCall(cudaThreadSynchronize());
 }

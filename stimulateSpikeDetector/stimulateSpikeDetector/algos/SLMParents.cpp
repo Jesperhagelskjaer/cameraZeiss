@@ -416,9 +416,12 @@ void SLMParents::DeleteTemplates(int num)
 */
 int SLMParents::SigmoidRandomDistribution(void)
 {
+	int number;
 	double x = ((double)rand() / RAND_MAX) * numParents_;
 	double y = 1 / (1 + exp(0.19*x)); // Sigmoid function
-	return (int)floor(numParents_*2*y);
+	number =  (int)floor(numParents_*2*y);
+	if (number >= numParents_) number = numParents_-1;
+	return number;
 }
 
 void SLMParents::GetRandomTemplateIdx(int &number1, int &number2)
