@@ -15,12 +15,21 @@ using namespace std::chrono;
 #if 1 // For debugging using valid templates in invivo-data 2017-04-21_16-58-45
 
 #define USE_TRUE_TEMPLATES_ONLY  1
+/*
 short testTrueTemplates[MAXIMUM_NUMBER_OF_TEMPLATES] =
 {  
 // 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 
    1,0,1,0,0,1,0,0,1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0,
    1,1,0,0,0,0,0,1,0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1,
    1,1,0,1 
+};
+*/
+short testTrueTemplates[MAXIMUM_NUMBER_OF_TEMPLATES] =
+{ // Good templates and high F1 score > 0.6
+ // 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 
+	1,0,0,0,0,0,0,0,1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0,
+	1,1,0,0,0,0,0,0,0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+	0,0,0,1
 };
 
 #endif
