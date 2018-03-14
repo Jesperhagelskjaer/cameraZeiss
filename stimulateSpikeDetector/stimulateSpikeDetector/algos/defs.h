@@ -33,7 +33,7 @@
 #define GEN_ITERATIONS		10000		// Number of iterations for genetic algorithm to convergate
 #define LASER_PORT			4			// COM port connected to laser
 #define LASER_INTENSITY		0.6f		// Intensity of laser when turned on
-#define DELAY_MS			(RTP_DATA_TIME*1000) // Delay in ms laser is turned on while analysing neuron pulses (On)
+#define DELAY_MS			(RTP_DATA_TIME*1000) // Delay in ms laser is turned on while analysing neuron pulses (On) - SHOULD BE CHANGED IN ProjectDefinitions.h!!!!!
 #define PAUSE_MS			0			// Waiting delay in ms after each iteration (Off)
 #define NUM_RAND_ITERATIONS 1000        // Number of iterations before replacing templates with lowest cost with new random templates (0=turned off)
 #define NUM_RAND_TEMPLATES  10			// Number of templates with lowest cost to to be replaced
