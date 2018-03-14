@@ -42,6 +42,7 @@ public:
 		uint64_t endTime = getTimeMicroSec();
 		float timeMs = (float)(endTime - startTime_);
 		timeMs = timeMs / 1000;
+		//printf("%s %.2f ms \r\n", text, timeMs);
 		printf("%s %.2f ms \r", text, timeMs);
 	}
 

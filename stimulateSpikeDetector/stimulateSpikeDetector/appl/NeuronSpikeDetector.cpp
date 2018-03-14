@@ -109,12 +109,15 @@ void NeuronSpikeDetector::SetSampleSize(int size)
 
 void NeuronSpikeDetector::AddSampleBlock(int32_t *pSamples)
 {
+	//bool allZero = true;
 
 	if (m_pData > 0)  // Check more space in sample block
 	{
 		// Convert and insert sample data in block to analyse
-		for (int i = 0; i < DATA_CHANNELS; i++)
+		for (int i = 0; i < DATA_CHANNELS; i++) {
 			m_pData[i] = (float)pSamples[i];
+			//if (m_pData[i] != 0) allZero = false;
+		}
 
 		// Increment position in block to insert samples
 		m_pData += DATA_CHANNELS;
@@ -122,12 +125,19 @@ void NeuronSpikeDetector::AddSampleBlock(int32_t *pSamples)
 		if (m_SampleDataCollected >= m_SampleDataSize)
 			m_pData = 0; // Mark end of block, no more space in block
 	}
+	//else // Used for testing
+	//	printf("NeuronSpikeDetector::AddSampleBlock block full\r\n");
+	//if (allZero)
+	//	printf("All channels zero value at %d\r\n", m_SampleDataCollected);
 }
 
 double NeuronSpikeDetector::RealtimePredict(void) // Predict on realtime data collected in sample block (m_pSampleData)
 {
 	// TODO needs to be rewritten calculating af cost function
 	int spikesFound = 0;
+
+	//if (m_pData != 0)
+	//	printf("NeuronSpikeDetector::RealtimePredict block not full\r\n");
 
 #ifdef USE_CUDA
 	if (m_predictInitialized) {

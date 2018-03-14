@@ -74,7 +74,7 @@ public:
 	{
 		pMemPoolWritePtr = pMemPoolStart;
 		pMemPoolReadPtr = pMemPoolStart;
-		cout << "Reset memory read/write pointers" << endl;
+		//cout << "Reset memory read/write pointers" << endl;
 	}
 
 	void SignalNewData(void)

@@ -106,11 +106,13 @@ void AnalyseNeuronData::AnalyzeData(LxRecord * pLxRecord)
 			break;
 		case MODE_ANALYSE:
 			if (m_modeLast != MODE_ANALYSE) {
+				// Skip first sample during mode change (To sync: TEST_GEN_SPIKES_)
 				memset(m_maximum, 0, sizeof(m_maximum));
 				m_countSamples = m_analyseSamples;
+			} else {
+				SearchPattern(pLxRecord);
+				m_countSamples--;
 			}
-			SearchPattern(pLxRecord);
-			m_countSamples--;
 			if (m_countSamples == 0) {
 				// Signal that m_analyseSamples has been searched
 				m_mode = MODE_STOP;

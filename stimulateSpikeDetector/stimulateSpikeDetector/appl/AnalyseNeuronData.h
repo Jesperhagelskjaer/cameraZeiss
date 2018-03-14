@@ -35,7 +35,7 @@ public:
 
 	MODES GetMode(void)
 	{
-		return m_mode;
+		return m_modeLast;
 	}
 
 	int OpenCostFile(char *fileName);
