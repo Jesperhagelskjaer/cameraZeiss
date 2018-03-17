@@ -1,0 +1,155 @@
+With kernel, precision 0.9, recall 0.1
+
+-------------------------------------------------------
+Optical Neuron Stimulator with Spike Detection Ver. 1.0
+-------------------------------------------------------
+n. Test neuron spike detector
+g. Test CUDA optimized generic algorithm
+p. Print configuration
+r. Read configuration file
+i. Stimulate individual neurons
+e. Exit
+
+> n
+************* TRAINING **************
+1D filtering time: 1330.86 ms. processing 30 seconds of data
+2D OpenCV filtering time: 236.253 ms. processing 30 seconds of data
+NXCOR all templates time: 9399.7 ms. processing 30 seconds of data
+Train template:  1 threshold:  0.8 counts:   110 W-F1 score:      0.904 precision:          1 recall:     0.0364
+Train template:  2 threshold:  0.6 counts:     1 W-F1 score:          0 precision:          0 recall:          0
+Train template:  4 threshold:  0.6 counts:    11 W-F1 score:     0.0216 precision:    0.00379 recall:      0.182
+Train template:  5 threshold:  0.6 counts:    30 W-F1 score:          0 precision:          0 recall:          0
+Train template:  6 threshold:  0.7 counts:    31 W-F1 score:      0.289 precision:      0.257 recall:      0.581
+Train template:  7 threshold: 0.62 counts:     5 W-F1 score:      0.049 precision:       0.01 recall:        0.4
+Train template:  8 threshold: 0.65 counts:   143 W-F1 score:     0.0907 precision:        0.1 recall:    0.00699
+Train template:  9 threshold:  0.6 counts:   136 W-F1 score:  -nan(ind) precision:  -nan(ind) recall:          0
+*Train template: 11 threshold:  0.9 counts:    36 W-F1 score:          1 precision:          1 recall:          1
+Train template: 12 threshold:  0.6 counts:   136 W-F1 score:          0 precision:          0 recall:          0
+Train template: 14 threshold: 0.84 counts:    13 W-F1 score:      0.563 precision:        0.6 recall:      0.231
+Train template: 16 threshold:  0.9 counts:    35 W-F1 score:      0.131 precision:      0.143 recall:     0.0286
+Train template: 17 threshold:  0.6 counts:  1465 W-F1 score:          0 precision:          0 recall:          0
+Train template: 18 threshold: 0.87 counts:    18 W-F1 score:     0.0529 precision:     0.0526 recall:     0.0556
+Train template: 19 threshold:  0.6 counts:     1 W-F1 score:          0 precision:          0 recall:          0
+Train template: 20 threshold: 0.63 counts:   582 W-F1 score:     0.0876 precision:     0.0968 recall:    0.00515
+Train template: 21 threshold: 0.91 counts:   226 W-F1 score:      0.902 precision:          1 recall:     0.0177
+Train template: 22 threshold: 0.91 counts:    10 W-F1 score:       0.91 precision:          1 recall:        0.1
+Train template: 23 threshold: 0.72 counts:    21 W-F1 score:       0.19 precision:        0.2 recall:     0.0952
+Train template: 24 threshold: 0.87 counts:    12 W-F1 score:      0.467 precision:        0.5 recall:      0.167
+Train template: 25 threshold:  0.6 counts:   909 W-F1 score:     0.0693 precision:     0.0769 recall:     0.0011
+Train template: 26 threshold:  0.6 counts:     4 W-F1 score:          0 precision:          0 recall:          0
+*Train template: 27 threshold: 0.82 counts:    70 W-F1 score:      0.974 precision:      0.984 recall:      0.886
+Train template: 28 threshold: 0.88 counts:   105 W-F1 score:      0.901 precision:          1 recall:    0.00952
+Train template: 29 threshold: 0.82 counts:   198 W-F1 score:      0.904 precision:          1 recall:     0.0404
+Train template: 30 threshold: 0.75 counts:    17 W-F1 score:      0.034 precision:     0.0313 recall:     0.0588
+Train template: 31 threshold: 0.91 counts:    18 W-F1 score:      0.456 precision:        0.5 recall:     0.0556
+Train template: 32 threshold: 0.84 counts:    13 W-F1 score:      0.409 precision:      0.429 recall:      0.231
+Train template: 33 threshold:  0.6 counts:    40 W-F1 score:          0 precision:          0 recall:          0
+Train template: 34 threshold:  0.6 counts:    64 W-F1 score:          0 precision:          0 recall:          0
+Train template: 36 threshold: 0.86 counts:    75 W-F1 score:      0.169 precision:      0.182 recall:     0.0533
+Train template: 37 threshold:  0.6 counts:    25 W-F1 score:     0.0242 precision:     0.0135 recall:       0.12
+*Train template: 38 threshold: 0.73 counts:    98 W-F1 score:      0.535 precision:       0.51 recall:      0.755
+Train template: 39 threshold:  0.6 counts:     5 W-F1 score:          0 precision:          0 recall:          0
+Train template: 40 threshold:  0.6 counts:    11 W-F1 score:          0 precision:          0 recall:          0
+Train template: 42 threshold:  0.6 counts:    14 W-F1 score:          0 precision:          0 recall:          0
+*Train template: 43 threshold: 0.75 counts:   158 W-F1 score:      0.913 precision:          1 recall:      0.133
+Train template: 45 threshold: 0.89 counts:   207 W-F1 score:      0.907 precision:          1 recall:     0.0676
+Train template: 46 threshold: 0.75 counts:    94 W-F1 score:      0.455 precision:        0.5 recall:     0.0532
+Train template: 47 threshold:  0.6 counts:     3 W-F1 score:          0 precision:          0 recall:          0
+Train template: 49 threshold: 0.69 counts:  1321 W-F1 score:        0.3 precision:      0.333 recall:    0.00151
+Train template: 50 threshold: 0.62 counts:    30 W-F1 score:     0.0186 precision:     0.0169 recall:     0.0333
+Train template: 51 threshold: 0.83 counts:    48 W-F1 score:      0.931 precision:          1 recall:      0.313
+Train template: 52 threshold:  0.7 counts:    15 W-F1 score:      0.025 precision:     0.0204 recall:     0.0667
+Train template: 53 threshold: 0.86 counts:    58 W-F1 score:       0.13 precision:      0.143 recall:     0.0172
+Train template: 54 threshold: 0.75 counts:    91 W-F1 score:     0.0573 precision:     0.0625 recall:      0.011
+Train template: 55 threshold: 0.61 counts:   743 W-F1 score:     0.0822 precision:     0.0909 recall:    0.00404
+Train template: 56 threshold: 0.78 counts:    32 W-F1 score:      0.909 precision:          1 recall:     0.0938
+Train template: 57 threshold: 0.61 counts:  2405 W-F1 score:     0.0819 precision:     0.0909 recall:   0.000832
+Train template: 58 threshold:  0.6 counts:   144 W-F1 score:          0 precision:          0 recall:          0
+Train template: 59 threshold:  0.6 counts:    96 W-F1 score:  -nan(ind) precision:  -nan(ind) recall:          0
+Train template: 60 threshold: 0.78 counts:    82 W-F1 score:      0.569 precision:      0.625 recall:      0.061
+Train template: 61 threshold: 0.88 counts:   167 W-F1 score:      0.601 precision:      0.667 recall:      0.012
+Train template: 62 threshold: 0.76 counts:   107 W-F1 score:     0.0828 precision:     0.0909 recall:    0.00935
+Train template: 63 threshold: 0.73 counts:    60 W-F1 score:      0.407 precision:      0.444 recall:     0.0667
+Train template: 64 threshold:  0.6 counts:   172 W-F1 score:  -nan(ind) precision:  -nan(ind) recall:          0
+Train all template models time: 3.67e+03 ms. processing 30 seconds of data
+Total CPU Training time: 1.47e+04 ms. processing 30 seconds of data
+************* CUDA REALTIME PREDICTION **************
+T01 T02 T04 T05 T06 T07 T08 T09 T11 T12 T14 T16 T17 T18 T19 T20 T21 T22 T23 T24 T25 T26 T27 T28 T29 T30 T31 T32 T33 T34 T36 T37 T38 T39 T40 T42 T43 T45 T46 T47 T49 T50 T51 T52 T53 T54 T55 T56 T57 T58 T59 T60 T61 T62 T63 T64
+ 16   0   0   0   0   0   0   3 176   0  26   5   0   0   0   0   0   5   0  15   0   0 190   0   2   0   3  11   0   0   0   0 497   0   0   0  71   0   0   0   0   0  22   0   0   0   0   7   0   0   0   6   0   0   0   0
+Template:  1 spike counts:    16
+Template:  2 spike counts:     0
+Template:  3 spike counts:     0
+Template:  4 spike counts:     0
+Template:  5 spike counts:     0
+Template:  6 spike counts:     0
+Template:  7 spike counts:     0
+Template:  8 spike counts:     0
+Template:  9 spike counts:     3
+Template: 10 spike counts:     0
+Template: 11 spike counts:   176
+Template: 12 spike counts:     0
+Template: 13 spike counts:     0
+Template: 14 spike counts:    26
+Template: 15 spike counts:     0
+Template: 16 spike counts:     5
+Template: 17 spike counts:     0
+Template: 18 spike counts:     0
+Template: 19 spike counts:     0
+Template: 20 spike counts:     0
+Template: 21 spike counts:     0
+Template: 22 spike counts:     5
+Template: 23 spike counts:     0
+Template: 24 spike counts:    15
+Template: 25 spike counts:     0
+Template: 26 spike counts:     0
+Template: 27 spike counts:   190
+Template: 28 spike counts:     0
+Template: 29 spike counts:     2
+Template: 30 spike counts:     0
+Template: 31 spike counts:     3
+Template: 32 spike counts:    11
+Template: 33 spike counts:     0
+Template: 34 spike counts:     0
+Template: 35 spike counts:     0
+Template: 36 spike counts:     0
+Template: 37 spike counts:     0
+Template: 38 spike counts:   497
+Template: 39 spike counts:     0
+Template: 40 spike counts:     0
+Template: 41 spike counts:     0
+Template: 42 spike counts:     0
+Template: 43 spike counts:    71
+Template: 44 spike counts:     0
+Template: 45 spike counts:     0
+Template: 46 spike counts:     0
+Template: 47 spike counts:     0
+Template: 48 spike counts:     0
+Template: 49 spike counts:     0
+Template: 50 spike counts:     0
+Template: 51 spike counts:    22
+Template: 52 spike counts:     0
+Template: 53 spike counts:     0
+Template: 54 spike counts:     0
+Template: 55 spike counts:     0
+Template: 56 spike counts:     7
+Template: 57 spike counts:     0
+Template: 58 spike counts:     0
+Template: 59 spike counts:     0
+Template: 60 spike counts:     6
+Template: 61 spike counts:     0
+Template: 62 spike counts:     0
+Template: 63 spike counts:     0
+Template: 64 spike counts:     0
+Total number of neuron spikes : 1055
+
+-------------------------------------------------------
+Optical Neuron Stimulator with Spike Detection Ver. 1.0
+-------------------------------------------------------
+n. Test neuron spike detector
+g. Test CUDA optimized generic algorithm
+p. Print configuration
+r. Read configuration file
+i. Stimulate individual neurons
+e. Exit
+
+>
