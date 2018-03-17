@@ -1,5 +1,6 @@
 clear;
 close all;
+%fileList = dir('LX_*085553*.txt'); % Kernel, 0.9, 0.1
 fileList = dir('LX_*.txt');
 NUM_CH = 32;
 NUM_TEMPLATES = 64;
@@ -135,4 +136,29 @@ if exist('templateSpikeCounts', 'var')
     title(name2);
     figure(9)
     title(name3);
+
+    %% Plot used templates
+    PrePath = 'C:\neuronSpikeDetector\Matlab\'; % Path to the root of this project
+    DiectoryToEvaluate = 'C:\2017-04-21_16-58-45'; % Path to the data, rez file and more
+    TemplatesFile = strcat(DiectoryToEvaluate,'\templates.npy');
+    addpath(strcat(PrePath,'MatlabFunctions'));
+    addpath(strcat(PrePath,'MatlabScripts'));
+
+    MaximumChannelsToUse = 32;
+    templateGain = 1;
+    %templateGain = 6; % 15.6 db
+    pathToNPYMaster = strcat(PrePath, 'MatlabLibs\npy-matlab-master'); % Path to NPY matlab reader project
+    ViewFiguresRunning = 'YES';
+    ShowFunctionExcTime = 'NO';
+
+    for Y = 1: 64
+        if (templateSpikeCounts(end, Y) > 0)
+            templateCurrentlyTesting = Y;
+            template = PrepareTemplate( TemplatesFile, templateCurrentlyTesting, [1:MaximumChannelsToUse], ...
+                                    templateGain, pathToNPYMaster, ViewFiguresRunning, ShowFunctionExcTime);
+        end
+    end
+
 end
+
+
