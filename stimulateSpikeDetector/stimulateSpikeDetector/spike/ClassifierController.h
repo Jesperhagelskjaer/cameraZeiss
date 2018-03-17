@@ -130,7 +130,10 @@ void ClassifierController<T>::performTrainingBasedOnTemplates(NXCORController<T>
 
 #ifdef PRINT_OUTPUT_INFO
 			float wF1Score = pointer->calculateWF1Score(pointer->getLatestTrainingPrecision(), pointer->getLatestTrainingRecall());
-			std::cout << "Train template: " << setw(2) << i + 1 << " thredshold: " << setw(4) << pointer->getThreshold() << " counts: " << setw(5) << templatesInTrainData << " W-F1 score: " << wF1Score << std::endl;
+			std::cout << "Train template: " << setw(2) << i + 1 << " threshold: " << setw(4) << pointer->getThreshold()
+				<< " counts: " << setw(5) << templatesInTrainData << " W-F1 score: " << setw(10) << std::setprecision(3) << wF1Score
+				<< " precision: " << setw(10) << std::setprecision(3) << pointer->getLatestTrainingPrecision()
+				<< " recall: " << setw(10) << std::setprecision(3) << pointer->getLatestTrainingRecall() << std::endl;
 #endif
 		}
 	}
