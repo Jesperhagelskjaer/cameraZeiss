@@ -9,7 +9,7 @@
 
 /*********************************** GENERAL SETUP ****************************************************/
 #define					USE_OPENCV // Use OPENCV for training, when training with C++/OPENCV
-#define                 USE_CUDA_TRAIN // Use CUDA for training
+//#define                 USE_CUDA_TRAIN // Use CUDA for training
 
 #define					USE_CUDA // The USE_CUDA define must always be enabled for prediction
 //#define                 CUDA_VERIFY // ONLY valid with USE_KERNEL_FILTER
@@ -29,8 +29,8 @@
 /*********************************** SAMPLING *********************************************************/
 #define					USED_DATATYPE						float
 #define					SAMPLING_FREQUENCY					30000
-#define					TRAINING_DATA_TIME					40 // Training time must same size as generated from MATLAB
-#define					RUNTIME_DATA_TIME					60 // The runtime/prediction data is assumed to be consecutive to the training data
+#define					TRAINING_DATA_TIME					30 // Training time must same size as generated from MATLAB
+#define					RUNTIME_DATA_TIME					120 // The runtime/prediction data is assumed to be consecutive to the training data
 #define					TRAINING_DATA_LENGTH				SAMPLING_FREQUENCY*TRAINING_DATA_TIME
 #define					RUNTIME_DATA_LENGTH					SAMPLING_FREQUENCY*RUNTIME_DATA_TIME
 #define					DATA_CHANNELS						32		
@@ -64,12 +64,12 @@
 #define					NUMBER_OF_B_COEFF					4
 
 /*********************************** KERNEL FILTERING *************************************************/
-//#define                 USE_KERNEL_FILTER
+#define                 USE_KERNEL_FILTER
 #define					DEFAULT_KERNEL_DIM					3 // Equals 3x3 - Currently only supported!
 
 /*********************************** TRAINED THRESHOLD ************************************************/
-#define					PRECISION_WEIGHT					0.7f
-#define					RECALL_WEIGHT						0.3f
+#define					PRECISION_WEIGHT					0.9f
+#define					RECALL_WEIGHT						0.1f
 #define					ACCEPTED_TIMELINE_SLACK				3
 #define					NUMBER_OF_THRESHOLDS_TO_TEST		40   
 #define				    MINIMUM_THRESHOLD_TO_TEST			0.6f // 0.2
