@@ -69,7 +69,7 @@ private:
 	high_resolution_clock::time_point t3;
 	high_resolution_clock::time_point t4;
 	float f_latestExecutionTime = 0;
-	const float kernelAlphaValue = 0.2f;
+	const float kernelAlphaValue = 0.2f; // 0.0 and 0.4 KBE - not better
 	T filterKernel[DEFAULT_KERNEL_DIM*DEFAULT_KERNEL_DIM];
 #ifdef USE_OPENCV
 	cv::Mat imageMat;

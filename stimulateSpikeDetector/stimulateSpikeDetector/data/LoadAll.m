@@ -1,7 +1,9 @@
 clear;
 close all;
+fileList = dir('LX_*093846*.txt'); % Kernel, 0.9, 0.1
 %fileList = dir('LX_*085553*.txt'); % Kernel, 0.9, 0.1
-fileList = dir('LX_*.txt');
+%fileList = dir('LX_*100411*.txt'); % Without Kernel, 0.9, 0.1
+%fileList = dir('LX_*.txt');
 NUM_CH = 32;
 NUM_TEMPLATES = 64;
 
@@ -152,13 +154,25 @@ if exist('templateSpikeCounts', 'var')
     ShowFunctionExcTime = 'NO';
 
     for Y = 1: 64
-        if (templateSpikeCounts(end, Y) > 0)
+        if (templateSpikeCounts(end, Y) > 50)
             templateCurrentlyTesting = Y;
             template = PrepareTemplate( TemplatesFile, templateCurrentlyTesting, [1:MaximumChannelsToUse], ...
                                     templateGain, pathToNPYMaster, ViewFiguresRunning, ShowFunctionExcTime);
         end
     end
+    
+    %% Evaluate kernel effect on templates
+    templateCurrentlyTesting = 38; % 11, 27, 38, 43
+    template = PrepareTemplate( TemplatesFile, templateCurrentlyTesting, [1:MaximumChannelsToUse], ...
+                            templateGain, pathToNPYMaster, ViewFiguresRunning, ShowFunctionExcTime);
 
+    kernel = fspecial('Laplacian', 0.2); % Default 0.2
+    templateKernel = filter2(kernel, template);
+    surf(templateKernel);
+    title('Template 38 after Laplacian Kernel Filtering');
+    max(max(templateKernel))
+    
+    
 end
 
 
