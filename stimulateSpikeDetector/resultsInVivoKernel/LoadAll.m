@@ -161,7 +161,18 @@ if exist('templateSpikeCounts', 'var')
                                     templateGain, pathToNPYMaster, ViewFiguresRunning, ShowFunctionExcTime);
         end
     end
+    
+    %% Evaluate kernel effect on templates
+    templateCurrentlyTesting = 38; % 11, 27, 38, 43
+    template = PrepareTemplate( TemplatesFile, templateCurrentlyTesting, [1:MaximumChannelsToUse], ...
+                            templateGain, pathToNPYMaster, ViewFiguresRunning, ShowFunctionExcTime);
+
+    kernel = fspecial('Laplacian', 0.2); % Default 0.2
+    templateKernel = filter2(kernel, template);
+    surf(templateKernel);
+    max(max(templateKernel))
 
 end
+
 
 
