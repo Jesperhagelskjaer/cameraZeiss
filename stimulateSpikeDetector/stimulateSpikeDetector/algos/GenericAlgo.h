@@ -44,7 +44,7 @@ public:
 	   pSLMInterface_ = new SLMInterface();
 	}
 
-	GenericAlgo(Blink_SDK *pSLMsdk)
+	GenericAlgo(Blink_SDK *pSLMsdk, int numParents, int numBindings)
 		: laser(115200)
 	{
 
