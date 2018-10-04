@@ -52,6 +52,7 @@ Hy = abs(fft(y));
 M = ceil(length(Hy)/2);
 xn = (1:M).*(Fs/(length(Hy)));
 figure, plot(xn, 20*log10(Hy(1:M)));
+title('Kilosort butterworth');
 
 % FIR filter, 300Hz
 Hd = FirFilter300Hz;
@@ -61,6 +62,7 @@ Hy = abs(fft(y));
 M = ceil(length(Hy)/2);
 xn = (1:M).*(Fs/(length(Hy)));
 figure, plot(xn, 20*log10(Hy(1:M)));
+title('FIR filter, Window method');
 
 
 %% Save coefficeints to header file
