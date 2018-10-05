@@ -10,9 +10,9 @@ function Hd = FirFilter300Hz
 % All frequency values are in Hz.
 Fs = 30000;  % Sampling Frequency
 
-N    = 120;       % Order 256
+N    = 60;       % Order 256, 1ms
 Fc1  = 300;      % First Cutoff Frequency
-Fc2  = 8000;     % Second Cutoff Frequency
+Fc2  = 6000;     % Second Cutoff Frequency
 flag = 'scale';  % Sampling Flag
 % Create the window vector for the design algorithm.
 win = hamming(N+1);
