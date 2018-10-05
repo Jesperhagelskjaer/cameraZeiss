@@ -10,12 +10,17 @@ function Hd = FirFilter300Hz
 % All frequency values are in Hz.
 Fs = 30000;  % Sampling Frequency
 
-N    = 256;      % Order
+N    = 120;       % Order 256
 Fc1  = 300;      % First Cutoff Frequency
 Fc2  = 8000;     % Second Cutoff Frequency
 flag = 'scale';  % Sampling Flag
 % Create the window vector for the design algorithm.
 win = hamming(N+1);
+%win = hann(N+1);
+%win = blackman(N+1);
+%win = rectwin(N+1);
+%win = flattopwin(N+1);
+%win = triang(N+1);
 
 % Calculate the coefficients using the FIR1 function.
 b  = fir1(N, [Fc1 Fc2]/(Fs/2), 'bandpass', win, flag);
