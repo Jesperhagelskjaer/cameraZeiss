@@ -6,6 +6,8 @@ clear
 % Create FIR filter using the frequency sampling method with a window
 % The length, or number of taps of the filter
 
+noiseLevel=0.03; % 0.03 standard variation of noise - 0.0 disable adding noise
+noiseLevel=0.0; % 0.03 standard variation of noise - 0.0 disable adding noise
 filter1.length=60; %Filter order
 filter1.fs=30000; %Samplings frequency Hz
 filter1.groupDelay=(filter1.length/2)/filter1.fs; %Group delay in sec.
@@ -33,10 +35,12 @@ fpass = [filter1.fc1 filter1.fc2];
 % Design the filter using the frequency sampling method and different windows
 filter1.denominator = 1; % a coefficients (FIR filter)
 filter1.numerator = fir2( filter1.length-1, filter1.frequencies, filter1.desired, rectwin(filter1.length) ) * filter1.gain; % hann, hamming, blackman
-%filter1.numerator = fir2( filter1.length-1, filter1.frequencies, filter1.desired, rectwin(filter1.length) ) * filter1.gain;
-%filter1.numerator = firls( filter1.length-1, filter1.frequencies, filter1.desired, 'hilbert') * filter1.gain; 
+%filter1.numerator = fir2( filter1.length-1, filter1.frequencies, filter1.desired, hamming(filter1.length) ) * filter1.gain;
+%filter1.numerator = fir2( filter1.length-1, filter1.frequencies, filter1.desired, hann(filter1.length) ) * filter1.gain;
+%filter1.numerator = fir2( filter1.length-1, filter1.frequencies, filter1.desired, blackman(filter1.length) ) * filter1.gain;
 
 % Experiments - not used
+%filter1.numerator = firls( filter1.length-1, filter1.frequencies, filter1.desired, 'hilbert') * filter1.gain; 
 %b = firls(255,[0 0.25 0.3 1],[1 1 0 0]);
 %Num_coeffs = firpm(filter1.length-1, filter1.frequencies, filter1.desired,'h');
 %filter1.numerator = dfilt.dfasymfir(Num_coeffs);
@@ -50,13 +54,10 @@ fvtool(filter1.numerator, filter1.denominator, 'OverlayedAnalysis','phase')
 %fvtool(b, a, 'OverlayedAnalysis','phase')
 %filter1 = AnalyseFilter(filter1);
 
+%% Save coefficeints to header file
 SaveFilterHeaderFile(filter1.numerator, filter1.fc1, 'FilterCoeffs_test.h');
 
-%% Save coefficeints to header file
-
-noiseLevel=0.03; % 0.03 standard variation of noise
-
-% Test filter on templates
+%% Test filter on templates
 load 'simulation_parameters.mat'
 for i=1:76
     w = waves(:,:,i);
@@ -75,15 +76,17 @@ for i=1:76
     figure(5), 
     subplot(2,1,1);
     surf(ws); %ws,W
-    title('Frequency response of template and noise');
+    title('Template and noise');
+    %title('Frequency response of template and noise');
     subplot(2,1,2);
     surf(y); %y,Y
-    title('Frequency response of filtered template and noise');
+    title('FIR filtered template and noise');
+    %title('Frequency response of filtered template and noise');
     
     figure(6)
     plot(fx, WS, 'b');
     xlabel('frequency');
-    title('Frequency response of template and noise (SUM of channels) (red-filtered)');
+    title('Frequency response of template and noise (SUM of all channels)');
     hold on;
     plot(fx, YS, 'r');
     plot(fx, YKS, 'k');
